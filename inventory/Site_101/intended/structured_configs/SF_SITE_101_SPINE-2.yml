@@ -1,0 +1,75 @@
+hostname: SF_SITE_101_SPINE-2
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+ip_name_servers:
+- ip_address: 8.8.8.8
+  vrf: default
+- ip_address: 8.8.4.4
+  vrf: default
+spanning_tree:
+  mode: none
+local_users:
+- name: cvpadmin
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0
+vrfs:
+- name: default
+  ip_routing: false
+management_interfaces:
+- name: Management1
+  description: oob_management
+  shutdown: false
+  vrf: default
+  ip_address: 192.168.0.12/24
+  gateway: null
+  type: oob
+management_api_http:
+  enable_vrfs:
+  - name: default
+  enable_https: true
+loopback_interfaces:
+- name: Loopback0
+  description: LSR_Router_ID
+  shutdown: false
+  ip_address: 100.1.0.2/32
+  isis_enable: CORE
+  isis_passive: true
+  node_segment:
+    ipv4_index: 2
+router_isis:
+  instance: CORE
+  log_adjacency_changes: true
+  net: null
+  router_id: 100.1.0.2
+  is_type: level-2
+  address_family_ipv4:
+    enabled: true
+    maximum_paths: 4
+  advertise:
+    passive_only: false
+  segment_routing_mpls:
+    router_id: 100.1.0.2
+    enabled: true
+mpls:
+  ip: true
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+ntp:
+  servers:
+  - name: 0.north-america.pool.ntp.org
+    preferred: true
+    vrf: default
+  - name: 1.north-america.pool.ntp.org
+    vrf: default
