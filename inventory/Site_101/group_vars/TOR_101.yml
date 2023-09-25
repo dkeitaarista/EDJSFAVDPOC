@@ -1,0 +1,15 @@
+---
+type: ethernet_aggregation
+
+ethernet_aggregation:
+  defaults:
+    platform: vEOS-lab
+    spanning_tree_mode: mstp
+
+  nodes:
+    - name: SF_SITE_101_TOR-1A
+      id: 1
+      mgmt_ip: 192.168.0.16/24
+    - name: SF_SITE_101_TOR-1B
+      id: 2
+      mgmt_ip: 192.168.0.16/24

@@ -14,15 +14,15 @@ build-site-101: ## Build site 101 configuration and documentation
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags build -i inventory/Site_101/inventory.yml --diff
 
 .PHONY: provision-site-101
-fabric-cvp-provision: ## Build site 101 configuration and documentation and provision on CVP without executing the tasks
+provision-site-101: ## Build site 101 configuration and documentation and provision on CVP without executing the tasks
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags provision -i inventory/Site_101/inventory.yml --diff
 
 .PHONY: deploy-site-101
-fabric-deploy: ## Build site 101 configuration and documentation and deloy on the network through CVP
+deploy-site-101: ## Build site 101 configuration and documentation and deloy on the network through CVP
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --extra-vars "execute_tasks=true" --tags "build,provision,apply" -i inventory/Site_101/inventory.yml --diff
 
 .PHONY: validate-site-101
-fabric-validate: ## Run AVD fabric validate role on site 101
+validate-site-101: ## Run AVD fabric validate role on site 101
 	ansible-playbook playbooks/fabric-validate-state.yml -i inventory/Site_101/inventory.yml --diff
 
 ################################################################################
@@ -34,15 +34,15 @@ build-site-102: ## Build site 102 configuration and documentation
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags build -i inventory/Site_102/inventory.yml --diff
 
 .PHONY: provision-site-102
-fabric-cvp-provision: ## Build site 102 configuration and documentation and provision on CVP without executing the tasks
+provision-site-102: ## Build site 102 configuration and documentation and provision on CVP without executing the tasks
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags provision -i inventory/Site_102/inventory.yml --diff
 
 .PHONY: deploy-site-102
-fabric-deploy: ## Build site 102 configuration and documentation and deloy on the network through CVP
+deploy-site-102: ## Build site 102 configuration and documentation and deloy on the network through CVP
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --extra-vars "execute_tasks=true" --tags "build,provision,apply" -i inventory/Site_102/inventory.yml --diff
 
 .PHONY: validate-site-102
-fabric-validate: ## Run AVD fabric validate role on site 102
+validate-site-102: ## Run AVD fabric validate role on site 102
 	ansible-playbook playbooks/fabric-validate-state.yml -i inventory/Site_102/inventory.yml --diff
 
 ################################################################################
@@ -54,15 +54,15 @@ build-site-103: ## Build site 103 configuration and documentation
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags build -i inventory/Site_103/inventory.yml --diff
 
 .PHONY: provision-site-103
-fabric-cvp-provision: ## Build site 103 configuration and documentation and provision on CVP without executing the tasks
+provision-site-103: ## Build site 103 configuration and documentation and provision on CVP without executing the tasks
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags provision -i inventory/Site_103/inventory.yml --diff
 
 .PHONY: deploy-site-103
-fabric-deploy: ## Build site 103 configuration and documentation and deloy on the network through CVP
+deploy-site-103: ## Build site 103 configuration and documentation and deloy on the network through CVP
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --extra-vars "execute_tasks=true" --tags "build,provision,apply" -i inventory/Site_103/inventory.yml --diff
 
 .PHONY: validate-site-103
-fabric-validate: ## Run AVD fabric validate role on site 103
+validate-site-103: ## Run AVD fabric validate role on site 103
 	ansible-playbook playbooks/fabric-validate-state.yml -i inventory/Site_103/inventory.yml --diff
 
 ################################################################################
@@ -74,13 +74,13 @@ build-site-104: ## Build site 104 configuration and documentation
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags build -i inventory/Site_104/inventory.yml --diff
 
 .PHONY: provision-site-104
-fabric-cvp-provision: ## Build site 104 configuration and documentation and provision on CVP without executing the tasks
+provision-site-104: ## Build site 104 configuration and documentation and provision on CVP without executing the tasks
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags provision -i inventory/Site_104/inventory.yml --diff
 
 .PHONY: deploy-site-104
-fabric-deploy: ## Build site 104 configuration and documentation and deloy on the network through CVP
+deploy-site-104: ## Build site 104 configuration and documentation and deloy on the network through CVP
 	ansible-playbook playbooks/cvp-fabric-deploy.yml --extra-vars "execute_tasks=true" --tags "build,provision,apply" -i inventory/Site_104/inventory.yml --diff
 
 .PHONY: validate-site-104
-fabric-validate: ## Run AVD fabric validate role on site 104
+validate-site-104: ## Run AVD fabric validate role on site 104
 	ansible-playbook playbooks/fabric-validate-state.yml -i inventory/Site_104/inventory.yml --diff

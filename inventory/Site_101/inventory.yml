@@ -25,7 +25,7 @@ all:
               hosts:
                 SF_SITE_101_RR-1:
                   ansible_host: 10.255.x.x
-            TOR_SITE_101:
+            TOR_101:
               hosts:
                 SF_SITE_101_TOR-1A:
                   ansible_host: 10.255.x.x

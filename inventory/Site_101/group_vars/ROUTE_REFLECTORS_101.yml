@@ -1,0 +1,13 @@
+---
+# SF_101 route reflectors
+
+type: rr
+
+rr:
+  defaults:
+    platform: vEOS-lab
+    loopback_ipv4_pool: 100.1.1.0/24
+  nodes:
+  - name: SF_SITE_101_RR-1
+    id: 1
+    mgmt_ip: 192.168.0.13/24

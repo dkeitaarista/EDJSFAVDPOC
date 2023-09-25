@@ -1,0 +1,11 @@
+---
+# Define the AVD design 
+design:
+  type: mpls
+
+# Define fabric name for the documentation
+dc_name: SF_101
+fabric_name: AVD_FABRIC
+
+# Define BGP AS
+bgp_as: 65000
