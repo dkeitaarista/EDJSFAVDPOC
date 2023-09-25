@@ -5,11 +5,11 @@ repos:
     rev: v4.4.0
     hooks:
       - id: trailing-whitespace
-        files: inventory\/(Site_\S*)\/(inventory.yml|group_vars\/)
+        files: inventory\/((Site_\S*)\/(inventory.yml|group_vars\/)|global_vars\/)
 
       - id: end-of-file-fixer
         exclude_types: [svg, json]
-        files: inventory\/(Site_\S*)\/(inventory.yml|group_vars\/)
+        files: inventory\/((Site_\S*)\/(inventory.yml|group_vars\/)|global_vars\/)
 
       - id: check-yaml
-        files: inventory\/(Site_\S*)\/(inventory.yml|group_vars\/)
+        files: inventory\/((Site_\S*)\/(inventory.yml|group_vars\/)|global_vars\/)
