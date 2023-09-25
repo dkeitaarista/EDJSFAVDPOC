@@ -1,0 +1,5 @@
+#files that will be ignored (not tracked) by git
+
+.vscode/
+ansible.cfg
+.pre-commit-config.yaml
