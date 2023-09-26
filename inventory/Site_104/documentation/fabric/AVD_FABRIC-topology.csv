@@ -1,0 +1,2 @@
+Node Type,Node,Node Interface,Peer Type,Peer Node,Peer Interface,Node Interface Enabled
+pe,SF_SITE_104_BL-1,Ethernet10,other,SF_SITE_101_BL-1,Ethernet10,True
