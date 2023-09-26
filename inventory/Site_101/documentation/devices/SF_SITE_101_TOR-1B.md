@@ -22,6 +22,7 @@
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
+  - [Port-Channel Interfaces](#port-channel-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
@@ -243,33 +244,46 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+| Ethernet3 | SF_SITE_101_BL-2_Ethernet11 | *trunk | *none | *- | *- | 3 |
+| Ethernet4 | SF_SITE_101_BL-2_Ethernet12 | *trunk | *none | *- | *- | 3 |
 
 *Inherited from Port-Channel Interface
-
-##### IPv4
-
-| Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
-| --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet3 | P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet12 | routed | - | 10.0.0.15/31 | default | 1500 | False | - | - |
-| Ethernet4 | P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet12 | routed | - | 10.0.0.19/31 | default | 1500 | False | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
 interface Ethernet3
-   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet12
+   description SF_SITE_101_BL-2_Ethernet11
    no shutdown
-   mtu 1500
-   no switchport
-   ip address 10.0.0.15/31
+   channel-group 3 mode active
 !
 interface Ethernet4
-   description P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet12
+   description SF_SITE_101_BL-2_Ethernet12
    no shutdown
-   mtu 1500
-   no switchport
-   ip address 10.0.0.19/31
+   channel-group 3 mode active
+```
+
+### Port-Channel Interfaces
+
+#### Port-Channel Interfaces Summary
+
+##### L2
+
+| Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
+| --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
+| Port-Channel3 | SF_SITE_101_BL-2_Po11 | switched | trunk | none | - | - | - | - | - | - |
+
+#### Port-Channel Interfaces Device Configuration
+
+```eos
+!
+interface Port-Channel3
+   description SF_SITE_101_BL-2_Po11
+   no shutdown
+   switchport
+   switchport trunk allowed vlan none
+   switchport mode trunk
 ```
 
 ## Routing

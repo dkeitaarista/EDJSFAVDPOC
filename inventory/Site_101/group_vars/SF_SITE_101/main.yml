@@ -1,5 +1,5 @@
 ---
-# Define the AVD design 
+# Define the AVD design
 design:
   type: mpls
 

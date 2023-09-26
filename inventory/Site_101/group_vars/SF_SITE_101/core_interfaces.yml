@@ -10,7 +10,7 @@ core_interfaces:
       nodes:
         - SF_SITE_101_SPINE-1
         - SF_SITE_101_BL-1
-      interfaces: 
+      interfaces:
         - Ethernet3
         - Ethernet3
       ip_pool: SITE101_pool
@@ -18,7 +18,7 @@ core_interfaces:
       nodes:
         - SF_SITE_101_SPINE-1
         - SF_SITE_101_BL-2
-      interfaces: 
+      interfaces:
         - Ethernet4
         - Ethernet3
       ip_pool: SITE101_pool
@@ -26,7 +26,7 @@ core_interfaces:
       nodes:
         - SF_SITE_101_SPINE-2
         - SF_SITE_101_BL-1
-      interfaces: 
+      interfaces:
         - Ethernet3
         - Ethernet4
       ip_pool: SITE101_pool
@@ -34,7 +34,7 @@ core_interfaces:
       nodes:
         - SF_SITE_101_SPINE-2
         - SF_SITE_101_BL-2
-      interfaces: 
+      interfaces:
         - Ethernet4
         - Ethernet4
       ip_pool: SITE101_pool
@@ -43,7 +43,7 @@ core_interfaces:
       nodes:
         - SF_SITE_101_BL-1
         - SF_SITE_101_RR-1
-      interfaces: 
+      interfaces:
         - Ethernet7
         - Ethernet3
       ip_pool: SITE101_pool
@@ -51,40 +51,7 @@ core_interfaces:
       nodes:
         - SF_SITE_101_BL-2
         - SF_SITE_101_RR-1
-      interfaces: 
+      interfaces:
         - Ethernet7
-        - Ethernet4
-      ip_pool: SITE101_pool
-    # Border leafs to TOR links
-    - id: 7
-      nodes:
-        - SF_SITE_101_BL-1
-        - SF_SITE_101_TOR-1A
-      interfaces: 
-        - Ethernet11
-        - Ethernet3
-      ip_pool: SITE101_pool
-    - id: 8
-      nodes:
-        - SF_SITE_101_BL-1
-        - SF_SITE_101_TOR-1B
-      interfaces: 
-        - Ethernet12
-        - Ethernet3
-      ip_pool: SITE101_pool
-    - id: 9
-      nodes:
-        - SF_SITE_101_BL-2
-        - SF_SITE_101_TOR-1A
-      interfaces: 
-        - Ethernet11
-        - Ethernet4
-      ip_pool: SITE101_pool
-    - id: 10
-      nodes:
-        - SF_SITE_101_BL-2
-        - SF_SITE_101_TOR-1B
-      interfaces: 
-        - Ethernet12
         - Ethernet4
       ip_pool: SITE101_pool
