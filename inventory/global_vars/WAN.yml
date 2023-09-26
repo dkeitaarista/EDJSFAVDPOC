@@ -29,3 +29,11 @@ l3_edge:
         - Ethernet9
         - Ethernet9
       ip_pool: WAN_pool
+    - id: 4
+      nodes:
+        - SF_SITE_104_BL-1
+        - SF_SITE_102_BL-1
+      interfaces: 
+        - Ethernet6
+        - Ethernet3
+      ip_pool: WAN_pool
