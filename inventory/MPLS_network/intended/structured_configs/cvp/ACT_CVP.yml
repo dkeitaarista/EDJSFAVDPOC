@@ -28,10 +28,26 @@ cvp_devices:
     parentContainerName: TOR_101
     configlets:
       - AVD_SF_SITE_101_TOR-1B
+  - fqdn: SF_SITE_102_BL-1
+    parentContainerName: BORDER_LEAFS_102
+    configlets:
+      - AVD_SF_SITE_102_BL-1
+  - fqdn: SF_SITE_102_BL-2
+    parentContainerName: BORDER_LEAFS_102
+    configlets:
+      - AVD_SF_SITE_102_BL-2
   - fqdn: SF_SITE_102_RR-1
     parentContainerName: ROUTE_REFLECTORS_102
     configlets:
       - AVD_SF_SITE_102_RR-1
+  - fqdn: SF_SITE_102_SPINE-1
+    parentContainerName: SPINES_102
+    configlets:
+      - AVD_SF_SITE_102_SPINE-1
+  - fqdn: SF_SITE_102_SPINE-2
+    parentContainerName: SPINES_102
+    configlets:
+      - AVD_SF_SITE_102_SPINE-2
   - fqdn: SF_SITE_103_BL-1
     parentContainerName: BORDER_LEAFS_103
     configlets:
@@ -49,6 +65,8 @@ cvp_containers:
     parentContainerName: Tenant
   BORDER_LEAFS_101:
     parentContainerName: SF_SITE_101
+  BORDER_LEAFS_102:
+    parentContainerName: SF_SITE_102
   BORDER_LEAFS_103:
     parentContainerName: SF_SITE_103
   BORDER_LEAFS_104:
@@ -67,6 +85,8 @@ cvp_containers:
     parentContainerName: AVD_FABRIC
   SPINES_101:
     parentContainerName: SF_SITE_101
+  SPINES_102:
+    parentContainerName: SF_SITE_102
   TOR_101:
     parentContainerName: SF_SITE_101
   TOR_103:

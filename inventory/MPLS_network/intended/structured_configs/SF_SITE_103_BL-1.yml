@@ -114,7 +114,7 @@ ethernet_interfaces:
 - name: Ethernet10
   peer: SF_SITE_102_BL-2
   peer_interface: Ethernet10
-  peer_type: other
+  peer_type: pe
   description: P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10
   type: routed
   shutdown: false

@@ -55,6 +55,12 @@ router_bgp:
   - ip_address: 100.1.2.2
     peer_group: MPLS-OVERLAY-PEERS
     description: SF_SITE_101_BL-2
+  - ip_address: 100.2.2.1
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF_SITE_102_BL-1
+  - ip_address: 100.2.2.2
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF_SITE_102_BL-2
   - ip_address: 100.3.2.1
     peer_group: MPLS-OVERLAY-PEERS
     description: SF_SITE_103_BL-1
