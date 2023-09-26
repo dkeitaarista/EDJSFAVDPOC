@@ -37,23 +37,32 @@ management_api_http:
   enable_https: true
 ethernet_interfaces:
 - name: Ethernet3
-  peer: SF_SITE_101_BL-1
-  peer_interface: Ethernet12
+  peer: SF_SITE_101_BL-2
+  peer_interface: Ethernet11
   peer_type: pe
-  description: P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet12
-  type: routed
+  description: SF_SITE_101_BL-2_Ethernet11
   shutdown: false
-  mtu: 1500
-  ip_address: 10.0.0.15/31
+  type: port-channel-member
+  channel_group:
+    id: 3
+    mode: active
 - name: Ethernet4
   peer: SF_SITE_101_BL-2
   peer_interface: Ethernet12
   peer_type: pe
-  description: P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet12
-  type: routed
+  description: SF_SITE_101_BL-2_Ethernet12
   shutdown: false
-  mtu: 1500
-  ip_address: 10.0.0.19/31
+  type: port-channel-member
+  channel_group:
+    id: 3
+    mode: active
+port_channel_interfaces:
+- name: Port-Channel3
+  description: SF_SITE_101_BL-2_Po11
+  type: switched
+  shutdown: false
+  mode: trunk
+  vlans: none
 ip_igmp_snooping:
   globally_enabled: true
 daemon_terminattr:

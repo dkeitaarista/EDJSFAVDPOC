@@ -19,6 +19,7 @@
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
+  - [Port-Channel Interfaces](#port-channel-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
@@ -228,6 +229,8 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+| Ethernet11 | SF_SITE_101_TOR-1A_Ethernet3 | *trunk | *none | *- | *- | 11 |
+| Ethernet12 | SF_SITE_101_TOR-1A_Ethernet4 | *trunk | *none | *- | *- | 11 |
 
 *Inherited from Port-Channel Interface
 
@@ -240,8 +243,6 @@ vlan internal order ascending range 1006 1199
 | Ethernet7 | P2P_LINK_TO_SF_SITE_101_RR-1_Ethernet3 | routed | - | 10.0.0.8/31 | default | 1500 | False | - | - |
 | Ethernet9 | P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet9 | routed | - | 10.1.0.2/31 | default | 1500 | False | - | - |
 | Ethernet10 | P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet10 | routed | - | 10.1.0.0/31 | default | 1500 | False | - | - |
-| Ethernet11 | P2P_LINK_TO_SF_SITE_101_TOR-1A_Ethernet3 | routed | - | 10.0.0.12/31 | default | 1500 | False | - | - |
-| Ethernet12 | P2P_LINK_TO_SF_SITE_101_TOR-1B_Ethernet3 | routed | - | 10.0.0.14/31 | default | 1500 | False | - | - |
 
 ##### ISIS
 
@@ -252,8 +253,6 @@ vlan internal order ascending range 1006 1199
 | Ethernet7 | - | CORE | 50 | point-to-point | level-2 | True | - |
 | Ethernet9 | - | CORE | 50 | point-to-point | level-2 | True | - |
 | Ethernet10 | - | CORE | 50 | point-to-point | level-2 | True | - |
-| Ethernet11 | - | CORE | 50 | point-to-point | level-2 | True | - |
-| Ethernet12 | - | CORE | 50 | point-to-point | level-2 | True | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -325,30 +324,36 @@ interface Ethernet10
    isis network point-to-point
 !
 interface Ethernet11
-   description P2P_LINK_TO_SF_SITE_101_TOR-1A_Ethernet3
+   description SF_SITE_101_TOR-1A_Ethernet3
    no shutdown
-   mtu 1500
-   no switchport
-   ip address 10.0.0.12/31
-   mpls ip
-   isis enable CORE
-   isis circuit-type level-2
-   isis metric 50
-   isis hello padding
-   isis network point-to-point
+   channel-group 11 mode active
 !
 interface Ethernet12
-   description P2P_LINK_TO_SF_SITE_101_TOR-1B_Ethernet3
+   description SF_SITE_101_TOR-1A_Ethernet4
    no shutdown
-   mtu 1500
-   no switchport
-   ip address 10.0.0.14/31
-   mpls ip
-   isis enable CORE
-   isis circuit-type level-2
-   isis metric 50
-   isis hello padding
-   isis network point-to-point
+   channel-group 11 mode active
+```
+
+### Port-Channel Interfaces
+
+#### Port-Channel Interfaces Summary
+
+##### L2
+
+| Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
+| --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
+| Port-Channel11 | SF_SITE_101_TOR-1A_Po3 | switched | trunk | none | - | - | - | - | - | - |
+
+#### Port-Channel Interfaces Device Configuration
+
+```eos
+!
+interface Port-Channel11
+   description SF_SITE_101_TOR-1A_Po3
+   no shutdown
+   switchport
+   switchport trunk allowed vlan none
+   switchport mode trunk
 ```
 
 ### Loopback Interfaces
@@ -442,8 +447,6 @@ ip routing
 | Ethernet7 | CORE | 50 | point-to-point |
 | Ethernet9 | CORE | 50 | point-to-point |
 | Ethernet10 | CORE | 50 | point-to-point |
-| Ethernet11 | CORE | 50 | point-to-point |
-| Ethernet12 | CORE | 50 | point-to-point |
 | Loopback0 | CORE | - | passive |
 
 #### ISIS Segment-routing Node-SID
@@ -603,8 +606,6 @@ mpls ip
 | Ethernet7 | True | - | - |
 | Ethernet9 | True | - | - |
 | Ethernet10 | True | - | - |
-| Ethernet11 | True | - | - |
-| Ethernet12 | True | - | - |
 
 ## Multicast
 

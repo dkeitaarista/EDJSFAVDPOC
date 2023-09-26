@@ -9,7 +9,7 @@ l3_edge:
       nodes:
         - SF_SITE_101_BL-1
         - SF_SITE_104_BL-1
-      interfaces: 
+      interfaces:
         - Ethernet10
         - Ethernet10
       ip_pool: WAN_pool
@@ -17,7 +17,7 @@ l3_edge:
       nodes:
         - SF_SITE_101_BL-1
         - SF_SITE_102_BL-1
-      interfaces: 
+      interfaces:
         - Ethernet9
         - Ethernet9
       ip_pool: WAN_pool
@@ -25,7 +25,7 @@ l3_edge:
       nodes:
         - SF_SITE_101_BL-2
         - SF_SITE_103_BL-1
-      interfaces: 
+      interfaces:
         - Ethernet9
         - Ethernet9
       ip_pool: WAN_pool
@@ -33,7 +33,7 @@ l3_edge:
       nodes:
         - SF_SITE_104_BL-1
         - SF_SITE_102_BL-1
-      interfaces: 
+      interfaces:
         - Ethernet6
         - Ethernet3
       ip_pool: WAN_pool
