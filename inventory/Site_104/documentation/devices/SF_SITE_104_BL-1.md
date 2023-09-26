@@ -235,17 +235,32 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
+| Ethernet6 | P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3 | routed | - | 10.1.0.6/31 | default | 1500 | False | - | - |
 | Ethernet10 | P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10 | routed | - | 10.1.0.1/31 | default | 1500 | False | - | - |
 
 ##### ISIS
 
 | Interface | Channel Group | ISIS Instance | ISIS Metric | Mode | ISIS Circuit Type | Hello Padding | Authentication Mode |
 | --------- | ------------- | ------------- | ----------- | ---- | ----------------- | ------------- | ------------------- |
+| Ethernet6 | - | CORE | 50 | point-to-point | level-2 | True | - |
 | Ethernet10 | - | CORE | 50 | point-to-point | level-2 | True | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
+!
+interface Ethernet6
+   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3
+   no shutdown
+   mtu 1500
+   no switchport
+   ip address 10.1.0.6/31
+   mpls ip
+   isis enable CORE
+   isis circuit-type level-2
+   isis metric 50
+   isis hello padding
+   isis network point-to-point
 !
 interface Ethernet10
    description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10
@@ -347,6 +362,7 @@ ip routing
 
 | Interface | ISIS Instance | ISIS Metric | Interface Mode |
 | --------- | ------------- | ----------- | -------------- |
+| Ethernet6 | CORE | 50 | point-to-point |
 | Ethernet10 | CORE | 50 | point-to-point |
 | Loopback0 | CORE | - | passive |
 
@@ -494,6 +510,7 @@ mpls ip
 
 | Interface | MPLS IP Enabled | LDP Enabled | IGP Sync |
 | --------- | --------------- | ----------- | -------- |
+| Ethernet6 | True | - | - |
 | Ethernet10 | True | - | - |
 
 ## Multicast

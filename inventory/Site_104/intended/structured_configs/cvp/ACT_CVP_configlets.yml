@@ -8,27 +8,30 @@ cvp_configlets:
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\naaa
     authorization exec default local\n!\nno enable password\nno aaa root\n!\nusername
     cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
-    timezone CST\n!\ninterface Ethernet10\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10\n
-    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.1/31\n   mpls
+    timezone CST\n!\ninterface Ethernet6\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3\n
+    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.6/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
-    hello padding\n   isis network point-to-point\n!\ninterface Loopback0\n   description
-    MPLS_Overlay_peering\n   no shutdown\n   ip address 100.4.2.1/32\n   isis enable
-    CORE\n   isis passive\n   node-segment ipv4 index 1\n!\ninterface Management1\n
-    \  description oob_management\n   no shutdown\n   ip address 192.168.0.25/24\n!\nip
-    routing\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter
-    bgp 65000\n   router-id 100.4.2.1\n   distance bgp 20 200 200\n   graceful-restart
-    restart-time 300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default
-    ipv4-unicast\n   neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS
-    remote-as 65000\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor
-    MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor
-    MPLS-OVERLAY-PEERS maximum-routes 0\n   !\n   address-family evpn\n   !\n   address-family
-    ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n
-    \     neighbor MPLS-OVERLAY-PEERS activate\n      neighbor default encapsulation
-    mpls next-hop-self source-interface Loopback0\n!\nrouter isis CORE\n   is-type
-    level-2\n   router-id ipv4 100.4.2.1\n   log-adjacency-changes\n   !\n   address-family
-    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
-    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
-    \  vrf default\n      no shutdown\n!\nend\n"
+    hello padding\n   isis network point-to-point\n!\ninterface Ethernet10\n   description
+    P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10\n   no shutdown\n   mtu 1500\n   no switchport\n
+    \  ip address 10.1.0.1/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
+    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
+    100.4.2.1/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
+    1\n!\ninterface Management1\n   description oob_management\n   no shutdown\n   ip
+    address 192.168.0.25/24\n!\nip routing\n!\nrouter bfd\n   multihop interval 1200
+    min-rx 1200 multiplier 3\n!\nrouter bgp 65000\n   router-id 100.4.2.1\n   distance
+    bgp 20 200 200\n   graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths
+    4 ecmp 4\n   no bgp default ipv4-unicast\n   neighbor MPLS-OVERLAY-PEERS peer
+    group\n   neighbor MPLS-OVERLAY-PEERS remote-as 65000\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   !\n   address-family
+    evpn\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n!\nrouter
+    isis CORE\n   is-type level-2\n   router-id ipv4 100.4.2.1\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
 cvp_topology:
   AVD_FABRIC:
     devices: []
