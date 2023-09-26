@@ -2,8 +2,16 @@ Type,Node,Node Interface,Leaf IP Address,Peer Type,Peer Node,Peer Interface,Peer
 pe,SF_SITE_101_BL-1,Ethernet3,10.0.0.1/31,p,SF_SITE_101_SPINE-1,Ethernet3,10.0.0.0/31
 pe,SF_SITE_101_BL-1,Ethernet4,10.0.0.5/31,p,SF_SITE_101_SPINE-2,Ethernet3,10.0.0.4/31
 pe,SF_SITE_101_BL-1,Ethernet7,10.0.0.8/31,rr,SF_SITE_101_RR-1,Ethernet3,10.0.0.9/31
+pe,SF_SITE_101_BL-1,Ethernet9,10.1.0.2/31,pe,SF_SITE_102_BL-1,Ethernet9,10.1.0.3/31
 pe,SF_SITE_101_BL-1,Ethernet10,10.1.0.0/31,pe,SF_SITE_104_BL-1,Ethernet10,10.1.0.1/31
 pe,SF_SITE_101_BL-2,Ethernet3,10.0.0.3/31,p,SF_SITE_101_SPINE-1,Ethernet4,10.0.0.2/31
 pe,SF_SITE_101_BL-2,Ethernet4,10.0.0.7/31,p,SF_SITE_101_SPINE-2,Ethernet4,10.0.0.6/31
 pe,SF_SITE_101_BL-2,Ethernet7,10.0.0.10/31,rr,SF_SITE_101_RR-1,Ethernet4,10.0.0.11/31
 pe,SF_SITE_101_BL-2,Ethernet9,10.1.0.4/31,pe,SF_SITE_103_BL-1,Ethernet9,10.1.0.5/31
+pe,SF_SITE_102_BL-1,Ethernet3,10.1.0.7/31,pe,SF_SITE_104_BL-1,Ethernet6,10.1.0.6/31
+pe,SF_SITE_102_BL-1,Ethernet4,10.1.0.5/31,p,SF_SITE_102_SPINE-2,Ethernet3,10.1.0.4/31
+pe,SF_SITE_102_BL-1,Ethernet7,10.1.0.8/31,rr,SF_SITE_102_RR-1,Ethernet3,10.1.0.9/31
+pe,SF_SITE_102_BL-2,Ethernet3,10.1.0.3/31,p,SF_SITE_102_SPINE-1,Ethernet4,10.1.0.2/31
+pe,SF_SITE_102_BL-2,Ethernet4,10.1.0.7/31,p,SF_SITE_102_SPINE-2,Ethernet4,10.1.0.6/31
+pe,SF_SITE_102_BL-2,Ethernet7,10.1.0.10/31,rr,SF_SITE_102_RR-1,Ethernet4,10.1.0.11/31
+pe,SF_SITE_102_BL-2,Ethernet10,10.1.0.8/31,pe,SF_SITE_103_BL-1,Ethernet10,10.1.0.9/31

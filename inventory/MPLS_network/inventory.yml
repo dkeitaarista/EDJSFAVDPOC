@@ -33,18 +33,18 @@ all:
                   ansible_host: 10.255.x.x
         SF_SITE_102:
           children:
-        #     SPINES_102:
-        #       hosts:
-        #         SF_SITE_102_SPINE-1:
-        #           ansible_host: 10.255.x.x
-        #         SF_SITE_102_SPINE-2:
-        #           ansible_host: 10.255.x.x
-        #     BORDER_LEAFS_102:
-        #       hosts:
-        #         SF_SITE_102_BL-1:
-        #           ansible_host: 10.255.x.x
-        #         SF_SITE_102_BL-2:
-        #           ansible_host: 10.255.x.x
+            SPINES_102:
+              hosts:
+                SF_SITE_102_SPINE-1:
+                  ansible_host: 10.255.x.x
+                SF_SITE_102_SPINE-2:
+                  ansible_host: 10.255.x.x
+            BORDER_LEAFS_102:
+              hosts:
+                SF_SITE_102_BL-1:
+                  ansible_host: 10.255.x.x
+                SF_SITE_102_BL-2:
+                  ansible_host: 10.255.x.x
             ROUTE_REFLECTORS_102:
               hosts:
                 SF_SITE_102_RR-1:

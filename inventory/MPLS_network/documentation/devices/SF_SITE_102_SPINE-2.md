@@ -1,4 +1,4 @@
-# SF_SITE_102_RR-1
+# SF_SITE_102_SPINE-2
 
 ## Table of Contents
 
@@ -28,9 +28,6 @@
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
   - [Router ISIS](#router-isis)
-  - [Router BGP](#router-bgp)
-- [BFD](#bfd)
-  - [Router BFD](#router-bfd)
 - [MPLS](#mpls)
   - [MPLS and LDP](#mpls-and-ldp)
   - [MPLS Interfaces](#mpls-interfaces)
@@ -48,7 +45,7 @@
 
 | Management Interface | description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | oob_management | oob | default | 192.168.0.20/24 | - |
+| Management1 | oob_management | oob | default | 192.168.0.19/24 | - |
 
 ##### IPv6
 
@@ -63,7 +60,7 @@
 interface Management1
    description oob_management
    no shutdown
-   ip address 192.168.0.20/24
+   ip address 192.168.0.19/24
 ```
 
 ### DNS Domain
@@ -249,8 +246,8 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet3 | P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet7 | routed | - | 10.1.0.9/31 | default | 1500 | False | - | - |
-| Ethernet4 | P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet7 | routed | - | 10.1.0.11/31 | default | 1500 | False | - | - |
+| Ethernet3 | P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet4 | routed | - | 10.1.0.4/31 | default | 1500 | False | - | - |
+| Ethernet4 | P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet4 | routed | - | 10.1.0.6/31 | default | 1500 | False | - | - |
 
 ##### ISIS
 
@@ -264,11 +261,11 @@ vlan internal order ascending range 1006 1199
 ```eos
 !
 interface Ethernet3
-   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet7
+   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet4
    no shutdown
    mtu 1500
    no switchport
-   ip address 10.1.0.9/31
+   ip address 10.1.0.4/31
    mpls ip
    isis enable CORE
    isis circuit-type level-2
@@ -277,11 +274,11 @@ interface Ethernet3
    isis network point-to-point
 !
 interface Ethernet4
-   description P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet7
+   description P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet4
    no shutdown
    mtu 1500
    no switchport
-   ip address 10.1.0.11/31
+   ip address 10.1.0.6/31
    mpls ip
    isis enable CORE
    isis circuit-type level-2
@@ -298,13 +295,13 @@ interface Ethernet4
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | MPLS_Overlay_peering | default | 100.1.1.2/32 |
+| Loopback0 | LSR_Router_ID | default | 100.2.0.2/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
-| Loopback0 | MPLS_Overlay_peering | default | - |
+| Loopback0 | LSR_Router_ID | default | - |
 
 ##### ISIS
 
@@ -317,9 +314,9 @@ interface Ethernet4
 ```eos
 !
 interface Loopback0
-   description MPLS_Overlay_peering
+   description LSR_Router_ID
    no shutdown
-   ip address 100.1.1.2/32
+   ip address 100.2.0.2/32
    isis enable CORE
    isis passive
    node-segment ipv4 index 2
@@ -368,7 +365,7 @@ ip routing
 | -------- | ----- |
 | Instance | CORE |
 | Type | level-2 |
-| Router-ID | 100.1.1.2 |
+| Router-ID | 100.2.0.2 |
 | Log Adjacency Changes | True |
 | SR MPLS Enabled | True |
 
@@ -399,7 +396,7 @@ ip routing
 !
 router isis CORE
    is-type level-2
-   router-id ipv4 100.1.1.2
+   router-id ipv4 100.2.0.2
    log-adjacency-changes
    !
    address-family ipv4 unicast
@@ -407,147 +404,6 @@ router isis CORE
    !
    segment-routing mpls
       no shutdown
-```
-
-### Router BGP
-
-#### Router BGP Summary
-
-| BGP AS | Router ID |
-| ------ | --------- |
-| 65000|  100.1.1.2 |
-
-| BGP AS | Cluster ID |
-| ------ | --------- |
-| 65000|  100.1.1.2 |
-
-| BGP Tuning |
-| ---------- |
-| graceful-restart restart-time 300 |
-| graceful-restart |
-| no bgp default ipv4-unicast |
-| distance bgp 20 200 200 |
-| maximum-paths 4 ecmp 4 |
-
-#### Router BGP Peer Groups
-
-##### MPLS-OVERLAY-PEERS
-
-| Settings | Value |
-| -------- | ----- |
-| Address Family | mpls |
-| Remote AS | 65000 |
-| Route Reflector Client | Yes |
-| Source | Loopback0 |
-| BFD | True |
-| Send community | all |
-| Maximum routes | 0 (no limit) |
-
-##### RR-OVERLAY-PEERS
-
-| Settings | Value |
-| -------- | ----- |
-| Address Family | mpls |
-| Remote AS | 65000 |
-| Source | Loopback0 |
-| BFD | True |
-| Send community | all |
-| Maximum routes | 0 (no limit) |
-
-#### BGP Neighbors
-
-| Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
-| -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 100.1.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.1.2.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.2.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.2.2.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.3.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.4.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-
-#### Router BGP EVPN Address Family
-
-##### EVPN Peer Groups
-
-| Peer Group | Activate | Encapsulation |
-| ---------- | -------- | ------------- |
-| RR-OVERLAY-PEERS | True | default |
-
-#### Router BGP VPN-IPv4 Address Family
-
-##### VPN-IPv4 Peer Groups
-
-| Peer Group | Activate | Route-map In | Route-map Out |
-| ---------- | -------- | ------------ | ------------- |
-| MPLS-OVERLAY-PEERS | True | - | - |
-| RR-OVERLAY-PEERS | True | - | - |
-
-#### Router BGP Device Configuration
-
-```eos
-!
-router bgp 65000
-   router-id 100.1.1.2
-   distance bgp 20 200 200
-   graceful-restart restart-time 300
-   graceful-restart
-   maximum-paths 4 ecmp 4
-   no bgp default ipv4-unicast
-   bgp cluster-id 100.1.1.2
-   neighbor MPLS-OVERLAY-PEERS peer group
-   neighbor MPLS-OVERLAY-PEERS remote-as 65000
-   neighbor MPLS-OVERLAY-PEERS update-source Loopback0
-   neighbor MPLS-OVERLAY-PEERS route-reflector-client
-   neighbor MPLS-OVERLAY-PEERS bfd
-   neighbor MPLS-OVERLAY-PEERS send-community
-   neighbor MPLS-OVERLAY-PEERS maximum-routes 0
-   neighbor RR-OVERLAY-PEERS peer group
-   neighbor RR-OVERLAY-PEERS remote-as 65000
-   neighbor RR-OVERLAY-PEERS update-source Loopback0
-   neighbor RR-OVERLAY-PEERS bfd
-   neighbor RR-OVERLAY-PEERS send-community
-   neighbor RR-OVERLAY-PEERS maximum-routes 0
-   neighbor 100.1.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.1.2.1 description SF_SITE_101_BL-1
-   neighbor 100.1.2.2 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.1.2.2 description SF_SITE_101_BL-2
-   neighbor 100.2.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.2.2.1 description SF_SITE_102_BL-1
-   neighbor 100.2.2.2 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.2.2.2 description SF_SITE_102_BL-2
-   neighbor 100.3.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.3.2.1 description SF_SITE_103_BL-1
-   neighbor 100.4.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.4.2.1 description SF_SITE_104_BL-1
-   !
-   address-family evpn
-      neighbor RR-OVERLAY-PEERS activate
-   !
-   address-family ipv4
-      no neighbor MPLS-OVERLAY-PEERS activate
-      no neighbor RR-OVERLAY-PEERS activate
-   !
-   address-family vpn-ipv4
-      neighbor MPLS-OVERLAY-PEERS activate
-      neighbor RR-OVERLAY-PEERS activate
-```
-
-## BFD
-
-### Router BFD
-
-#### Router BFD Multihop Summary
-
-| Interval | Minimum RX | Multiplier |
-| -------- | ---------- | ---------- |
-| 1200 | 1200 | 3 |
-
-#### Router BFD Device Configuration
-
-```eos
-!
-router bfd
-   multihop interval 1200 min-rx 1200 multiplier 3
 ```
 
 ## MPLS

@@ -1,0 +1,16 @@
+---
+# SF_102 spines
+type: p
+
+p:
+  defaults:
+    platform: vEOS-lab
+    loopback_ipv4_pool: 100.2.0.0/24
+    mpls_route_reflectors: [ SF_SITE_101_RR-1, SF_SITE_102_RR-1 ]
+  nodes:
+  - name: SF_SITE_102_SPINE-1
+    id: 1
+    mgmt_ip: 192.168.0.18/24
+  - name: SF_SITE_102_SPINE-2
+    id: 2
+    mgmt_ip: 192.168.0.19/24
