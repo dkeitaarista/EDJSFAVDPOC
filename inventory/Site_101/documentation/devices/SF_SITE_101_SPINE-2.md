@@ -21,6 +21,7 @@
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
 - [Interfaces](#interfaces)
+  - [Ethernet Interfaces](#ethernet-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
@@ -29,6 +30,7 @@
   - [Router ISIS](#router-isis)
 - [MPLS](#mpls)
   - [MPLS and LDP](#mpls-and-ldp)
+  - [MPLS Interfaces](#mpls-interfaces)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
@@ -229,6 +231,62 @@ vlan internal order ascending range 1006 1199
 
 ## Interfaces
 
+### Ethernet Interfaces
+
+#### Ethernet Interfaces Summary
+
+##### L2
+
+| Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
+| --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+
+*Inherited from Port-Channel Interface
+
+##### IPv4
+
+| Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
+| --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
+| Ethernet3 | P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet4 | routed | - | 10.0.0.4/31 | default | 1500 | False | - | - |
+| Ethernet4 | P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet4 | routed | - | 10.0.0.6/31 | default | 1500 | False | - | - |
+
+##### ISIS
+
+| Interface | Channel Group | ISIS Instance | ISIS Metric | Mode | ISIS Circuit Type | Hello Padding | Authentication Mode |
+| --------- | ------------- | ------------- | ----------- | ---- | ----------------- | ------------- | ------------------- |
+| Ethernet3 | - | CORE | 50 | point-to-point | level-2 | True | - |
+| Ethernet4 | - | CORE | 50 | point-to-point | level-2 | True | - |
+
+#### Ethernet Interfaces Device Configuration
+
+```eos
+!
+interface Ethernet3
+   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet4
+   no shutdown
+   mtu 1500
+   no switchport
+   ip address 10.0.0.4/31
+   mpls ip
+   isis enable CORE
+   isis circuit-type level-2
+   isis metric 50
+   isis hello padding
+   isis network point-to-point
+!
+interface Ethernet4
+   description P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet4
+   no shutdown
+   mtu 1500
+   no switchport
+   ip address 10.0.0.6/31
+   mpls ip
+   isis enable CORE
+   isis circuit-type level-2
+   isis metric 50
+   isis hello padding
+   isis network point-to-point
+```
+
 ### Loopback Interfaces
 
 #### Loopback Interfaces Summary
@@ -315,6 +373,8 @@ ip routing
 
 | Interface | ISIS Instance | ISIS Metric | Interface Mode |
 | --------- | ------------- | ----------- | -------------- |
+| Ethernet3 | CORE | 50 | point-to-point |
+| Ethernet4 | CORE | 50 | point-to-point |
 | Loopback0 | CORE | - | passive |
 
 #### ISIS Segment-routing Node-SID
@@ -366,6 +426,13 @@ router isis CORE
 !
 mpls ip
 ```
+
+### MPLS Interfaces
+
+| Interface | MPLS IP Enabled | LDP Enabled | IGP Sync |
+| --------- | --------------- | ----------- | -------- |
+| Ethernet3 | True | - | - |
+| Ethernet4 | True | - | - |
 
 ## VRF Instances
 

@@ -119,6 +119,39 @@ router_bfd:
     interval: 1200
     min_rx: 1200
     multiplier: 3
+ethernet_interfaces:
+- name: Ethernet3
+  peer: SF_SITE_101_BL-1
+  peer_interface: Ethernet7
+  peer_type: pe
+  description: P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet7
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.9/31
+  isis_enable: CORE
+  isis_metric: 50
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
+- name: Ethernet4
+  peer: SF_SITE_101_BL-2
+  peer_interface: Ethernet7
+  peer_type: pe
+  description: P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet7
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.11/31
+  isis_enable: CORE
+  isis_metric: 50
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
 daemon_terminattr:
   cvaddrs:
   - 192.168.0.5:9910

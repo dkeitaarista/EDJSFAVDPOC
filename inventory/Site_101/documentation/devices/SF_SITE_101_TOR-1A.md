@@ -20,6 +20,8 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
+- [Interfaces](#interfaces)
+  - [Ethernet Interfaces](#ethernet-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
@@ -229,6 +231,45 @@ spanning-tree mst 0 priority 32768
 ```eos
 !
 vlan internal order ascending range 1006 1199
+```
+
+## Interfaces
+
+### Ethernet Interfaces
+
+#### Ethernet Interfaces Summary
+
+##### L2
+
+| Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
+| --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+
+*Inherited from Port-Channel Interface
+
+##### IPv4
+
+| Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
+| --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
+| Ethernet3 | P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet11 | routed | - | 10.0.0.13/31 | default | 1500 | False | - | - |
+| Ethernet4 | P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet11 | routed | - | 10.0.0.17/31 | default | 1500 | False | - | - |
+
+#### Ethernet Interfaces Device Configuration
+
+```eos
+!
+interface Ethernet3
+   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet11
+   no shutdown
+   mtu 1500
+   no switchport
+   ip address 10.0.0.13/31
+!
+interface Ethernet4
+   description P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet11
+   no shutdown
+   mtu 1500
+   no switchport
+   ip address 10.0.0.17/31
 ```
 
 ## Routing

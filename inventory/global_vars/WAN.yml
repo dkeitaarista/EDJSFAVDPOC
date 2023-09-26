@@ -1,0 +1,31 @@
+# WAN links
+l3_edge:
+  p2p_links_ip_pools:
+    - name: WAN_pool
+      ipv4_pool: 10.1.0.0/24
+      prefix_size: 31
+  p2p_links:
+    - id: 1
+      nodes:
+        - SF_SITE_101_BL-1
+        - SF_SITE_104_BL-1
+      interfaces: 
+        - Ethernet10
+        - Ethernet10
+      ip_pool: WAN_pool
+    - id: 2
+      nodes:
+        - SF_SITE_101_BL-1
+        - SF_SITE_102_BL-1
+      interfaces: 
+        - Ethernet9
+        - Ethernet9
+      ip_pool: WAN_pool
+    - id: 3
+      nodes:
+        - SF_SITE_101_BL-2
+        - SF_SITE_103_BL-1
+      interfaces: 
+        - Ethernet9
+        - Ethernet9
+      ip_pool: WAN_pool
