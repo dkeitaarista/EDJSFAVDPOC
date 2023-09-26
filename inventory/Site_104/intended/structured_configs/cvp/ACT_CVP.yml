@@ -1,0 +1,13 @@
+---
+cvp_devices:
+  - fqdn: SF_SITE_104_BL-1
+    parentContainerName: BORDER_LEAFS_104
+    configlets:
+      - AVD_SF_SITE_104_BL-1
+cvp_containers:
+  AVD_FABRIC:
+    parentContainerName: Tenant
+  BORDER_LEAFS_104:
+    parentContainerName: SF_SITE_104
+  SF_SITE_104:
+    parentContainerName: AVD_FABRIC
