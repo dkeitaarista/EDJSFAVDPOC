@@ -6,9 +6,9 @@ type: pe
 pe:
   defaults:
     platform: vEOS-lab
-    loopback_ipv4_pool: 100.4.2.0/24
+    loopback_ipv4_pool: 100.3.2.0/24
     mpls_route_reflectors: [ SF_SITE_101_RR-1, SF_SITE_102_RR-1 ]
   nodes:
-    - name: SF_SITE_104_BL-1
+    - name: SF_SITE_103_BL-1
       id: 1
-      mgmt_ip: 192.168.0.27/24
+      mgmt_ip: 192.168.0.25/24

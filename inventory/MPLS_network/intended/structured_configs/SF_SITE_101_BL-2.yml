@@ -146,7 +146,7 @@ ethernet_interfaces:
 - name: Ethernet9
   peer: SF_SITE_103_BL-1
   peer_interface: Ethernet9
-  peer_type: other
+  peer_type: pe
   description: P2P_LINK_TO_SF_SITE_103_BL-1_Ethernet9
   type: routed
   shutdown: false

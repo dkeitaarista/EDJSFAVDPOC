@@ -37,3 +37,11 @@ l3_edge:
         - Ethernet6
         - Ethernet3
       ip_pool: WAN_pool
+    - id: 5
+      nodes:
+        - SF_SITE_102_BL-2
+        - SF_SITE_103_BL-1
+      interfaces:
+        - Ethernet10
+        - Ethernet10
+      ip_pool: WAN_pool
