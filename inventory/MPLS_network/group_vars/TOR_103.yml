@@ -1,0 +1,20 @@
+---
+type: ethernet_aggregation
+
+ethernet_aggregation:
+  defaults:
+    platform: vEOS-lab
+    spanning_tree_mode: mstp
+  nodes:
+    - name: SF_SITE_103_TOR-1A
+      id: 1
+      mgmt_ip: 192.168.0.26/24
+      uplink_interfaces:
+        - Ethernet3
+        - Ethernet4
+      uplink_switches:
+        - SF_SITE_103_BL-1
+        - SF_SITE_103_BL-1
+      uplink_switch_interfaces:
+        - Ethernet3
+        - Ethernet4

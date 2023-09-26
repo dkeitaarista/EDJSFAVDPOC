@@ -1,4 +1,4 @@
-# SF_SITE_101_RR-1
+# SF_SITE_103_BL-1
 
 ## Table of Contents
 
@@ -14,14 +14,12 @@
   - [AAA Authorization](#aaa-authorization)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
-- [Spanning Tree](#spanning-tree)
-  - [Spanning Tree Summary](#spanning-tree-summary)
-  - [Spanning Tree Device Configuration](#spanning-tree-device-configuration)
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
+  - [Port-Channel Interfaces](#port-channel-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
@@ -34,6 +32,8 @@
 - [MPLS](#mpls)
   - [MPLS and LDP](#mpls-and-ldp)
   - [MPLS Interfaces](#mpls-interfaces)
+- [Multicast](#multicast)
+  - [IP IGMP Snooping](#ip-igmp-snooping)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
@@ -48,7 +48,7 @@
 
 | Management Interface | description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | oob_management | oob | default | 192.168.0.13/24 | - |
+| Management1 | oob_management | oob | default | 192.168.0.25/24 | - |
 
 ##### IPv6
 
@@ -63,7 +63,7 @@
 interface Management1
    description oob_management
    no shutdown
-   ip address 192.168.0.13/24
+   ip address 192.168.0.25/24
 ```
 
 ### DNS Domain
@@ -204,19 +204,6 @@ daemon TerminAttr
    no shutdown
 ```
 
-## Spanning Tree
-
-### Spanning Tree Summary
-
-STP mode: **none**
-
-### Spanning Tree Device Configuration
-
-```eos
-!
-spanning-tree mode none
-```
-
 ## Internal VLAN Allocation Policy
 
 ### Internal VLAN Allocation Policy Summary
@@ -242,6 +229,8 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+| Ethernet3 | SF_SITE_103_TOR-1A_Ethernet3 | *trunk | *none | *- | *- | 3 |
+| Ethernet4 | SF_SITE_103_TOR-1A_Ethernet4 | *trunk | *none | *- | *- | 3 |
 
 *Inherited from Port-Channel Interface
 
@@ -249,26 +238,36 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet3 | P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet7 | routed | - | 10.0.0.9/31 | default | 1500 | False | - | - |
-| Ethernet4 | P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet7 | routed | - | 10.0.0.11/31 | default | 1500 | False | - | - |
+| Ethernet9 | P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet9 | routed | - | 10.1.0.5/31 | default | 1500 | False | - | - |
+| Ethernet10 | P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10 | routed | - | 10.1.0.9/31 | default | 1500 | False | - | - |
 
 ##### ISIS
 
 | Interface | Channel Group | ISIS Instance | ISIS Metric | Mode | ISIS Circuit Type | Hello Padding | Authentication Mode |
 | --------- | ------------- | ------------- | ----------- | ---- | ----------------- | ------------- | ------------------- |
-| Ethernet3 | - | CORE | 50 | point-to-point | level-2 | True | - |
-| Ethernet4 | - | CORE | 50 | point-to-point | level-2 | True | - |
+| Ethernet9 | - | CORE | 50 | point-to-point | level-2 | True | - |
+| Ethernet10 | - | CORE | 50 | point-to-point | level-2 | True | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
 interface Ethernet3
-   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet7
+   description SF_SITE_103_TOR-1A_Ethernet3
+   no shutdown
+   channel-group 3 mode active
+!
+interface Ethernet4
+   description SF_SITE_103_TOR-1A_Ethernet4
+   no shutdown
+   channel-group 3 mode active
+!
+interface Ethernet9
+   description P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet9
    no shutdown
    mtu 1500
    no switchport
-   ip address 10.0.0.9/31
+   ip address 10.1.0.5/31
    mpls ip
    isis enable CORE
    isis circuit-type level-2
@@ -276,18 +275,40 @@ interface Ethernet3
    isis hello padding
    isis network point-to-point
 !
-interface Ethernet4
-   description P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet7
+interface Ethernet10
+   description P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10
    no shutdown
    mtu 1500
    no switchport
-   ip address 10.0.0.11/31
+   ip address 10.1.0.9/31
    mpls ip
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
    isis hello padding
    isis network point-to-point
+```
+
+### Port-Channel Interfaces
+
+#### Port-Channel Interfaces Summary
+
+##### L2
+
+| Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
+| --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
+| Port-Channel3 | SF_SITE_103_TOR-1A_Po3 | switched | trunk | none | - | - | - | - | - | - |
+
+#### Port-Channel Interfaces Device Configuration
+
+```eos
+!
+interface Port-Channel3
+   description SF_SITE_103_TOR-1A_Po3
+   no shutdown
+   switchport
+   switchport trunk allowed vlan none
+   switchport mode trunk
 ```
 
 ### Loopback Interfaces
@@ -298,7 +319,7 @@ interface Ethernet4
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | MPLS_Overlay_peering | default | 100.1.1.1/32 |
+| Loopback0 | MPLS_Overlay_peering | default | 100.3.2.1/32 |
 
 ##### IPv6
 
@@ -319,7 +340,7 @@ interface Ethernet4
 interface Loopback0
    description MPLS_Overlay_peering
    no shutdown
-   ip address 100.1.1.1/32
+   ip address 100.3.2.1/32
    isis enable CORE
    isis passive
    node-segment ipv4 index 1
@@ -368,7 +389,7 @@ ip routing
 | -------- | ----- |
 | Instance | CORE |
 | Type | level-2 |
-| Router-ID | 100.1.1.1 |
+| Router-ID | 100.3.2.1 |
 | Log Adjacency Changes | True |
 | SR MPLS Enabled | True |
 
@@ -376,8 +397,8 @@ ip routing
 
 | Interface | ISIS Instance | ISIS Metric | Interface Mode |
 | --------- | ------------- | ----------- | -------------- |
-| Ethernet3 | CORE | 50 | point-to-point |
-| Ethernet4 | CORE | 50 | point-to-point |
+| Ethernet9 | CORE | 50 | point-to-point |
+| Ethernet10 | CORE | 50 | point-to-point |
 | Loopback0 | CORE | - | passive |
 
 #### ISIS Segment-routing Node-SID
@@ -399,7 +420,7 @@ ip routing
 !
 router isis CORE
    is-type level-2
-   router-id ipv4 100.1.1.1
+   router-id ipv4 100.3.2.1
    log-adjacency-changes
    !
    address-family ipv4 unicast
@@ -415,11 +436,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65000|  100.1.1.1 |
-
-| BGP AS | Cluster ID |
-| ------ | --------- |
-| 65000|  100.1.1.1 |
+| 65000|  100.3.2.1 |
 
 | BGP Tuning |
 | ---------- |
@@ -437,18 +454,6 @@ router isis CORE
 | -------- | ----- |
 | Address Family | mpls |
 | Remote AS | 65000 |
-| Route Reflector Client | Yes |
-| Source | Loopback0 |
-| BFD | True |
-| Send community | all |
-| Maximum routes | 0 (no limit) |
-
-##### RR-OVERLAY-PEERS
-
-| Settings | Value |
-| -------- | ----- |
-| Address Family | mpls |
-| Remote AS | 65000 |
 | Source | Loopback0 |
 | BFD | True |
 | Send community | all |
@@ -458,10 +463,8 @@ router isis CORE
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 100.1.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.1.2.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.3.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.4.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
+| 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -469,7 +472,6 @@ router isis CORE
 
 | Peer Group | Activate | Encapsulation |
 | ---------- | -------- | ------------- |
-| RR-OVERLAY-PEERS | True | default |
 
 #### Router BGP VPN-IPv4 Address Family
 
@@ -478,52 +480,37 @@ router isis CORE
 | Peer Group | Activate | Route-map In | Route-map Out |
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
-| RR-OVERLAY-PEERS | True | - | - |
 
 #### Router BGP Device Configuration
 
 ```eos
 !
 router bgp 65000
-   router-id 100.1.1.1
+   router-id 100.3.2.1
    distance bgp 20 200 200
    graceful-restart restart-time 300
    graceful-restart
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
-   bgp cluster-id 100.1.1.1
    neighbor MPLS-OVERLAY-PEERS peer group
    neighbor MPLS-OVERLAY-PEERS remote-as 65000
    neighbor MPLS-OVERLAY-PEERS update-source Loopback0
-   neighbor MPLS-OVERLAY-PEERS route-reflector-client
    neighbor MPLS-OVERLAY-PEERS bfd
    neighbor MPLS-OVERLAY-PEERS send-community
    neighbor MPLS-OVERLAY-PEERS maximum-routes 0
-   neighbor RR-OVERLAY-PEERS peer group
-   neighbor RR-OVERLAY-PEERS remote-as 65000
-   neighbor RR-OVERLAY-PEERS update-source Loopback0
-   neighbor RR-OVERLAY-PEERS bfd
-   neighbor RR-OVERLAY-PEERS send-community
-   neighbor RR-OVERLAY-PEERS maximum-routes 0
-   neighbor 100.1.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.1.2.1 description SF_SITE_101_BL-1
-   neighbor 100.1.2.2 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.1.2.2 description SF_SITE_101_BL-2
-   neighbor 100.3.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.3.2.1 description SF_SITE_103_BL-1
-   neighbor 100.4.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.4.2.1 description SF_SITE_104_BL-1
+   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.1.1.1 description SF_SITE_101_RR-1
+   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.1.1.2 description SF_SITE_102_RR-1
    !
    address-family evpn
-      neighbor RR-OVERLAY-PEERS activate
    !
    address-family ipv4
       no neighbor MPLS-OVERLAY-PEERS activate
-      no neighbor RR-OVERLAY-PEERS activate
    !
    address-family vpn-ipv4
       neighbor MPLS-OVERLAY-PEERS activate
-      neighbor RR-OVERLAY-PEERS activate
+      neighbor default encapsulation mpls next-hop-self source-interface Loopback0
 ```
 
 ## BFD
@@ -569,8 +556,23 @@ mpls ip
 
 | Interface | MPLS IP Enabled | LDP Enabled | IGP Sync |
 | --------- | --------------- | ----------- | -------- |
-| Ethernet3 | True | - | - |
-| Ethernet4 | True | - | - |
+| Ethernet9 | True | - | - |
+| Ethernet10 | True | - | - |
+
+## Multicast
+
+### IP IGMP Snooping
+
+#### IP IGMP Snooping Summary
+
+| IGMP Snooping | Fast Leave | Interface Restart Query | Proxy | Restart Query Interval | Robustness Variable |
+| ------------- | ---------- | ----------------------- | ----- | ---------------------- | ------------------- |
+| Enabled | - | - | - | - | - |
+
+#### IP IGMP Snooping Device Configuration
+
+```eos
+```
 
 ## VRF Instances
 

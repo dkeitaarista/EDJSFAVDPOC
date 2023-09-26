@@ -26,7 +26,9 @@
 | SF_101 | ethernet_aggregation | SF_SITE_101_TOR-1A | 192.168.0.16/24 | vEOS-lab | Provisioned | - |
 | SF_101 | ethernet_aggregation | SF_SITE_101_TOR-1B | 192.168.0.17/24 | vEOS-lab | Provisioned | - |
 | AVD_FABRIC | rr | SF_SITE_102_RR-1 | 192.168.0.20/24 | vEOS-lab | Provisioned | - |
-| SF_104 | pe | SF_SITE_104_BL-1 | 192.168.0.25/24 | vEOS-lab | Provisioned | - |
+| SF_103 | pe | SF_SITE_103_BL-1 | 192.168.0.25/24 | vEOS-lab | Provisioned | - |
+| SF_103 | ethernet_aggregation | SF_SITE_103_TOR-1A | 192.168.0.26/24 | vEOS-lab | Provisioned | - |
+| SF_104 | pe | SF_SITE_104_BL-1 | 192.168.0.27/24 | vEOS-lab | Provisioned | - |
 
 > Provision status is based on Ansible inventory declaration and do not represent real status from CloudVision.
 
@@ -48,8 +50,11 @@
 | pe | SF_SITE_101_BL-2 | Ethernet3 | p | SF_SITE_101_SPINE-1 | Ethernet4 |
 | pe | SF_SITE_101_BL-2 | Ethernet4 | p | SF_SITE_101_SPINE-2 | Ethernet4 |
 | pe | SF_SITE_101_BL-2 | Ethernet7 | rr | SF_SITE_101_RR-1 | Ethernet4 |
+| pe | SF_SITE_101_BL-2 | Ethernet9 | pe | SF_SITE_103_BL-1 | Ethernet9 |
 | pe | SF_SITE_101_BL-2 | Ethernet11 | ethernet_aggregation | SF_SITE_101_TOR-1B | Ethernet3 |
 | pe | SF_SITE_101_BL-2 | Ethernet12 | ethernet_aggregation | SF_SITE_101_TOR-1B | Ethernet4 |
+| pe | SF_SITE_103_BL-1 | Ethernet3 | ethernet_aggregation | SF_SITE_103_TOR-1A | Ethernet3 |
+| pe | SF_SITE_103_BL-1 | Ethernet4 | ethernet_aggregation | SF_SITE_103_TOR-1A | Ethernet4 |
 
 ## Fabric IP Allocation
 
@@ -69,6 +74,7 @@
 | SF_SITE_101_BL-2 | Ethernet3 | 10.0.0.3/31 | SF_SITE_101_SPINE-1 | Ethernet4 | 10.0.0.2/31 |
 | SF_SITE_101_BL-2 | Ethernet4 | 10.0.0.7/31 | SF_SITE_101_SPINE-2 | Ethernet4 | 10.0.0.6/31 |
 | SF_SITE_101_BL-2 | Ethernet7 | 10.0.0.10/31 | SF_SITE_101_RR-1 | Ethernet4 | 10.0.0.11/31 |
+| SF_SITE_101_BL-2 | Ethernet9 | 10.1.0.4/31 | SF_SITE_103_BL-1 | Ethernet9 | 10.1.0.5/31 |
 
 ### Loopback Interfaces (BGP EVPN Peering)
 
@@ -77,6 +83,7 @@
 | 100.1.0.0/24 | 256 | 2 | 0.79 % |
 | 100.1.1.0/24 | 256 | 2 | 0.79 % |
 | 100.1.2.0/24 | 256 | 2 | 0.79 % |
+| 100.3.2.0/24 | 256 | 1 | 0.4 % |
 | 100.4.2.0/24 | 256 | 1 | 0.4 % |
 
 ### Loopback0 Interfaces Node Allocation
@@ -89,6 +96,7 @@
 | SF_101 | SF_SITE_101_SPINE-1 | 100.1.0.1/32 |
 | SF_101 | SF_SITE_101_SPINE-2 | 100.1.0.2/32 |
 | AVD_FABRIC | SF_SITE_102_RR-1 | 100.1.1.2/32 |
+| SF_103 | SF_SITE_103_BL-1 | 100.3.2.1/32 |
 | SF_104 | SF_SITE_104_BL-1 | 100.4.2.1/32 |
 
 ### ISIS CLNS interfaces

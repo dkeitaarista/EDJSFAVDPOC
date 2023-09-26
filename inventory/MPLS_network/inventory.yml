@@ -49,22 +49,22 @@ all:
               hosts:
                 SF_SITE_102_RR-1:
                   ansible_host: 10.255.x.x
-        #     TOR_SITE_102:
+        #     TOR_102:
         #       hosts:
         #         SF_SITE_102_TOR-1A:
         #           ansible_host: 10.255.x.x
         #         SF_SITE_102_TOR-1B:
         #           ansible_host: 10.255.x.x
-        # SF_SITE_103:
-        #   children:
-        #     BORDER_LEAFS_103:
-        #       hosts:
-        #         SF_SITE_103_BL-1:
-        #           ansible_host: 10.255.x.x
-        #     TOR_SITE_103:
-        #       hosts:
-        #         SF_SITE_102_TOR-1A:
-        #           ansible_host: 10.255.x.x
+        SF_SITE_103:
+          children:
+            BORDER_LEAFS_103:
+              hosts:
+                SF_SITE_103_BL-1:
+                  ansible_host: 10.255.x.x
+            TOR_103:
+              hosts:
+                SF_SITE_103_TOR-1A:
+                  ansible_host: 10.255.x.x
         SF_SITE_104:
           children:
             BORDER_LEAFS_104:
