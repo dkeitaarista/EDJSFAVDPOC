@@ -1,0 +1,58 @@
+---
+# Set fabric name
+fabric_name: AVD_FABRIC
+
+# Define the AVD design
+design:
+  type: mpls
+
+# Define BGP AS for MPLS
+bgp_as: 65000
+
+#define local users
+local_users:
+  - name: cvpadmin
+    privilege: 15
+    role: network-admin
+    sha512_password: "$6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0"
+
+#Timezone
+clock:
+  timezone: CST
+
+#aaa authorization exec
+aaa_authorization:
+  exec:
+    default: local
+
+# DNS servers.
+name_servers:
+ - 8.8.8.8
+ - 8.8.4.4
+
+dns_domain: EDJ.poc
+
+#Management parameters
+mgmt_interface_vrf: default
+mgmt_gateway: null
+
+#TerminAttr configuration
+custom_structured_configuration_daemon_terminattr:
+  cvaddrs: # For single cluster
+    - 192.168.0.5:9910
+  # Authentication scheme used to connect to CloudVision
+  cvauth:
+    method: "token"
+    token_file: "/tmp/token"
+  ingestexclude: "/Sysdb/cell/1/agent,/Sysdb/cell/2/agent"
+  smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"
+
+# NTP Servers
+custom_structured_configuration_ntp:
+  servers:
+  - name: 0.north-america.pool.ntp.org
+    preferred: True
+    vrf: default
+  - name: 1.north-america.pool.ntp.org
+    vrf: default
+

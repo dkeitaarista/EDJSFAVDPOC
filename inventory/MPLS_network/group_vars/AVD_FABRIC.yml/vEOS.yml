@@ -1,0 +1,21 @@
+---
+# Changes specific to vEOS-lab
+# Changes to BGP defaults for vEOS-lab
+bgp_default_ipv4_unicast: false
+bgp_update_wait_install: false
+bgp_distance:
+  external_routes: 20
+  internal_routes: 200
+  local_routes: 200
+bgp_graceful_restart:
+  enabled: true
+  restart_time: 300
+
+# Update p2p mtu 9000 -> 1500, MTU 9000 not supported in vEOS-LAB.
+p2p_uplinks_mtu: 1500
+
+# Adjust default bfd values, to avoid high CPU.  required for vEOS-LAB
+bfd_multihop:
+  interval: 1200
+  min_rx: 1200
+  multiplier: 3
