@@ -1,0 +1,90 @@
+# Define MPLS connectivity for site 101
+core_interfaces:
+  p2p_links_ip_pools:
+    - name: SITE101_pool
+      ipv4_pool: 10.0.0.0/24
+      prefix_size: 31
+  p2p_links:
+  # Spines to border leaf links
+    - id: 1
+      nodes:
+        - SF_SITE_101_SPINE-1
+        - SF_SITE_101_BL-1
+      interfaces: 
+        - Ethernet3
+        - Ethernet3
+      ip_pool: SITE101_pool
+    - id: 2
+      nodes:
+        - SF_SITE_101_SPINE-1
+        - SF_SITE_101_BL-2
+      interfaces: 
+        - Ethernet4
+        - Ethernet3
+      ip_pool: SITE101_pool
+    - id: 3
+      nodes:
+        - SF_SITE_101_SPINE-2
+        - SF_SITE_101_BL-1
+      interfaces: 
+        - Ethernet3
+        - Ethernet4
+      ip_pool: SITE101_pool
+    - id: 4
+      nodes:
+        - SF_SITE_101_SPINE-2
+        - SF_SITE_101_BL-2
+      interfaces: 
+        - Ethernet4
+        - Ethernet4
+      ip_pool: SITE101_pool
+    # Border leafs to route reflectors links
+    - id: 5
+      nodes:
+        - SF_SITE_101_BL-1
+        - SF_SITE_101_RR-1
+      interfaces: 
+        - Ethernet7
+        - Ethernet3
+      ip_pool: SITE101_pool
+    - id: 6
+      nodes:
+        - SF_SITE_101_BL-2
+        - SF_SITE_101_RR-1
+      interfaces: 
+        - Ethernet7
+        - Ethernet4
+      ip_pool: SITE101_pool
+    # Border leafs to TOR links
+    - id: 7
+      nodes:
+        - SF_SITE_101_BL-1
+        - SF_SITE_101_TOR-1A
+      interfaces: 
+        - Ethernet11
+        - Ethernet3
+      ip_pool: SITE101_pool
+    - id: 8
+      nodes:
+        - SF_SITE_101_BL-1
+        - SF_SITE_101_TOR-1B
+      interfaces: 
+        - Ethernet12
+        - Ethernet3
+      ip_pool: SITE101_pool
+    - id: 9
+      nodes:
+        - SF_SITE_101_BL-2
+        - SF_SITE_101_TOR-1A
+      interfaces: 
+        - Ethernet11
+        - Ethernet4
+      ip_pool: SITE101_pool
+    - id: 10
+      nodes:
+        - SF_SITE_101_BL-2
+        - SF_SITE_101_TOR-1B
+      interfaces: 
+        - Ethernet12
+        - Ethernet4
+      ip_pool: SITE101_pool

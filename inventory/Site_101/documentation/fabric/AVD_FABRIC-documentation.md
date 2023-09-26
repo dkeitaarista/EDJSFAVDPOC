@@ -37,6 +37,16 @@
 
 | Type | Node | Node Interface | Peer Type | Peer Node | Peer Interface |
 | ---- | ---- | -------------- | --------- | ----------| -------------- |
+| pe | SF_SITE_101_BL-1 | Ethernet3 | p | SF_SITE_101_SPINE-1 | Ethernet3 |
+| pe | SF_SITE_101_BL-1 | Ethernet4 | p | SF_SITE_101_SPINE-2 | Ethernet3 |
+| pe | SF_SITE_101_BL-1 | Ethernet7 | rr | SF_SITE_101_RR-1 | Ethernet3 |
+| pe | SF_SITE_101_BL-1 | Ethernet11 | ethernet_aggregation | SF_SITE_101_TOR-1A | Ethernet3 |
+| pe | SF_SITE_101_BL-1 | Ethernet12 | ethernet_aggregation | SF_SITE_101_TOR-1B | Ethernet3 |
+| pe | SF_SITE_101_BL-2 | Ethernet3 | p | SF_SITE_101_SPINE-1 | Ethernet4 |
+| pe | SF_SITE_101_BL-2 | Ethernet4 | p | SF_SITE_101_SPINE-2 | Ethernet4 |
+| pe | SF_SITE_101_BL-2 | Ethernet7 | rr | SF_SITE_101_RR-1 | Ethernet4 |
+| pe | SF_SITE_101_BL-2 | Ethernet11 | ethernet_aggregation | SF_SITE_101_TOR-1A | Ethernet4 |
+| pe | SF_SITE_101_BL-2 | Ethernet12 | ethernet_aggregation | SF_SITE_101_TOR-1B | Ethernet4 |
 
 ## Fabric IP Allocation
 
@@ -49,6 +59,16 @@
 
 | Node | Node Interface | Node IP Address | Peer Node | Peer Interface | Peer IP Address |
 | ---- | -------------- | --------------- | --------- | -------------- | --------------- |
+| SF_SITE_101_BL-1 | Ethernet3 | 10.0.0.1/31 | SF_SITE_101_SPINE-1 | Ethernet3 | 10.0.0.0/31 |
+| SF_SITE_101_BL-1 | Ethernet4 | 10.0.0.5/31 | SF_SITE_101_SPINE-2 | Ethernet3 | 10.0.0.4/31 |
+| SF_SITE_101_BL-1 | Ethernet7 | 10.0.0.8/31 | SF_SITE_101_RR-1 | Ethernet3 | 10.0.0.9/31 |
+| SF_SITE_101_BL-1 | Ethernet11 | 10.0.0.12/31 | SF_SITE_101_TOR-1A | Ethernet3 | 10.0.0.13/31 |
+| SF_SITE_101_BL-1 | Ethernet12 | 10.0.0.14/31 | SF_SITE_101_TOR-1B | Ethernet3 | 10.0.0.15/31 |
+| SF_SITE_101_BL-2 | Ethernet3 | 10.0.0.3/31 | SF_SITE_101_SPINE-1 | Ethernet4 | 10.0.0.2/31 |
+| SF_SITE_101_BL-2 | Ethernet4 | 10.0.0.7/31 | SF_SITE_101_SPINE-2 | Ethernet4 | 10.0.0.6/31 |
+| SF_SITE_101_BL-2 | Ethernet7 | 10.0.0.10/31 | SF_SITE_101_RR-1 | Ethernet4 | 10.0.0.11/31 |
+| SF_SITE_101_BL-2 | Ethernet11 | 10.0.0.16/31 | SF_SITE_101_TOR-1A | Ethernet4 | 10.0.0.17/31 |
+| SF_SITE_101_BL-2 | Ethernet12 | 10.0.0.18/31 | SF_SITE_101_TOR-1B | Ethernet4 | 10.0.0.19/31 |
 
 ### Loopback Interfaces (BGP EVPN Peering)
 
