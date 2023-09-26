@@ -1,6 +1,5 @@
 ---
-# SF_101 route reflectors
-
+# route reflectors
 type: rr
 
 rr:
@@ -11,3 +10,6 @@ rr:
   - name: SF_SITE_101_RR-1
     id: 1
     mgmt_ip: 192.168.0.13/24
+  - name: SF_SITE_102_RR-1
+    id: 2
+    mgmt_ip: 192.168.0.20/24

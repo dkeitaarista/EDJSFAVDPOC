@@ -71,3 +71,7 @@ all:
               hosts:
                 SF_SITE_104_BL-1:
                   ansible_host: 10.255.x.x
+    ROUTE_REFLECTORS:
+      children:
+        ROUTE_REFLECTORS_101:
+        ROUTE_REFLECTORS_102:
