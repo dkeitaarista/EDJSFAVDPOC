@@ -17,6 +17,9 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
+- [VLANs](#vlans)
+  - [VLANs Summary](#vlans-summary)
+  - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Port-Channel Interfaces](#port-channel-interfaces)
@@ -219,6 +222,26 @@ daemon TerminAttr
 vlan internal order ascending range 1006 1199
 ```
 
+## VLANs
+
+### VLANs Summary
+
+| VLAN ID | Name | Trunk Groups |
+| ------- | ---- | ------------ |
+| 100 | vlan_100 | - |
+| 101 | vlan_101 | - |
+
+### VLANs Device Configuration
+
+```eos
+!
+vlan 100
+   name vlan_100
+!
+vlan 101
+   name vlan_101
+```
+
 ## Interfaces
 
 ### Ethernet Interfaces
@@ -229,8 +252,8 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | SF_SITE_103_TOR-1A_Ethernet3 | *trunk | *none | *- | *- | 3 |
-| Ethernet4 | SF_SITE_103_TOR-1A_Ethernet4 | *trunk | *none | *- | *- | 3 |
+| Ethernet3 | SF_SITE_103_TOR-1A_Ethernet3 | *trunk | *100-101 | *- | *- | 3 |
+| Ethernet4 | SF_SITE_103_TOR-1A_Ethernet4 | *trunk | *100-101 | *- | *- | 3 |
 
 *Inherited from Port-Channel Interface
 
@@ -297,7 +320,7 @@ interface Ethernet10
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF_SITE_103_TOR-1A_Po3 | switched | trunk | none | - | - | - | - | - | - |
+| Port-Channel3 | SF_SITE_103_TOR-1A_Po3 | switched | trunk | 100-101 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -307,7 +330,7 @@ interface Port-Channel3
    description SF_SITE_103_TOR-1A_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan none
+   switchport trunk allowed vlan 100-101
    switchport mode trunk
 ```
 

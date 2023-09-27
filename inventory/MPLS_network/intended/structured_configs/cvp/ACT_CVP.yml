@@ -1,5 +1,13 @@
 ---
 cvp_devices:
+  - fqdn: BRANCH-A2A
+    parentContainerName: CE_101
+    configlets:
+      - AVD_BRANCH-A2A
+  - fqdn: CORP-A2A
+    parentContainerName: CE_101
+    configlets:
+      - AVD_CORP-A2A
   - fqdn: SF_SITE_101_BL-1
     parentContainerName: BORDER_LEAFS_101
     configlets:
@@ -71,6 +79,8 @@ cvp_containers:
     parentContainerName: SF_SITE_103
   BORDER_LEAFS_104:
     parentContainerName: SF_SITE_104
+  CE_101:
+    parentContainerName: SF_SITE_101
   ROUTE_REFLECTORS_101:
     parentContainerName: SF_SITE_101
   ROUTE_REFLECTORS_102:

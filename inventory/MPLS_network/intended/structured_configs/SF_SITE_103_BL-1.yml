@@ -133,7 +133,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: none
+  vlans: 100-101
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -164,6 +164,13 @@ router_bfd:
     interval: 1200
     min_rx: 1200
     multiplier: 3
+vlans:
+- id: 100
+  name: vlan_100
+  tenant: BRANCH
+- id: 101
+  name: vlan_101
+  tenant: BRANCH
 ip_igmp_snooping:
   globally_enabled: true
 daemon_terminattr:

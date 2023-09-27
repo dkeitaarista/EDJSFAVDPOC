@@ -17,6 +17,9 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
+- [VLANs](#vlans)
+  - [VLANs Summary](#vlans-summary)
+  - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
@@ -216,6 +219,26 @@ daemon TerminAttr
 ```eos
 !
 vlan internal order ascending range 1006 1199
+```
+
+## VLANs
+
+### VLANs Summary
+
+| VLAN ID | Name | Trunk Groups |
+| ------- | ---- | ------------ |
+| 100 | vlan_100 | - |
+| 101 | vlan_101 | - |
+
+### VLANs Device Configuration
+
+```eos
+!
+vlan 100
+   name vlan_100
+!
+vlan 101
+   name vlan_101
 ```
 
 ## Interfaces

@@ -18,6 +18,8 @@
 
 | POD | Type | Node | Management IP | Platform | Provisioned in CloudVision | Serial Number |
 | --- | ---- | ---- | ------------- | -------- | -------------------------- | ------------- |
+| SF_101 | ce | BRANCH-A2A | 192.168.0.28/24 | vEOS-lab | Provisioned | - |
+| SF_101 | ce | CORP-A2A | 192.168.0.29/24 | vEOS-lab | Provisioned | - |
 | SF_101 | pe | SF_SITE_101_BL-1 | 192.168.0.14/24 | vEOS-lab | Provisioned | - |
 | SF_101 | pe | SF_SITE_101_BL-2 | 192.168.0.15/24 | vEOS-lab | Provisioned | - |
 | SF_101 | rr | SF_SITE_101_RR-1 | 192.168.0.13/24 | vEOS-lab | Provisioned | - |

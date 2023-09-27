@@ -1,4 +1,4 @@
-hostname: SF_SITE_101_TOR-1B
+hostname: BRANCH-A2A
 service_routing_protocols_model: multi-agent
 vlan_internal_order:
   allocation: ascending
@@ -28,48 +28,13 @@ management_interfaces:
   description: oob_management
   shutdown: false
   vrf: default
-  ip_address: 192.168.0.17/24
+  ip_address: 192.168.0.28/24
   gateway: null
   type: oob
 management_api_http:
   enable_vrfs:
   - name: default
   enable_https: true
-ethernet_interfaces:
-- name: Ethernet3
-  peer: SF_SITE_101_BL-2
-  peer_interface: Ethernet11
-  peer_type: pe
-  description: SF_SITE_101_BL-2_Ethernet11
-  shutdown: false
-  type: port-channel-member
-  channel_group:
-    id: 3
-    mode: active
-- name: Ethernet4
-  peer: SF_SITE_101_BL-2
-  peer_interface: Ethernet12
-  peer_type: pe
-  description: SF_SITE_101_BL-2_Ethernet12
-  shutdown: false
-  type: port-channel-member
-  channel_group:
-    id: 3
-    mode: active
-port_channel_interfaces:
-- name: Port-Channel3
-  description: SF_SITE_101_BL-2_Po11
-  type: switched
-  shutdown: false
-  mode: trunk
-  vlans: 100-101
-vlans:
-- id: 100
-  name: vlan_100
-  tenant: BRANCH
-- id: 101
-  name: vlan_101
-  tenant: BRANCH
 ip_igmp_snooping:
   globally_enabled: true
 daemon_terminattr:
@@ -87,3 +52,26 @@ ntp:
     vrf: default
   - name: 1.north-america.pool.ntp.org
     vrf: default
+ethernet_interfaces:
+- name: Ethernet1
+  description: Uplink to SF_SITE_101_TOR-1A
+  type: routed
+  ip_address: 10.255.101.1/31
+- name: Ethernet2
+  description: Uplink to SF_SITE_101_TOR-1B
+  type: routed
+  ip_address: 10.255.101.3/31
+router_bgp:
+  as: '65501'
+  router_id: 10.255.101.1
+  neighbors:
+  - ip_address: 10.255.101.0
+    remote_as: '65000'
+    peer_group: CE-PEER-GROUP
+  - ip_address: 10.255.101.2
+    remote_as: '65000'
+    peer_group: CE-PEER-GROUP
+  address_family_ipv4:
+    peer_groups:
+    - name: CE-PEER-GROUP
+      activate: true
