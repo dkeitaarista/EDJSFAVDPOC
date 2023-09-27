@@ -415,11 +415,11 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65000|  100.1.1.1 |
+| 6.6971|  100.1.1.1 |
 
 | BGP AS | Cluster ID |
 | ------ | --------- |
-| 65000|  100.1.1.1 |
+| 6.6971|  100.1.1.1 |
 
 | BGP Tuning |
 | ---------- |
@@ -436,7 +436,7 @@ router isis CORE
 | Settings | Value |
 | -------- | ----- |
 | Address Family | mpls |
-| Remote AS | 65000 |
+| Remote AS | 6.6971 |
 | Route Reflector Client | Yes |
 | Source | Loopback0 |
 | BFD | True |
@@ -448,7 +448,7 @@ router isis CORE
 | Settings | Value |
 | -------- | ----- |
 | Address Family | mpls |
-| Remote AS | 65000 |
+| Remote AS | 6.6971 |
 | Source | Loopback0 |
 | BFD | True |
 | Send community | all |
@@ -486,7 +486,7 @@ router isis CORE
 
 ```eos
 !
-router bgp 65000
+router bgp 6.6971
    router-id 100.1.1.1
    distance bgp 20 200 200
    graceful-restart restart-time 300
@@ -495,14 +495,14 @@ router bgp 65000
    no bgp default ipv4-unicast
    bgp cluster-id 100.1.1.1
    neighbor MPLS-OVERLAY-PEERS peer group
-   neighbor MPLS-OVERLAY-PEERS remote-as 65000
+   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971
    neighbor MPLS-OVERLAY-PEERS update-source Loopback0
    neighbor MPLS-OVERLAY-PEERS route-reflector-client
    neighbor MPLS-OVERLAY-PEERS bfd
    neighbor MPLS-OVERLAY-PEERS send-community
    neighbor MPLS-OVERLAY-PEERS maximum-routes 0
    neighbor RR-OVERLAY-PEERS peer group
-   neighbor RR-OVERLAY-PEERS remote-as 65000
+   neighbor RR-OVERLAY-PEERS remote-as 6.6971
    neighbor RR-OVERLAY-PEERS update-source Loopback0
    neighbor RR-OVERLAY-PEERS bfd
    neighbor RR-OVERLAY-PEERS send-community

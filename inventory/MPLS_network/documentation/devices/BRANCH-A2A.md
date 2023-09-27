@@ -314,8 +314,8 @@ service routing protocols model multi-agent
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 10.255.101.0 | 65000 | default | - | - | - | - | - | - | - | - |
-| 10.255.101.2 | 65000 | default | - | - | - | - | - | - | - | - |
+| 10.255.101.0 | 6.6971 | default | - | - | - | - | - | - | - | - |
+| 10.255.101.2 | 6.6971 | default | - | - | - | - | - | - | - | - |
 
 #### Router BGP Device Configuration
 
@@ -324,9 +324,9 @@ service routing protocols model multi-agent
 router bgp 65501
    router-id 10.255.101.1
    neighbor 10.255.101.0 peer group CE-PEER-GROUP
-   neighbor 10.255.101.0 remote-as 65000
+   neighbor 10.255.101.0 remote-as 6.6971
    neighbor 10.255.101.2 peer group CE-PEER-GROUP
-   neighbor 10.255.101.2 remote-as 65000
+   neighbor 10.255.101.2 remote-as 6.6971
    !
    address-family ipv4
       neighbor CE-PEER-GROUP activate
