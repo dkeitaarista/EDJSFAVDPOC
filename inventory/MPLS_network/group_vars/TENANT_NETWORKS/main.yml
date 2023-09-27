@@ -1,0 +1,6 @@
+---
+# Tenant Networks (VRFs)
+network_services_keys:
+  - name: tenants # preserving default value
+  - name: BRANCH
+  - name: CORP

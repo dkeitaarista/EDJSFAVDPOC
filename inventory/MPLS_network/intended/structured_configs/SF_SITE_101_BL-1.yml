@@ -42,6 +42,32 @@ router_bgp:
   - ip_address: 100.1.1.2
     peer_group: MPLS-OVERLAY-PEERS
     description: SF_SITE_102_RR-1
+  vrfs:
+  - name: BRANCH-10011
+    router_id: 100.1.2.1
+    rd: 100.1.2.1:10011
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 10011:10011
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 10011:10011
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.101.1
+        activate: true
+      - ip_address: 10.255.101.3
+        activate: true
+    neighbors:
+    - ip_address: 10.255.101.1
+      remote_as: '65501'
+    - ip_address: 10.255.101.3
+      remote_as: '65502'
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
@@ -62,6 +88,9 @@ local_users:
 vrfs:
 - name: default
   ip_routing: false
+- name: BRANCH-10011
+  tenant: BRANCH
+  ip_routing: true
 management_interfaces:
 - name: Management1
   description: oob_management
@@ -175,13 +204,31 @@ ethernet_interfaces:
   isis_circuit_type: level-2
   mpls:
     ip: true
+- name: Port-channel11.100
+  peer_type: l3_interface
+  ip_address: 10.255.101.0/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 100
+  vrf: BRANCH-10011
+- name: Port-channel11.101
+  peer_type: l3_interface
+  ip_address: 10.255.101.2/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 101
+  vrf: BRANCH-10011
+- name: Port-channel11
+  type: routed
+  peer_type: l3_interface
+  shutdown: false
 port_channel_interfaces:
 - name: Port-Channel11
   description: SF_SITE_101_TOR-1A_Po3
   type: switched
   shutdown: false
   mode: trunk
-  vlans: none
+  vlans: 100-101
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -212,6 +259,13 @@ router_bfd:
     interval: 1200
     min_rx: 1200
     multiplier: 3
+vlans:
+- id: 100
+  name: vlan_100
+  tenant: BRANCH
+- id: 101
+  name: vlan_101
+  tenant: BRANCH
 ip_igmp_snooping:
   globally_enabled: true
 daemon_terminattr:

@@ -62,7 +62,14 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: none
+  vlans: 100-101
+vlans:
+- id: 100
+  name: vlan_100
+  tenant: BRANCH
+- id: 101
+  name: vlan_101
+  tenant: BRANCH
 ip_igmp_snooping:
   globally_enabled: true
 daemon_terminattr:

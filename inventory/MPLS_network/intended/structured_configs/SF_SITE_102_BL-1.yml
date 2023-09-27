@@ -169,6 +169,13 @@ ethernet_interfaces:
   isis_circuit_type: level-2
   mpls:
     ip: true
+vlans:
+- id: 100
+  name: vlan_100
+  tenant: BRANCH
+- id: 101
+  name: vlan_101
+  tenant: BRANCH
 ip_igmp_snooping:
   globally_enabled: true
 daemon_terminattr:

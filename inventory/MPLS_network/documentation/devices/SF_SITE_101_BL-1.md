@@ -17,6 +17,9 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
+- [VLANs](#vlans)
+  - [VLANs Summary](#vlans-summary)
+  - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Port-Channel Interfaces](#port-channel-interfaces)
@@ -219,6 +222,26 @@ daemon TerminAttr
 vlan internal order ascending range 1006 1199
 ```
 
+## VLANs
+
+### VLANs Summary
+
+| VLAN ID | Name | Trunk Groups |
+| ------- | ---- | ------------ |
+| 100 | vlan_100 | - |
+| 101 | vlan_101 | - |
+
+### VLANs Device Configuration
+
+```eos
+!
+vlan 100
+   name vlan_100
+!
+vlan 101
+   name vlan_101
+```
+
 ## Interfaces
 
 ### Ethernet Interfaces
@@ -229,10 +252,17 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet11 | SF_SITE_101_TOR-1A_Ethernet3 | *trunk | *none | *- | *- | 11 |
-| Ethernet12 | SF_SITE_101_TOR-1A_Ethernet4 | *trunk | *none | *- | *- | 11 |
+| Ethernet11 | SF_SITE_101_TOR-1A_Ethernet3 | *trunk | *100-101 | *- | *- | 11 |
+| Ethernet12 | SF_SITE_101_TOR-1A_Ethernet4 | *trunk | *100-101 | *- | *- | 11 |
 
 *Inherited from Port-Channel Interface
+
+##### Encapsulation Dot1q Interfaces
+
+| Interface | Description | Type | Vlan ID | Dot1q VLAN Tag |
+| --------- | ----------- | -----| ------- | -------------- |
+| Port-channel11.100 | - | l3dot1q | - | 100 |
+| Port-channel11.101 | - | l3dot1q | - | 101 |
 
 ##### IPv4
 
@@ -243,6 +273,8 @@ vlan internal order ascending range 1006 1199
 | Ethernet7 | P2P_LINK_TO_SF_SITE_101_RR-1_Ethernet3 | routed | - | 10.0.0.8/31 | default | 1500 | False | - | - |
 | Ethernet9 | P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet9 | routed | - | 10.1.0.2/31 | default | 1500 | False | - | - |
 | Ethernet10 | P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet10 | routed | - | 10.1.0.0/31 | default | 1500 | False | - | - |
+| Port-channel11.100 | - | l3dot1q | - | 10.255.101.0/31 | BRANCH-10011 | - | False | - | - |
+| Port-channel11.101 | - | l3dot1q | - | 10.255.101.2/31 | BRANCH-10011 | - | False | - | - |
 
 ##### ISIS
 
@@ -332,6 +364,22 @@ interface Ethernet12
    description SF_SITE_101_TOR-1A_Ethernet4
    no shutdown
    channel-group 11 mode active
+!
+interface Port-channel11
+   no shutdown
+   no switchport
+!
+interface Port-channel11.100
+   no shutdown
+   encapsulation dot1q vlan 100
+   vrf BRANCH-10011
+   ip address 10.255.101.0/31
+!
+interface Port-channel11.101
+   no shutdown
+   encapsulation dot1q vlan 101
+   vrf BRANCH-10011
+   ip address 10.255.101.2/31
 ```
 
 ### Port-Channel Interfaces
@@ -342,7 +390,7 @@ interface Ethernet12
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel11 | SF_SITE_101_TOR-1A_Po3 | switched | trunk | none | - | - | - | - | - | - |
+| Port-Channel11 | SF_SITE_101_TOR-1A_Po3 | switched | trunk | 100-101 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -352,7 +400,7 @@ interface Port-Channel11
    description SF_SITE_101_TOR-1A_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan none
+   switchport trunk allowed vlan 100-101
    switchport mode trunk
 ```
 
@@ -409,12 +457,14 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
+| BRANCH-10011 | True |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
+ip routing vrf BRANCH-10011
 ```
 
 ### IPv6 Routing
@@ -424,6 +474,7 @@ ip routing
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
+| BRANCH-10011 | false |
 | default | false |
 
 ### Router ISIS
@@ -513,6 +564,8 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
+| 10.255.101.1 | 65501 | BRANCH-10011 | - | - | - | - | - | - | - | - |
+| 10.255.101.3 | 65502 | BRANCH-10011 | - | - | - | - | - | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -528,6 +581,12 @@ router isis CORE
 | Peer Group | Activate | Route-map In | Route-map Out |
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
+
+#### Router BGP VRFs
+
+| VRF | Route-Distinguisher | Redistribute |
+| --- | ------------------- | ------------ |
+| BRANCH-10011 | 100.1.2.1:10011 | connected |
 
 #### Router BGP Device Configuration
 
@@ -559,6 +618,19 @@ router bgp 65000
    address-family vpn-ipv4
       neighbor MPLS-OVERLAY-PEERS activate
       neighbor default encapsulation mpls next-hop-self source-interface Loopback0
+   !
+   vrf BRANCH-10011
+      rd 100.1.2.1:10011
+      route-target import vpn-ipv4 10011:10011
+      route-target export vpn-ipv4 10011:10011
+      router-id 100.1.2.1
+      neighbor 10.255.101.1 remote-as 65501
+      neighbor 10.255.101.3 remote-as 65502
+      redistribute connected
+      !
+      address-family ipv4
+         neighbor 10.255.101.1 activate
+         neighbor 10.255.101.3 activate
 ```
 
 ## BFD
@@ -631,8 +703,11 @@ mpls ip
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
+| BRANCH-10011 | enabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
+!
+vrf instance BRANCH-10011
 ```

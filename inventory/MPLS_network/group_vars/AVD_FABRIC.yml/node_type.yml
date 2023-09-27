@@ -31,9 +31,17 @@ node_type_keys:
     default_underlay_routing_protocol: isis-sr
     default_overlay_address_families: [ vpn-ipv4 ]
     default_evpn_encapsulation: mpls
-  #cutom node_type to extend the default AVD model
+  #custom node_type to extend the default AVD model
   - key: ethernet_aggregation
     type: ethernet_aggregation
+    connected_endpoints: true
+    network_services:
+      l2: true
+    underlay_router: false
+    uplink_type: port-channel
+  # custom node type to simulate customer edges
+  - key: ce
+    type: ce
     connected_endpoints: true
     network_services:
       l2: true
