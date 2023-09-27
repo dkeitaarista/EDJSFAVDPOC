@@ -18,10 +18,10 @@ custom_structured_configuration_router_bgp:
   router_id: 10.255.101.1
   neighbors:
     - ip_address: 10.255.101.0
-      remote_as: 65000
+      remote_as: '6.6971'
       peer_group: CE-PEER-GROUP
     - ip_address: 10.255.101.2
-      remote_as: 65000
+      remote_as: '6.6971'
       peer_group: CE-PEER-GROUP
   address_family_ipv4:
     peer_groups:

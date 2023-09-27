@@ -424,7 +424,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65000|  100.4.2.1 |
+| 6.6971|  100.4.2.1 |
 
 | BGP Tuning |
 | ---------- |
@@ -441,7 +441,7 @@ router isis CORE
 | Settings | Value |
 | -------- | ----- |
 | Address Family | mpls |
-| Remote AS | 65000 |
+| Remote AS | 6.6971 |
 | Source | Loopback0 |
 | BFD | True |
 | Send community | all |
@@ -473,7 +473,7 @@ router isis CORE
 
 ```eos
 !
-router bgp 65000
+router bgp 6.6971
    router-id 100.4.2.1
    distance bgp 20 200 200
    graceful-restart restart-time 300
@@ -481,7 +481,7 @@ router bgp 65000
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
    neighbor MPLS-OVERLAY-PEERS peer group
-   neighbor MPLS-OVERLAY-PEERS remote-as 65000
+   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971
    neighbor MPLS-OVERLAY-PEERS update-source Loopback0
    neighbor MPLS-OVERLAY-PEERS bfd
    neighbor MPLS-OVERLAY-PEERS send-community

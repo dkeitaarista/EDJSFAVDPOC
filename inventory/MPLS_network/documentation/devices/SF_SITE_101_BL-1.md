@@ -535,7 +535,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65000|  100.1.2.1 |
+| 6.6971|  100.1.2.1 |
 
 | BGP Tuning |
 | ---------- |
@@ -552,7 +552,7 @@ router isis CORE
 | Settings | Value |
 | -------- | ----- |
 | Address Family | mpls |
-| Remote AS | 65000 |
+| Remote AS | 6.6971 |
 | Source | Loopback0 |
 | BFD | True |
 | Send community | all |
@@ -592,7 +592,7 @@ router isis CORE
 
 ```eos
 !
-router bgp 65000
+router bgp 6.6971
    router-id 100.1.2.1
    distance bgp 20 200 200
    graceful-restart restart-time 300
@@ -600,7 +600,7 @@ router bgp 65000
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
    neighbor MPLS-OVERLAY-PEERS peer group
-   neighbor MPLS-OVERLAY-PEERS remote-as 65000
+   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971
    neighbor MPLS-OVERLAY-PEERS update-source Loopback0
    neighbor MPLS-OVERLAY-PEERS bfd
    neighbor MPLS-OVERLAY-PEERS send-community
@@ -621,8 +621,8 @@ router bgp 65000
    !
    vrf BRANCH-10011
       rd 100.1.2.1:10011
-      route-target import vpn-ipv4 10011:10011
-      route-target export vpn-ipv4 10011:10011
+      route-target import vpn-ipv4 6.6971:10011
+      route-target export vpn-ipv4 6.6971:10011
       router-id 100.1.2.1
       neighbor 10.255.101.1 remote-as 65501
       neighbor 10.255.101.3 remote-as 65502
