@@ -9,6 +9,7 @@ pe:
     loopback_ipv4_pool: 100.2.2.0/24
     mpls_route_reflectors: [ SF_SITE_101_RR-1, SF_SITE_102_RR-1 ]
     bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
+    structured_config: "{{ PE_BGP_STRUCTURED_CONFIG }}"
   nodes:
     - name: SF_SITE_102_BL-1
       id: 1

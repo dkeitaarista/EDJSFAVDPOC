@@ -39,7 +39,7 @@ router_bgp:
       activate: true
   address_family_vpn_ipv4:
     neighbor_default_encapsulation_mpls_next_hop_self:
-      source_interface: Loopback0
+      source_interface: null
     peer_groups:
     - name: MPLS-OVERLAY-PEERS
       activate: true
