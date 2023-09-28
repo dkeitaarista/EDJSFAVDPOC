@@ -59,3 +59,7 @@ custom_structured_configuration_ntp:
     vrf: default
   - name: 1.north-america.pool.ntp.org
     vrf: default
+
+FABRIC_BGP_DEFAULTS:
+  - bgp asn notation asdot
+  - bgp always-compare-med

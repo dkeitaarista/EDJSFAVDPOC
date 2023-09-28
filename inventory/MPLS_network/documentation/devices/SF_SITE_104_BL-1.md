@@ -428,6 +428,8 @@ router isis CORE
 
 | BGP Tuning |
 | ---------- |
+| bgp asn notation asdot |
+| bgp always-compare-med |
 | graceful-restart restart-time 300 |
 | graceful-restart |
 | no bgp default ipv4-unicast |
@@ -480,6 +482,8 @@ router bgp 6.6971
    graceful-restart
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
+   bgp asn notation asdot
+   bgp always-compare-med
    neighbor MPLS-OVERLAY-PEERS peer group
    neighbor MPLS-OVERLAY-PEERS remote-as 6.6971
    neighbor MPLS-OVERLAY-PEERS update-source Loopback0

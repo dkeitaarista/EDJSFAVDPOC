@@ -80,24 +80,25 @@ cvp_configlets:
     bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n
     \  router-id 100.1.2.1\n   distance bgp 20 200 200\n   graceful-restart restart-time
     300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
-    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
-    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
-    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
-    \  !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n
-    \  !\n   vrf BRANCH-10011\n      rd 100.1.2.1:10011\n      route-target import
-    vpn-ipv4 6.6971:10011\n      route-target export vpn-ipv4 6.6971:10011\n      router-id
-    100.1.2.1\n      neighbor 10.255.101.1 remote-as 65501\n      neighbor 10.255.101.3
-    remote-as 65502\n      redistribute connected\n      !\n      address-family ipv4\n
-    \        neighbor 10.255.101.1 activate\n         neighbor 10.255.101.3 activate\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.1.2.1\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
-    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
-    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
+    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
+    \  neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description
+    SF_SITE_102_RR-1\n   !\n   address-family evpn\n   !\n   address-family ipv4\n
+    \     no neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n
+    \     neighbor MPLS-OVERLAY-PEERS activate\n      neighbor default encapsulation
+    mpls next-hop-self source-interface Loopback0\n   !\n   vrf BRANCH-10011\n      rd
+    100.1.2.1:10011\n      route-target import vpn-ipv4 6.6971:10011\n      route-target
+    export vpn-ipv4 6.6971:10011\n      router-id 100.1.2.1\n      neighbor 10.255.101.1
+    remote-as 65501\n      neighbor 10.255.101.3 remote-as 65502\n      redistribute
+    connected\n      !\n      address-family ipv4\n         neighbor 10.255.101.1
+    activate\n         neighbor 10.255.101.3 activate\n!\nrouter isis CORE\n   is-type
+    level-2\n   router-id ipv4 100.1.2.1\n   log-adjacency-changes\n   !\n   address-family
+    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
+    \  vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_101_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -132,20 +133,20 @@ cvp_configlets:
     address 192.168.0.15/24\n!\nip routing\n!\nrouter bfd\n   multihop interval 1200
     min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.1.2.2\n   distance
     bgp 20 200 200\n   graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths
-    4 ecmp 4\n   no bgp default ipv4-unicast\n   neighbor MPLS-OVERLAY-PEERS peer
-    group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
-    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
-    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
-    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
-    \  neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description
-    SF_SITE_102_RR-1\n   !\n   address-family evpn\n   !\n   address-family ipv4\n
-    \     no neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n
-    \     neighbor MPLS-OVERLAY-PEERS activate\n      neighbor default encapsulation
-    mpls next-hop-self source-interface Loopback0\n!\nrouter isis CORE\n   is-type
-    level-2\n   router-id ipv4 100.1.2.2\n   log-adjacency-changes\n   !\n   address-family
-    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
-    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
-    \  vrf default\n      no shutdown\n!\nend\n"
+    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n
+    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
+    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
+    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
+    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
+    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
+    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
+    \  !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n!\nrouter
+    isis CORE\n   is-type level-2\n   router-id ipv4 100.1.2.2\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_101_RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -168,11 +169,12 @@ cvp_configlets:
     address 192.168.0.13/24\n!\nip routing\n!\nrouter bfd\n   multihop interval 1200
     min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.1.1.1\n   distance
     bgp 20 200 200\n   graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths
-    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp cluster-id 100.1.1.1\n   neighbor
-    MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n
-    \  neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    route-reflector-client\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
-    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor RR-OVERLAY-PEERS
+    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp cluster-id 100.1.1.1\n   bgp
+    asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS route-reflector-client\n
+    \  neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n
+    \  neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor RR-OVERLAY-PEERS
     peer group\n   neighbor RR-OVERLAY-PEERS remote-as 6.6971\n   neighbor RR-OVERLAY-PEERS
     update-source Loopback0\n   neighbor RR-OVERLAY-PEERS bfd\n   neighbor RR-OVERLAY-PEERS
     send-community\n   neighbor RR-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.2.1
@@ -310,19 +312,20 @@ cvp_configlets:
     \  multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id
     100.2.2.1\n   distance bgp 20 200 200\n   graceful-restart restart-time 300\n
     \  graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
-    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
-    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
-    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
-    \  !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.2.2.1\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
-    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
-    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
+    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
+    \  neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description
+    SF_SITE_102_RR-1\n   !\n   address-family evpn\n   !\n   address-family ipv4\n
+    \     no neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n
+    \     neighbor MPLS-OVERLAY-PEERS activate\n      neighbor default encapsulation
+    mpls next-hop-self source-interface Loopback0\n!\nrouter isis CORE\n   is-type
+    level-2\n   router-id ipv4 100.2.2.1\n   log-adjacency-changes\n   !\n   address-family
+    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
+    \  vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_102_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -353,19 +356,20 @@ cvp_configlets:
     \  multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id
     100.2.2.2\n   distance bgp 20 200 200\n   graceful-restart restart-time 300\n
     \  graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
-    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
-    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
-    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
-    \  !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.2.2.2\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
-    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
-    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
+    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
+    \  neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description
+    SF_SITE_102_RR-1\n   !\n   address-family evpn\n   !\n   address-family ipv4\n
+    \     no neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n
+    \     neighbor MPLS-OVERLAY-PEERS activate\n      neighbor default encapsulation
+    mpls next-hop-self source-interface Loopback0\n!\nrouter isis CORE\n   is-type
+    level-2\n   router-id ipv4 100.2.2.2\n   log-adjacency-changes\n   !\n   address-family
+    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
+    \  vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_102_RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -388,11 +392,12 @@ cvp_configlets:
     address 192.168.0.20/24\n!\nip routing\n!\nrouter bfd\n   multihop interval 1200
     min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.1.1.2\n   distance
     bgp 20 200 200\n   graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths
-    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp cluster-id 100.1.1.2\n   neighbor
-    MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n
-    \  neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    route-reflector-client\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
-    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor RR-OVERLAY-PEERS
+    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp cluster-id 100.1.1.2\n   bgp
+    asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS route-reflector-client\n
+    \  neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n
+    \  neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor RR-OVERLAY-PEERS
     peer group\n   neighbor RR-OVERLAY-PEERS remote-as 6.6971\n   neighbor RR-OVERLAY-PEERS
     update-source Loopback0\n   neighbor RR-OVERLAY-PEERS bfd\n   neighbor RR-OVERLAY-PEERS
     send-community\n   neighbor RR-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.2.1
@@ -487,19 +492,20 @@ cvp_configlets:
     \  multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id
     100.3.2.1\n   distance bgp 20 200 200\n   graceful-restart restart-time 300\n
     \  graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
-    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
-    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
-    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
-    \  !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.3.2.1\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
-    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
-    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
+    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
+    \  neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description
+    SF_SITE_102_RR-1\n   !\n   address-family evpn\n   !\n   address-family ipv4\n
+    \     no neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n
+    \     neighbor MPLS-OVERLAY-PEERS activate\n      neighbor default encapsulation
+    mpls next-hop-self source-interface Loopback0\n!\nrouter isis CORE\n   is-type
+    level-2\n   router-id ipv4 100.3.2.1\n   log-adjacency-changes\n   !\n   address-family
+    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
+    \  vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_103_TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -542,20 +548,20 @@ cvp_configlets:
     routing\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter
     bgp 6.6971\n   router-id 100.4.2.1\n   distance bgp 20 200 200\n   graceful-restart
     restart-time 300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default
-    ipv4-unicast\n   neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS
-    remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor
-    MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor
-    MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer
-    group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description SF_SITE_102_RR-1\n
-    \  !\n   address-family evpn\n   !\n   address-family ipv4\n      no neighbor
-    MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n      neighbor
-    MPLS-OVERLAY-PEERS activate\n      neighbor default encapsulation mpls next-hop-self
-    source-interface Loopback0\n!\nrouter isis CORE\n   is-type level-2\n   router-id
-    ipv4 100.4.2.1\n   log-adjacency-changes\n   !\n   address-family ipv4 unicast\n
-    \     maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
-    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
-    \  vrf default\n      no shutdown\n!\nend\n"
+    ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n   neighbor
+    MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n
+    \  neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
+    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
+    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
+    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
+    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
+    \  !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n!\nrouter
+    isis CORE\n   is-type level-2\n   router-id ipv4 100.4.2.1\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
 cvp_topology:
   AVD_FABRIC:
     devices: []

@@ -8,6 +8,7 @@ pe:
     platform: vEOS-lab
     loopback_ipv4_pool: 100.4.2.0/24
     mpls_route_reflectors: [ SF_SITE_101_RR-1, SF_SITE_102_RR-1 ]
+    bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
   nodes:
     - name: SF_SITE_104_BL-1
       id: 1
