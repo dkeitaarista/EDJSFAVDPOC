@@ -9,7 +9,12 @@ pe:
     loopback_ipv4_pool: 100.1.2.0/24
     mpls_route_reflectors: [ SF_SITE_101_RR-1, SF_SITE_102_RR-1 ]
     bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
-    structured_config: "{{ PE_BGP_STRUCTURED_CONFIG }}"
+    #structured_config: "{{ dict(PE_BGP_STRUCTURED_CONFIG,**INBAND_LOOPBACK) }}"
+    structured_config:
+      loopback_interfaces:
+        - name: Loopback10
+          description: Inband management
+          ip_address: "{{ mgmt_ip.split('.')[3] }}"
   nodes:
     - name: SF_SITE_101_BL-1
       id: 1

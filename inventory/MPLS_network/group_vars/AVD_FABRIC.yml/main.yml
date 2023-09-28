@@ -75,3 +75,12 @@ PE_BGP_STRUCTURED_CONFIG:
     address_family_vpn_ipv6:
       neighbor_default_encapsulation_mpls_next_hop_self:
         source_interface: null
+
+
+INBAND_LOOPBACK:
+  loopback_interfaces:
+    - name: Loopback10
+      description: Inband management
+      ip_address: 2.2.2.2/24
+
+#{{ mgmt_ip.split('.')[3] }}
