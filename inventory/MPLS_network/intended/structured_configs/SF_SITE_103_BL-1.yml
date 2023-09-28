@@ -31,8 +31,19 @@ router_bgp:
     - name: MPLS-OVERLAY-PEERS
       activate: false
   address_family_evpn:
-    peer_groups: []
+    neighbor_default:
+      encapsulation: mpls
+      next_hop_self_source_interface: Loopback0
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
   address_family_vpn_ipv4:
+    neighbor_default_encapsulation_mpls_next_hop_self:
+      source_interface: Loopback0
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+  address_family_vpn_ipv6:
     neighbor_default_encapsulation_mpls_next_hop_self:
       source_interface: Loopback0
     peer_groups:
@@ -45,6 +56,23 @@ router_bgp:
   - ip_address: 100.1.1.2
     peer_group: MPLS-OVERLAY-PEERS
     description: SF_SITE_102_RR-1
+  vlans:
+  - id: 100
+    tenant: BRANCH
+    rd: 100.3.2.1:5100
+    route_targets:
+      both:
+      - 6.6971:5100
+    redistribute_routes:
+    - learned
+  - id: 101
+    tenant: BRANCH
+    rd: 100.3.2.1:5101
+    route_targets:
+      both:
+      - 6.6971:5101
+    redistribute_routes:
+    - learned
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:

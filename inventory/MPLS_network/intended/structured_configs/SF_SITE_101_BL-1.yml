@@ -31,8 +31,19 @@ router_bgp:
     - name: MPLS-OVERLAY-PEERS
       activate: false
   address_family_evpn:
-    peer_groups: []
+    neighbor_default:
+      encapsulation: mpls
+      next_hop_self_source_interface: Loopback0
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
   address_family_vpn_ipv4:
+    neighbor_default_encapsulation_mpls_next_hop_self:
+      source_interface: Loopback0
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+  address_family_vpn_ipv6:
     neighbor_default_encapsulation_mpls_next_hop_self:
       source_interface: Loopback0
     peer_groups:
@@ -54,8 +65,14 @@ router_bgp:
       - address_family: vpn-ipv4
         route_targets:
         - 6.6971:10011
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10011
       export:
       - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10011
+      - address_family: vpn-ipv6
         route_targets:
         - 6.6971:10011
     redistribute_routes:
@@ -66,11 +83,45 @@ router_bgp:
         activate: true
       - ip_address: 10.255.101.3
         activate: true
+      bgp:
+        additional_paths:
+          install: true
     neighbors:
     - ip_address: 10.255.101.1
       remote_as: '65501'
     - ip_address: 10.255.101.3
       remote_as: '65502'
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      '
+  vlans:
+  - id: 100
+    tenant: BRANCH
+    rd: 100.1.2.1:5100
+    route_targets:
+      both:
+      - 6.6971:5100
+    redistribute_routes:
+    - learned
+  - id: 101
+    tenant: BRANCH
+    rd: 100.1.2.1:5101
+    route_targets:
+      both:
+      - 6.6971:5101
+    redistribute_routes:
+    - learned
+  vpws:
+  - name: BRANCH
+    rd: 100.1.2.1:5000
+    route_targets:
+      import_export: 6.6971:5000
+    pseudowires:
+    - name: SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+      id_local: 100
+      id_remote: 101
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
@@ -221,6 +272,16 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 101
   vrf: BRANCH-10011
+- name: Port-channel11.99
+  type: l2dot1q
+  peer_type: point_to_point_service
+  encapsulation_vlan:
+    client:
+      dot1q:
+        vlan: 99
+    network:
+      client: true
+  shutdown: false
 - name: Port-channel11
   type: routed
   peer_type: l3_interface
@@ -262,6 +323,17 @@ router_bfd:
     interval: 1200
     min_rx: 1200
     multiplier: 3
+patch_panel:
+  patches:
+  - name: SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+    enabled: true
+    connectors:
+    - id: '1'
+      type: interface
+      endpoint: Port-channel11.99
+    - id: '2'
+      type: pseudowire
+      endpoint: bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
 vlans:
 - id: 100
   name: vlan_100

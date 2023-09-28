@@ -473,11 +473,27 @@ router isis CORE
 
 | Peer Group | Activate | Encapsulation |
 | ---------- | -------- | ------------- |
+| MPLS-OVERLAY-PEERS | True | default |
 | RR-OVERLAY-PEERS | True | default |
+
+##### EVPN Neighbor Default Encapsulation
+
+| Neighbor Default Encapsulation | Next-hop-self Source Interface |
+| ------------------------------ | ------------------------------ |
+| mpls | - |
 
 #### Router BGP VPN-IPv4 Address Family
 
 ##### VPN-IPv4 Peer Groups
+
+| Peer Group | Activate | Route-map In | Route-map Out |
+| ---------- | -------- | ------------ | ------------- |
+| MPLS-OVERLAY-PEERS | True | - | - |
+| RR-OVERLAY-PEERS | True | - | - |
+
+#### Router BGP VPN-IPv6 Address Family
+
+##### VPN-IPv6 Peer Groups
 
 | Peer Group | Activate | Route-map In | Route-map Out |
 | ---------- | -------- | ------------ | ------------- |
@@ -525,6 +541,8 @@ router bgp 6.6971
    neighbor 100.4.2.1 description SF_SITE_104_BL-1
    !
    address-family evpn
+      neighbor default encapsulation mpls
+      neighbor MPLS-OVERLAY-PEERS activate
       neighbor RR-OVERLAY-PEERS activate
    !
    address-family ipv4
@@ -532,6 +550,10 @@ router bgp 6.6971
       no neighbor RR-OVERLAY-PEERS activate
    !
    address-family vpn-ipv4
+      neighbor MPLS-OVERLAY-PEERS activate
+      neighbor RR-OVERLAY-PEERS activate
+   !
+   address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
       neighbor RR-OVERLAY-PEERS activate
 ```
