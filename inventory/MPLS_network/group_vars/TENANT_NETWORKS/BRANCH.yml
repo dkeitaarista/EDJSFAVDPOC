@@ -62,5 +62,7 @@ BRANCH:
     l2vlans:
       - id: 100
         name: vlan_100
+        vxlan: false
       - id: 101
         name: vlan_101
+        vxlan: false

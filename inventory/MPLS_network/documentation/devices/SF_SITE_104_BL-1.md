@@ -486,13 +486,6 @@ router isis CORE
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
 
-#### Router BGP VLANs
-
-| VLAN | Route-Distinguisher | Both Route-Target | Import Route Target | Export Route-Target | Redistribute |
-| ---- | ------------------- | ----------------- | ------------------- | ------------------- | ------------ |
-| 100 | 100.4.2.1:5100 | 6.6971:5100 | - | - | learned |
-| 101 | 100.4.2.1:5101 | 6.6971:5101 | - | - | learned |
-
 #### Router BGP Device Configuration
 
 ```eos
@@ -516,16 +509,6 @@ router bgp 6.6971
    neighbor 100.1.1.1 description SF_SITE_101_RR-1
    neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS
    neighbor 100.1.1.2 description SF_SITE_102_RR-1
-   !
-   vlan 100
-      rd 100.4.2.1:5100
-      route-target both 6.6971:5100
-      redistribute learned
-   !
-   vlan 101
-      rd 100.4.2.1:5101
-      route-target both 6.6971:5101
-      redistribute learned
    !
    address-family evpn
       neighbor default encapsulation mpls next-hop-self source-interface Loopback0
