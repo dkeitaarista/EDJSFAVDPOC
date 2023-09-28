@@ -20,7 +20,7 @@ node_type_keys:
       l3: true
     default_overlay_routing_protocol: ibgp
     default_underlay_routing_protocol: isis-sr
-    default_overlay_address_families: [ vpn-ipv4, vpn-ipv6 ]
+    default_overlay_address_families: [ vpn-ipv4, vpn-ipv6, evpn ]
     default_evpn_encapsulation: mpls
   - key: rr
     type: rr
@@ -29,7 +29,7 @@ node_type_keys:
     default_evpn_role: server
     default_overlay_routing_protocol: ibgp
     default_underlay_routing_protocol: isis-sr
-    default_overlay_address_families: [ vpn-ipv4, vpn-ipv6 ]
+    default_overlay_address_families: [ vpn-ipv4, vpn-ipv6, evpn ]
     default_evpn_encapsulation: mpls
   #custom node_type to extend the default AVD model
   - key: ethernet_aggregation

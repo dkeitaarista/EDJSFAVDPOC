@@ -11,6 +11,7 @@ pe,SF_SITE_101_BL-1,Ethernet10,pe,SF_SITE_104_BL-1,Ethernet10,True
 pe,SF_SITE_101_BL-1,Ethernet11,ethernet_aggregation,SF_SITE_101_TOR-1A,Ethernet3,True
 pe,SF_SITE_101_BL-1,Ethernet12,ethernet_aggregation,SF_SITE_101_TOR-1A,Ethernet4,True
 pe,SF_SITE_101_BL-1,Port-channel11,l3_interface,,,True
+pe,SF_SITE_101_BL-1,Port-channel11.99,point_to_point_service,,,True
 pe,SF_SITE_101_BL-1,Port-channel11.100,l3_interface,,,True
 pe,SF_SITE_101_BL-1,Port-channel11.101,l3_interface,,,True
 pe,SF_SITE_101_BL-2,Ethernet3,p,SF_SITE_101_SPINE-1,Ethernet4,True
@@ -35,6 +36,8 @@ pe,SF_SITE_102_BL-1,Ethernet3,pe,SF_SITE_104_BL-1,Ethernet6,True
 pe,SF_SITE_102_BL-1,Ethernet4,p,SF_SITE_102_SPINE-2,Ethernet3,True
 pe,SF_SITE_102_BL-1,Ethernet7,rr,SF_SITE_102_RR-1,Ethernet3,True
 pe,SF_SITE_102_BL-1,Ethernet9,pe,SF_SITE_101_BL-1,Ethernet9,True
+pe,SF_SITE_102_BL-1,Port-channel11,l3_interface,,,True
+pe,SF_SITE_102_BL-1,Port-channel11.99,point_to_point_service,,,True
 pe,SF_SITE_102_BL-2,Ethernet3,p,SF_SITE_102_SPINE-1,Ethernet4,True
 pe,SF_SITE_102_BL-2,Ethernet4,p,SF_SITE_102_SPINE-2,Ethernet4,True
 pe,SF_SITE_102_BL-2,Ethernet7,rr,SF_SITE_102_RR-1,Ethernet4,True

@@ -35,6 +35,9 @@
 - [MPLS](#mpls)
   - [MPLS and LDP](#mpls-and-ldp)
   - [MPLS Interfaces](#mpls-interfaces)
+- [Patch Panel](#patch-panel)
+  - [Patch Panel Summary](#patch-panel-summary)
+  - [Patch Panel Configuration](#patch-panel-configuration)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [VRF Instances](#vrf-instances)
@@ -264,6 +267,12 @@ vlan 101
 | Port-channel11.100 | - | l3dot1q | - | 100 |
 | Port-channel11.101 | - | l3dot1q | - | 101 |
 
+##### Flexible Encapsulation Interfaces
+
+| Interface | Description | Type | Vlan ID | Client Unmatched | Client Dot1q VLAN | Client Dot1q Outer Tag | Client Dot1q Inner Tag | Network Retain Client Encapsulation | Network Dot1q VLAN | Network Dot1q Outer Tag | Network Dot1q Inner Tag |
+| --------- | ----------- | ---- | ------- | -----------------| ----------------- | ---------------------- | ---------------------- | ----------------------------------- | ------------------ | ----------------------- | ----------------------- |
+| Port-channel11.99 | - | l2dot1q | - | False | 99 | - | - | True | - | - | - |
+
 ##### IPv4
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
@@ -368,6 +377,11 @@ interface Ethernet12
 interface Port-channel11
    no shutdown
    no switchport
+!
+interface Port-channel11.99
+   no shutdown
+   encapsulation vlan
+      client dot1q 99 network client
 !
 interface Port-channel11.100
    no shutdown
@@ -575,6 +589,13 @@ router isis CORE
 
 | Peer Group | Activate | Encapsulation |
 | ---------- | -------- | ------------- |
+| MPLS-OVERLAY-PEERS | True | default |
+
+##### EVPN Neighbor Default Encapsulation
+
+| Neighbor Default Encapsulation | Next-hop-self Source Interface |
+| ------------------------------ | ------------------------------ |
+| mpls | Loopback0 |
 
 #### Router BGP VPN-IPv4 Address Family
 
@@ -591,6 +612,19 @@ router isis CORE
 | Peer Group | Activate | Route-map In | Route-map Out |
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
+
+#### Router BGP VLANs
+
+| VLAN | Route-Distinguisher | Both Route-Target | Import Route Target | Export Route-Target | Redistribute |
+| ---- | ------------------- | ----------------- | ------------------- | ------------------- | ------------ |
+| 100 | 100.1.2.1:5100 | 6.6971:5100 | - | - | learned |
+| 101 | 100.1.2.1:5101 | 6.6971:5101 | - | - | learned |
+
+#### Router BGP VPWS Instances
+
+| Instance | Route-Distinguisher | Both Route-Target | MPLS Control Word | Label Flow | MTU | Pseudowire | Local ID | Remote ID |
+| -------- | ------------------- | ----------------- | ----------------- | -----------| --- | ---------- | -------- | --------- |
+| BRANCH | 100.1.2.1:5000 | 6.6971:5000 | False | False | - | SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 | 100 | 101 |
 
 #### Router BGP VRFs
 
@@ -622,7 +656,26 @@ router bgp 6.6971
    neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS
    neighbor 100.1.1.2 description SF_SITE_102_RR-1
    !
+   vlan 100
+      rd 100.1.2.1:5100
+      route-target both 6.6971:5100
+      redistribute learned
+   !
+   vlan 101
+      rd 100.1.2.1:5101
+      route-target both 6.6971:5101
+      redistribute learned
+   !
+   vpws BRANCH
+      rd 100.1.2.1:5000
+      route-target import export evpn 6.6971:5000
+      !
+      pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+         evpn vpws id local 100 remote 101
+   !
    address-family evpn
+      neighbor default encapsulation mpls next-hop-self source-interface Loopback0
+      neighbor MPLS-OVERLAY-PEERS activate
    !
    address-family ipv4
       no neighbor MPLS-OVERLAY-PEERS activate
@@ -647,8 +700,13 @@ router bgp 6.6971
       redistribute connected
       !
       address-family ipv4
+         bgp additional-paths install
          neighbor 10.255.101.1 activate
          neighbor 10.255.101.3 activate
+      !
+      bgp additional-paths receive
+      bgp additional-paths send any
+
 ```
 
 ## BFD
@@ -699,6 +757,25 @@ mpls ip
 | Ethernet7 | True | - | - |
 | Ethernet9 | True | - | - |
 | Ethernet10 | True | - | - |
+
+## Patch Panel
+
+### Patch Panel Summary
+
+| Patch Name | Enabled | Connector A Type | Connector A Endpoint | Connector B Type | Connector B Endpoint |
+| ---------- | ------- | ---------------- | -------------------- | ---------------- | -------------------- |
+| SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 | True | Interface | Port-channel11.99 | Pseudowire | bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 |
+
+### Patch Panel Configuration
+
+```eos
+!
+patch panel
+   patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+      connector 1 interface Port-channel11.99
+      connector 2 pseudowire bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+   !
+```
 
 ## Multicast
 
