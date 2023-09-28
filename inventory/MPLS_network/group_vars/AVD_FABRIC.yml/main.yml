@@ -13,6 +13,9 @@ bgp_as: '6.6971'
 overlay_rt_type:
   admin_subfield: bgp_as
 
+# fabric evpn encap 
+fabric_evpn_encapsulation: mpls
+
 #define local users
 local_users:
   - name: cvpadmin
