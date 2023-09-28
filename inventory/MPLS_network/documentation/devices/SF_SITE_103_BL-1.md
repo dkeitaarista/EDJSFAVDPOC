@@ -557,7 +557,6 @@ router bgp 6.6971
    !
    address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
-      neighbor default encapsulation mpls next-hop-self source-interface Loopback0
 ```
 
 ## BFD
