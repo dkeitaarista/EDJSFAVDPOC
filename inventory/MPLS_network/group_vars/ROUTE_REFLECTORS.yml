@@ -6,6 +6,7 @@ rr:
   defaults:
     platform: vEOS-lab
     loopback_ipv4_pool: 100.1.1.0/24
+    bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
   nodes:
   - name: SF_SITE_101_RR-1
     id: 1
