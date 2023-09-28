@@ -584,6 +584,14 @@ router isis CORE
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
 
+#### Router BGP VPN-IPv6 Address Family
+
+##### VPN-IPv6 Peer Groups
+
+| Peer Group | Activate | Route-map In | Route-map Out |
+| ---------- | -------- | ------------ | ------------- |
+| MPLS-OVERLAY-PEERS | True | - | - |
+
 #### Router BGP VRFs
 
 | VRF | Route-Distinguisher | Redistribute |
@@ -623,10 +631,16 @@ router bgp 6.6971
       neighbor MPLS-OVERLAY-PEERS activate
       neighbor default encapsulation mpls next-hop-self source-interface Loopback0
    !
+   address-family vpn-ipv6
+      neighbor MPLS-OVERLAY-PEERS activate
+      neighbor default encapsulation mpls next-hop-self source-interface Loopback0
+   !
    vrf BRANCH-10011
       rd 100.1.2.1:10011
       route-target import vpn-ipv4 6.6971:10011
+      route-target import vpn-ipv6 6.6971:10011
       route-target export vpn-ipv4 6.6971:10011
+      route-target export vpn-ipv6 6.6971:10011
       router-id 100.1.2.1
       neighbor 10.255.101.1 remote-as 65501
       neighbor 10.255.101.3 remote-as 65502

@@ -503,6 +503,14 @@ router isis CORE
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
 
+#### Router BGP VPN-IPv6 Address Family
+
+##### VPN-IPv6 Peer Groups
+
+| Peer Group | Activate | Route-map In | Route-map Out |
+| ---------- | -------- | ------------ | ------------- |
+| MPLS-OVERLAY-PEERS | True | - | - |
+
 #### Router BGP Device Configuration
 
 ```eos
@@ -533,6 +541,10 @@ router bgp 6.6971
       no neighbor MPLS-OVERLAY-PEERS activate
    !
    address-family vpn-ipv4
+      neighbor MPLS-OVERLAY-PEERS activate
+      neighbor default encapsulation mpls next-hop-self source-interface Loopback0
+   !
+   address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
       neighbor default encapsulation mpls next-hop-self source-interface Loopback0
 ```

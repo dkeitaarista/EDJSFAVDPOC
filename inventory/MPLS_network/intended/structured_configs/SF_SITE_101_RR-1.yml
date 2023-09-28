@@ -51,6 +51,12 @@ router_bgp:
       activate: true
     - name: RR-OVERLAY-PEERS
       activate: true
+  address_family_vpn_ipv6:
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+    - name: RR-OVERLAY-PEERS
+      activate: true
   neighbors:
   - ip_address: 100.1.2.1
     peer_group: MPLS-OVERLAY-PEERS

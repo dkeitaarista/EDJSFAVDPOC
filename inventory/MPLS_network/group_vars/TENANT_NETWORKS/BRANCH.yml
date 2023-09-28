@@ -5,6 +5,11 @@ BRANCH:
         vrf_vni: 10011
         address_families:
           - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+        #  raw_eos_cli: <str>
+          structured_config:
+
         l3_interfaces:
           - interfaces:
               - Port-channel11.100

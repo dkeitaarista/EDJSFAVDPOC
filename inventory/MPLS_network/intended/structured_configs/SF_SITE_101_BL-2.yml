@@ -38,6 +38,12 @@ router_bgp:
     peer_groups:
     - name: MPLS-OVERLAY-PEERS
       activate: true
+  address_family_vpn_ipv6:
+    neighbor_default_encapsulation_mpls_next_hop_self:
+      source_interface: Loopback0
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
   neighbors:
   - ip_address: 100.1.1.1
     peer_group: MPLS-OVERLAY-PEERS
