@@ -296,12 +296,14 @@ interface Ethernet4
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
 | Loopback0 | LSR_Router_ID | default | 100.1.0.1/32 |
+| Loopback10 | Inband management | default | 192.168.101.11/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
 | Loopback0 | LSR_Router_ID | default | - |
+| Loopback10 | Inband management | default | - |
 
 ##### ISIS
 
@@ -320,6 +322,10 @@ interface Loopback0
    isis enable CORE
    isis passive
    node-segment ipv4 index 1
+!
+interface Loopback10
+   description Inband management
+   ip address 192.168.101.11/32
 ```
 
 ## Routing

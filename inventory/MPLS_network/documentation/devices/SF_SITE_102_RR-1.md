@@ -299,12 +299,14 @@ interface Ethernet4
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
 | Loopback0 | MPLS_Overlay_peering | default | 100.1.1.2/32 |
+| Loopback10 | Inband management | default | 192.168.101.20/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
 | Loopback0 | MPLS_Overlay_peering | default | - |
+| Loopback10 | Inband management | default | - |
 
 ##### ISIS
 
@@ -323,6 +325,10 @@ interface Loopback0
    isis enable CORE
    isis passive
    node-segment ipv4 index 2
+!
+interface Loopback10
+   description Inband management
+   ip address 192.168.101.20/32
 ```
 
 ## Routing

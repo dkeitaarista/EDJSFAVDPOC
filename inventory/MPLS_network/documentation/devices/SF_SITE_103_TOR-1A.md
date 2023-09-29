@@ -26,6 +26,7 @@
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Port-Channel Interfaces](#port-channel-interfaces)
+  - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
@@ -307,6 +308,32 @@ interface Port-Channel3
    switchport
    switchport trunk allowed vlan 100-101
    switchport mode trunk
+```
+
+### Loopback Interfaces
+
+#### Loopback Interfaces Summary
+
+##### IPv4
+
+| Interface | Description | VRF | IP Address |
+| --------- | ----------- | --- | ---------- |
+| Loopback10 | Inband management | default | 192.168.101.26/32 |
+
+##### IPv6
+
+| Interface | Description | VRF | IPv6 Address |
+| --------- | ----------- | --- | ------------ |
+| Loopback10 | Inband management | default | - |
+
+
+#### Loopback Interfaces Device Configuration
+
+```eos
+!
+interface Loopback10
+   description Inband management
+   ip address 192.168.101.26/32
 ```
 
 ## Routing
