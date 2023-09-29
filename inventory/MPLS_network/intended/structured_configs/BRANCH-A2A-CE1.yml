@@ -67,6 +67,7 @@ router_bgp:
   neighbors:
   - ip_address: 10.255.101.0
     remote_as: '6.6971'
+    bfd: true
     peer_group: CE-PEER-GROUP
   address_family_ipv4:
     peer_groups:

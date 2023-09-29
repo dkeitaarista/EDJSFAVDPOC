@@ -329,22 +329,23 @@ service routing protocols model multi-agent
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65503|  10.255.101. |
+| 65503|  10.255.101.3 |
 
 #### BGP Neighbors
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 10.255.101.2 | 6.6971 | default | - | - | - | - | - | - | - | - |
+| 10.255.101.2 | 6.6971 | default | - | - | - | - | True | - | - | - |
 
 #### Router BGP Device Configuration
 
 ```eos
 !
 router bgp 65503
-   router-id 10.255.101.
+   router-id 10.255.101.3
    neighbor 10.255.101.2 peer group CE-PEER-GROUP
    neighbor 10.255.101.2 remote-as 6.6971
+   neighbor 10.255.101.2 bfd
    !
    address-family ipv4
       neighbor CE-PEER-GROUP activate

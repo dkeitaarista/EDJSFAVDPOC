@@ -14,9 +14,10 @@ cvp_configlets:
     Inband management\n   ip address 192.168.101.28/32\n!\ninterface Management1\n
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.28/24\n!\nrouter
     bgp 65501\n   router-id 10.255.101.1\n   neighbor 10.255.101.0 peer group CE-PEER-GROUP\n
-    \  neighbor 10.255.101.0 remote-as 6.6971\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
-    shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    \  neighbor 10.255.101.0 remote-as 6.6971\n   neighbor 10.255.101.0 bfd\n   !\n
+    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nmanagement api
+    http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
+    shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -31,10 +32,11 @@ cvp_configlets:
     \  no switchport\n   ip address 10.255.101.3/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.30/32\n!\ninterface Management1\n
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.30/24\n!\nrouter
-    bgp 65503\n   router-id 10.255.101.\n   neighbor 10.255.101.2 peer group CE-PEER-GROUP\n
-    \  neighbor 10.255.101.2 remote-as 6.6971\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
-    shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    bgp 65503\n   router-id 10.255.101.3\n   neighbor 10.255.101.2 peer group CE-PEER-GROUP\n
+    \  neighbor 10.255.101.2 remote-as 6.6971\n   neighbor 10.255.101.2 bfd\n   !\n
+    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nmanagement api
+    http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
+    shutdown\n!\nend\n"
   AVD_CORP-A2A-CE1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
     -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
