@@ -590,7 +590,7 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
-| 10.255.101.1 | 65501 | BRANCH-10011 | - | - | - | - | - | - | - | - |
+| 10.255.101.1 | 65501 | BRANCH-10011 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -687,6 +687,7 @@ router bgp 6.6971
       route-target export vpn-ipv6 6.6971:10011
       router-id 100.1.2.1
       neighbor 10.255.101.1 remote-as 65501
+      neighbor 10.255.101.1 bfd
       redistribute connected
       !
       address-family ipv4
@@ -695,6 +696,7 @@ router bgp 6.6971
       !
       bgp additional-paths receive
       bgp additional-paths send any
+      bgp bestpath tie-break router-id
 
    !
    vrf BRANCH-10013
@@ -822,4 +824,8 @@ vrf instance BRANCH-10013
 router bgp 6.6971
   vpws BRANCH
     mpls control-word
+  address-family vpn-ipv4
+    bgp additional-paths receive
+    bgp additional-paths send any
+
 ```

@@ -11,10 +11,11 @@ custom_structured_configuration_ethernet_interfaces:
 
 custom_structured_configuration_router_bgp:
   as: 65503
-  router_id: 10.255.101.
+  router_id: 10.255.101.3
   neighbors:
     - ip_address: 10.255.101.2
       remote_as: '6.6971'
+      bfd: true
       peer_group: CE-PEER-GROUP
   address_family_ipv4:
     peer_groups:

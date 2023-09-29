@@ -1,6 +1,8 @@
 Node Type,Node,Node Interface,Peer Type,Peer Node,Peer Interface,Node Interface Enabled
 ce,BRANCH-A2A-CE1,Ethernet1,,,,True
 ce,BRANCH-A2A-CE2,Ethernet1,,,,True
+ce,CORP-A2A-CE1,Ethernet1,,,,True
+ce,CORP-A2A-CE1,Ethernet2,,,,True
 pe,SF_SITE_101_BL-1,Ethernet3,p,SF_SITE_101_SPINE-1,Ethernet3,True
 pe,SF_SITE_101_BL-1,Ethernet4,p,SF_SITE_101_SPINE-2,Ethernet3,True
 pe,SF_SITE_101_BL-1,Ethernet7,rr,SF_SITE_101_RR-1,Ethernet3,True

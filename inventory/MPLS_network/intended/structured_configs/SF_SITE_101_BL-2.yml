@@ -88,6 +88,8 @@ management_api_http:
   enable_vrfs:
   - name: default
   enable_https: true
+eos_cli: "router bgp 6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp
+  additional-paths send any\n"
 ethernet_interfaces:
 - name: Ethernet11
   peer: SF_SITE_101_TOR-1B

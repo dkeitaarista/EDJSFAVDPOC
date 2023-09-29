@@ -56,3 +56,26 @@ loopback_interfaces:
 - name: Loopback10
   description: Inband management
   ip_address: 192.168.101.29/32
+ethernet_interfaces:
+- name: Ethernet1
+  description: Uplink to SF_SITE_101_TOR-1A
+  type: routed
+  ip_address: 10.255.101.5/31
+- name: Ethernet2
+  description: Uplink to SF_SITE_101_TOR-1B
+  type: routed
+  ip_address: 10.255.101.7/31
+router_bgp:
+  as: '65502'
+  router_id: 10.255.101.4
+  neighbors:
+  - ip_address: 10.255.101.4
+    remote_as: '6.6971'
+    peer_group: CE-PEER-GROUP
+  - ip_address: 10.255.101.6
+    remote_as: '6.6971'
+    peer_group: CE-PEER-GROUP
+  address_family_ipv4:
+    peer_groups:
+    - name: CE-PEER-GROUP
+      activate: true
