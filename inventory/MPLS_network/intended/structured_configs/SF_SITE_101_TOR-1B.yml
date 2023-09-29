@@ -87,3 +87,7 @@ ntp:
     vrf: default
   - name: 1.north-america.pool.ntp.org
     vrf: default
+loopback_interfaces:
+- name: Loopback10
+  description: Inband management
+  ip_address: 192.168.101.17/32

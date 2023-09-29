@@ -97,6 +97,9 @@ loopback_interfaces:
   isis_passive: true
   node_segment:
     ipv4_index: 2
+- name: Loopback10
+  description: Inband management
+  ip_address: 192.168.101.22/32
 router_isis:
   instance: CORE
   log_adjacency_changes: true

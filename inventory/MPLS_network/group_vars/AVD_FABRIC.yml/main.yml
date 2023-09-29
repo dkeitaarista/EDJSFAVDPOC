@@ -76,11 +76,9 @@ PE_BGP_STRUCTURED_CONFIG:
       neighbor_default_encapsulation_mpls_next_hop_self:
         source_interface: null
 
-
-INBAND_LOOPBACK:
-  loopback_interfaces:
-    - name: Loopback10
-      description: Inband management
-      ip_address: 2.2.2.2/24
-
-#{{ mgmt_ip.split('.')[3] }}
+# Set dynamic IP for inband management interface loopback 10 that matches the last octed of the management port
+mgmt_loopback_ipv4_pool: "192.168.101.0/24"
+custom_structured_configuration_loopback_interfaces:
+  - name: Loopback10
+    description: Inband management
+    ip_address: "{{ mgmt_loopback_ipv4_pool | ansible.utils.ipmath((management_interfaces[0]['ip_address'] | string | ansible.utils.ipaddr('address')).split('.')[3]) }}/32"

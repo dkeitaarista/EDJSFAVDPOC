@@ -22,6 +22,7 @@
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
+  - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
@@ -267,6 +268,32 @@ interface Ethernet2
    description Uplink to SF_SITE_101_TOR-1B
    no switchport
    ip address 10.255.101.3/31
+```
+
+### Loopback Interfaces
+
+#### Loopback Interfaces Summary
+
+##### IPv4
+
+| Interface | Description | VRF | IP Address |
+| --------- | ----------- | --- | ---------- |
+| Loopback10 | Inband management | default | 192.168.101.28/32 |
+
+##### IPv6
+
+| Interface | Description | VRF | IPv6 Address |
+| --------- | ----------- | --- | ------------ |
+| Loopback10 | Inband management | default | - |
+
+
+#### Loopback Interfaces Device Configuration
+
+```eos
+!
+interface Loopback10
+   description Inband management
+   ip address 192.168.101.28/32
 ```
 
 ## Routing
