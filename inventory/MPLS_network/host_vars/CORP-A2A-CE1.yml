@@ -27,4 +27,3 @@ custom_structured_configuration_router_bgp:
     peer_groups:
       - name: CE-PEER-GROUP
         activate: true
-

@@ -5,11 +5,11 @@ repos:
     rev: v4.4.0
     hooks:
       - id: trailing-whitespace
-        files: inventory/MPLS_network/(inventory.yml|group_vars\/)
+        files: inventory/MPLS_network/(inventory.yml|group_vars\/|host_vars\/)
 
       - id: end-of-file-fixer
         exclude_types: [svg, json]
-        files: inventory/MPLS_network/(inventory.yml|group_vars\/)
+        files: inventory/MPLS_network/(inventory.yml|group_vars\/|host_vars\/)
 
       - id: check-yaml
-        files: inventory/MPLS_network/(inventory.yml|group_vars\/)
+        files: inventory/MPLS_network/(inventory.yml|group_vars\/|host_vars\/)

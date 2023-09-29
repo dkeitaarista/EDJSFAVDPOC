@@ -29,6 +29,7 @@ BRANCH:
             eos_cli: |
               bgp additional-paths receive
               bgp additional-paths send any
+              bgp bestpath tie-break router-id
             address_family_ipv4:
               bgp:
                 additional_paths:
@@ -45,6 +46,7 @@ BRANCH:
         bgp_peers:
           - ip_address: 10.255.101.1
             remote_as: 65501
+            bfd: true
             nodes:
               - SF_SITE_101_BL-1
       - name: BRANCH-10013
@@ -73,6 +75,7 @@ BRANCH:
         bgp_peers:
           - ip_address: 10.255.101.3
             remote_as: 65503
+            bfd: true
             nodes:
               - SF_SITE_101_BL-2
     l2vlans:

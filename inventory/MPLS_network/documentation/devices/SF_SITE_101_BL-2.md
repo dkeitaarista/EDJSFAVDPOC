@@ -40,6 +40,7 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [EOS CLI](#eos-cli)
 
 ## Management
 
@@ -670,4 +671,17 @@ mpls ip
 ### VRF Instances Device Configuration
 
 ```eos
+```
+
+## EOS CLI
+
+```eos
+!
+router bgp 6.6971
+  vpws BRANCH
+    mpls control-word
+  address-family vpn-ipv4
+    bgp additional-paths receive
+    bgp additional-paths send any
+
 ```
