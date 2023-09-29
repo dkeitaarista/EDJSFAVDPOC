@@ -57,19 +57,19 @@ ethernet_interfaces:
     id: 3
     mode: active
 - name: Ethernet7
-  peer: BRANCH-A2A
+  peer: BRANCH-A2A-CE1
   peer_interface: Ethernet1
   peer_type: cpe
-  description: BRANCH-A2A_Ethernet1
+  description: BRANCH-A2A-CE1_Ethernet1
   shutdown: false
   type: switched
   mode: access
   vlans: '100'
 - name: Ethernet8
-  peer: CORP-A2A
+  peer: CORP-A2A-CE1
   peer_interface: Ethernet1
   peer_type: cpe
-  description: CORP-A2A_Ethernet1
+  description: CORP-A2A-CE1_Ethernet1
   shutdown: false
   type: switched
   mode: access
