@@ -1,0 +1,4 @@
+custom_structured_configuration_eos_cli: |
+  router bgp 6.6971
+    vpws BRANCH
+      mpls control-word

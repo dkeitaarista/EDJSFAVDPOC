@@ -372,3 +372,4 @@ ntp:
     vrf: default
   - name: 1.north-america.pool.ntp.org
     vrf: default
+eos_cli: "router bgp 6.6971\n  vpws BRANCH\n    mpls control-word"

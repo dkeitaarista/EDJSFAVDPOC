@@ -43,6 +43,7 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [EOS CLI](#eos-cli)
 
 ## Management
 
@@ -812,4 +813,13 @@ patch panel
 vrf instance BRANCH-10011
 !
 vrf instance BRANCH-10013
+```
+
+## EOS CLI
+
+```eos
+!
+router bgp 6.6971
+  vpws BRANCH
+    mpls control-word
 ```

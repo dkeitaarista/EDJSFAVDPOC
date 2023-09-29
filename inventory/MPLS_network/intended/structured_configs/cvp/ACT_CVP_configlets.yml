@@ -140,7 +140,7 @@ cvp_configlets:
     \     connector 1 interface Port-channel11.99\n      connector 2 pseudowire bgp
     vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n   !\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    shutdown\n!\nrouter bgp 6.6971\n  vpws BRANCH\n    mpls control-word\n!\nend\n"
   AVD_SF_SITE_101_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
