@@ -1,13 +1,21 @@
 ---
 cvp_devices:
-  - fqdn: BRANCH-A2A
+  - fqdn: BRANCH-A2A-CE1
     parentContainerName: CE_101
     configlets:
-      - AVD_BRANCH-A2A
-  - fqdn: CORP-A2A
+      - AVD_BRANCH-A2A-CE1
+  - fqdn: BRANCH-A2A-CE2
     parentContainerName: CE_101
     configlets:
-      - AVD_CORP-A2A
+      - AVD_BRANCH-A2A-CE2
+  - fqdn: CORP-A2A-CE1
+    parentContainerName: CE_101
+    configlets:
+      - AVD_CORP-A2A-CE1
+  - fqdn: CORP-A2A-CE2
+    parentContainerName: CE_101
+    configlets:
+      - AVD_CORP-A2A-CE2
   - fqdn: SF_SITE_101_BL-1
     parentContainerName: BORDER_LEAFS_101
     configlets:
@@ -56,6 +64,14 @@ cvp_devices:
     parentContainerName: SPINES_102
     configlets:
       - AVD_SF_SITE_102_SPINE-2
+  - fqdn: SF_SITE_102_TOR-1A
+    parentContainerName: TOR_102
+    configlets:
+      - AVD_SF_SITE_102_TOR-1A
+  - fqdn: SF_SITE_102_TOR-1B
+    parentContainerName: TOR_102
+    configlets:
+      - AVD_SF_SITE_102_TOR-1B
   - fqdn: SF_SITE_103_BL-1
     parentContainerName: BORDER_LEAFS_103
     configlets:
@@ -99,5 +115,7 @@ cvp_containers:
     parentContainerName: SF_SITE_102
   TOR_101:
     parentContainerName: SF_SITE_101
+  TOR_102:
+    parentContainerName: SF_SITE_102
   TOR_103:
     parentContainerName: SF_SITE_103

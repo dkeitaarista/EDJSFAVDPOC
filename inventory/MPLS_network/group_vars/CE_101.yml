@@ -8,12 +8,18 @@ ce:
     platform: vEOS-lab
     spanning_tree_mode: mstp
   nodes:
-    - name: BRANCH-A2A
+    - name: BRANCH-A2A-CE1
       id: 1
       mgmt_ip: 192.168.0.28/24
-    - name: CORP-A2A
+    - name: BRANCH-A2A-CE2
       id: 2
+      mgmt_ip: 192.168.0.30/24
+    - name: CORP-A2A-CE1
+      id: 3
       mgmt_ip: 192.168.0.29/24
+    - name: CORP-A2A-CE2
+      id: 4
+      mgmt_ip: 192.168.0.31/24
 
 vrfs:
   - name: default

@@ -22,6 +22,7 @@
   - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
+  - [Port-Channel Interfaces](#port-channel-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
@@ -254,6 +255,8 @@ vlan 101
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+| Ethernet11 | SF_SITE_102_TOR-1A_Ethernet3 | *trunk | *100-101 | *- | *- | 11 |
+| Ethernet12 | SF_SITE_102_TOR-1A_Ethernet4 | *trunk | *100-101 | *- | *- | 11 |
 
 *Inherited from Port-Channel Interface
 
@@ -337,6 +340,16 @@ interface Ethernet9
    isis hello padding
    isis network point-to-point
 !
+interface Ethernet11
+   description SF_SITE_102_TOR-1A_Ethernet3
+   no shutdown
+   channel-group 11 mode active
+!
+interface Ethernet12
+   description SF_SITE_102_TOR-1A_Ethernet4
+   no shutdown
+   channel-group 11 mode active
+!
 interface Port-channel11
    no shutdown
    no switchport
@@ -345,6 +358,28 @@ interface Port-channel11.99
    no shutdown
    encapsulation vlan
       client dot1q 99 network client
+```
+
+### Port-Channel Interfaces
+
+#### Port-Channel Interfaces Summary
+
+##### L2
+
+| Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
+| --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
+| Port-Channel11 | SF_SITE_102_TOR-1A_Po3 | switched | trunk | 100-101 | - | - | - | - | - | - |
+
+#### Port-Channel Interfaces Device Configuration
+
+```eos
+!
+interface Port-Channel11
+   description SF_SITE_102_TOR-1A_Po3
+   no shutdown
+   switchport
+   switchport trunk allowed vlan 100-101
+   switchport mode trunk
 ```
 
 ### Loopback Interfaces

@@ -1,4 +1,4 @@
-# SF_SITE_101_TOR-1A
+# CORP-A2A-CE1
 
 ## Table of Contents
 
@@ -20,12 +20,7 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
-- [VLANs](#vlans)
-  - [VLANs Summary](#vlans-summary)
-  - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
-  - [Ethernet Interfaces](#ethernet-interfaces)
-  - [Port-Channel Interfaces](#port-channel-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
@@ -47,7 +42,7 @@
 
 | Management Interface | description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | oob_management | oob | default | 192.168.0.16/24 | - |
+| Management1 | oob_management | oob | default | 192.168.0.29/24 | - |
 
 ##### IPv6
 
@@ -62,7 +57,7 @@
 interface Management1
    description oob_management
    no shutdown
-   ip address 192.168.0.16/24
+   ip address 192.168.0.29/24
 ```
 
 ### DNS Domain
@@ -238,93 +233,7 @@ spanning-tree mst 0 priority 32768
 vlan internal order ascending range 1006 1199
 ```
 
-## VLANs
-
-### VLANs Summary
-
-| VLAN ID | Name | Trunk Groups |
-| ------- | ---- | ------------ |
-| 100 | vlan_100 | - |
-| 101 | vlan_101 | - |
-
-### VLANs Device Configuration
-
-```eos
-!
-vlan 100
-   name vlan_100
-!
-vlan 101
-   name vlan_101
-```
-
 ## Interfaces
-
-### Ethernet Interfaces
-
-#### Ethernet Interfaces Summary
-
-##### L2
-
-| Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
-| --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | SF_SITE_101_BL-1_Ethernet11 | *trunk | *100-101 | *- | *- | 3 |
-| Ethernet4 | SF_SITE_101_BL-1_Ethernet12 | *trunk | *100-101 | *- | *- | 3 |
-| Ethernet7 |  BRANCH-A2A-CE1_Ethernet1 | access | 100 | - | - | - |
-| Ethernet8 |  CORP-A2A-CE1_Ethernet1 | access | 101 | - | - | - |
-
-*Inherited from Port-Channel Interface
-
-#### Ethernet Interfaces Device Configuration
-
-```eos
-!
-interface Ethernet3
-   description SF_SITE_101_BL-1_Ethernet11
-   no shutdown
-   channel-group 3 mode active
-!
-interface Ethernet4
-   description SF_SITE_101_BL-1_Ethernet12
-   no shutdown
-   channel-group 3 mode active
-!
-interface Ethernet7
-   description BRANCH-A2A-CE1_Ethernet1
-   no shutdown
-   switchport access vlan 100
-   switchport mode access
-   switchport
-!
-interface Ethernet8
-   description CORP-A2A-CE1_Ethernet1
-   no shutdown
-   switchport access vlan 101
-   switchport mode access
-   switchport
-```
-
-### Port-Channel Interfaces
-
-#### Port-Channel Interfaces Summary
-
-##### L2
-
-| Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
-| --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF_SITE_101_BL-1_Po11 | switched | trunk | 100-101 | - | - | - | - | - | - |
-
-#### Port-Channel Interfaces Device Configuration
-
-```eos
-!
-interface Port-Channel3
-   description SF_SITE_101_BL-1_Po11
-   no shutdown
-   switchport
-   switchport trunk allowed vlan 100-101
-   switchport mode trunk
-```
 
 ### Loopback Interfaces
 
@@ -334,7 +243,7 @@ interface Port-Channel3
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback10 | Inband management | default | 192.168.101.16/32 |
+| Loopback10 | Inband management | default | 192.168.101.29/32 |
 
 ##### IPv6
 
@@ -349,7 +258,7 @@ interface Port-Channel3
 !
 interface Loopback10
    description Inband management
-   ip address 192.168.101.16/32
+   ip address 192.168.101.29/32
 ```
 
 ## Routing

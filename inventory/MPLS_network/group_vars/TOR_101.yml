@@ -33,7 +33,7 @@ ethernet_aggregation:
 
 # Customer edge connectivity
 cpes:
-  - name: BRANCH-A2A
+  - name: BRANCH-A2A-CE1
     adapters:
       - switches:
           - SF_SITE_101_TOR-1A
@@ -43,10 +43,30 @@ cpes:
           - Ethernet1
         mode: access
         vlans: 100
-  - name: CORP-A2A
+  - name: CORP-A2A-CE1
     adapters:
       - switches:
           - SF_SITE_101_TOR-1A
+        switch_ports:
+          - Ethernet8
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 101
+  - name: BRANCH-A2A-CE2
+    adapters:
+      - switches:
+          - SF_SITE_101_TOR-1B
+        switch_ports:
+          - Ethernet7
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 100
+  - name: CORP-A2A-CE2
+    adapters:
+      - switches:
+          - SF_SITE_101_TOR-1B
         switch_ports:
           - Ethernet8
         endpoint_ports:

@@ -270,6 +270,8 @@ vlan 101
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet3 | SF_SITE_101_BL-2_Ethernet11 | *trunk | *100-101 | *- | *- | 3 |
 | Ethernet4 | SF_SITE_101_BL-2_Ethernet12 | *trunk | *100-101 | *- | *- | 3 |
+| Ethernet7 |  BRANCH-A2A-CE2_Ethernet1 | access | 100 | - | - | - |
+| Ethernet8 |  CORP-A2A-CE2_Ethernet1 | access | 101 | - | - | - |
 
 *Inherited from Port-Channel Interface
 
@@ -286,6 +288,20 @@ interface Ethernet4
    description SF_SITE_101_BL-2_Ethernet12
    no shutdown
    channel-group 3 mode active
+!
+interface Ethernet7
+   description BRANCH-A2A-CE2_Ethernet1
+   no shutdown
+   switchport access vlan 100
+   switchport mode access
+   switchport
+!
+interface Ethernet8
+   description CORP-A2A-CE2_Ethernet1
+   no shutdown
+   switchport access vlan 101
+   switchport mode access
+   switchport
 ```
 
 ### Port-Channel Interfaces
