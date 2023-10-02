@@ -10,13 +10,7 @@ pe:
     mpls_route_reflectors: [ SF_SITE_101_RR-1, SF_SITE_102_RR-1 ]
     bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
     structured_config: "{{ PE_BGP_STRUCTURED_CONFIG }}"
-    raw_eos_cli: |
-      router bgp 6.6971
-        vpws BRANCH
-          mpls control-word
-        address-family vpn-ipv4
-          bgp additional-paths receive
-          bgp additional-paths send any
+    raw_eos_cli: "{{ PE_EOS_CLI }}"
   nodes:
     - name: SF_SITE_101_BL-1
       id: 1

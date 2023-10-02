@@ -40,6 +40,7 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [EOS CLI](#eos-cli)
 
 ## Management
 
@@ -471,7 +472,6 @@ router isis CORE
 | ---------- |
 | bgp asn notation asdot |
 | bgp always-compare-med |
-| bgp bestpath tie-break router-id |
 | graceful-restart restart-time 300 |
 | graceful-restart |
 | no bgp default ipv4-unicast |
@@ -541,7 +541,6 @@ router bgp 6.6971
    no bgp default ipv4-unicast
    bgp asn notation asdot
    bgp always-compare-med
-   bgp bestpath tie-break router-id
    neighbor MPLS-OVERLAY-PEERS peer group
    neighbor MPLS-OVERLAY-PEERS remote-as 6.6971
    neighbor MPLS-OVERLAY-PEERS update-source Loopback0
@@ -638,4 +637,20 @@ mpls ip
 ### VRF Instances Device Configuration
 
 ```eos
+```
+
+## EOS CLI
+
+```eos
+!
+router bgp 6.6971
+  vpws BRANCH
+    mpls control-word
+  address-family vpn-ipv4
+    bgp additional-paths receive
+    bgp additional-paths send any
+  address-family vpn-ipv6
+    bgp additional-paths receive
+    bgp additional-paths send any
+
 ```

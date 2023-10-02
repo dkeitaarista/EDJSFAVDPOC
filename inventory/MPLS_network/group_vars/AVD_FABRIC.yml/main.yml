@@ -66,7 +66,6 @@ custom_structured_configuration_ntp:
 FABRIC_BGP_DEFAULTS:
   - bgp asn notation asdot
   - bgp always-compare-med
-  - bgp bestpath tie-break router-id
 
 PE_BGP_STRUCTURED_CONFIG:
   router_bgp:
@@ -76,6 +75,17 @@ PE_BGP_STRUCTURED_CONFIG:
     address_family_vpn_ipv6:
       neighbor_default_encapsulation_mpls_next_hop_self:
         source_interface: null
+
+PE_EOS_CLI: |
+  router bgp 6.6971
+    vpws BRANCH
+      mpls control-word
+    address-family vpn-ipv4
+      bgp additional-paths receive
+      bgp additional-paths send any
+    address-family vpn-ipv6
+      bgp additional-paths receive
+      bgp additional-paths send any
 
 # Set dynamic IP for inband management interface loopback 10 that matches the last octed of the management port
 mgmt_loopback_ipv4_pool: "192.168.101.0/24"
