@@ -11,6 +11,8 @@ pe:
     bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
     structured_config: "{{ PE_BGP_STRUCTURED_CONFIG }}"
     raw_eos_cli: "{{ PE_EOS_CLI }}"
+    filter:
+      tags: [ site101 ]
   nodes:
     - name: SF_SITE_101_BL-1
       id: 1
