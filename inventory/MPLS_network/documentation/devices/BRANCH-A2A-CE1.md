@@ -14,6 +14,7 @@
   - [AAA Authorization](#aaa-authorization)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
+  - [Logging](#logging)
 - [Spanning Tree](#spanning-tree)
   - [Spanning Tree Summary](#spanning-tree-summary)
   - [Spanning Tree Device Configuration](#spanning-tree-device-configuration)
@@ -30,6 +31,8 @@
   - [Router BGP](#router-bgp)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
+- [Filters](#filters)
+  - [Match-lists](#match-lists)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
@@ -200,6 +203,39 @@ daemon TerminAttr
    no shutdown
 ```
 
+### Logging
+
+#### Logging Servers and Features Summary
+
+| Type | Level |
+| -----| ----- |
+| Console | critical |
+| Monitor | disabled |
+| Buffer | informational |
+| Trap | warnings |
+| Synchronous | critical |
+
+| Format Type | Setting |
+| ----------- | ------- |
+| Timestamp | high-resolution |
+| Hostname | hostname |
+| Sequence-numbers | true |
+
+#### Logging Servers and Features Device Configuration
+
+```eos
+!
+logging buffered 180000 informational
+logging trap warnings
+logging console critical
+no logging monitor
+logging synchronous level critical
+logging format timestamp high-resolution
+logging format sequence-numbers
+logging source-interface Loopback10
+logging policy match match-list SAKlogs discard
+```
+
 ## Spanning Tree
 
 ### Spanning Tree Summary
@@ -364,6 +400,33 @@ router bgp 65501
 #### IP IGMP Snooping Device Configuration
 
 ```eos
+```
+
+## Filters
+
+### Match-lists
+
+#### Match-list Input String Summary
+
+##### SAKlogs
+
+| Sequence | Match Regex |
+| -------- | ------ |
+| 10 | MKA-6-SAK_ACTIVATED |
+| 20 | MKA-6-SAK_CREATED |
+| 30 | MKA-5-STATE_CHG |
+| 40 | MKA-3-SESSION_FAILURE |
+
+
+#### Match-lists Device Configuration
+
+```eos
+!
+match-list input string SAKlogs
+   10 match regex MKA-6-SAK_ACTIVATED
+   20 match regex MKA-6-SAK_CREATED
+   30 match regex MKA-5-STATE_CHG
+   40 match regex MKA-3-SESSION_FAILURE
 ```
 
 ## VRF Instances

@@ -39,7 +39,56 @@ name_servers:
 
 dns_domain: EDJ.poc
 
-#Management parameters
+# Logging
+custom_structured_configuration_logging:
+  console: critical
+  monitor: disabled
+  buffered:
+    size: 180000
+    level: informational
+  trap: warnings
+  synchronous:
+    level: critical
+  format:
+    timestamp: high-resolution
+#    hostname: <str>
+    sequence_numbers: true
+#  facility: <str>
+  source_interface: Loopback10
+#  vrfs:
+#    - name: <str>
+#      source_interface: <str>
+#      hosts:
+#        - name: <str>
+#          protocol: <str>
+#          ports:
+#            - <int>
+  policy:
+    match:
+      match_lists:
+        - name: SAKlogs
+          action: discard
+#  event:
+#    storm_control:
+#      discards:
+#        global: <bool>
+#        interval: <int>
+
+# match-list input
+match_list_input:
+  string:
+    - name: SAKlogs
+      sequence_numbers:
+        - sequence: 10
+          match_regex: MKA-6-SAK_ACTIVATED
+        - sequence: 20
+          match_regex: MKA-6-SAK_CREATED
+        - sequence: 30
+          match_regex: MKA-5-STATE_CHG
+        - sequence: 40
+          match_regex: MKA-3-SESSION_FAILURE
+
+#Management parameters using default due to ACT backend limitations
 mgmt_interface_vrf: default
 mgmt_gateway: null
 
@@ -77,6 +126,11 @@ PE_BGP_STRUCTURED_CONFIG:
         source_interface: null
 
 PE_EOS_CLI: |
+  !
+  mpls label range bgp-sr 16000 8000
+  mpls label range isis-sr 16000 8000
+  mpls label range static 16 15984
+  !
   router bgp 6.6971
     vpws BRANCH
       mpls control-word
