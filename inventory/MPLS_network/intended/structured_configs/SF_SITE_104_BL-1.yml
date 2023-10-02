@@ -164,11 +164,23 @@ vlans:
 - id: 101
   name: vlan_101
   tenant: BRANCH
+- id: 102
+  name: vlan_102
+  tenant: BRANCH
+- id: 103
+  name: vlan_103
+  tenant: BRANCH
 - id: 200
   name: vlan_200
   tenant: CORP
 - id: 201
   name: vlan_201
+  tenant: CORP
+- id: 202
+  name: vlan_202
+  tenant: CORP
+- id: 203
+  name: vlan_203
   tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true

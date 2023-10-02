@@ -268,26 +268,26 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 100 | vlan_100 | - |
-| 101 | vlan_101 | - |
-| 200 | vlan_200 | - |
-| 201 | vlan_201 | - |
+| 102 | vlan_102 | - |
+| 103 | vlan_103 | - |
+| 202 | vlan_202 | - |
+| 203 | vlan_203 | - |
 
 ### VLANs Device Configuration
 
 ```eos
 !
-vlan 100
-   name vlan_100
+vlan 102
+   name vlan_102
 !
-vlan 101
-   name vlan_101
+vlan 103
+   name vlan_103
 !
-vlan 200
-   name vlan_200
+vlan 202
+   name vlan_202
 !
-vlan 201
-   name vlan_201
+vlan 203
+   name vlan_203
 ```
 
 ## Interfaces
@@ -300,10 +300,16 @@ vlan 201
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet11 | SF_SITE_102_TOR-1A_Ethernet3 | *trunk | *100-101,200-201 | *- | *- | 11 |
-| Ethernet12 | SF_SITE_102_TOR-1A_Ethernet4 | *trunk | *100-101,200-201 | *- | *- | 11 |
+| Ethernet11 | SF_SITE_102_TOR-1A_Ethernet3 | *trunk | *102-103,202-203 | *- | *- | 11 |
+| Ethernet12 | SF_SITE_102_TOR-1A_Ethernet4 | *trunk | *102-103,202-203 | *- | *- | 11 |
 
 *Inherited from Port-Channel Interface
+
+##### Encapsulation Dot1q Interfaces
+
+| Interface | Description | Type | Vlan ID | Dot1q VLAN Tag |
+| --------- | ----------- | -----| ------- | -------------- |
+| Port-channel11.103 | - | l3dot1q | - | 103 |
 
 ##### Flexible Encapsulation Interfaces
 
@@ -319,6 +325,7 @@ vlan 201
 | Ethernet4 | P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet3 | routed | - | 10.1.0.5/31 | default | 1500 | False | - | - |
 | Ethernet7 | P2P_LINK_TO_SF_SITE_102_RR-1_Ethernet3 | routed | - | 10.1.0.8/31 | default | 1500 | False | - | - |
 | Ethernet9 | P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet9 | routed | - | 10.1.0.3/31 | default | 1500 | False | - | - |
+| Port-channel11.103 | - | l3dot1q | - | 10.255.102.0/31 | BRANCH-10015 | - | False | - | - |
 
 ##### ISIS
 
@@ -403,6 +410,12 @@ interface Port-channel11.99
    no shutdown
    encapsulation vlan
       client dot1q 99 network client
+!
+interface Port-channel11.103
+   no shutdown
+   encapsulation dot1q vlan 103
+   vrf BRANCH-10015
+   ip address 10.255.102.0/31
 ```
 
 ### Port-Channel Interfaces
@@ -413,7 +426,7 @@ interface Port-channel11.99
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel11 | SF_SITE_102_TOR-1A_Po3 | switched | trunk | 100-101,200-201 | - | - | - | - | - | - |
+| Port-Channel11 | SF_SITE_102_TOR-1A_Po3 | switched | trunk | 102-103,202-203 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -423,7 +436,7 @@ interface Port-Channel11
    description SF_SITE_102_TOR-1A_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan 100-101,200-201
+   switchport trunk allowed vlan 102-103,202-203
    switchport mode trunk
 ```
 
@@ -486,12 +499,14 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
+| BRANCH-10015 | True |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
+ip routing vrf BRANCH-10015
 ```
 
 ### IPv6 Routing
@@ -501,6 +516,7 @@ ip routing
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
+| BRANCH-10015 | false |
 | default | false |
 
 ### Router ISIS
@@ -591,6 +607,7 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
+| 10.255.102.1 | 65521 | BRANCH-10015 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -627,6 +644,12 @@ router isis CORE
 | Instance | Route-Distinguisher | Both Route-Target | MPLS Control Word | Label Flow | MTU | Pseudowire | Local ID | Remote ID |
 | -------- | ------------------- | ----------------- | ----------------- | -----------| --- | ---------- | -------- | --------- |
 | BRANCH | 100.2.2.1:5000 | 6.6971:5000 | False | False | - | SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 | 101 | 100 |
+
+#### Router BGP VRFs
+
+| VRF | Route-Distinguisher | Redistribute |
+| --- | ------------------- | ------------ |
+| BRANCH-10015 | 100.2.2.1:10015 | connected |
 
 #### Router BGP Device Configuration
 
@@ -671,6 +694,26 @@ router bgp 6.6971
    !
    address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
+   !
+   vrf BRANCH-10015
+      rd 100.2.2.1:10015
+      route-target import vpn-ipv4 6.6971:10015
+      route-target import vpn-ipv6 6.6971:10015
+      route-target export vpn-ipv4 6.6971:10015
+      route-target export vpn-ipv6 6.6971:10015
+      router-id 100.2.2.1
+      neighbor 10.255.102.1 remote-as 65521
+      neighbor 10.255.102.1 bfd
+      redistribute connected
+      !
+      address-family ipv4
+         bgp additional-paths install
+         neighbor 10.255.102.1 activate
+      !
+      bgp additional-paths receive
+      bgp additional-paths send any
+      bgp bestpath tie-break router-id
+
 ```
 
 ## BFD
@@ -788,10 +831,13 @@ match-list input string SAKlogs
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
+| BRANCH-10015 | enabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
+!
+vrf instance BRANCH-10015
 ```
 
 ## EOS CLI

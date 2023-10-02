@@ -1,4 +1,4 @@
-# SF_SITE_103_TOR-1A
+# BRANCH-A2A-CE4
 
 ## Table of Contents
 
@@ -21,17 +21,14 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
-- [VLANs](#vlans)
-  - [VLANs Summary](#vlans-summary)
-  - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
-  - [Port-Channel Interfaces](#port-channel-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
+  - [Router BGP](#router-bgp)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
@@ -50,7 +47,7 @@
 
 | Management Interface | description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | oob_management | oob | default | 192.168.0.26/24 | - |
+| Management1 | oob_management | oob | default | 192.168.0.33/24 | - |
 
 ##### IPv6
 
@@ -65,7 +62,7 @@
 interface Management1
    description oob_management
    no shutdown
-   ip address 192.168.0.26/24
+   ip address 192.168.0.33/24
 ```
 
 ### DNS Domain
@@ -274,50 +271,6 @@ spanning-tree mst 0 priority 32768
 vlan internal order ascending range 1006 1199
 ```
 
-## VLANs
-
-### VLANs Summary
-
-| VLAN ID | Name | Trunk Groups |
-| ------- | ---- | ------------ |
-| 100 | vlan_100 | - |
-| 101 | vlan_101 | - |
-| 102 | vlan_102 | - |
-| 103 | vlan_103 | - |
-| 200 | vlan_200 | - |
-| 201 | vlan_201 | - |
-| 202 | vlan_202 | - |
-| 203 | vlan_203 | - |
-
-### VLANs Device Configuration
-
-```eos
-!
-vlan 100
-   name vlan_100
-!
-vlan 101
-   name vlan_101
-!
-vlan 102
-   name vlan_102
-!
-vlan 103
-   name vlan_103
-!
-vlan 200
-   name vlan_200
-!
-vlan 201
-   name vlan_201
-!
-vlan 202
-   name vlan_202
-!
-vlan 203
-   name vlan_203
-```
-
 ## Interfaces
 
 ### Ethernet Interfaces
@@ -328,46 +281,23 @@ vlan 203
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | SF_SITE_103_BL-1_Ethernet3 | *trunk | *100-103,200-203 | *- | *- | 3 |
-| Ethernet4 | SF_SITE_103_BL-1_Ethernet4 | *trunk | *100-103,200-203 | *- | *- | 3 |
 
 *Inherited from Port-Channel Interface
+
+##### IPv4
+
+| Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
+| --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
+| Ethernet1 | Uplink to SF_SITE_102_TOR-1B | routed | - | 10.255.102.3/31 | default | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
-interface Ethernet3
-   description SF_SITE_103_BL-1_Ethernet3
-   no shutdown
-   channel-group 3 mode active
-!
-interface Ethernet4
-   description SF_SITE_103_BL-1_Ethernet4
-   no shutdown
-   channel-group 3 mode active
-```
-
-### Port-Channel Interfaces
-
-#### Port-Channel Interfaces Summary
-
-##### L2
-
-| Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
-| --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF_SITE_103_BL-1_Po3 | switched | trunk | 100-103,200-203 | - | - | - | - | - | - |
-
-#### Port-Channel Interfaces Device Configuration
-
-```eos
-!
-interface Port-Channel3
-   description SF_SITE_103_BL-1_Po3
-   no shutdown
-   switchport
-   switchport trunk allowed vlan 100-103,200-203
-   switchport mode trunk
+interface Ethernet1
+   description Uplink to SF_SITE_102_TOR-1B
+   no switchport
+   ip address 10.255.102.3/31
 ```
 
 ### Loopback Interfaces
@@ -378,7 +308,7 @@ interface Port-Channel3
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback10 | Inband management | default | 192.168.101.26/32 |
+| Loopback10 | Inband management | default | 192.168.101.33/32 |
 
 ##### IPv6
 
@@ -393,7 +323,7 @@ interface Port-Channel3
 !
 interface Loopback10
    description Inband management
-   ip address 192.168.101.26/32
+   ip address 192.168.101.33/32
 ```
 
 ## Routing
@@ -428,6 +358,34 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | False |
 | default | false |
+
+### Router BGP
+
+#### Router BGP Summary
+
+| BGP AS | Router ID |
+| ------ | --------- |
+| 65523|  10.255.102.3 |
+
+#### BGP Neighbors
+
+| Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
+| -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
+| 10.255.102.2 | 6.6971 | default | - | - | - | - | True | - | - | - |
+
+#### Router BGP Device Configuration
+
+```eos
+!
+router bgp 65523
+   router-id 10.255.102.3
+   neighbor 10.255.102.2 peer group CE-PEER-GROUP
+   neighbor 10.255.102.2 remote-as 6.6971
+   neighbor 10.255.102.2 bfd
+   !
+   address-family ipv4
+      neighbor CE-PEER-GROUP activate
+```
 
 ## Multicast
 

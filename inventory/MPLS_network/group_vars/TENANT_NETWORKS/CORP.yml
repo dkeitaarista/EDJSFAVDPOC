@@ -69,3 +69,11 @@ CORP:
       - id: 201
         name: vlan_201
         vxlan: false
+      - id: 202
+        name: vlan_202
+        vxlan: false
+        tags: [ site102 ]
+      - id: 203
+        name: vlan_203
+        vxlan: false
+        tags: [ site102 ]

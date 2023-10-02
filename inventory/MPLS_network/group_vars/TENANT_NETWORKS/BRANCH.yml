@@ -79,6 +79,36 @@ BRANCH:
             bfd: true
             nodes:
               - SF_SITE_101_BL-2
+      - name: BRANCH-10015
+        vrf_vni: 10015
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        l3_interfaces:
+          - interfaces:
+              - Port-channel11.103
+            encapsulation_dot1q_vlan:
+              - 103
+            ip_addresses:
+              - 10.255.102.0/31
+            nodes:
+              - SF_SITE_102_BL-1
+        bgp_peers:
+          - ip_address: 10.255.102.1
+            remote_as: 65521
+            bfd: true
+            nodes:
+              - SF_SITE_102_BL-1
     l2vlans:
       - id: 100
         name: vlan_100
@@ -86,3 +116,11 @@ BRANCH:
       - id: 101
         name: vlan_101
         vxlan: false
+      - id: 102
+        name: vlan_102
+        vxlan: false
+        tags: [ site102 ]
+      - id: 103
+        name: vlan_103
+        vxlan: false
+        tags: [ site102 ]
