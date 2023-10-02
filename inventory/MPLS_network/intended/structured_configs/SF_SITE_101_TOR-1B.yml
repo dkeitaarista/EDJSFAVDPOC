@@ -90,6 +90,24 @@ vlans:
   tenant: BRANCH
 ip_igmp_snooping:
   globally_enabled: true
+logging:
+  console: critical
+  monitor: disabled
+  buffered:
+    size: 180000
+    level: informational
+  trap: warnings
+  synchronous:
+    level: critical
+  format:
+    timestamp: high-resolution
+    sequence_numbers: true
+  source_interface: Loopback10
+  policy:
+    match:
+      match_lists:
+      - name: SAKlogs
+        action: discard
 daemon_terminattr:
   cvaddrs:
   - 192.168.0.5:9910

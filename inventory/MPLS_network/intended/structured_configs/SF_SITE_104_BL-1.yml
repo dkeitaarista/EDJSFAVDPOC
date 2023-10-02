@@ -88,8 +88,9 @@ management_api_http:
   enable_vrfs:
   - name: default
   enable_https: true
-eos_cli: "router bgp 6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp
-  additional-paths send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n"
+eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
+  6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
+  send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n"
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -165,6 +166,24 @@ vlans:
   tenant: BRANCH
 ip_igmp_snooping:
   globally_enabled: true
+logging:
+  console: critical
+  monitor: disabled
+  buffered:
+    size: 180000
+    level: informational
+  trap: warnings
+  synchronous:
+    level: critical
+  format:
+    timestamp: high-resolution
+    sequence_numbers: true
+  source_interface: Loopback10
+  policy:
+    match:
+      match_lists:
+      - name: SAKlogs
+        action: discard
 daemon_terminattr:
   cvaddrs:
   - 192.168.0.5:9910
