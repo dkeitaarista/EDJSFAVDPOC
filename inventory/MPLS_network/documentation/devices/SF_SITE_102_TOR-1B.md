@@ -282,6 +282,8 @@ vlan internal order ascending range 1006 1199
 | ------- | ---- | ------------ |
 | 100 | vlan_100 | - |
 | 101 | vlan_101 | - |
+| 200 | vlan_200 | - |
+| 201 | vlan_201 | - |
 
 ### VLANs Device Configuration
 
@@ -292,6 +294,12 @@ vlan 100
 !
 vlan 101
    name vlan_101
+!
+vlan 200
+   name vlan_200
+!
+vlan 201
+   name vlan_201
 ```
 
 ## Interfaces
@@ -304,8 +312,8 @@ vlan 101
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | SF_SITE_102_BL-2_Ethernet11 | *trunk | *100-101 | *- | *- | 3 |
-| Ethernet4 | SF_SITE_102_BL-2_Ethernet12 | *trunk | *100-101 | *- | *- | 3 |
+| Ethernet3 | SF_SITE_102_BL-2_Ethernet11 | *trunk | *100-101,200-201 | *- | *- | 3 |
+| Ethernet4 | SF_SITE_102_BL-2_Ethernet12 | *trunk | *100-101,200-201 | *- | *- | 3 |
 
 *Inherited from Port-Channel Interface
 
@@ -332,7 +340,7 @@ interface Ethernet4
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF_SITE_102_BL-2_Po11 | switched | trunk | 100-101 | - | - | - | - | - | - |
+| Port-Channel3 | SF_SITE_102_BL-2_Po11 | switched | trunk | 100-101,200-201 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -342,7 +350,7 @@ interface Port-Channel3
    description SF_SITE_102_BL-2_Po11
    no shutdown
    switchport
-   switchport trunk allowed vlan 100-101
+   switchport trunk allowed vlan 100-101,200-201
    switchport mode trunk
 ```
 

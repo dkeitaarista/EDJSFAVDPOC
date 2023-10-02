@@ -22,11 +22,13 @@
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
 - [Interfaces](#interfaces)
+  - [Ethernet Interfaces](#ethernet-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
+  - [Router BGP](#router-bgp)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
@@ -271,6 +273,33 @@ vlan internal order ascending range 1006 1199
 
 ## Interfaces
 
+### Ethernet Interfaces
+
+#### Ethernet Interfaces Summary
+
+##### L2
+
+| Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
+| --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+
+*Inherited from Port-Channel Interface
+
+##### IPv4
+
+| Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
+| --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
+| Ethernet1 | Uplink to SF_SITE_101_TOR-1B | routed | - | 10.255.101.7/31 | default | - | - | - | - |
+
+#### Ethernet Interfaces Device Configuration
+
+```eos
+!
+interface Ethernet1
+   description Uplink to SF_SITE_101_TOR-1B
+   no switchport
+   ip address 10.255.101.7/31
+```
+
 ### Loopback Interfaces
 
 #### Loopback Interfaces Summary
@@ -329,6 +358,33 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | False |
 | default | false |
+
+### Router BGP
+
+#### Router BGP Summary
+
+| BGP AS | Router ID |
+| ------ | --------- |
+| 65504|  10.255.101.7 |
+
+#### BGP Neighbors
+
+| Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
+| -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
+| 10.255.101.6 | 6.6971 | default | - | - | - | - | - | - | - | - |
+
+#### Router BGP Device Configuration
+
+```eos
+!
+router bgp 65504
+   router-id 10.255.101.7
+   neighbor 10.255.101.6 peer group CE-PEER-GROUP
+   neighbor 10.255.101.6 remote-as 6.6971
+   !
+   address-family ipv4
+      neighbor CE-PEER-GROUP activate
+```
 
 ## Multicast
 

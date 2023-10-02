@@ -289,7 +289,6 @@ vlan internal order ascending range 1006 1199
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
 | Ethernet1 | Uplink to SF_SITE_101_TOR-1A | routed | - | 10.255.101.5/31 | default | - | - | - | - |
-| Ethernet2 | Uplink to SF_SITE_101_TOR-1B | routed | - | 10.255.101.7/31 | default | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -299,11 +298,6 @@ interface Ethernet1
    description Uplink to SF_SITE_101_TOR-1A
    no switchport
    ip address 10.255.101.5/31
-!
-interface Ethernet2
-   description Uplink to SF_SITE_101_TOR-1B
-   no switchport
-   ip address 10.255.101.7/31
 ```
 
 ### Loopback Interfaces
@@ -371,25 +365,22 @@ service routing protocols model multi-agent
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65502|  10.255.101.4 |
+| 65502|  10.255.101.5 |
 
 #### BGP Neighbors
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 10.255.101.4 | 6.6971 | default | - | - | - | - | - | - | - | - |
-| 10.255.101.6 | 6.6971 | default | - | - | - | - | - | - | - | - |
 
 #### Router BGP Device Configuration
 
 ```eos
 !
 router bgp 65502
-   router-id 10.255.101.4
+   router-id 10.255.101.5
    neighbor 10.255.101.4 peer group CE-PEER-GROUP
    neighbor 10.255.101.4 remote-as 6.6971
-   neighbor 10.255.101.6 peer group CE-PEER-GROUP
-   neighbor 10.255.101.6 remote-as 6.6971
    !
    address-family ipv4
       neighbor CE-PEER-GROUP activate

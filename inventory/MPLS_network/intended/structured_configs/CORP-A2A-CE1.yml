@@ -79,18 +79,11 @@ ethernet_interfaces:
   description: Uplink to SF_SITE_101_TOR-1A
   type: routed
   ip_address: 10.255.101.5/31
-- name: Ethernet2
-  description: Uplink to SF_SITE_101_TOR-1B
-  type: routed
-  ip_address: 10.255.101.7/31
 router_bgp:
   as: '65502'
-  router_id: 10.255.101.4
+  router_id: 10.255.101.5
   neighbors:
   - ip_address: 10.255.101.4
-    remote_as: '6.6971'
-    peer_group: CE-PEER-GROUP
-  - ip_address: 10.255.101.6
     remote_as: '6.6971'
     peer_group: CE-PEER-GROUP
   address_family_ipv4:

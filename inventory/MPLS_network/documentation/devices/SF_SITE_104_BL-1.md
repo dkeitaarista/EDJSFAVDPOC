@@ -266,6 +266,8 @@ vlan internal order ascending range 1006 1199
 | ------- | ---- | ------------ |
 | 100 | vlan_100 | - |
 | 101 | vlan_101 | - |
+| 200 | vlan_200 | - |
+| 201 | vlan_201 | - |
 
 ### VLANs Device Configuration
 
@@ -276,6 +278,12 @@ vlan 100
 !
 vlan 101
    name vlan_101
+!
+vlan 200
+   name vlan_200
+!
+vlan 201
+   name vlan_201
 ```
 
 ## Interfaces
