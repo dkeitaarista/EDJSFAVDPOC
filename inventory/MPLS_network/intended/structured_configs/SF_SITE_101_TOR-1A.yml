@@ -80,7 +80,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-101
+  vlans: 100-101,200-201
 vlans:
 - id: 100
   name: vlan_100
@@ -88,6 +88,12 @@ vlans:
 - id: 101
   name: vlan_101
   tenant: BRANCH
+- id: 200
+  name: vlan_200
+  tenant: CORP
+- id: 201
+  name: vlan_201
+  tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true
 logging:

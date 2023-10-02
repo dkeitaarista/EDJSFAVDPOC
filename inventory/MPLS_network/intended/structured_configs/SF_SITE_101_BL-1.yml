@@ -95,26 +95,37 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
-  - name: BRANCH-10013
+  - name: CORP-10012
     router_id: 100.1.2.1
-    rd: 100.1.2.1:10013
+    rd: 100.1.2.1:10012
     route_targets:
       import:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:10013
+        - 6.6971:10012
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:10013
+        - 6.6971:10012
       export:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:10013
+        - 6.6971:10012
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:10013
+        - 6.6971:10012
     redistribute_routes:
     - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.101.5
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.101.5
+      remote_as: '65502'
+      bfd: true
     eos_cli: 'bgp additional-paths receive
 
       bgp additional-paths send any
@@ -122,10 +133,6 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
-    address_family_ipv4:
-      bgp:
-        additional_paths:
-          install: true
   vpws:
   - name: BRANCH
     rd: 100.1.2.1:5000
@@ -158,8 +165,8 @@ vrfs:
 - name: BRANCH-10011
   tenant: BRANCH
   ip_routing: true
-- name: BRANCH-10013
-  tenant: BRANCH
+- name: CORP-10012
+  tenant: CORP
   ip_routing: true
 management_interfaces:
 - name: Management1
@@ -284,13 +291,13 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 100
   vrf: BRANCH-10011
-- name: Port-channel11.101
+- name: Port-channel11.200
   peer_type: l3_interface
-  ip_address: 10.255.101.2/31
+  ip_address: 10.255.101.4/31
   shutdown: false
   type: l3dot1q
-  encapsulation_dot1q_vlan: 101
-  vrf: BRANCH-10013
+  encapsulation_dot1q_vlan: 200
+  vrf: CORP-10012
 - name: Port-channel11.99
   type: l2dot1q
   peer_type: point_to_point_service
@@ -311,7 +318,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-101
+  vlans: 100-101,200-201
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -363,6 +370,12 @@ vlans:
 - id: 101
   name: vlan_101
   tenant: BRANCH
+- id: 200
+  name: vlan_200
+  tenant: CORP
+- id: 201
+  name: vlan_201
+  tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true
 logging:
