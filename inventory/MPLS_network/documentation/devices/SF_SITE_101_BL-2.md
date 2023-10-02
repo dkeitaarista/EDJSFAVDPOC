@@ -685,5 +685,8 @@ router bgp 6.6971
   address-family vpn-ipv4
     bgp additional-paths receive
     bgp additional-paths send any
+  address-family vpn-ipv6
+    bgp additional-paths receive
+    bgp additional-paths send any
 
 ```
