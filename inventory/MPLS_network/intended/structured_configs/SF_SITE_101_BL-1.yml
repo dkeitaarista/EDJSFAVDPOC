@@ -119,6 +119,8 @@ router_bgp:
 
       bgp additional-paths send any
 
+      bgp bestpath tie-break router-id
+
       '
     address_family_ipv4:
       bgp:

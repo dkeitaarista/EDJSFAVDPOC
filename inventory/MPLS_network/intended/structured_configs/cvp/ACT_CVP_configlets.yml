@@ -168,18 +168,19 @@ cvp_configlets:
     import vpn-ipv6 6.6971:10013\n      route-target export vpn-ipv4 6.6971:10013\n
     \     route-target export vpn-ipv6 6.6971:10013\n      router-id 100.1.2.1\n      redistribute
     connected\n      !\n      address-family ipv4\n         bgp additional-paths install\n
-    \     !\n      bgp additional-paths receive\n      bgp additional-paths send any\n\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.1.2.1\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
-    mpls\n      no shutdown\n!\nmpls ip\n!\npatch panel\n   patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n
-    \     connector 1 interface Port-channel11.99\n      connector 2 pseudowire bgp
-    vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n   !\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\n!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000
-    8000\nmpls label range static 16 15984\n!\nrouter bgp 6.6971\n  vpws BRANCH\n
-    \   mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n
-    \   bgp additional-paths send any\n  address-family vpn-ipv6\n    bgp additional-paths
-    receive\n    bgp additional-paths send any\n\n!\nend\n"
+    \     !\n      bgp additional-paths receive\n      bgp additional-paths send any\n
+    \     bgp bestpath tie-break router-id\n\n!\nrouter isis CORE\n   is-type level-2\n
+    \  router-id ipv4 100.1.2.1\n   log-adjacency-changes\n   !\n   address-family
+    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\npatch panel\n   patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n      connector
+    1 interface Port-channel11.99\n      connector 2 pseudowire bgp vpws BRANCH pseudowire
+    SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n   !\n!\nmanagement api http-commands\n
+    \  protocol https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls
+    label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label
+    range static 16 15984\n!\nrouter bgp 6.6971\n  vpws BRANCH\n    mpls control-word\n
+    \ address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
+    send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp
+    additional-paths send any\n\n!\nend\n"
   AVD_SF_SITE_101_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan

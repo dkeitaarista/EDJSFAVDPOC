@@ -749,6 +749,7 @@ router bgp 6.6971
       !
       bgp additional-paths receive
       bgp additional-paths send any
+      bgp bestpath tie-break router-id
 
 ```
 
