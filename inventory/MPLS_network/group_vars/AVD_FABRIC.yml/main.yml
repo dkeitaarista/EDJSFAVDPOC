@@ -66,6 +66,7 @@ custom_structured_configuration_ntp:
 FABRIC_BGP_DEFAULTS:
   - bgp asn notation asdot
   - bgp always-compare-med
+  - bgp bestpath tie-break router-id
 
 PE_BGP_STRUCTURED_CONFIG:
   router_bgp:
