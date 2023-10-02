@@ -282,12 +282,8 @@ vlan internal order ascending range 1006 1199
 | ------- | ---- | ------------ |
 | 100 | vlan_100 | - |
 | 101 | vlan_101 | - |
-| 102 | vlan_102 | - |
-| 103 | vlan_103 | - |
 | 200 | vlan_200 | - |
 | 201 | vlan_201 | - |
-| 202 | vlan_202 | - |
-| 203 | vlan_203 | - |
 
 ### VLANs Device Configuration
 
@@ -299,23 +295,11 @@ vlan 100
 vlan 101
    name vlan_101
 !
-vlan 102
-   name vlan_102
-!
-vlan 103
-   name vlan_103
-!
 vlan 200
    name vlan_200
 !
 vlan 201
    name vlan_201
-!
-vlan 202
-   name vlan_202
-!
-vlan 203
-   name vlan_203
 ```
 
 ## Interfaces
@@ -328,8 +312,8 @@ vlan 203
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | SF_SITE_101_BL-2_Ethernet11 | *trunk | *100-103,200-203 | *- | *- | 3 |
-| Ethernet4 | SF_SITE_101_BL-2_Ethernet12 | *trunk | *100-103,200-203 | *- | *- | 3 |
+| Ethernet3 | SF_SITE_101_BL-2_Ethernet11 | *trunk | *100-101,200-201 | *- | *- | 3 |
+| Ethernet4 | SF_SITE_101_BL-2_Ethernet12 | *trunk | *100-101,200-201 | *- | *- | 3 |
 | Ethernet7 |  BRANCH-A2A-CE2_Ethernet1 | access | 100 | - | - | - |
 | Ethernet8 |  CORP-A2A-CE2_Ethernet1 | access | 101 | - | - | - |
 
@@ -372,7 +356,7 @@ interface Ethernet8
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF_SITE_101_BL-2_Po11 | switched | trunk | 100-103,200-203 | - | - | - | - | - | - |
+| Port-Channel3 | SF_SITE_101_BL-2_Po11 | switched | trunk | 100-101,200-201 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -382,7 +366,7 @@ interface Port-Channel3
    description SF_SITE_101_BL-2_Po11
    no shutdown
    switchport
-   switchport trunk allowed vlan 100-103,200-203
+   switchport trunk allowed vlan 100-101,200-201
    switchport mode trunk
 ```
 

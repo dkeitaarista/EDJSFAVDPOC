@@ -113,9 +113,11 @@ BRANCH:
       - id: 100
         name: vlan_100
         vxlan: false
+        tags: [ site101 ]
       - id: 101
         name: vlan_101
         vxlan: false
+        tags: [ site101 ]
       - id: 102
         name: vlan_102
         vxlan: false
