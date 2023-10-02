@@ -9,6 +9,7 @@ router_bgp:
   bgp_defaults:
   - bgp asn notation asdot
   - bgp always-compare-med
+  - bgp bestpath tie-break router-id
   bgp:
     default:
       ipv4_unicast: false

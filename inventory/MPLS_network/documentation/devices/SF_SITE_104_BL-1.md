@@ -436,6 +436,7 @@ router isis CORE
 | ---------- |
 | bgp asn notation asdot |
 | bgp always-compare-med |
+| bgp bestpath tie-break router-id |
 | graceful-restart restart-time 300 |
 | graceful-restart |
 | no bgp default ipv4-unicast |
@@ -505,6 +506,7 @@ router bgp 6.6971
    no bgp default ipv4-unicast
    bgp asn notation asdot
    bgp always-compare-med
+   bgp bestpath tie-break router-id
    neighbor MPLS-OVERLAY-PEERS peer group
    neighbor MPLS-OVERLAY-PEERS remote-as 6.6971
    neighbor MPLS-OVERLAY-PEERS update-source Loopback0
