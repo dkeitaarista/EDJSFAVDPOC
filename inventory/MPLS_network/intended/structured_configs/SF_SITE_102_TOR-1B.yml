@@ -56,25 +56,43 @@ ethernet_interfaces:
   channel_group:
     id: 3
     mode: active
+- name: Ethernet7
+  peer: BRANCH-A2A-CE4
+  peer_interface: Ethernet1
+  peer_type: cpe
+  description: BRANCH-A2A-CE4_Ethernet1
+  shutdown: false
+  type: switched
+  mode: access
+  vlans: '103'
+- name: Ethernet8
+  peer: CORP-A2A-CE4
+  peer_interface: Ethernet1
+  peer_type: cpe
+  description: CORP-A2A-CE4_Ethernet1
+  shutdown: false
+  type: switched
+  mode: access
+  vlans: '203'
 port_channel_interfaces:
 - name: Port-Channel3
   description: SF_SITE_102_BL-2_Po11
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-101,200-201
+  vlans: 102-103,202-203
 vlans:
-- id: 100
-  name: vlan_100
+- id: 102
+  name: vlan_102
   tenant: BRANCH
-- id: 101
-  name: vlan_101
+- id: 103
+  name: vlan_103
   tenant: BRANCH
-- id: 200
-  name: vlan_200
+- id: 202
+  name: vlan_202
   tenant: CORP
-- id: 201
-  name: vlan_201
+- id: 203
+  name: vlan_203
   tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true

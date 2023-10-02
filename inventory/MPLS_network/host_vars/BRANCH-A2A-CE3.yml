@@ -1,0 +1,23 @@
+---
+# L3 interface to TOR
+
+custom_structured_configuration_ethernet_interfaces:
+  - name: Ethernet1
+    description: Uplink to SF_SITE_102_TOR-1A
+    type: routed
+    ip_address: 10.255.102.1/31
+
+# BGP peering with border leaf
+
+custom_structured_configuration_router_bgp:
+  as: 65521
+  router_id: 10.255.102.1
+  neighbors:
+    - ip_address: 10.255.102.0
+      remote_as: '6.6971'
+      bfd: true
+      peer_group: CE-PEER-GROUP
+  address_family_ipv4:
+    peer_groups:
+      - name: CE-PEER-GROUP
+        activate: true

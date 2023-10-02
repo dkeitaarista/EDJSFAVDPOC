@@ -66,6 +66,17 @@ all:
                   ansible_host: 10.255.x.x
                 SF_SITE_102_TOR-1B:
                   ansible_host: 10.255.x.x
+            # Customer edge (host simulation)
+            CE_102:
+              hosts:
+                BRANCH-A2A-CE3:
+                  ansible_host: 10.255.x.x
+                BRANCH-A2A-CE4:
+                  ansible_host: 10.255.x.x
+                CORP-A2A-CE3:
+                  ansible_host: 10.255.x.x
+                CORP-A2A-CE4:
+                  ansible_host: 10.255.x.x
         SF_SITE_103:
           children:
             BORDER_LEAFS_103:

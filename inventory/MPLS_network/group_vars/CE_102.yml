@@ -1,0 +1,26 @@
+---
+# Simulation of customer edge devices
+
+type: ce
+
+ce:
+  defaults:
+    platform: vEOS-lab
+    spanning_tree_mode: mstp
+  nodes:
+    - name: BRANCH-A2A-CE3
+      id: 1
+      mgmt_ip: 192.168.0.32/24
+    - name: BRANCH-A2A-CE4
+      id: 2
+      mgmt_ip: 192.168.0.33/24
+    - name: CORP-A2A-CE3
+      id: 3
+      mgmt_ip: 192.168.0.24/24
+    - name: CORP-A2A-CE4
+      id: 4
+      mgmt_ip: 192.168.0.35/24
+
+vrfs:
+  - name: default
+    ip_routing: true

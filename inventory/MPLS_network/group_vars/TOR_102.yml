@@ -30,3 +30,46 @@ ethernet_aggregation:
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
+
+# Customer edge connectivity
+cpes:
+  - name: BRANCH-A2A-CE3
+    adapters:
+      - switches:
+          - SF_SITE_102_TOR-1A
+        switch_ports:
+          - Ethernet7
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 102
+  - name: CORP-A2A-CE3
+    adapters:
+      - switches:
+          - SF_SITE_102_TOR-1A
+        switch_ports:
+          - Ethernet8
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 202
+  - name: BRANCH-A2A-CE4
+    adapters:
+      - switches:
+          - SF_SITE_102_TOR-1B
+        switch_ports:
+          - Ethernet7
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 103
+  - name: CORP-A2A-CE4
+    adapters:
+      - switches:
+          - SF_SITE_102_TOR-1B
+        switch_ports:
+          - Ethernet8
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 203
