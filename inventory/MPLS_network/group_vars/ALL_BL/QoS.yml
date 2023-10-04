@@ -322,3 +322,15 @@ class_maps:
     - name: BUSINESS
       ip:
         access_group: BUSINESS
+
+# Policy-map
+# see PE_EOS_CLI key in group_vars/ALL_BL/main.yml for police rate because it is not in the data model
+policy_maps:
+  qos:
+    - name: TENANT-INGRESS-CLASSIFIER-1G
+      classes:
+        - name: BUSINESS
+          set:
+            traffic_class: 2
+
+p2p_uplinks_qos_profile: TENANT-1G

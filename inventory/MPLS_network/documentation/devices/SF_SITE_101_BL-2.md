@@ -47,6 +47,8 @@
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
 - [Quality Of Service](#quality-of-service)
   - [QOS](#qos)
+  - [QOS Class Maps](#qos-class-maps)
+  - [QOS Policy Maps](#qos-policy-maps)
   - [QOS Profiles](#qos-profiles)
 - [EOS CLI](#eos-cli)
 
@@ -345,6 +347,7 @@ interface Ethernet3
    no switchport
    ip address 10.0.0.3/31
    mpls ip
+   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -358,6 +361,7 @@ interface Ethernet4
    no switchport
    ip address 10.0.0.7/31
    mpls ip
+   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -371,6 +375,7 @@ interface Ethernet7
    no switchport
    ip address 10.0.0.10/31
    mpls ip
+   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -384,6 +389,7 @@ interface Ethernet9
    no switchport
    ip address 10.1.0.4/31
    mpls ip
+   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -437,6 +443,7 @@ interface Port-Channel11
    switchport
    switchport trunk allowed vlan 100-101,200-201
    switchport mode trunk
+   service-profile TENANT-1G
 ```
 
 ### Loopback Interfaces
@@ -866,10 +873,6 @@ ip access-list BUSINESS
    380 remark Wireless CAPWAP
    390 permit udp any any eq 5246 5247
    400 permit udp any eq 5246 5247 any
-   410 permit ip any any
-   420 permit ip any any
-   430 permit ip any any
-   440 permit ip any any
 ```
 
 ## VRF Instances
@@ -936,6 +939,41 @@ qos map traffic-class 0 to exp 0
 qos map traffic-class 1 to cos 1
 qos map traffic-class 1 to dscp 8
 qos map traffic-class 1 to exp 1
+```
+
+### QOS Class Maps
+
+#### QOS Class Maps Summary
+
+| Name | Field | Value |
+| ---- | ----- | ----- |
+| BUSINESS | acl | BUSINESS |
+
+#### Class-maps Device Configuration
+
+```eos
+!
+class-map type qos match-any BUSINESS
+   match ip access-group BUSINESS
+```
+
+### QOS Policy Maps
+
+#### QOS Policy Maps Summary
+
+**TENANT-INGRESS-CLASSIFIER-1G**
+
+| class | Set | Value |
+| ----- | --- | ----- |
+| BUSINESS | traffic_class | 2 |
+
+#### QOS Policy Maps configuration
+
+```eos
+!
+policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
+   class BUSINESS
+      set traffic-class 2
 ```
 
 ### QOS Profiles
@@ -1061,4 +1099,8 @@ router bgp 6.6971
 !
 qos map exp 0 to traffic-class 0
 qos map exp 1 to traffic-class 1
+!
+policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
+ class BUSINESS
+    police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes
 ```

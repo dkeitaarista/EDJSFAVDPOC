@@ -28,3 +28,7 @@ PE_EOS_CLI: |
   !
   qos map exp 0 to traffic-class 0
   qos map exp 1 to traffic-class 1
+  !
+  policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
+   class BUSINESS
+      police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes
