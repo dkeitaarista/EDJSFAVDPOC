@@ -90,7 +90,8 @@ management_api_http:
   enable_https: true
 eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
   6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
-  send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n"
+  send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
+  0\nqos map exp 1 to traffic-class 1"
 ethernet_interfaces:
 - name: Ethernet11
   peer: SF_SITE_102_TOR-1B

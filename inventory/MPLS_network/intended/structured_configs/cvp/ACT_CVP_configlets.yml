@@ -199,7 +199,19 @@ cvp_configlets:
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF_SITE_101_BL-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\naaa authorization exec default local\n!\nno
+    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
+    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
     enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
     secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
@@ -234,13 +246,19 @@ cvp_configlets:
     Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
     100.1.2.1/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
     1\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.14/32\n!\ninterface
-    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.14/24\n!\nip
-    routing\nip routing vrf BRANCH-10011\nip routing vrf CORP-10012\n!\nrouter bfd\n
-    \  multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id
-    100.1.2.1\n   distance bgp 20 200 200\n   graceful-restart restart-time 300\n
-    \  graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
-    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
-    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.14/24\nip
+    access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
+    ssh\n   20 permit tcp any eq ssh any\n!\nip routing\nip routing vrf BRANCH-10011\nip
+    routing vrf CORP-10012\n!\nqos map cos 0 to traffic-class 0\nqos map cos 1 to
+    traffic-class 1\nqos map dscp 0 1 2 3 4 5 6 7\nqos map dscp 8 9 10 11 12 13 14
+    15\nqos map traffic-class 0 to cos 0\nqos map traffic-class 0 to dscp 0\nqos map
+    traffic-class 0 to exp 0\nqos map traffic-class 1 to cos 1\nqos map traffic-class
+    1 to dscp 8\nqos map traffic-class 1 to exp 1\n!\nrouter bfd\n   multihop interval
+    1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.1.2.1\n
+    \  distance bgp 20 200 200\n   graceful-restart restart-time 300\n   graceful-restart\n
+    \  maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp asn notation
+    asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS peer group\n
+    \  neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
     update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
     send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
     peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
@@ -277,7 +295,8 @@ cvp_configlets:
     label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
     6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp
     additional-paths receive\n    bgp additional-paths send any\n  address-family
-    vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n\n!\nend\n"
+    vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos
+    map exp 0 to traffic-class 0\nqos map exp 1 to traffic-class 1\n!\nend\n"
   AVD_SF_SITE_101_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -290,7 +309,19 @@ cvp_configlets:
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF_SITE_101_BL-2\nip name-server vrf default 8.8.4.4\nip name-server vrf default
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\naaa authorization exec default local\n!\nno
+    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
+    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
     enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
     secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
@@ -321,13 +352,19 @@ cvp_configlets:
     \  no shutdown\n   ip address 100.1.2.2/32\n   isis enable CORE\n   isis passive\n
     \  node-segment ipv4 index 2\n!\ninterface Loopback10\n   description Inband management\n
     \  ip address 192.168.101.15/32\n!\ninterface Management1\n   description oob_management\n
-    \  no shutdown\n   ip address 192.168.0.15/24\n!\nip routing\nip routing vrf BRANCH-10013\nip
-    routing vrf CORP-10014\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier
-    3\n!\nrouter bgp 6.6971\n   router-id 100.1.2.2\n   distance bgp 20 200 200\n
-    \  graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths 4
-    ecmp 4\n   no bgp default ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n
-    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
-    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
+    \  no shutdown\n   ip address 192.168.0.15/24\nip access-list BUSINESS\n   5 remark
+    Management SSH\n   10 permit tcp any any eq ssh\n   20 permit tcp any eq ssh any\n!\nip
+    routing\nip routing vrf BRANCH-10013\nip routing vrf CORP-10014\n!\nqos map cos
+    0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos map dscp 0 1 2 3 4
+    5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class 0 to cos 0\nqos
+    map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos map traffic-class
+    1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp
+    1\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter
+    bgp 6.6971\n   router-id 100.1.2.2\n   distance bgp 20 200 200\n   graceful-restart
+    restart-time 300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default
+    ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n   neighbor
+    MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n
+    \  neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
     bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
     maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
     100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
@@ -359,7 +396,8 @@ cvp_configlets:
     8000\nmpls label range static 16 15984\n!\nrouter bgp 6.6971\n  vpws BRANCH\n
     \   mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n
     \   bgp additional-paths send any\n  address-family vpn-ipv6\n    bgp additional-paths
-    receive\n    bgp additional-paths send any\n\n!\nend\n"
+    receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
+    0\nqos map exp 1 to traffic-class 1\n!\nend\n"
   AVD_SF_SITE_101_RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -547,7 +585,19 @@ cvp_configlets:
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF_SITE_102_BL-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\naaa authorization exec default local\n!\nno
+    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
+    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
     enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
     secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
@@ -577,12 +627,18 @@ cvp_configlets:
     \  no shutdown\n   ip address 100.2.2.1/32\n   isis enable CORE\n   isis passive\n
     \  node-segment ipv4 index 1\n!\ninterface Loopback10\n   description Inband management\n
     \  ip address 192.168.101.21/32\n!\ninterface Management1\n   description oob_management\n
-    \  no shutdown\n   ip address 192.168.0.21/24\n!\nip routing\nip routing vrf BRANCH-10015\n!\nrouter
-    bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n
-    \  router-id 100.2.2.1\n   distance bgp 20 200 200\n   graceful-restart restart-time
-    300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
-    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
-    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    \  no shutdown\n   ip address 192.168.0.21/24\nip access-list BUSINESS\n   5 remark
+    Management SSH\n   10 permit tcp any any eq ssh\n   20 permit tcp any eq ssh any\n!\nip
+    routing\nip routing vrf BRANCH-10015\n!\nqos map cos 0 to traffic-class 0\nqos
+    map cos 1 to traffic-class 1\nqos map dscp 0 1 2 3 4 5 6 7\nqos map dscp 8 9 10
+    11 12 13 14 15\nqos map traffic-class 0 to cos 0\nqos map traffic-class 0 to dscp
+    0\nqos map traffic-class 0 to exp 0\nqos map traffic-class 1 to cos 1\nqos map
+    traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp 1\n!\nrouter bfd\n   multihop
+    interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.2.2.1\n
+    \  distance bgp 20 200 200\n   graceful-restart restart-time 300\n   graceful-restart\n
+    \  maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp asn notation
+    asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS peer group\n
+    \  neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
     update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
     send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
     peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
@@ -612,7 +668,8 @@ cvp_configlets:
     8000\nmpls label range static 16 15984\n!\nrouter bgp 6.6971\n  vpws BRANCH\n
     \   mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n
     \   bgp additional-paths send any\n  address-family vpn-ipv6\n    bgp additional-paths
-    receive\n    bgp additional-paths send any\n\n!\nend\n"
+    receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
+    0\nqos map exp 1 to traffic-class 1\n!\nend\n"
   AVD_SF_SITE_102_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -625,7 +682,19 @@ cvp_configlets:
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF_SITE_102_BL-2\nip name-server vrf default 8.8.4.4\nip name-server vrf default
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\naaa authorization exec default local\n!\nno
+    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
+    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
     enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
     secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
@@ -651,30 +720,37 @@ cvp_configlets:
     Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
     100.2.2.2/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
     2\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.22/32\n!\ninterface
-    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.22/24\n!\nip
-    routing\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter
-    bgp 6.6971\n   router-id 100.2.2.2\n   distance bgp 20 200 200\n   graceful-restart
-    restart-time 300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default
-    ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n   neighbor
-    MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n
-    \  neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
-    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
-    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n
-    \     neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n      no
-    neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n      neighbor
-    MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv6\n      neighbor
-    MPLS-OVERLAY-PEERS activate\n!\nrouter isis CORE\n   is-type level-2\n   router-id
-    ipv4 100.2.2.2\n   log-adjacency-changes\n   !\n   address-family ipv4 unicast\n
-    \     maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
-    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
-    \  vrf default\n      no shutdown\n!\n!\nmpls label range bgp-sr 16000 8000\nmpls
-    label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
-    6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp
-    additional-paths receive\n    bgp additional-paths send any\n  address-family
-    vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n\n!\nend\n"
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.22/24\nip
+    access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
+    ssh\n   20 permit tcp any eq ssh any\n!\nip routing\n!\nqos map cos 0 to traffic-class
+    0\nqos map cos 1 to traffic-class 1\nqos map dscp 0 1 2 3 4 5 6 7\nqos map dscp
+    8 9 10 11 12 13 14 15\nqos map traffic-class 0 to cos 0\nqos map traffic-class
+    0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos map traffic-class 1 to cos
+    1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp 1\n!\nrouter
+    bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n
+    \  router-id 100.2.2.2\n   distance bgp 20 200 200\n   graceful-restart restart-time
+    300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
+    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
+    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
+    \  neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description
+    SF_SITE_102_RR-1\n   !\n   address-family evpn\n      neighbor default encapsulation
+    mpls next-hop-self source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS
+    activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n!\nrouter
+    isis CORE\n   is-type level-2\n   router-id ipv4 100.2.2.2\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
+    range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
+    static 16 15984\n!\nrouter bgp 6.6971\n  vpws BRANCH\n    mpls control-word\n
+    \ address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
+    send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp
+    additional-paths send any\n!\nqos map exp 0 to traffic-class 0\nqos map exp 1
+    to traffic-class 1\n!\nend\n"
   AVD_SF_SITE_102_RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -862,7 +938,19 @@ cvp_configlets:
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF_SITE_103_BL-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\naaa authorization exec default local\n!\nno
+    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
+    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
     enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
     secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
@@ -883,30 +971,36 @@ cvp_configlets:
     \  no shutdown\n   ip address 100.3.2.1/32\n   isis enable CORE\n   isis passive\n
     \  node-segment ipv4 index 1\n!\ninterface Loopback10\n   description Inband management\n
     \  ip address 192.168.101.25/32\n!\ninterface Management1\n   description oob_management\n
-    \  no shutdown\n   ip address 192.168.0.25/24\n!\nip routing\n!\nrouter bfd\n
-    \  multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id
-    100.3.2.1\n   distance bgp 20 200 200\n   graceful-restart restart-time 300\n
-    \  graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
-    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
-    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
-    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
-    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
-    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
-    \  neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description
-    SF_SITE_102_RR-1\n   !\n   address-family evpn\n      neighbor default encapsulation
-    mpls next-hop-self source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS
-    activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.3.2.1\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
-    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
-    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
-    range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
-    static 16 15984\n!\nrouter bgp 6.6971\n  vpws BRANCH\n    mpls control-word\n
-    \ address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
-    send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp
-    additional-paths send any\n\n!\nend\n"
+    \  no shutdown\n   ip address 192.168.0.25/24\nip access-list BUSINESS\n   5 remark
+    Management SSH\n   10 permit tcp any any eq ssh\n   20 permit tcp any eq ssh any\n!\nip
+    routing\n!\nqos map cos 0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos
+    map dscp 0 1 2 3 4 5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class
+    0 to cos 0\nqos map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp
+    0\nqos map traffic-class 1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map
+    traffic-class 1 to exp 1\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200
+    multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.3.2.1\n   distance bgp 20
+    200 200\n   graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths
+    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n
+    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
+    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
+    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
+    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
+    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
+    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
+    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n
+    \     neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n      no
+    neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n      neighbor
+    MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv6\n      neighbor
+    MPLS-OVERLAY-PEERS activate\n!\nrouter isis CORE\n   is-type level-2\n   router-id
+    ipv4 100.3.2.1\n   log-adjacency-changes\n   !\n   address-family ipv4 unicast\n
+    \     maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
+    \  vrf default\n      no shutdown\n!\n!\nmpls label range bgp-sr 16000 8000\nmpls
+    label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
+    6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp
+    additional-paths receive\n    bgp additional-paths send any\n  address-family
+    vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos
+    map exp 0 to traffic-class 0\nqos map exp 1 to traffic-class 1\n!\nend\n"
   AVD_SF_SITE_103_TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -946,7 +1040,19 @@ cvp_configlets:
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF_SITE_104_BL-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\naaa authorization exec default local\n!\nno
+    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
+    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
+    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
+    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
+    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
+    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
+    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
     enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
     secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
@@ -962,30 +1068,37 @@ cvp_configlets:
     MPLS_Overlay_peering\n   no shutdown\n   ip address 100.4.2.1/32\n   isis enable
     CORE\n   isis passive\n   node-segment ipv4 index 1\n!\ninterface Loopback10\n
     \  description Inband management\n   ip address 192.168.101.27/32\n!\ninterface
-    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.27/24\n!\nip
-    routing\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter
-    bgp 6.6971\n   router-id 100.4.2.1\n   distance bgp 20 200 200\n   graceful-restart
-    restart-time 300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default
-    ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n   neighbor
-    MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n
-    \  neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS\n   neighbor
-    100.1.1.1 description SF_SITE_101_RR-1\n   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.2 description SF_SITE_102_RR-1\n   !\n   address-family evpn\n
-    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n
-    \     neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n      no
-    neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n      neighbor
-    MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv6\n      neighbor
-    MPLS-OVERLAY-PEERS activate\n!\nrouter isis CORE\n   is-type level-2\n   router-id
-    ipv4 100.4.2.1\n   log-adjacency-changes\n   !\n   address-family ipv4 unicast\n
-    \     maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
-    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
-    \  vrf default\n      no shutdown\n!\n!\nmpls label range bgp-sr 16000 8000\nmpls
-    label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
-    6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp
-    additional-paths receive\n    bgp additional-paths send any\n  address-family
-    vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n\n!\nend\n"
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.27/24\nip
+    access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
+    ssh\n   20 permit tcp any eq ssh any\n!\nip routing\n!\nqos map cos 0 to traffic-class
+    0\nqos map cos 1 to traffic-class 1\nqos map dscp 0 1 2 3 4 5 6 7\nqos map dscp
+    8 9 10 11 12 13 14 15\nqos map traffic-class 0 to cos 0\nqos map traffic-class
+    0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos map traffic-class 1 to cos
+    1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp 1\n!\nrouter
+    bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n
+    \  router-id 100.4.2.1\n   distance bgp 20 200 200\n   graceful-restart restart-time
+    300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
+    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.1
+    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.1 description SF_SITE_101_RR-1\n
+    \  neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.2 description
+    SF_SITE_102_RR-1\n   !\n   address-family evpn\n      neighbor default encapsulation
+    mpls next-hop-self source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS
+    activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n!\nrouter
+    isis CORE\n   is-type level-2\n   router-id ipv4 100.4.2.1\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
+    range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
+    static 16 15984\n!\nrouter bgp 6.6971\n  vpws BRANCH\n    mpls control-word\n
+    \ address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
+    send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp
+    additional-paths send any\n!\nqos map exp 0 to traffic-class 0\nqos map exp 1
+    to traffic-class 1\n!\nend\n"
 cvp_topology:
   AVD_FABRIC:
     devices: []

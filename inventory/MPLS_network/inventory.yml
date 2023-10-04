@@ -106,3 +106,9 @@ all:
         TOR_101:
         TOR_102:
         TOR_103:
+    ALL_BL:
+      children:
+        BORDER_LEAFS_101:
+        BORDER_LEAFS_102:
+        BORDER_LEAFS_103:
+        BORDER_LEAFS_104:

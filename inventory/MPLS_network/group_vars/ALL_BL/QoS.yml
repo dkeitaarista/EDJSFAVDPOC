@@ -1,0 +1,90 @@
+---
+# Define QoS profiles
+qos_profiles:
+  - name: TENANT-1G
+    service_policy:
+      type:
+        qos_input: TENANT-INGRESS-CLASSIFIER-1G
+    tx_queues:
+      - id: 0
+        bandwidth_percent: 5
+        priority: no priority
+      - id: 1
+        bandwidth_percent: 1
+        priority: no priority
+      - id: 2
+        bandwidth_percent: 19
+        priority: no priority
+      - id: 3
+        bandwidth_percent: 20
+        priority: no priority
+      - id: 4
+        bandwidth_percent: 30
+        priority: no priority
+      - id: 5
+        bandwidth_percent: 25
+        priority: no priority
+  - name: TENANT-10G
+    service_policy:
+      type:
+        qos_input: TENANT-INGRESS-CLASSIFIER-10G
+    tx_queues:
+      - id: 0
+        bandwidth_percent: 5
+        priority: no priority
+      - id: 1
+        bandwidth_percent: 1
+        priority: no priority
+      - id: 2
+        bandwidth_percent: 19
+        priority: no priority
+      - id: 3
+        bandwidth_percent: 20
+        priority: no priority
+      - id: 4
+        bandwidth_percent: 30
+        priority: no priority
+      - id: 5
+        bandwidth_percent: 25
+        priority: no priority
+
+# QoS ACLs
+ip_access_lists:
+  - name: BUSINESS
+    entries:
+      - sequence: 5
+        remark: "Management SSH"
+      - sequence: 10
+        action: permit
+        protocol: tcp
+        source: any
+        destination: any
+        destination_ports:
+          - ssh
+      - sequence: 20
+        action: permit
+        protocol: tcp
+        source: any
+        source_ports:
+          - ssh
+        destination: any
+
+
+
+# QoS 
+qos:
+  map:
+    cos:
+      - "0 to traffic-class 0"
+      - "1 to traffic-class 1"
+    dscp:
+      - "0 1 2 3 4 5 6 7"
+      - "8 9 10 11 12 13 14 15"
+    traffic_class:
+      - "0 to cos 0"
+      - "1 to cos 1"
+      - "0 to dscp 0"
+      - "1 to dscp 8"
+      - "0 to exp 0"
+      - "1 to exp 1"
+# see PE_EOS_CLI key in group_vars/ALL_BL/main.yml for qos map exp

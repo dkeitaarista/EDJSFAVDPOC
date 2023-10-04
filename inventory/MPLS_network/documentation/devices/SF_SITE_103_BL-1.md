@@ -40,9 +40,14 @@
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
   - [Match-lists](#match-lists)
+- [ACL](#acl)
+  - [IP Access-lists](#ip-access-lists)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [Quality Of Service](#quality-of-service)
+  - [QOS](#qos)
+  - [QOS Profiles](#qos-profiles)
 - [EOS CLI](#eos-cli)
 
 ## Management
@@ -714,6 +719,19 @@ match-list input string SAKlogs
    40 match regex MKA-3-SESSION_FAILURE
 ```
 
+## ACL
+
+### IP Access-lists
+
+#### IP Access-lists Configuration
+
+```eos
+ip access-list BUSINESS
+   5 remark Management SSH
+   10 permit tcp any any eq ssh
+   20 permit tcp any eq ssh any
+```
+
 ## VRF Instances
 
 ### VRF Instances Summary
@@ -724,6 +742,156 @@ match-list input string SAKlogs
 ### VRF Instances Device Configuration
 
 ```eos
+```
+
+## Quality Of Service
+
+### QOS
+
+#### QOS Summary
+
+QOS rewrite DSCP: **disabled**
+
+##### QOS Mappings
+
+
+| COS to Traffic Class mappings |
+| ----------------------------- |
+| 0 to traffic-class 0 |
+| 1 to traffic-class 1 |
+
+
+| DSCP to Traffic Class mappings |
+| ------------------------------ |
+| 0 1 2 3 4 5 6 7 |
+| 8 9 10 11 12 13 14 15 |
+
+
+| Traffic Class to DSCP or COS mappings |
+| ------------------------------------- |
+| 0 to cos 0 |
+| 0 to dscp 0 |
+| 0 to exp 0 |
+| 1 to cos 1 |
+| 1 to dscp 8 |
+| 1 to exp 1 |
+
+#### QOS Device Configuration
+
+```eos
+!
+qos map cos 0 to traffic-class 0
+qos map cos 1 to traffic-class 1
+qos map dscp 0 1 2 3 4 5 6 7
+qos map dscp 8 9 10 11 12 13 14 15
+qos map traffic-class 0 to cos 0
+qos map traffic-class 0 to dscp 0
+qos map traffic-class 0 to exp 0
+qos map traffic-class 1 to cos 1
+qos map traffic-class 1 to dscp 8
+qos map traffic-class 1 to exp 1
+```
+
+### QOS Profiles
+
+#### QOS Profiles Summary
+
+
+QOS Profile: **TENANT-1G**
+
+**Settings**
+
+| Default COS | Default DSCP | Trust | Shape Rate | QOS Service Policy |
+| ----------- | ------------ | ----- | ---------- | ------------------ |
+| - | - | - | - | TENANT-INGRESS-CLASSIFIER-1G |
+
+**TX Queues**
+
+| TX queue | Type | Bandwidth | Priority | Shape Rate | Comment |
+| -------- | ---- | --------- | -------- | ---------- | ------- |
+| 0 | All | 5 | no priority | - | - |
+| 1 | All | 1 | no priority | - | - |
+| 2 | All | 19 | no priority | - | - |
+| 3 | All | 20 | no priority | - | - |
+| 4 | All | 30 | no priority | - | - |
+| 5 | All | 25 | no priority | - | - |
+
+QOS Profile: **TENANT-10G**
+
+**Settings**
+
+| Default COS | Default DSCP | Trust | Shape Rate | QOS Service Policy |
+| ----------- | ------------ | ----- | ---------- | ------------------ |
+| - | - | - | - | TENANT-INGRESS-CLASSIFIER-10G |
+
+**TX Queues**
+
+| TX queue | Type | Bandwidth | Priority | Shape Rate | Comment |
+| -------- | ---- | --------- | -------- | ---------- | ------- |
+| 0 | All | 5 | no priority | - | - |
+| 1 | All | 1 | no priority | - | - |
+| 2 | All | 19 | no priority | - | - |
+| 3 | All | 20 | no priority | - | - |
+| 4 | All | 30 | no priority | - | - |
+| 5 | All | 25 | no priority | - | - |
+
+#### QOS Profile Device Configuration
+
+```eos
+!
+qos profile TENANT-1G
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      bandwidth percent 5
+      no priority
+   !
+   tx-queue 1
+      bandwidth percent 1
+      no priority
+   !
+   tx-queue 2
+      bandwidth percent 19
+      no priority
+   !
+   tx-queue 3
+      bandwidth percent 20
+      no priority
+   !
+   tx-queue 4
+      bandwidth percent 30
+      no priority
+   !
+   tx-queue 5
+      bandwidth percent 25
+      no priority
+!
+qos profile TENANT-10G
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G
+   !
+   tx-queue 0
+      bandwidth percent 5
+      no priority
+   !
+   tx-queue 1
+      bandwidth percent 1
+      no priority
+   !
+   tx-queue 2
+      bandwidth percent 19
+      no priority
+   !
+   tx-queue 3
+      bandwidth percent 20
+      no priority
+   !
+   tx-queue 4
+      bandwidth percent 30
+      no priority
+   !
+   tx-queue 5
+      bandwidth percent 25
+      no priority
 ```
 
 ## EOS CLI
@@ -744,5 +912,7 @@ router bgp 6.6971
   address-family vpn-ipv6
     bgp additional-paths receive
     bgp additional-paths send any
-
+!
+qos map exp 0 to traffic-class 0
+qos map exp 1 to traffic-class 1
 ```
