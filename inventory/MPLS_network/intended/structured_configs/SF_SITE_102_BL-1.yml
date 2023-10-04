@@ -141,7 +141,9 @@ management_api_http:
   enable_https: true
 eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
   6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
-  send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n"
+  send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
+  0\nqos map exp 1 to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n class BUSINESS\n    police
+  rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes"
 ethernet_interfaces:
 - name: Ethernet11
   peer: SF_SITE_102_TOR-1A
@@ -171,6 +173,7 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
+  service_profile: TENANT-1G
   ip_address: 10.1.0.7/31
   isis_enable: CORE
   isis_metric: 50
@@ -187,6 +190,7 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
+  service_profile: TENANT-1G
   ip_address: 10.1.0.5/31
   isis_enable: CORE
   isis_metric: 50
@@ -203,6 +207,7 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
+  service_profile: TENANT-1G
   ip_address: 10.1.0.8/31
   isis_enable: CORE
   isis_metric: 50
@@ -219,6 +224,7 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
+  service_profile: TENANT-1G
   ip_address: 10.1.0.3/31
   isis_enable: CORE
   isis_metric: 50
@@ -254,6 +260,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
+  service_profile: TENANT-1G
   vlans: 102-103,202-203
 loopback_interfaces:
 - name: Loopback0

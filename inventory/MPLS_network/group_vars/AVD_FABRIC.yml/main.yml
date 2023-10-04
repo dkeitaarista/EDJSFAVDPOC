@@ -116,31 +116,6 @@ FABRIC_BGP_DEFAULTS:
   - bgp asn notation asdot
   - bgp always-compare-med
 
-PE_BGP_STRUCTURED_CONFIG:
-  router_bgp:
-    address_family_vpn_ipv4:
-      neighbor_default_encapsulation_mpls_next_hop_self:
-        source_interface: null
-    address_family_vpn_ipv6:
-      neighbor_default_encapsulation_mpls_next_hop_self:
-        source_interface: null
-
-PE_EOS_CLI: |
-  !
-  mpls label range bgp-sr 16000 8000
-  mpls label range isis-sr 16000 8000
-  mpls label range static 16 15984
-  !
-  router bgp 6.6971
-    vpws BRANCH
-      mpls control-word
-    address-family vpn-ipv4
-      bgp additional-paths receive
-      bgp additional-paths send any
-    address-family vpn-ipv6
-      bgp additional-paths receive
-      bgp additional-paths send any
-
 # Set dynamic IP for inband management interface loopback 10 that matches the last octed of the management port
 mgmt_loopback_ipv4_pool: "192.168.101.0/24"
 custom_structured_configuration_loopback_interfaces:
