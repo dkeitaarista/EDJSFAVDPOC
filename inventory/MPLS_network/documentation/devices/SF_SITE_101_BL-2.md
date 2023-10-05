@@ -347,7 +347,6 @@ interface Ethernet3
    no switchport
    ip address 10.0.0.3/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -361,7 +360,6 @@ interface Ethernet4
    no switchport
    ip address 10.0.0.7/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -375,7 +373,6 @@ interface Ethernet7
    no switchport
    ip address 10.0.0.10/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -389,7 +386,6 @@ interface Ethernet9
    no switchport
    ip address 10.1.0.4/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -443,7 +439,6 @@ interface Port-Channel11
    switchport
    switchport trunk allowed vlan 100-101,200-201
    switchport mode trunk
-   service-profile TENANT-1G
 ```
 
 ### Loopback Interfaces
@@ -1103,4 +1098,5 @@ qos map exp 1 to traffic-class 1
 policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
  class BUSINESS
     police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes
+
 ```

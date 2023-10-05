@@ -30,7 +30,6 @@ ethernet_aggregation:
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
-
 # Customer edge connectivity
 cpes:
   - name: BRANCH-A2A-CE1

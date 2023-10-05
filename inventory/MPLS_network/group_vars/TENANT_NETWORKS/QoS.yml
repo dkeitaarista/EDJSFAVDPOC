@@ -298,7 +298,7 @@ ip_access_lists:
         destination: any
 
 
-# QoS 
+# QoS
 qos:
   map:
     cos:
@@ -332,5 +332,3 @@ policy_maps:
         - name: BUSINESS
           set:
             traffic_class: 2
-
-p2p_uplinks_qos_profile: TENANT-1G
