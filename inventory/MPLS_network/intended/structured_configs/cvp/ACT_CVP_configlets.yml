@@ -351,28 +351,28 @@ cvp_configlets:
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvrf instance BRANCH-10013\n!\nvrf
     instance CORP-10014\n!\ninterface Port-Channel11\n   description SF_SITE_101_TOR-1B_Po3\n
     \  no shutdown\n   switchport\n   switchport trunk allowed vlan 100-101,200-201\n
-    \  switchport mode trunk\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_SPINE-1_Ethernet4\n
-    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.3/31\n   mpls
+    \  switchport mode trunk\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface
+    Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_SPINE-1_Ethernet4\n   no shutdown\n
+    \  mtu 1500\n   no switchport\n   ip address 10.0.0.3/31\n   mpls ip\n   isis
+    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    \  isis network point-to-point\n!\ninterface Ethernet4\n   description P2P_LINK_TO_SF_SITE_101_SPINE-2_Ethernet4\n
+    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.7/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
-    hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
-    P2P_LINK_TO_SF_SITE_101_SPINE-2_Ethernet4\n   no shutdown\n   mtu 1500\n   no
-    switchport\n   ip address 10.0.0.7/31\n   mpls ip\n   isis enable CORE\n   isis
-    circuit-type level-2\n   isis metric 50\n   isis hello padding\n   isis network
-    point-to-point\n!\ninterface Ethernet7\n   description P2P_LINK_TO_SF_SITE_101_RR-1_Ethernet4\n
-    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.10/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
-    hello padding\n   isis network point-to-point\n!\ninterface Ethernet9\n   description
-    P2P_LINK_TO_SF_SITE_103_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
-    \  ip address 10.1.0.4/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
+    hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   description
+    P2P_LINK_TO_SF_SITE_101_RR-1_Ethernet4\n   no shutdown\n   mtu 1500\n   no switchport\n
+    \  ip address 10.0.0.10/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
     level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
-    Ethernet11\n   description SF_SITE_101_TOR-1B_Ethernet3\n   no shutdown\n   channel-group
-    11 mode active\n!\ninterface Ethernet12\n   description SF_SITE_101_TOR-1B_Ethernet4\n
-    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Port-channel11\n
-    \  no shutdown\n   no switchport\n!\ninterface Port-channel11.101\n   no shutdown\n
-    \  encapsulation dot1q vlan 101\n   vrf BRANCH-10013\n   ip address 10.255.101.2/31\n
-    \  service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Port-channel11.201\n
-    \  no shutdown\n   encapsulation dot1q vlan 201\n   vrf CORP-10014\n   ip address
-    10.255.101.6/31\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface
+    Ethernet9\n   description P2P_LINK_TO_SF_SITE_103_BL-1_Ethernet9\n   no shutdown\n
+    \  mtu 1500\n   no switchport\n   ip address 10.1.0.4/31\n   mpls ip\n   isis
+    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_101_TOR-1B_Ethernet3\n
+    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
+    SF_SITE_101_TOR-1B_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
+    Port-channel11\n   no shutdown\n   no switchport\n!\ninterface Port-channel11.101\n
+    \  no shutdown\n   encapsulation dot1q vlan 101\n   vrf BRANCH-10013\n   ip address
+    10.255.101.2/31\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface
+    Port-channel11.201\n   no shutdown\n   encapsulation dot1q vlan 201\n   vrf CORP-10014\n
+    \  ip address 10.255.101.6/31\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface
     Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
     100.1.2.2/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
     2\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.15/32\n!\ninterface
@@ -657,14 +657,15 @@ cvp_configlets:
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\ninterface Port-Channel3\n
     \  description SF_SITE_101_BL-2_Po11\n   no shutdown\n   switchport\n   switchport
-    trunk allowed vlan 100-101,200-201\n   switchport mode trunk\n!\ninterface Ethernet3\n
-    \  description SF_SITE_101_BL-2_Ethernet11\n   no shutdown\n   channel-group 3
-    mode active\n!\ninterface Ethernet4\n   description SF_SITE_101_BL-2_Ethernet12\n
-    \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet7\n   description
-    BRANCH-A2A-CE2_Ethernet1\n   no shutdown\n   switchport access vlan 100\n   switchport
-    mode access\n   switchport\n!\ninterface Ethernet8\n   description CORP-A2A-CE2_Ethernet1\n
-    \  no shutdown\n   switchport access vlan 101\n   switchport mode access\n   switchport\n!\ninterface
-    Loopback10\n   description Inband management\n   ip address 192.168.101.17/32\n!\ninterface
+    trunk allowed vlan 100-101,200-201\n   switchport mode trunk\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description
+    SF_SITE_101_BL-2_Ethernet11\n   no shutdown\n   channel-group 3 mode active\n!\ninterface
+    Ethernet4\n   description SF_SITE_101_BL-2_Ethernet12\n   no shutdown\n   channel-group
+    3 mode active\n!\ninterface Ethernet7\n   description BRANCH-A2A-CE2_Ethernet1\n
+    \  no shutdown\n   switchport access vlan 100\n   switchport mode access\n   switchport\n!\ninterface
+    Ethernet8\n   description CORP-A2A-CE2_Ethernet1\n   no shutdown\n   switchport
+    access vlan 101\n   switchport mode access\n   switchport\n!\ninterface Loopback10\n
+    \  description Inband management\n   ip address 192.168.101.17/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.17/24\nip
     access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
     ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
@@ -723,27 +724,28 @@ cvp_configlets:
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvrf instance BRANCH-10015\n!\ninterface
     Port-Channel11\n   description SF_SITE_102_TOR-1A_Po3\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n!\ninterface
-    Ethernet3\n   description P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet6\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.7/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet4\n   description P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet3\n
-    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.5/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
-    hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   description
-    P2P_LINK_TO_SF_SITE_102_RR-1_Ethernet3\n   no shutdown\n   mtu 1500\n   no switchport\n
-    \  ip address 10.1.0.8/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
+    \  switchport trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description
+    P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet6\n   no shutdown\n   mtu 1500\n   no switchport\n
+    \  ip address 10.1.0.7/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
     level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
-    Ethernet9\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet9\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis
+    Ethernet4\n   description P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet3\n   no shutdown\n
+    \  mtu 1500\n   no switchport\n   ip address 10.1.0.5/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_102_TOR-1A_Ethernet3\n
-    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
-    SF_SITE_102_TOR-1A_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
-    Port-channel11\n   no shutdown\n   no switchport\n!\ninterface Port-channel11.99\n
-    \  no shutdown\n   encapsulation vlan\n      client dot1q 99 network client\n!\ninterface
-    Port-channel11.103\n   no shutdown\n   encapsulation dot1q vlan 103\n   vrf BRANCH-10015\n
-    \  ip address 10.255.102.0/31\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface
+    \  isis network point-to-point\n!\ninterface Ethernet7\n   description P2P_LINK_TO_SF_SITE_102_RR-1_Ethernet3\n
+    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.8/31\n   mpls
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    hello padding\n   isis network point-to-point\n!\ninterface Ethernet9\n   description
+    P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
+    \  ip address 10.1.0.3/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
+    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    Ethernet11\n   description SF_SITE_102_TOR-1A_Ethernet3\n   no shutdown\n   channel-group
+    11 mode active\n!\ninterface Ethernet12\n   description SF_SITE_102_TOR-1A_Ethernet4\n
+    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Port-channel11\n
+    \  no shutdown\n   no switchport\n!\ninterface Port-channel11.99\n   no shutdown\n
+    \  encapsulation vlan\n      client dot1q 99 network client\n!\ninterface Port-channel11.103\n
+    \  no shutdown\n   encapsulation dot1q vlan 103\n   vrf BRANCH-10015\n   ip address
+    10.255.102.0/31\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface
     Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
     100.2.2.1/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
     1\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.21/32\n!\ninterface
@@ -842,11 +844,12 @@ cvp_configlets:
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface Port-Channel11\n
     \  description SF_SITE_102_TOR-1B_Po3\n   no shutdown\n   switchport\n   switchport
-    trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n!\ninterface Ethernet3\n
-    \  description P2P_LINK_TO_SF_SITE_102_SPINE-1_Ethernet4\n   no shutdown\n   mtu
-    1500\n   no switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis enable
-    CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet4\n   description P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet4\n
+    trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description
+    P2P_LINK_TO_SF_SITE_102_SPINE-1_Ethernet4\n   no shutdown\n   mtu 1500\n   no
+    switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis enable CORE\n   isis
+    circuit-type level-2\n   isis metric 50\n   isis hello padding\n   isis network
+    point-to-point\n!\ninterface Ethernet4\n   description P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.7/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   description
@@ -1062,14 +1065,15 @@ cvp_configlets:
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface Port-Channel3\n
     \  description SF_SITE_102_BL-1_Po11\n   no shutdown\n   switchport\n   switchport
-    trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n!\ninterface Ethernet3\n
-    \  description SF_SITE_102_BL-1_Ethernet11\n   no shutdown\n   channel-group 3
-    mode active\n!\ninterface Ethernet4\n   description SF_SITE_102_BL-1_Ethernet12\n
-    \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet7\n   description
-    BRANCH-A2A-CE3_Ethernet1\n   no shutdown\n   switchport access vlan 102\n   switchport
-    mode access\n   switchport\n!\ninterface Ethernet8\n   description CORP-A2A-CE3_Ethernet1\n
-    \  no shutdown\n   switchport access vlan 202\n   switchport mode access\n   switchport\n!\ninterface
-    Loopback10\n   description Inband management\n   ip address 192.168.101.23/32\n!\ninterface
+    trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description
+    SF_SITE_102_BL-1_Ethernet11\n   no shutdown\n   channel-group 3 mode active\n!\ninterface
+    Ethernet4\n   description SF_SITE_102_BL-1_Ethernet12\n   no shutdown\n   channel-group
+    3 mode active\n!\ninterface Ethernet7\n   description BRANCH-A2A-CE3_Ethernet1\n
+    \  no shutdown\n   switchport access vlan 102\n   switchport mode access\n   switchport\n!\ninterface
+    Ethernet8\n   description CORP-A2A-CE3_Ethernet1\n   no shutdown\n   switchport
+    access vlan 202\n   switchport mode access\n   switchport\n!\ninterface Loopback10\n
+    \  description Inband management\n   ip address 192.168.101.23/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.23/24\nip
     access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
     ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
@@ -1128,14 +1132,15 @@ cvp_configlets:
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface Port-Channel3\n
     \  description SF_SITE_102_BL-2_Po11\n   no shutdown\n   switchport\n   switchport
-    trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n!\ninterface Ethernet3\n
-    \  description SF_SITE_102_BL-2_Ethernet11\n   no shutdown\n   channel-group 3
-    mode active\n!\ninterface Ethernet4\n   description SF_SITE_102_BL-2_Ethernet12\n
-    \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet7\n   description
-    BRANCH-A2A-CE4_Ethernet1\n   no shutdown\n   switchport access vlan 103\n   switchport
-    mode access\n   switchport\n!\ninterface Ethernet8\n   description CORP-A2A-CE4_Ethernet1\n
-    \  no shutdown\n   switchport access vlan 203\n   switchport mode access\n   switchport\n!\ninterface
-    Loopback10\n   description Inband management\n   ip address 192.168.101.24/32\n!\ninterface
+    trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description
+    SF_SITE_102_BL-2_Ethernet11\n   no shutdown\n   channel-group 3 mode active\n!\ninterface
+    Ethernet4\n   description SF_SITE_102_BL-2_Ethernet12\n   no shutdown\n   channel-group
+    3 mode active\n!\ninterface Ethernet7\n   description BRANCH-A2A-CE4_Ethernet1\n
+    \  no shutdown\n   switchport access vlan 103\n   switchport mode access\n   switchport\n!\ninterface
+    Ethernet8\n   description CORP-A2A-CE4_Ethernet1\n   no shutdown\n   switchport
+    access vlan 203\n   switchport mode access\n   switchport\n!\ninterface Loopback10\n
+    \  description Inband management\n   ip address 192.168.101.24/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.24/24\nip
     access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
     ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
@@ -1195,45 +1200,46 @@ cvp_configlets:
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 200\n   name vlan_200\n!\nvlan
     201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface
     Port-Channel3\n   description SF_SITE_103_TOR-1A_Po3\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 100-103,200-203\n   switchport mode trunk\n!\ninterface
-    Ethernet3\n   description SF_SITE_103_TOR-1A_Ethernet3\n   no shutdown\n   channel-group
-    3 mode active\n!\ninterface Ethernet4\n   description SF_SITE_103_TOR-1A_Ethernet4\n
-    \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet9\n   description
-    P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
-    \  ip address 10.1.0.5/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
+    \  switchport trunk allowed vlan 100-103,200-203\n   switchport mode trunk\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description
+    SF_SITE_103_TOR-1A_Ethernet3\n   no shutdown\n   channel-group 3 mode active\n!\ninterface
+    Ethernet4\n   description SF_SITE_103_TOR-1A_Ethernet4\n   no shutdown\n   channel-group
+    3 mode active\n!\ninterface Ethernet9\n   description P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet9\n
+    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.5/31\n   mpls
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    hello padding\n   isis network point-to-point\n!\ninterface Ethernet10\n   description
+    P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10\n   no shutdown\n   mtu 1500\n   no switchport\n
+    \  ip address 10.1.0.9/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
     level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
-    Ethernet10\n   description P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.9/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
-    \  no shutdown\n   ip address 100.3.2.1/32\n   isis enable CORE\n   isis passive\n
-    \  node-segment ipv4 index 1\n!\ninterface Loopback10\n   description Inband management\n
-    \  ip address 192.168.101.25/32\n!\ninterface Management1\n   description oob_management\n
-    \  no shutdown\n   ip address 192.168.0.25/24\nip access-list BUSINESS\n   5 remark
-    Management SSH\n   10 permit tcp any any eq ssh\n   20 permit tcp any eq ssh any\n
-    \  30 remark Management telnet\n   40 permit tcp any any eq telnet\n   50 permit
-    tcp any eq telnet any\n   60 remark Management SOC\n   70 permit ip host 172.0.193.0
-    0.255.0.255 any\n   80 permit ip any host 172.0.193.0 0.255.0.255\n   90 remark
-    Web CSR Accountlink SSL\n   100 permit tcp any any eq https\n   110 permit tcp
-    any eq https any\n   120 remark Messaging - Print\n   130 permit tcp any any eq
-    ldp\n   140 permit tcp any eq ldp any\n   150 permit tcp any any eq 9100\n   160
-    permit tcp any eq 9100 any\n   170 remark Login MS-DS\n   180 permit tcp any any
-    eq microsoft-ds\n   190 permit tcp any eq microsoft-ds any\n   200 permit tcp
-    any any eq 137\n   210 permit tcp any eq 137 any\n   220 permit tcp any any eq
-    138\n   230 permit tcp any eq 138 any\n   240 permit tcp any any eq 139\n   250
-    permit tcp any eq 139 any\n   260 permit tcp any any eq 1748\n   270 permit tcp
-    any eq 1748 any\n   280 remark other\n   290 permit tcp any any range 18480 19999\n
-    \  300 permit tcp any range 18480 19999 any\n   310 permit tcp any any range 20021
-    20479\n   320 permit tcp any range 20021 20479 any\n   330 remark Voice AES Traffic\n
-    \  340 permit tcp any any eq 1050\n   350 permit tcp any eq 1050 any\n   360 permit
-    tcp any any eq 450\n   370 permit tcp any eq 450 any\n   380 remark Wireless CAPWAP\n
-    \  390 permit udp any any eq 5246 5247\n   400 permit udp any eq 5246 5247 any\n!\nip
-    routing\n!\nqos map cos 0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos
-    map dscp 0 1 2 3 4 5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class
-    0 to cos 0\nqos map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp
-    0\nqos map traffic-class 1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map
-    traffic-class 1 to exp 1\n!\nclass-map type qos match-any BUSINESS\n   match ip
-    access-group BUSINESS\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
+    Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
+    100.3.2.1/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
+    1\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.25/32\n!\ninterface
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.25/24\nip
+    access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
+    ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
+    tcp any any eq telnet\n   50 permit tcp any eq telnet any\n   60 remark Management
+    SOC\n   70 permit ip host 172.0.193.0 0.255.0.255 any\n   80 permit ip any host
+    172.0.193.0 0.255.0.255\n   90 remark Web CSR Accountlink SSL\n   100 permit tcp
+    any any eq https\n   110 permit tcp any eq https any\n   120 remark Messaging
+    - Print\n   130 permit tcp any any eq ldp\n   140 permit tcp any eq ldp any\n
+    \  150 permit tcp any any eq 9100\n   160 permit tcp any eq 9100 any\n   170 remark
+    Login MS-DS\n   180 permit tcp any any eq microsoft-ds\n   190 permit tcp any
+    eq microsoft-ds any\n   200 permit tcp any any eq 137\n   210 permit tcp any eq
+    137 any\n   220 permit tcp any any eq 138\n   230 permit tcp any eq 138 any\n
+    \  240 permit tcp any any eq 139\n   250 permit tcp any eq 139 any\n   260 permit
+    tcp any any eq 1748\n   270 permit tcp any eq 1748 any\n   280 remark other\n
+    \  290 permit tcp any any range 18480 19999\n   300 permit tcp any range 18480
+    19999 any\n   310 permit tcp any any range 20021 20479\n   320 permit tcp any
+    range 20021 20479 any\n   330 remark Voice AES Traffic\n   340 permit tcp any
+    any eq 1050\n   350 permit tcp any eq 1050 any\n   360 permit tcp any any eq 450\n
+    \  370 permit tcp any eq 450 any\n   380 remark Wireless CAPWAP\n   390 permit
+    udp any any eq 5246 5247\n   400 permit udp any eq 5246 5247 any\n!\nip routing\n!\nqos
+    map cos 0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos map dscp 0
+    1 2 3 4 5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class 0 to
+    cos 0\nqos map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos
+    map traffic-class 1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class
+    1 to exp 1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group
+    BUSINESS\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
     \  class BUSINESS\n      set traffic-class 2\n!\nrouter bfd\n   multihop interval
     1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.3.2.1\n
     \  distance bgp 20 200 200\n   graceful-restart restart-time 300\n   graceful-restart\n
@@ -1292,39 +1298,39 @@ cvp_configlets:
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 200\n   name vlan_200\n!\nvlan
     201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface
     Port-Channel3\n   description SF_SITE_103_BL-1_Po3\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 100-103,200-203\n   switchport mode trunk\n!\ninterface
-    Ethernet3\n   description SF_SITE_103_BL-1_Ethernet3\n   no shutdown\n   channel-group
-    3 mode active\n!\ninterface Ethernet4\n   description SF_SITE_103_BL-1_Ethernet4\n
-    \  no shutdown\n   channel-group 3 mode active\n!\ninterface Loopback10\n   description
-    Inband management\n   ip address 192.168.101.26/32\n!\ninterface Management1\n
-    \  description oob_management\n   no shutdown\n   ip address 192.168.0.26/24\nip
-    access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
-    ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
-    tcp any any eq telnet\n   50 permit tcp any eq telnet any\n   60 remark Management
-    SOC\n   70 permit ip host 172.0.193.0 0.255.0.255 any\n   80 permit ip any host
-    172.0.193.0 0.255.0.255\n   90 remark Web CSR Accountlink SSL\n   100 permit tcp
-    any any eq https\n   110 permit tcp any eq https any\n   120 remark Messaging
-    - Print\n   130 permit tcp any any eq ldp\n   140 permit tcp any eq ldp any\n
-    \  150 permit tcp any any eq 9100\n   160 permit tcp any eq 9100 any\n   170 remark
-    Login MS-DS\n   180 permit tcp any any eq microsoft-ds\n   190 permit tcp any
-    eq microsoft-ds any\n   200 permit tcp any any eq 137\n   210 permit tcp any eq
-    137 any\n   220 permit tcp any any eq 138\n   230 permit tcp any eq 138 any\n
-    \  240 permit tcp any any eq 139\n   250 permit tcp any eq 139 any\n   260 permit
-    tcp any any eq 1748\n   270 permit tcp any eq 1748 any\n   280 remark other\n
-    \  290 permit tcp any any range 18480 19999\n   300 permit tcp any range 18480
-    19999 any\n   310 permit tcp any any range 20021 20479\n   320 permit tcp any
-    range 20021 20479 any\n   330 remark Voice AES Traffic\n   340 permit tcp any
-    any eq 1050\n   350 permit tcp any eq 1050 any\n   360 permit tcp any any eq 450\n
-    \  370 permit tcp any eq 450 any\n   380 remark Wireless CAPWAP\n   390 permit
-    udp any any eq 5246 5247\n   400 permit udp any eq 5246 5247 any\n!\nqos map cos
-    0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos map dscp 0 1 2 3 4
-    5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class 0 to cos 0\nqos
-    map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos map traffic-class
-    1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp
-    1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group BUSINESS\n!\npolicy-map
-    type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n   class BUSINESS\n      set
-    traffic-class 2\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    \  switchport trunk allowed vlan 100-103,200-203\n   switchport mode trunk\n   service-policy
+    type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description
+    SF_SITE_103_BL-1_Ethernet3\n   no shutdown\n   channel-group 3 mode active\n!\ninterface
+    Ethernet4\n   description SF_SITE_103_BL-1_Ethernet4\n   no shutdown\n   channel-group
+    3 mode active\n!\ninterface Loopback10\n   description Inband management\n   ip
+    address 192.168.101.26/32\n!\ninterface Management1\n   description oob_management\n
+    \  no shutdown\n   ip address 192.168.0.26/24\nip access-list BUSINESS\n   5 remark
+    Management SSH\n   10 permit tcp any any eq ssh\n   20 permit tcp any eq ssh any\n
+    \  30 remark Management telnet\n   40 permit tcp any any eq telnet\n   50 permit
+    tcp any eq telnet any\n   60 remark Management SOC\n   70 permit ip host 172.0.193.0
+    0.255.0.255 any\n   80 permit ip any host 172.0.193.0 0.255.0.255\n   90 remark
+    Web CSR Accountlink SSL\n   100 permit tcp any any eq https\n   110 permit tcp
+    any eq https any\n   120 remark Messaging - Print\n   130 permit tcp any any eq
+    ldp\n   140 permit tcp any eq ldp any\n   150 permit tcp any any eq 9100\n   160
+    permit tcp any eq 9100 any\n   170 remark Login MS-DS\n   180 permit tcp any any
+    eq microsoft-ds\n   190 permit tcp any eq microsoft-ds any\n   200 permit tcp
+    any any eq 137\n   210 permit tcp any eq 137 any\n   220 permit tcp any any eq
+    138\n   230 permit tcp any eq 138 any\n   240 permit tcp any any eq 139\n   250
+    permit tcp any eq 139 any\n   260 permit tcp any any eq 1748\n   270 permit tcp
+    any eq 1748 any\n   280 remark other\n   290 permit tcp any any range 18480 19999\n
+    \  300 permit tcp any range 18480 19999 any\n   310 permit tcp any any range 20021
+    20479\n   320 permit tcp any range 20021 20479 any\n   330 remark Voice AES Traffic\n
+    \  340 permit tcp any any eq 1050\n   350 permit tcp any eq 1050 any\n   360 permit
+    tcp any any eq 450\n   370 permit tcp any eq 450 any\n   380 remark Wireless CAPWAP\n
+    \  390 permit udp any any eq 5246 5247\n   400 permit udp any eq 5246 5247 any\n!\nqos
+    map cos 0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos map dscp 0
+    1 2 3 4 5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class 0 to
+    cos 0\nqos map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos
+    map traffic-class 1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class
+    1 to exp 1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group
+    BUSINESS\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
+    \  class BUSINESS\n      set traffic-class 2\n!\nmanagement api http-commands\n
+    \  protocol https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_104_BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan

@@ -185,6 +185,9 @@ port_channel_interfaces:
   shutdown: false
   mode: trunk
   vlans: 102-103,202-203
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering

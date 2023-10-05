@@ -81,6 +81,9 @@ port_channel_interfaces:
   shutdown: false
   mode: trunk
   vlans: 102-103,202-203
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
 vlans:
 - id: 102
   name: vlan_102

@@ -30,6 +30,10 @@ ethernet_aggregation:
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
+      uplink_structured_config:
+        service_policy:
+          qos:
+            input: TENANT-INGRESS-CLASSIFIER-1G
 # Customer edge connectivity
 cpes:
   - name: BRANCH-A2A-CE1

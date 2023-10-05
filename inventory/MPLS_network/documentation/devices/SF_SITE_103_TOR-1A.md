@@ -375,6 +375,7 @@ interface Port-Channel3
    switchport
    switchport trunk allowed vlan 100-103,200-203
    switchport mode trunk
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
 ```
 
 ### Loopback Interfaces
