@@ -43,10 +43,10 @@ BRANCH:
               - 10.255.101.0/31
             nodes:
               - SF_SITE_101_BL-1
-#            structured_config:
-#              service_policy:
-#                qos:
-#                  input: TENANT-INGRESS-CLASSIFIER-1G
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
         bgp_peers:
           - ip_address: 10.255.101.1
             remote_as: 65501
@@ -77,6 +77,10 @@ BRANCH:
               - 10.255.101.2/31
             nodes:
               - SF_SITE_101_BL-2
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
         bgp_peers:
           - ip_address: 10.255.101.3
             remote_as: 65503
@@ -107,6 +111,10 @@ BRANCH:
               - 10.255.102.0/31
             nodes:
               - SF_SITE_102_BL-1
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
         bgp_peers:
           - ip_address: 10.255.102.1
             remote_as: 65521

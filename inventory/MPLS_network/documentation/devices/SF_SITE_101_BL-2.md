@@ -411,12 +411,14 @@ interface Port-channel11.101
    encapsulation dot1q vlan 101
    vrf BRANCH-10013
    ip address 10.255.101.2/31
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
 !
 interface Port-channel11.201
    no shutdown
    encapsulation dot1q vlan 201
    vrf CORP-10014
    ip address 10.255.101.6/31
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
 ```
 
 ### Port-Channel Interfaces

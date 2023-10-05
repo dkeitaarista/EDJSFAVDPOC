@@ -236,6 +236,9 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 103
   vrf: BRANCH-10015
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
 - name: Port-channel11.99
   type: l2dot1q
   peer_type: point_to_point_service

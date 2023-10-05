@@ -293,6 +293,9 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 100
   vrf: BRANCH-10011
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
 - name: Port-channel11.200
   peer_type: l3_interface
   ip_address: 10.255.101.4/31
@@ -300,6 +303,9 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 200
   vrf: CORP-10012
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
 - name: Port-channel11.99
   type: l2dot1q
   peer_type: point_to_point_service
