@@ -424,6 +424,31 @@ interface Port-channel11.103
    vrf BRANCH-10015
    ip address 10.255.102.0/31
    service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      no priority
+      bandwidth percent 5
+   !
+   tx-queue 1
+      no priority
+      bandwidth percent 1
+   !
+   tx-queue 2
+      no priority
+      bandwidth percent 19
+   !
+   tx-queue 3
+      no priority
+      bandwidth percent 20
+   !
+   tx-queue 4
+      priority strict
+      bandwidth percent 30
+   !
+   tx-queue 5
+      priority strict
+      bandwidth percent 25
+
 ```
 
 ### Port-Channel Interfaces
@@ -585,7 +610,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 6.6971|  100.2.2.1 |
+| 6.6971 | 100.2.2.1 |
 
 | BGP Tuning |
 | ---------- |

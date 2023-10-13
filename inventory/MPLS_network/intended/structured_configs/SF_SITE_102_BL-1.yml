@@ -233,6 +233,9 @@ ethernet_interfaces:
   peer_type: l3_interface
   ip_address: 10.255.102.0/31
   shutdown: false
+  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
+    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
+    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
   type: l3dot1q
   encapsulation_dot1q_vlan: 103
   vrf: BRANCH-10015
