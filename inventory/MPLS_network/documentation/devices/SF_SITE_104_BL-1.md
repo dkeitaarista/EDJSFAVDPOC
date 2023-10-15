@@ -347,7 +347,6 @@ interface Ethernet6
    no switchport
    ip address 10.1.0.6/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -361,7 +360,6 @@ interface Ethernet10
    no switchport
    ip address 10.1.0.1/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -500,7 +498,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 6.6971|  100.4.2.1 |
+| 6.6971 | 100.4.2.1 |
 
 | BGP Tuning |
 | ---------- |
@@ -961,4 +959,5 @@ qos map exp 1 to traffic-class 1
 policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
  class BUSINESS
     police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes
+
 ```

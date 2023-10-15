@@ -347,7 +347,6 @@ interface Ethernet3
    no switchport
    ip address 10.0.0.3/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -361,7 +360,6 @@ interface Ethernet4
    no switchport
    ip address 10.0.0.7/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -375,7 +373,6 @@ interface Ethernet7
    no switchport
    ip address 10.0.0.10/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -389,7 +386,6 @@ interface Ethernet9
    no switchport
    ip address 10.1.0.4/31
    mpls ip
-   service-profile TENANT-1G
    isis enable CORE
    isis circuit-type level-2
    isis metric 50
@@ -415,12 +411,64 @@ interface Port-channel11.101
    encapsulation dot1q vlan 101
    vrf BRANCH-10013
    ip address 10.255.101.2/31
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      no priority
+      bandwidth percent 5
+   !
+   tx-queue 1
+      no priority
+      bandwidth percent 1
+   !
+   tx-queue 2
+      no priority
+      bandwidth percent 19
+   !
+   tx-queue 3
+      no priority
+      bandwidth percent 20
+   !
+   tx-queue 4
+      priority strict
+      bandwidth percent 30
+   !
+   tx-queue 5
+      priority strict
+      bandwidth percent 25
+
 !
 interface Port-channel11.201
    no shutdown
    encapsulation dot1q vlan 201
    vrf CORP-10014
    ip address 10.255.101.6/31
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      no priority
+      bandwidth percent 5
+   !
+   tx-queue 1
+      no priority
+      bandwidth percent 1
+   !
+   tx-queue 2
+      no priority
+      bandwidth percent 19
+   !
+   tx-queue 3
+      no priority
+      bandwidth percent 20
+   !
+   tx-queue 4
+      priority strict
+      bandwidth percent 30
+   !
+   tx-queue 5
+      priority strict
+      bandwidth percent 25
+
 ```
 
 ### Port-Channel Interfaces
@@ -443,7 +491,7 @@ interface Port-Channel11
    switchport
    switchport trunk allowed vlan 100-101,200-201
    switchport mode trunk
-   service-profile TENANT-1G
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
 ```
 
 ### Loopback Interfaces
@@ -585,7 +633,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 6.6971|  100.1.2.2 |
+| 6.6971 | 100.1.2.2 |
 
 | BGP Tuning |
 | ---------- |
@@ -1103,4 +1151,5 @@ qos map exp 1 to traffic-class 1
 policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
  class BUSINESS
     police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes
+
 ```

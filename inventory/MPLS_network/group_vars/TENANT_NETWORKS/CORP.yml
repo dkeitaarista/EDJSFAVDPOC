@@ -26,6 +26,11 @@ CORP:
               - 10.255.101.4/31
             nodes:
               - SF_SITE_101_BL-1
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
+            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.101.5
             remote_as: 65502
@@ -56,6 +61,11 @@ CORP:
               - 10.255.101.6/31
             nodes:
               - SF_SITE_101_BL-2
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
+            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.101.3
             remote_as: 65504

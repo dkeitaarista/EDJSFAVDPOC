@@ -92,7 +92,7 @@ eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 
   6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
   send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
   0\nqos map exp 1 to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n class BUSINESS\n    police
-  rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes"
+  rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes\n"
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -135,7 +135,6 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
-  service_profile: TENANT-1G
   ip_address: 10.1.0.1/31
   isis_enable: CORE
   isis_metric: 50
@@ -152,7 +151,6 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
-  service_profile: TENANT-1G
   ip_address: 10.1.0.6/31
   isis_enable: CORE
   isis_metric: 50

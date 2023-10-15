@@ -36,9 +36,16 @@
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
   - [Match-lists](#match-lists)
+- [ACL](#acl)
+  - [IP Access-lists](#ip-access-lists)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [Quality Of Service](#quality-of-service)
+  - [QOS](#qos)
+  - [QOS Class Maps](#qos-class-maps)
+  - [QOS Policy Maps](#qos-policy-maps)
+  - [QOS Profiles](#qos-profiles)
 
 ## Management
 
@@ -368,6 +375,7 @@ interface Port-Channel3
    switchport
    switchport trunk allowed vlan 102-103,202-203
    switchport mode trunk
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
 ```
 
 ### Loopback Interfaces
@@ -471,6 +479,57 @@ match-list input string SAKlogs
    40 match regex MKA-3-SESSION_FAILURE
 ```
 
+## ACL
+
+### IP Access-lists
+
+#### IP Access-lists Configuration
+
+```eos
+ip access-list BUSINESS
+   5 remark Management SSH
+   10 permit tcp any any eq ssh
+   20 permit tcp any eq ssh any
+   30 remark Management telnet
+   40 permit tcp any any eq telnet
+   50 permit tcp any eq telnet any
+   60 remark Management SOC
+   70 permit ip host 172.0.193.0 0.255.0.255 any
+   80 permit ip any host 172.0.193.0 0.255.0.255
+   90 remark Web CSR Accountlink SSL
+   100 permit tcp any any eq https
+   110 permit tcp any eq https any
+   120 remark Messaging - Print
+   130 permit tcp any any eq ldp
+   140 permit tcp any eq ldp any
+   150 permit tcp any any eq 9100
+   160 permit tcp any eq 9100 any
+   170 remark Login MS-DS
+   180 permit tcp any any eq microsoft-ds
+   190 permit tcp any eq microsoft-ds any
+   200 permit tcp any any eq 137
+   210 permit tcp any eq 137 any
+   220 permit tcp any any eq 138
+   230 permit tcp any eq 138 any
+   240 permit tcp any any eq 139
+   250 permit tcp any eq 139 any
+   260 permit tcp any any eq 1748
+   270 permit tcp any eq 1748 any
+   280 remark other
+   290 permit tcp any any range 18480 19999
+   300 permit tcp any range 18480 19999 any
+   310 permit tcp any any range 20021 20479
+   320 permit tcp any range 20021 20479 any
+   330 remark Voice AES Traffic
+   340 permit tcp any any eq 1050
+   350 permit tcp any eq 1050 any
+   360 permit tcp any any eq 450
+   370 permit tcp any eq 450 any
+   380 remark Wireless CAPWAP
+   390 permit udp any any eq 5246 5247
+   400 permit udp any eq 5246 5247 any
+```
+
 ## VRF Instances
 
 ### VRF Instances Summary
@@ -481,4 +540,189 @@ match-list input string SAKlogs
 ### VRF Instances Device Configuration
 
 ```eos
+```
+
+## Quality Of Service
+
+### QOS
+
+#### QOS Summary
+
+QOS rewrite DSCP: **disabled**
+
+##### QOS Mappings
+
+
+| COS to Traffic Class mappings |
+| ----------------------------- |
+| 0 to traffic-class 0 |
+| 1 to traffic-class 1 |
+
+
+| DSCP to Traffic Class mappings |
+| ------------------------------ |
+| 0 1 2 3 4 5 6 7 |
+| 8 9 10 11 12 13 14 15 |
+
+
+| Traffic Class to DSCP or COS mappings |
+| ------------------------------------- |
+| 0 to cos 0 |
+| 0 to dscp 0 |
+| 0 to exp 0 |
+| 1 to cos 1 |
+| 1 to dscp 8 |
+| 1 to exp 1 |
+
+#### QOS Device Configuration
+
+```eos
+!
+qos map cos 0 to traffic-class 0
+qos map cos 1 to traffic-class 1
+qos map dscp 0 1 2 3 4 5 6 7
+qos map dscp 8 9 10 11 12 13 14 15
+qos map traffic-class 0 to cos 0
+qos map traffic-class 0 to dscp 0
+qos map traffic-class 0 to exp 0
+qos map traffic-class 1 to cos 1
+qos map traffic-class 1 to dscp 8
+qos map traffic-class 1 to exp 1
+```
+
+### QOS Class Maps
+
+#### QOS Class Maps Summary
+
+| Name | Field | Value |
+| ---- | ----- | ----- |
+| BUSINESS | acl | BUSINESS |
+
+#### Class-maps Device Configuration
+
+```eos
+!
+class-map type qos match-any BUSINESS
+   match ip access-group BUSINESS
+```
+
+### QOS Policy Maps
+
+#### QOS Policy Maps Summary
+
+**TENANT-INGRESS-CLASSIFIER-1G**
+
+| class | Set | Value |
+| ----- | --- | ----- |
+| BUSINESS | traffic_class | 2 |
+
+#### QOS Policy Maps configuration
+
+```eos
+!
+policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
+   class BUSINESS
+      set traffic-class 2
+```
+
+### QOS Profiles
+
+#### QOS Profiles Summary
+
+
+QOS Profile: **TENANT-1G**
+
+**Settings**
+
+| Default COS | Default DSCP | Trust | Shape Rate | QOS Service Policy |
+| ----------- | ------------ | ----- | ---------- | ------------------ |
+| - | - | - | - | TENANT-INGRESS-CLASSIFIER-1G |
+
+**TX Queues**
+
+| TX queue | Type | Bandwidth | Priority | Shape Rate | Comment |
+| -------- | ---- | --------- | -------- | ---------- | ------- |
+| 0 | All | 5 | no priority | - | - |
+| 1 | All | 1 | no priority | - | - |
+| 2 | All | 19 | no priority | - | - |
+| 3 | All | 20 | no priority | - | - |
+| 4 | All | 30 | no priority | - | - |
+| 5 | All | 25 | no priority | - | - |
+
+QOS Profile: **TENANT-10G**
+
+**Settings**
+
+| Default COS | Default DSCP | Trust | Shape Rate | QOS Service Policy |
+| ----------- | ------------ | ----- | ---------- | ------------------ |
+| - | - | - | - | TENANT-INGRESS-CLASSIFIER-10G |
+
+**TX Queues**
+
+| TX queue | Type | Bandwidth | Priority | Shape Rate | Comment |
+| -------- | ---- | --------- | -------- | ---------- | ------- |
+| 0 | All | 5 | no priority | - | - |
+| 1 | All | 1 | no priority | - | - |
+| 2 | All | 19 | no priority | - | - |
+| 3 | All | 20 | no priority | - | - |
+| 4 | All | 30 | no priority | - | - |
+| 5 | All | 25 | no priority | - | - |
+
+#### QOS Profile Device Configuration
+
+```eos
+!
+qos profile TENANT-1G
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      bandwidth percent 5
+      no priority
+   !
+   tx-queue 1
+      bandwidth percent 1
+      no priority
+   !
+   tx-queue 2
+      bandwidth percent 19
+      no priority
+   !
+   tx-queue 3
+      bandwidth percent 20
+      no priority
+   !
+   tx-queue 4
+      bandwidth percent 30
+      no priority
+   !
+   tx-queue 5
+      bandwidth percent 25
+      no priority
+!
+qos profile TENANT-10G
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G
+   !
+   tx-queue 0
+      bandwidth percent 5
+      no priority
+   !
+   tx-queue 1
+      bandwidth percent 1
+      no priority
+   !
+   tx-queue 2
+      bandwidth percent 19
+      no priority
+   !
+   tx-queue 3
+      bandwidth percent 20
+      no priority
+   !
+   tx-queue 4
+      bandwidth percent 30
+      no priority
+   !
+   tx-queue 5
+      bandwidth percent 25
+      no priority
 ```

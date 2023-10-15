@@ -365,7 +365,7 @@ service routing protocols model multi-agent
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65522|  10.255.102.5 |
+| 65522 | 10.255.102.5 |
 
 #### BGP Neighbors
 

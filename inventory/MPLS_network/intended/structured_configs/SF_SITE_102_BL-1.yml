@@ -143,7 +143,7 @@ eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 
   6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
   send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
   0\nqos map exp 1 to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n class BUSINESS\n    police
-  rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes"
+  rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes\n"
 ethernet_interfaces:
 - name: Ethernet11
   peer: SF_SITE_102_TOR-1A
@@ -173,7 +173,6 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
-  service_profile: TENANT-1G
   ip_address: 10.1.0.7/31
   isis_enable: CORE
   isis_metric: 50
@@ -190,7 +189,6 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
-  service_profile: TENANT-1G
   ip_address: 10.1.0.5/31
   isis_enable: CORE
   isis_metric: 50
@@ -207,7 +205,6 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
-  service_profile: TENANT-1G
   ip_address: 10.1.0.8/31
   isis_enable: CORE
   isis_metric: 50
@@ -224,7 +221,6 @@ ethernet_interfaces:
   type: routed
   shutdown: false
   mtu: 1500
-  service_profile: TENANT-1G
   ip_address: 10.1.0.3/31
   isis_enable: CORE
   isis_metric: 50
@@ -237,9 +233,15 @@ ethernet_interfaces:
   peer_type: l3_interface
   ip_address: 10.255.102.0/31
   shutdown: false
+  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
+    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
+    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
   type: l3dot1q
   encapsulation_dot1q_vlan: 103
   vrf: BRANCH-10015
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
 - name: Port-channel11.99
   type: l2dot1q
   peer_type: point_to_point_service
@@ -260,8 +262,10 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  service_profile: TENANT-1G
   vlans: 102-103,202-203
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
