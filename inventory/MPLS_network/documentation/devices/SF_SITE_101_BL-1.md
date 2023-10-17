@@ -440,6 +440,7 @@ interface Port-channel11.100
    encapsulation dot1q vlan 100
    vrf BRANCH-10011
    ip address 10.255.101.0/31
+   no qos trust
    service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
    !
    tx-queue 0
@@ -472,6 +473,7 @@ interface Port-channel11.200
    encapsulation dot1q vlan 200
    vrf CORP-10012
    ip address 10.255.101.4/31
+   no qos trust
    service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
    !
    tx-queue 0
@@ -1194,6 +1196,8 @@ qos profile TENANT-10G
 
 | Interface | Trust | Default DSCP | Default COS | Shape rate |
 | --------- | ----- | ------------ | ----------- | ---------- |
+| Port-channel11.100 | disabled | - | - | - |
+| Port-channel11.200 | disabled | - | - | - |
 | Port-Channel11 | dscp | - | - | - |
 
 ## EOS CLI
