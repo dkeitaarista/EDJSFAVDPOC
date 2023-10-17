@@ -5,6 +5,12 @@ ethernet_aggregation:
   defaults:
     platform: vEOS-lab
     spanning_tree_mode: mstp
+    uplink_structured_config:
+      service_policy:
+        qos:
+          input: TENANT-INGRESS-CLASSIFIER-1G
+      qos:
+        trust: dscp
   nodes:
     - name: SF_SITE_101_TOR-1A
       id: 1
@@ -30,10 +36,6 @@ ethernet_aggregation:
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
-      uplink_structured_config:
-        service_policy:
-          qos:
-            input: TENANT-INGRESS-CLASSIFIER-1G
 # Customer edge connectivity
 cpes:
   - name: BRANCH-A2A-CE1

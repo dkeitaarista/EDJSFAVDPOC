@@ -156,6 +156,8 @@ port_channel_interfaces:
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: dscp
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering

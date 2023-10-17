@@ -81,6 +81,11 @@ port_channel_interfaces:
   shutdown: false
   mode: trunk
   vlans: 100-101,200-201
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: dscp
 vlans:
 - id: 100
   name: vlan_100
