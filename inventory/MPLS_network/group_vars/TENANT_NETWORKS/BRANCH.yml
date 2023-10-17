@@ -47,6 +47,8 @@ BRANCH:
               service_policy:
                 qos:
                   input: TENANT-INGRESS-CLASSIFIER-1G
+              qos:
+                trust: disabled
             raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.101.1
@@ -82,6 +84,8 @@ BRANCH:
               service_policy:
                 qos:
                   input: TENANT-INGRESS-CLASSIFIER-1G
+              qos:
+                trust: disabled
             raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.101.3
@@ -117,6 +121,8 @@ BRANCH:
               service_policy:
                 qos:
                   input: TENANT-INGRESS-CLASSIFIER-1G
+              qos:
+                trust: disabled
             raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.102.1

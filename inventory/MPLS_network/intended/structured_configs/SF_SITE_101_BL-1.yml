@@ -299,6 +299,8 @@ ethernet_interfaces:
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
 - name: Port-channel11.200
   peer_type: l3_interface
   ip_address: 10.255.101.4/31
@@ -312,6 +314,8 @@ ethernet_interfaces:
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
 - name: Port-channel11.99
   type: l2dot1q
   peer_type: point_to_point_service
@@ -333,6 +337,11 @@ port_channel_interfaces:
   shutdown: false
   mode: trunk
   vlans: 100-101,200-201
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: dscp
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering

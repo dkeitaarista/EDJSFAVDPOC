@@ -414,6 +414,7 @@ interface Port-Channel11
    switchport
    switchport trunk allowed vlan 102-103,202-203
    switchport mode trunk
+   qos trust dscp
    service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
 ```
 
@@ -987,6 +988,12 @@ qos profile TENANT-10G
       bandwidth percent 25
       no priority
 ```
+
+#### QOS Interfaces
+
+| Interface | Trust | Default DSCP | Default COS | Shape rate |
+| --------- | ----- | ------------ | ----------- | ---------- |
+| Port-Channel11 | dscp | - | - | - |
 
 ## EOS CLI
 

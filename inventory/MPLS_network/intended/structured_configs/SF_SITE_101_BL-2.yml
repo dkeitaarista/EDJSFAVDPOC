@@ -274,6 +274,8 @@ ethernet_interfaces:
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
 - name: Port-channel11.201
   peer_type: l3_interface
   ip_address: 10.255.101.6/31
@@ -287,6 +289,8 @@ ethernet_interfaces:
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
 - name: Port-channel11
   type: routed
   peer_type: l3_interface
@@ -301,6 +305,8 @@ port_channel_interfaces:
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: dscp
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
