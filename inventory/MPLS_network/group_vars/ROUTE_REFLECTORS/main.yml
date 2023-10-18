@@ -12,7 +12,7 @@ PE_EOS_CLI: |
     address-family ipv4 unicast
       bfd all-interfaces
   !
-  interface Loopback10
+  interface Loopback0
     isis multi-topology address-family ipv4 unicast
     isis multi-topology address-family ipv6 unicast
 
