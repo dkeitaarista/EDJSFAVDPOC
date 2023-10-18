@@ -16,6 +16,30 @@ overlay_rt_type:
 # fabric evpn encap
 fabric_evpn_encapsulation: mpls
 
+# fabric IS-IS routing
+isis_area_id: "51.0001"
+isis_default_circuit_type: level-2
+isis_default_is_type: level-2
+isis_default_metric: 10
+#isis_maximum_paths: 4
+isis_ti_lfa:
+  enabled: true
+  protection: node
+
+# custom config for fabric IS-IS routing
+custom_structured_configuration_router_isis:
+  instance: "CORE"
+  address_family_ipv4:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+  address_family_ipv6:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+
 #define local users
 local_users:
   - name: cvpadmin

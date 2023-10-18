@@ -331,10 +331,10 @@ vlan 201
 
 | Interface | Channel Group | ISIS Instance | ISIS Metric | Mode | ISIS Circuit Type | Hello Padding | Authentication Mode |
 | --------- | ------------- | ------------- | ----------- | ---- | ----------------- | ------------- | ------------------- |
-| Ethernet3 | - | CORE | 50 | point-to-point | level-2 | True | - |
-| Ethernet4 | - | CORE | 50 | point-to-point | level-2 | True | - |
-| Ethernet7 | - | CORE | 50 | point-to-point | level-2 | True | - |
-| Ethernet9 | - | CORE | 50 | point-to-point | level-2 | True | - |
+| Ethernet3 | - | CORE | 10 | point-to-point | level-2 | True | - |
+| Ethernet4 | - | CORE | 10 | point-to-point | level-2 | True | - |
+| Ethernet7 | - | CORE | 10 | point-to-point | level-2 | True | - |
+| Ethernet9 | - | CORE | 10 | point-to-point | level-2 | True | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -349,7 +349,7 @@ interface Ethernet3
    mpls ip
    isis enable CORE
    isis circuit-type level-2
-   isis metric 50
+   isis metric 10
    isis hello padding
    isis network point-to-point
 !
@@ -362,7 +362,7 @@ interface Ethernet4
    mpls ip
    isis enable CORE
    isis circuit-type level-2
-   isis metric 50
+   isis metric 10
    isis hello padding
    isis network point-to-point
 !
@@ -375,7 +375,7 @@ interface Ethernet7
    mpls ip
    isis enable CORE
    isis circuit-type level-2
-   isis metric 50
+   isis metric 10
    isis hello padding
    isis network point-to-point
 !
@@ -388,7 +388,7 @@ interface Ethernet9
    mpls ip
    isis enable CORE
    isis circuit-type level-2
-   isis metric 50
+   isis metric 10
    isis hello padding
    isis network point-to-point
 !
@@ -586,19 +586,21 @@ ip routing vrf CORP-10014
 | Settings | Value |
 | -------- | ----- |
 | Instance | CORE |
+| Net-ID | 51.0001.1921.6800.0002.00 |
 | Type | level-2 |
 | Router-ID | 100.1.2.2 |
 | Log Adjacency Changes | True |
+| Local Convergence Delay (ms) | 10000 |
 | SR MPLS Enabled | True |
 
 #### ISIS Interfaces Summary
 
 | Interface | ISIS Instance | ISIS Metric | Interface Mode |
 | --------- | ------------- | ----------- | -------------- |
-| Ethernet3 | CORE | 50 | point-to-point |
-| Ethernet4 | CORE | 50 | point-to-point |
-| Ethernet7 | CORE | 50 | point-to-point |
-| Ethernet9 | CORE | 50 | point-to-point |
+| Ethernet3 | CORE | 10 | point-to-point |
+| Ethernet4 | CORE | 10 | point-to-point |
+| Ethernet7 | CORE | 10 | point-to-point |
+| Ethernet9 | CORE | 10 | point-to-point |
 | Loopback0 | CORE | - | passive |
 
 #### ISIS Segment-routing Node-SID
@@ -613,18 +615,34 @@ ip routing vrf CORP-10014
 | -------- | ----- |
 | IPv4 Address-family Enabled | True |
 | Maximum-paths | 4 |
+| TI-LFA Mode | node-protection |
+| TI-LFA Level | level-2 |
+
+#### ISIS IPv6 Address Family Summary
+
+| Settings | Value |
+| -------- | ----- |
+| IPv6 Address-family Enabled | True |
+| TI-LFA Mode | node-protection |
+| TI-LFA Level | level-2 |
 
 #### Router ISIS Device Configuration
 
 ```eos
 !
 router isis CORE
+   net 51.0001.1921.6800.0002.00
    is-type level-2
    router-id ipv4 100.1.2.2
    log-adjacency-changes
+   timers local-convergence-delay 10000 protected-prefixes
    !
    address-family ipv4 unicast
       maximum-paths 4
+      fast-reroute ti-lfa mode node-protection level-2
+   !
+   address-family ipv6 unicast
+      fast-reroute ti-lfa mode node-protection level-2
    !
    segment-routing mpls
       no shutdown
@@ -636,7 +654,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 6.6971 | 100.1.2.2 |
+| 6.6971|  100.1.2.2 |
 
 | BGP Tuning |
 | ---------- |
@@ -743,6 +761,7 @@ router bgp 6.6971
    !
    address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
+      neighbor default encapsulation mpls next-hop-self source-interface null=
    !
    vrf BRANCH-10013
       rd 100.1.2.2:10013
@@ -1162,5 +1181,20 @@ qos map exp 1 to traffic-class 1
 policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
  class BUSINESS
     police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes
+!
+router isis CORE
+  lsp purge origination-identification
+  set-overload-bit on-startup wait-for-bgp
+  authentication mode md5
+  graceful-restart restart-hold-time 300
+  authentication key 7 U93fJqF1/pY=
+  address-family ipv4 unicast
+    bfd all-interfaces
+  address-family ipv6 unicast
+    bfd all-interfaces
+    multi-topology
+interface Loopback10
+  isis multi-topology address-family ipv4 unicast
+  isis multi-topology address-family ipv6 unicast
 
 ```

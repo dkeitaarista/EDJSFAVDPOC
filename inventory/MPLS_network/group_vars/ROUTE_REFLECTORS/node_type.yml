@@ -1,0 +1,18 @@
+---
+# route reflectors
+type: rr
+
+rr:
+  defaults:
+    platform: vEOS-lab
+    loopback_ipv4_pool: 100.1.1.0/24
+    bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
+    isis_system_id_prefix: "1921.6800"
+    raw_eos_cli: "{{ PE_EOS_CLI }}"
+  nodes:
+  - name: SF_SITE_101_RR-1
+    id: 1
+    mgmt_ip: 192.168.0.13/24
+  - name: SF_SITE_102_RR-1
+    id: 2
+    mgmt_ip: 192.168.0.20/24

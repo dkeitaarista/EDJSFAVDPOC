@@ -1,0 +1,26 @@
+---
+# SPINES ISIS specific configurations
+
+PE_EOS_CLI: |
+  !
+  mpls label range bgp-sr 16000 8000
+  mpls label range isis-sr 16000 8000
+  mpls label range static 16 15984
+  !
+
+  router isis CORE
+    lsp purge origination-identification
+    set-overload-bit on-startup wait-for-bgp
+    authentication mode md5
+    graceful-restart restart-hold-time 300
+    authentication key 7 U93fJqF1/pY=
+    address-family ipv4 unicast
+      bfd all-interfaces
+    address-family ipv6 unicast
+      bfd all-interfaces
+      multi-topology
+  interface Loopback10
+    isis multi-topology address-family ipv4 unicast
+    isis multi-topology address-family ipv6 unicast
+
+

@@ -8,7 +8,7 @@ PE_BGP_STRUCTURED_CONFIG:
         source_interface: null
     address_family_vpn_ipv6:
       neighbor_default_encapsulation_mpls_next_hop_self:
-        source_interface: null
+        source_interface: null=
 
 PE_EOS_CLI: |
   !
@@ -32,3 +32,20 @@ PE_EOS_CLI: |
   policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
    class BUSINESS
       police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes
+  !
+  router isis CORE
+    lsp purge origination-identification
+    set-overload-bit on-startup wait-for-bgp
+    authentication mode md5
+    graceful-restart restart-hold-time 300
+    authentication key 7 U93fJqF1/pY=
+    address-family ipv4 unicast
+      bfd all-interfaces
+    address-family ipv6 unicast
+      bfd all-interfaces
+      multi-topology
+  interface Loopback10
+    isis multi-topology address-family ipv4 unicast
+    isis multi-topology address-family ipv6 unicast
+
+

@@ -8,6 +8,8 @@ p:
     loopback_ipv4_pool: 100.2.0.0/24
     mpls_route_reflectors: [ SF_SITE_101_RR-1, SF_SITE_102_RR-1 ]
     bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
+    raw_eos_cli: "{{ PE_EOS_CLI }}"
+    isis_system_id_prefix: "1921.6800"
   nodes:
   - name: SF_SITE_102_SPINE-1
     id: 1

@@ -32,6 +32,7 @@
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
+  - [Router ISIS](#router-isis)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
@@ -437,6 +438,49 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | False |
 | default | false |
+
+### Router ISIS
+
+#### Router ISIS Summary
+
+| Settings | Value |
+| -------- | ----- |
+| Instance | CORE |
+
+#### ISIS Interfaces Summary
+
+| Interface | ISIS Instance | ISIS Metric | Interface Mode |
+| --------- | ------------- | ----------- | -------------- |
+
+#### ISIS IPv4 Address Family Summary
+
+| Settings | Value |
+| -------- | ----- |
+| IPv4 Address-family Enabled | True |
+| TI-LFA Mode | node-protection |
+| TI-LFA Level | level-2 |
+
+#### ISIS IPv6 Address Family Summary
+
+| Settings | Value |
+| -------- | ----- |
+| IPv6 Address-family Enabled | True |
+| TI-LFA Mode | node-protection |
+| TI-LFA Level | level-2 |
+
+#### Router ISIS Device Configuration
+
+```eos
+!
+router isis CORE
+   !
+   address-family ipv4 unicast
+      fast-reroute ti-lfa mode node-protection level-2
+   !
+   address-family ipv6 unicast
+      fast-reroute ti-lfa mode node-protection level-2
+   !
+```
 
 ## Multicast
 

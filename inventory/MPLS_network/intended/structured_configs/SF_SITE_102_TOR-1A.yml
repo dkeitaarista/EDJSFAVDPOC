@@ -101,6 +101,18 @@ vlans:
   tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true
+router_isis:
+  instance: CORE
+  address_family_ipv4:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+  address_family_ipv6:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
 logging:
   console: critical
   monitor: disabled

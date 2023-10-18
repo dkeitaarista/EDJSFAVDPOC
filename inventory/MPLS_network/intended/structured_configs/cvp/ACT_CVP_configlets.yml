@@ -20,9 +20,11 @@ cvp_configlets:
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.28/24\n!\nrouter
     bgp 65501\n   router-id 10.255.101.1\n   neighbor 10.255.101.0 peer group CE-PEER-GROUP\n
     \  neighbor 10.255.101.0 remote-as 6.6971\n   neighbor 10.255.101.0 bfd\n   !\n
-    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nmanagement api
-    http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nrouter isis
+    CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute ti-lfa mode node-protection
+    level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
+    node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol https\n
+    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -44,9 +46,11 @@ cvp_configlets:
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.30/24\n!\nrouter
     bgp 65503\n   router-id 10.255.101.3\n   neighbor 10.255.101.2 peer group CE-PEER-GROUP\n
     \  neighbor 10.255.101.2 remote-as 6.6971\n   neighbor 10.255.101.2 bfd\n   !\n
-    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nmanagement api
-    http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nrouter isis
+    CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute ti-lfa mode node-protection
+    level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
+    node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol https\n
+    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -68,9 +72,11 @@ cvp_configlets:
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.32/24\n!\nrouter
     bgp 65521\n   router-id 10.255.102.1\n   neighbor 10.255.102.0 peer group CE-PEER-GROUP\n
     \  neighbor 10.255.102.0 remote-as 6.6971\n   neighbor 10.255.102.0 bfd\n   !\n
-    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nmanagement api
-    http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nrouter isis
+    CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute ti-lfa mode node-protection
+    level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
+    node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol https\n
+    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -92,9 +98,11 @@ cvp_configlets:
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.33/24\n!\nrouter
     bgp 65523\n   router-id 10.255.102.3\n   neighbor 10.255.102.2 peer group CE-PEER-GROUP\n
     \  neighbor 10.255.102.2 remote-as 6.6971\n   neighbor 10.255.102.2 bfd\n   !\n
-    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nmanagement api
-    http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    \  address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nrouter isis
+    CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute ti-lfa mode node-protection
+    level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
+    node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol https\n
+    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_CORP-A2A-CE1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
     -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -116,8 +124,11 @@ cvp_configlets:
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.29/24\n!\nrouter
     bgp 65502\n   router-id 10.255.101.5\n   neighbor 10.255.101.4 peer group CE-PEER-GROUP\n
     \  neighbor 10.255.101.4 remote-as 6.6971\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
-    shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    CE-PEER-GROUP activate\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n
+    \     fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n!\nmanagement
+    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
+    shutdown\n!\nend\n"
   AVD_CORP-A2A-CE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
     -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -139,8 +150,11 @@ cvp_configlets:
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.31/24\n!\nrouter
     bgp 65504\n   router-id 10.255.101.7\n   neighbor 10.255.101.6 peer group CE-PEER-GROUP\n
     \  neighbor 10.255.101.6 remote-as 6.6971\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
-    shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    CE-PEER-GROUP activate\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n
+    \     fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n!\nmanagement
+    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
+    shutdown\n!\nend\n"
   AVD_CORP-A2A-CE3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
     -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -162,8 +176,11 @@ cvp_configlets:
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.24/24\n!\nrouter
     bgp 65522\n   router-id 10.255.102.5\n   neighbor 10.255.102.4 peer group CE-PEER-GROUP\n
     \  neighbor 10.255.102.4 remote-as 6.6971\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
-    shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    CE-PEER-GROUP activate\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n
+    \     fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n!\nmanagement
+    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
+    shutdown\n!\nend\n"
   AVD_CORP-A2A-CE4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
     -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -185,8 +202,11 @@ cvp_configlets:
     \  description oob_management\n   no shutdown\n   ip address 192.168.0.35/24\n!\nrouter
     bgp 65524\n   router-id 10.255.102.7\n   neighbor 10.255.102.6 peer group CE-PEER-GROUP\n
     \  neighbor 10.255.102.6 remote-as 6.6971\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
-    shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    CE-PEER-GROUP activate\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n
+    \     fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n!\nmanagement
+    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
+    shutdown\n!\nend\n"
   AVD_SF_SITE_101_BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -221,21 +241,21 @@ cvp_configlets:
     \  switchport mode trunk\n   qos trust dscp\n   service-policy type qos input
     TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_SPINE-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.1/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
     P2P_LINK_TO_SF_SITE_101_SPINE-2_Ethernet3\n   no shutdown\n   mtu 1500\n   no
     switchport\n   ip address 10.0.0.5/31\n   mpls ip\n   isis enable CORE\n   isis
-    circuit-type level-2\n   isis metric 50\n   isis hello padding\n   isis network
+    circuit-type level-2\n   isis metric 10\n   isis hello padding\n   isis network
     point-to-point\n!\ninterface Ethernet7\n   description P2P_LINK_TO_SF_SITE_101_RR-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.8/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet9\n   description
     P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.1.0.2/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Ethernet10\n   description P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet10\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.1.0.0/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_101_TOR-1A_Ethernet3\n
     \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
     SF_SITE_101_TOR-1A_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
@@ -302,24 +322,28 @@ cvp_configlets:
     source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS activate\n   !\n
     \  address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n   !\n
     \  address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n   !\n
-    \  address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n   !\n
-    \  vrf BRANCH-10011\n      rd 100.1.2.1:10011\n      route-target import vpn-ipv4
-    6.6971:10011\n      route-target import vpn-ipv6 6.6971:10011\n      route-target
-    export vpn-ipv4 6.6971:10011\n      route-target export vpn-ipv6 6.6971:10011\n
-    \     router-id 100.1.2.1\n      neighbor 10.255.101.1 remote-as 65501\n      neighbor
-    10.255.101.1 bfd\n      redistribute connected\n      !\n      address-family
-    ipv4\n         bgp additional-paths install\n         neighbor 10.255.101.1 activate\n
-    \     !\n      bgp additional-paths receive\n      bgp additional-paths send any\n
-    \     bgp bestpath tie-break router-id\n\n   !\n   vrf CORP-10012\n      rd 100.1.2.1:10012\n
-    \     route-target import vpn-ipv4 6.6971:10012\n      route-target import vpn-ipv6
-    6.6971:10012\n      route-target export vpn-ipv4 6.6971:10012\n      route-target
-    export vpn-ipv6 6.6971:10012\n      router-id 100.1.2.1\n      neighbor 10.255.101.5
-    remote-as 65502\n      neighbor 10.255.101.5 bfd\n      redistribute connected\n
-    \     !\n      address-family ipv4\n         bgp additional-paths install\n         neighbor
+    \  address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n      neighbor
+    default encapsulation mpls next-hop-self source-interface null=\n   !\n   vrf
+    BRANCH-10011\n      rd 100.1.2.1:10011\n      route-target import vpn-ipv4 6.6971:10011\n
+    \     route-target import vpn-ipv6 6.6971:10011\n      route-target export vpn-ipv4
+    6.6971:10011\n      route-target export vpn-ipv6 6.6971:10011\n      router-id
+    100.1.2.1\n      neighbor 10.255.101.1 remote-as 65501\n      neighbor 10.255.101.1
+    bfd\n      redistribute connected\n      !\n      address-family ipv4\n         bgp
+    additional-paths install\n         neighbor 10.255.101.1 activate\n      !\n      bgp
+    additional-paths receive\n      bgp additional-paths send any\n      bgp bestpath
+    tie-break router-id\n\n   !\n   vrf CORP-10012\n      rd 100.1.2.1:10012\n      route-target
+    import vpn-ipv4 6.6971:10012\n      route-target import vpn-ipv6 6.6971:10012\n
+    \     route-target export vpn-ipv4 6.6971:10012\n      route-target export vpn-ipv6
+    6.6971:10012\n      router-id 100.1.2.1\n      neighbor 10.255.101.5 remote-as
+    65502\n      neighbor 10.255.101.5 bfd\n      redistribute connected\n      !\n
+    \     address-family ipv4\n         bgp additional-paths install\n         neighbor
     10.255.101.5 activate\n      !\n      bgp additional-paths receive\n      bgp
     additional-paths send any\n      bgp bestpath tie-break router-id\n\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.1.2.1\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    isis CORE\n   net 51.0001.1921.6800.0001.00\n   is-type level-2\n   router-id
+    ipv4 100.1.2.1\n   log-adjacency-changes\n   timers local-convergence-delay 10000
+    protected-prefixes\n   !\n   address-family ipv4 unicast\n      maximum-paths
+    4\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   segment-routing
     mpls\n      no shutdown\n!\nmpls ip\n!\npatch panel\n   patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n
     \     connector 1 interface Port-channel11.99\n      connector 2 pseudowire bgp
     vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n   !\n!\nmanagement
@@ -331,7 +355,12 @@ cvp_configlets:
     receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
     0\nqos map exp 1 to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
     class BUSINESS\n    police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps
-    burst-size 125000 bytes\n\n!\nend\n"
+    burst-size 125000 bytes\n!\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -366,18 +395,18 @@ cvp_configlets:
     \  switchport mode trunk\n   qos trust dscp\n   service-policy type qos input
     TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_SPINE-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.3/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
     P2P_LINK_TO_SF_SITE_101_SPINE-2_Ethernet4\n   no shutdown\n   mtu 1500\n   no
     switchport\n   ip address 10.0.0.7/31\n   mpls ip\n   isis enable CORE\n   isis
-    circuit-type level-2\n   isis metric 50\n   isis hello padding\n   isis network
+    circuit-type level-2\n   isis metric 10\n   isis hello padding\n   isis network
     point-to-point\n!\ninterface Ethernet7\n   description P2P_LINK_TO_SF_SITE_101_RR-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.10/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet9\n   description
     P2P_LINK_TO_SF_SITE_103_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.1.0.4/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Ethernet11\n   description SF_SITE_101_TOR-1B_Ethernet3\n   no shutdown\n   channel-group
     11 mode active\n!\ninterface Ethernet12\n   description SF_SITE_101_TOR-1B_Ethernet4\n
     \  no shutdown\n   channel-group 11 mode active\n!\ninterface Port-channel11\n
@@ -441,7 +470,8 @@ cvp_configlets:
     \     neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n      no
     neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n      neighbor
     MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv6\n      neighbor
-    MPLS-OVERLAY-PEERS activate\n   !\n   vrf BRANCH-10013\n      rd 100.1.2.2:10013\n
+    MPLS-OVERLAY-PEERS activate\n      neighbor default encapsulation mpls next-hop-self
+    source-interface null=\n   !\n   vrf BRANCH-10013\n      rd 100.1.2.2:10013\n
     \     route-target import vpn-ipv4 6.6971:10013\n      route-target import vpn-ipv6
     6.6971:10013\n      route-target export vpn-ipv4 6.6971:10013\n      route-target
     export vpn-ipv6 6.6971:10013\n      router-id 100.1.2.2\n      neighbor 10.255.101.3
@@ -456,18 +486,27 @@ cvp_configlets:
     bfd\n      redistribute connected\n      !\n      address-family ipv4\n         bgp
     additional-paths install\n         neighbor 10.255.101.3 activate\n      !\n      bgp
     additional-paths receive\n      bgp additional-paths send any\n      bgp bestpath
-    tie-break router-id\n\n!\nrouter isis CORE\n   is-type level-2\n   router-id ipv4
-    100.1.2.2\n   log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\n!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000
-    8000\nmpls label range static 16 15984\n!\nrouter bgp 6.6971\n  vpws BRANCH\n
-    \   mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n
-    \   bgp additional-paths send any\n  address-family vpn-ipv6\n    bgp additional-paths
-    receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
-    0\nqos map exp 1 to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
-    class BUSINESS\n    police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps
-    burst-size 125000 bytes\n\n!\nend\n"
+    tie-break router-id\n\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0002.00\n
+    \  is-type level-2\n   router-id ipv4 100.1.2.2\n   log-adjacency-changes\n   timers
+    local-convergence-delay 10000 protected-prefixes\n   !\n   address-family ipv4
+    unicast\n      maximum-paths 4\n      fast-reroute ti-lfa mode node-protection
+    level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
+    node-protection level-2\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
+    \  vrf default\n      no shutdown\n!\n!\nmpls label range bgp-sr 16000 8000\nmpls
+    label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
+    6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp
+    additional-paths receive\n    bgp additional-paths send any\n  address-family
+    vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos
+    map exp 0 to traffic-class 0\nqos map exp 1 to traffic-class 1\n!\npolicy-map
+    type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n class BUSINESS\n    police
+    rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes\n!\nrouter
+    isis CORE\n  lsp purge origination-identification\n  set-overload-bit on-startup
+    wait-for-bgp\n  authentication mode md5\n  graceful-restart restart-hold-time
+    300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd
+    all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n    multi-topology\ninterface
+    Loopback10\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology
+    address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -485,11 +524,11 @@ cvp_configlets:
     15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet7\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.9/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
     P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet7\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.0.0.11/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
     100.1.1.1/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
     1\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.13/32\n!\ninterface
@@ -518,11 +557,18 @@ cvp_configlets:
     \     no neighbor RR-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n
     \     neighbor MPLS-OVERLAY-PEERS activate\n      neighbor RR-OVERLAY-PEERS activate\n
     \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \     neighbor RR-OVERLAY-PEERS activate\n!\nrouter isis CORE\n   is-type level-2\n
-    \  router-id ipv4 100.1.1.1\n   log-adjacency-changes\n   !\n   address-family
-    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    \     neighbor RR-OVERLAY-PEERS activate\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0001.00\n
+    \  is-type level-2\n   router-id ipv4 100.1.1.1\n   log-adjacency-changes\n   timers
+    local-convergence-delay 10000 protected-prefixes\n   !\n   address-family ipv4
+    unicast\n      maximum-paths 4\n      fast-reroute ti-lfa mode node-protection
+    level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
+    node-protection level-2\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
     ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
-    \  vrf default\n      no shutdown\n!\nend\n"
+    \  vrf default\n      no shutdown\n!\n!\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n!\ninterface Loopback10\n  isis multi-topology
+    address-family ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_SPINE-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -540,20 +586,29 @@ cvp_configlets:
     15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.0/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
     P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet3\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.0.0.2/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Loopback0\n   description LSR_Router_ID\n   no shutdown\n   ip address 100.1.0.1/32\n
     \  isis enable CORE\n   isis passive\n   node-segment ipv4 index 1\n!\ninterface
     Loopback10\n   description Inband management\n   ip address 192.168.101.11/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.11/24\n!\nip
-    routing\n!\nrouter isis CORE\n   is-type level-2\n   router-id ipv4 100.1.0.1\n
-    \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    routing\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0001.00\n   is-type level-2\n
+    \  router-id ipv4 100.1.0.1\n   log-adjacency-changes\n   timers local-convergence-delay
+    10000 protected-prefixes\n   !\n   address-family ipv4 unicast\n      maximum-paths
+    4\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
+    range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
+    static 16 15984\n!\n\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_SPINE-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -571,20 +626,29 @@ cvp_configlets:
     15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.4/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
     P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet4\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.0.0.6/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Loopback0\n   description LSR_Router_ID\n   no shutdown\n   ip address 100.1.0.2/32\n
     \  isis enable CORE\n   isis passive\n   node-segment ipv4 index 2\n!\ninterface
     Loopback10\n   description Inband management\n   ip address 192.168.101.12/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.12/24\n!\nip
-    routing\n!\nrouter isis CORE\n   is-type level-2\n   router-id ipv4 100.1.0.2\n
-    \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    routing\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0002.00\n   is-type level-2\n
+    \  router-id ipv4 100.1.0.2\n   log-adjacency-changes\n   timers local-convergence-delay
+    10000 protected-prefixes\n   !\n   address-family ipv4 unicast\n      maximum-paths
+    4\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
+    range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
+    static 16 15984\n!\n\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -650,8 +714,10 @@ cvp_configlets:
     1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp
     1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group BUSINESS\n!\npolicy-map
     type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n   class BUSINESS\n      set
-    traffic-class 2\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    traffic-class 2\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_101_TOR-1B: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -717,8 +783,10 @@ cvp_configlets:
     1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp
     1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group BUSINESS\n!\npolicy-map
     type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n   class BUSINESS\n      set
-    traffic-class 2\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    traffic-class 2\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_102_BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -753,17 +821,17 @@ cvp_configlets:
     trust dscp\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface
     Ethernet3\n   description P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet6\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.1.0.7/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Ethernet4\n   description P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.5/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   description
     P2P_LINK_TO_SF_SITE_102_RR-1_Ethernet3\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.1.0.8/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Ethernet9\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet9\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_102_TOR-1A_Ethernet3\n
     \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
     SF_SITE_102_TOR-1A_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
@@ -822,17 +890,21 @@ cvp_configlets:
     source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS activate\n   !\n
     \  address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n   !\n
     \  address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n   !\n
-    \  address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n   !\n
-    \  vrf BRANCH-10015\n      rd 100.2.2.1:10015\n      route-target import vpn-ipv4
-    6.6971:10015\n      route-target import vpn-ipv6 6.6971:10015\n      route-target
-    export vpn-ipv4 6.6971:10015\n      route-target export vpn-ipv6 6.6971:10015\n
-    \     router-id 100.2.2.1\n      neighbor 10.255.102.1 remote-as 65521\n      neighbor
-    10.255.102.1 bfd\n      redistribute connected\n      !\n      address-family
-    ipv4\n         bgp additional-paths install\n         neighbor 10.255.102.1 activate\n
-    \     !\n      bgp additional-paths receive\n      bgp additional-paths send any\n
-    \     bgp bestpath tie-break router-id\n\n!\nrouter isis CORE\n   is-type level-2\n
-    \  router-id ipv4 100.2.2.1\n   log-adjacency-changes\n   !\n   address-family
-    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    \  address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n      neighbor
+    default encapsulation mpls next-hop-self source-interface null=\n   !\n   vrf
+    BRANCH-10015\n      rd 100.2.2.1:10015\n      route-target import vpn-ipv4 6.6971:10015\n
+    \     route-target import vpn-ipv6 6.6971:10015\n      route-target export vpn-ipv4
+    6.6971:10015\n      route-target export vpn-ipv6 6.6971:10015\n      router-id
+    100.2.2.1\n      neighbor 10.255.102.1 remote-as 65521\n      neighbor 10.255.102.1
+    bfd\n      redistribute connected\n      !\n      address-family ipv4\n         bgp
+    additional-paths install\n         neighbor 10.255.102.1 activate\n      !\n      bgp
+    additional-paths receive\n      bgp additional-paths send any\n      bgp bestpath
+    tie-break router-id\n\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0001.00\n
+    \  is-type level-2\n   router-id ipv4 100.2.2.1\n   log-adjacency-changes\n   timers
+    local-convergence-delay 10000 protected-prefixes\n   !\n   address-family ipv4
+    unicast\n      maximum-paths 4\n      fast-reroute ti-lfa mode node-protection
+    level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
+    node-protection level-2\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
     ip\n!\npatch panel\n   patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n      connector
     1 interface Port-channel11.99\n      connector 2 pseudowire bgp vpws BRANCH pseudowire
     SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n   !\n!\nmanagement api http-commands\n
@@ -844,7 +916,12 @@ cvp_configlets:
     additional-paths send any\n!\nqos map exp 0 to traffic-class 0\nqos map exp 1
     to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
     class BUSINESS\n    police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps
-    burst-size 125000 bytes\n\n!\nend\n"
+    burst-size 125000 bytes\n!\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -879,17 +956,17 @@ cvp_configlets:
     \  service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface Ethernet3\n
     \  description P2P_LINK_TO_SF_SITE_102_SPINE-1_Ethernet4\n   no shutdown\n   mtu
     1500\n   no switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis enable
-    CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Ethernet4\n   description P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.7/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   description
     P2P_LINK_TO_SF_SITE_102_RR-1_Ethernet4\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.1.0.10/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Ethernet10\n   description P2P_LINK_TO_SF_SITE_103_BL-1_Ethernet10\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.1.0.8/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_102_TOR-1B_Ethernet3\n
     \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
     SF_SITE_102_TOR-1B_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
@@ -936,9 +1013,13 @@ cvp_configlets:
     mpls next-hop-self source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS
     activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
     \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.2.2.2\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \     neighbor default encapsulation mpls next-hop-self source-interface null=\n!\nrouter
+    isis CORE\n   net 51.0001.1921.6800.0002.00\n   is-type level-2\n   router-id
+    ipv4 100.2.2.2\n   log-adjacency-changes\n   timers local-convergence-delay 10000
+    protected-prefixes\n   !\n   address-family ipv4 unicast\n      maximum-paths
+    4\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   segment-routing
     mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
     https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
     range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
@@ -948,7 +1029,12 @@ cvp_configlets:
     additional-paths send any\n!\nqos map exp 0 to traffic-class 0\nqos map exp 1
     to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
     class BUSINESS\n    police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps
-    burst-size 125000 bytes\n\n!\nend\n"
+    burst-size 125000 bytes\n!\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -966,11 +1052,11 @@ cvp_configlets:
     15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet7\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.9/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
     P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet7\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.1.0.11/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
     100.1.1.2/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
     2\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.20/32\n!\ninterface
@@ -999,11 +1085,18 @@ cvp_configlets:
     \     no neighbor RR-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n
     \     neighbor MPLS-OVERLAY-PEERS activate\n      neighbor RR-OVERLAY-PEERS activate\n
     \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \     neighbor RR-OVERLAY-PEERS activate\n!\nrouter isis CORE\n   is-type level-2\n
-    \  router-id ipv4 100.1.1.2\n   log-adjacency-changes\n   !\n   address-family
-    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    \     neighbor RR-OVERLAY-PEERS activate\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0002.00\n
+    \  is-type level-2\n   router-id ipv4 100.1.1.2\n   log-adjacency-changes\n   timers
+    local-convergence-delay 10000 protected-prefixes\n   !\n   address-family ipv4
+    unicast\n      maximum-paths 4\n      fast-reroute ti-lfa mode node-protection
+    level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
+    node-protection level-2\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
     ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
-    \  vrf default\n      no shutdown\n!\nend\n"
+    \  vrf default\n      no shutdown\n!\n!\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n!\ninterface Loopback10\n  isis multi-topology
+    address-family ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_SPINE-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -1021,20 +1114,29 @@ cvp_configlets:
     15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.0/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
     P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet3\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.1.0.2/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Loopback0\n   description LSR_Router_ID\n   no shutdown\n   ip address 100.2.0.1/32\n
     \  isis enable CORE\n   isis passive\n   node-segment ipv4 index 1\n!\ninterface
     Loopback10\n   description Inband management\n   ip address 192.168.101.18/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.18/24\n!\nip
-    routing\n!\nrouter isis CORE\n   is-type level-2\n   router-id ipv4 100.2.0.1\n
-    \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    routing\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0001.00\n   is-type level-2\n
+    \  router-id ipv4 100.2.0.1\n   log-adjacency-changes\n   timers local-convergence-delay
+    10000 protected-prefixes\n   !\n   address-family ipv4 unicast\n      maximum-paths
+    4\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
+    range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
+    static 16 15984\n!\n\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_SPINE-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -1052,20 +1154,29 @@ cvp_configlets:
     15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.4/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet4\n   description
     P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet4\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.1.0.6/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Loopback0\n   description LSR_Router_ID\n   no shutdown\n   ip address 100.2.0.2/32\n
     \  isis enable CORE\n   isis passive\n   node-segment ipv4 index 2\n!\ninterface
     Loopback10\n   description Inband management\n   ip address 192.168.101.19/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.19/24\n!\nip
-    routing\n!\nrouter isis CORE\n   is-type level-2\n   router-id ipv4 100.2.0.2\n
-    \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
-    shutdown\n!\nend\n"
+    routing\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0002.00\n   is-type level-2\n
+    \  router-id ipv4 100.2.0.2\n   log-adjacency-changes\n   timers local-convergence-delay
+    10000 protected-prefixes\n   !\n   address-family ipv4 unicast\n      maximum-paths
+    4\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
+    range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
+    static 16 15984\n!\n\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -1131,8 +1242,10 @@ cvp_configlets:
     1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp
     1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group BUSINESS\n!\npolicy-map
     type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n   class BUSINESS\n      set
-    traffic-class 2\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    traffic-class 2\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_102_TOR-1B: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -1198,8 +1311,10 @@ cvp_configlets:
     1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp
     1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group BUSINESS\n!\npolicy-map
     type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n   class BUSINESS\n      set
-    traffic-class 2\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    traffic-class 2\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_103_BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -1238,10 +1353,10 @@ cvp_configlets:
     \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet9\n   description
     P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
     \  ip address 10.1.0.5/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 50\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Ethernet10\n   description P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.1.0.9/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
     \  no shutdown\n   ip address 100.3.2.1/32\n   isis enable CORE\n   isis passive\n
     \  node-segment ipv4 index 1\n!\ninterface Loopback10\n   description Inband management\n
@@ -1285,9 +1400,13 @@ cvp_configlets:
     mpls next-hop-self source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS
     activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
     \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.3.2.1\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \     neighbor default encapsulation mpls next-hop-self source-interface null=\n!\nrouter
+    isis CORE\n   net 51.0001.1921.6800.0001.00\n   is-type level-2\n   router-id
+    ipv4 100.3.2.1\n   log-adjacency-changes\n   timers local-convergence-delay 10000
+    protected-prefixes\n   !\n   address-family ipv4 unicast\n      maximum-paths
+    4\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   segment-routing
     mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
     https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
     range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
@@ -1297,7 +1416,12 @@ cvp_configlets:
     additional-paths send any\n!\nqos map exp 0 to traffic-class 0\nqos map exp 1
     to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
     class BUSINESS\n    police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps
-    burst-size 125000 bytes\n\n!\nend\n"
+    burst-size 125000 bytes\n!\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_103_TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -1361,8 +1485,10 @@ cvp_configlets:
     1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp
     1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group BUSINESS\n!\npolicy-map
     type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n   class BUSINESS\n      set
-    traffic-class 2\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    traffic-class 2\n!\nrouter isis CORE\n   !\n   address-family ipv4 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute
+    ti-lfa mode node-protection level-2\n   !\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_SF_SITE_104_BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
@@ -1395,10 +1521,10 @@ cvp_configlets:
     201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface
     Ethernet6\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.1.0.6/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis hello padding\n
+    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Ethernet10\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.1/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   isis
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Loopback0\n   description
     MPLS_Overlay_peering\n   no shutdown\n   ip address 100.4.2.1/32\n   isis enable
     CORE\n   isis passive\n   node-segment ipv4 index 1\n!\ninterface Loopback10\n
@@ -1443,9 +1569,13 @@ cvp_configlets:
     mpls next-hop-self source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS
     activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
     \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n!\nrouter
-    isis CORE\n   is-type level-2\n   router-id ipv4 100.4.2.1\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \     neighbor default encapsulation mpls next-hop-self source-interface null=\n!\nrouter
+    isis CORE\n   net 51.0001.1921.6800.0001.00\n   is-type level-2\n   router-id
+    ipv4 100.4.2.1\n   log-adjacency-changes\n   timers local-convergence-delay 10000
+    protected-prefixes\n   !\n   address-family ipv4 unicast\n      maximum-paths
+    4\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   address-family
+    ipv6 unicast\n      fast-reroute ti-lfa mode node-protection level-2\n   !\n   segment-routing
     mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
     https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls label
     range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range
@@ -1455,7 +1585,12 @@ cvp_configlets:
     additional-paths send any\n!\nqos map exp 0 to traffic-class 0\nqos map exp 1
     to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
     class BUSINESS\n    police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps
-    burst-size 125000 bytes\n\n!\nend\n"
+    burst-size 125000 bytes\n!\nrouter isis CORE\n  lsp purge origination-identification\n
+    \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+    restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
+    unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
 cvp_topology:
   AVD_FABRIC:
     devices: []
