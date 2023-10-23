@@ -48,6 +48,9 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [MACsec](#macsec)
+  - [MACsec Summary](#macsec-summary)
+  - [MACsec Device Configuration](#macsec-device-configuration)
 - [Quality Of Service](#quality-of-service)
   - [QOS](#qos)
   - [QOS Class Maps](#qos-class-maps)
@@ -351,6 +354,7 @@ interface Ethernet3
    description P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet6
    no shutdown
    mtu 1500
+   mac security profile Backbone
    no switchport
    ip address 10.1.0.7/31
    mpls ip
@@ -390,6 +394,7 @@ interface Ethernet9
    description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet9
    no shutdown
    mtu 1500
+   mac security profile Backbone
    no switchport
    ip address 10.1.0.3/31
    mpls ip
@@ -946,6 +951,43 @@ ip access-list BUSINESS
 vrf instance BRANCH-10015
 ```
 
+## MACsec
+
+### MACsec Summary
+
+License is not installed.
+
+FIPS restrictions enabled.
+
+#### MACsec Profiles Summary
+
+**Profile Backbone:**
+
+Settings:
+
+| Cipher | Key-Server Priority | Rekey-Period | SCI |
+| ------ | ------------------- | ------------ | --- |
+| aes256-gcm-xpn | - | 86400 | - |
+
+Keys:
+
+| Key ID | Fallback |
+| ------ |  -------- |
+| 4261636b62306e65 | False |
+
+### MACsec Device Configuration
+
+```eos
+!
+mac security
+   fips restrictions
+   !
+   profile Backbone
+      cipher aes256-gcm-xpn
+      key 4261636b62306e65 7 <removed> fallback
+      mka session rekey-period 86400
+```
+
 ## Quality Of Service
 
 ### QOS
@@ -1175,7 +1217,7 @@ router isis CORE
   address-family ipv6 unicast
     bfd all-interfaces
     multi-topology
-interface Loopback10
+interface Loopback0
   isis multi-topology address-family ipv4 unicast
   isis multi-topology address-family ipv6 unicast
 

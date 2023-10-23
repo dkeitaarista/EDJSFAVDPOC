@@ -36,7 +36,7 @@ management_api_http:
 eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\n\nrouter
   isis CORE\n  lsp purge origination-identification\n  set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
   restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd all-interfaces\n  address-family
-  ipv6 unicast\n    bfd all-interfaces\n    multi-topology\ninterface Loopback10\n  isis multi-topology address-family ipv4 unicast\n
+  ipv6 unicast\n    bfd all-interfaces\n    multi-topology\ninterface Loopback0\n  isis multi-topology address-family ipv4 unicast\n
   \ isis multi-topology address-family ipv6 unicast\n"
 loopback_interfaces:
 - name: Loopback0
@@ -111,6 +111,18 @@ ethernet_interfaces:
   isis_circuit_type: level-2
   mpls:
     ip: true
+mac_security:
+  fips_restrictions: true
+  profiles:
+  - name: Backbone
+    cipher: aes256-gcm-xpn
+    connection_keys:
+    - id: 4261636b62306e65
+      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
+      fallback: false
+    mka:
+      session:
+        rekey_period: 86400
 logging:
   console: critical
   monitor: disabled

@@ -178,8 +178,8 @@ eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 
   rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes\n!\nrouter isis CORE\n  lsp purge origination-identification\n
   \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart restart-hold-time 300\n  authentication
   key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-  \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology address-family
-  ipv6 unicast\n"
+  \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology address-family ipv6
+  unicast\n"
 ethernet_interfaces:
 - name: Ethernet11
   peer: SF_SITE_101_TOR-1B
@@ -263,6 +263,8 @@ ethernet_interfaces:
   isis_network_point_to_point: true
   isis_hello_padding: true
   isis_circuit_type: level-2
+  mac_security:
+    profile: Backbone
   mpls:
     ip: true
 - name: Port-channel11.101
@@ -371,6 +373,18 @@ vlans:
   tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true
+mac_security:
+  fips_restrictions: true
+  profiles:
+  - name: Backbone
+    cipher: aes256-gcm-xpn
+    connection_keys:
+    - id: 4261636b62306e65
+      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
+      fallback: false
+    mka:
+      session:
+        rekey_period: 86400
 logging:
   console: critical
   monitor: disabled

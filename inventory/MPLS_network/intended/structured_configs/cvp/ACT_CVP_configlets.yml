@@ -8,12 +8,15 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    BRANCH-A2A-CE1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
-    mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname BRANCH-A2A-CE1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.1/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.28/32\n!\ninterface Management1\n
@@ -34,12 +37,15 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    BRANCH-A2A-CE2\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
-    mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname BRANCH-A2A-CE2\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1B\n
     \  no switchport\n   ip address 10.255.101.3/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.30/32\n!\ninterface Management1\n
@@ -60,12 +66,15 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    BRANCH-A2A-CE3\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
-    mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname BRANCH-A2A-CE3\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1A\n
     \  no switchport\n   ip address 10.255.102.1/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.32/32\n!\ninterface Management1\n
@@ -86,12 +95,15 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    BRANCH-A2A-CE4\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
-    mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname BRANCH-A2A-CE4\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1B\n
     \  no switchport\n   ip address 10.255.102.3/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.33/32\n!\ninterface Management1\n
@@ -112,12 +124,15 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    CORP-A2A-CE1\nip name-server vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns
-    domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
-    1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname CORP-A2A-CE1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.5/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.29/32\n!\ninterface Management1\n
@@ -138,12 +153,15 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    CORP-A2A-CE2\nip name-server vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns
-    domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
-    1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname CORP-A2A-CE2\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1B\n
     \  no switchport\n   ip address 10.255.101.7/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.31/32\n!\ninterface Management1\n
@@ -164,12 +182,15 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    CORP-A2A-CE3\nip name-server vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns
-    domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
-    1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname CORP-A2A-CE3\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1A\n
     \  no switchport\n   ip address 10.255.102.5/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.24/32\n!\ninterface Management1\n
@@ -190,12 +211,15 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    CORP-A2A-CE4\nip name-server vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns
-    domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
-    1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname CORP-A2A-CE4\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1B\n
     \  no switchport\n   ip address 10.255.102.7/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.35/32\n!\ninterface Management1\n
@@ -216,24 +240,26 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_101_BL-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
-    enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
-    secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_BL-1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
+    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvrf instance BRANCH-10011\n!\nvrf
     instance CORP-10012\n!\ninterface Port-Channel11\n   description SF_SITE_101_TOR-1A_Po3\n
@@ -250,61 +276,62 @@ cvp_configlets:
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.8/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet9\n   description
-    P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
-    \  ip address 10.1.0.2/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
-    Ethernet10\n   description P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet10\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.0/31\n   mpls ip\n   isis
+    P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   mac security
+    profile Backbone\n   no switchport\n   ip address 10.1.0.2/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_101_TOR-1A_Ethernet3\n
-    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
-    SF_SITE_101_TOR-1A_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
-    Port-channel11\n   no shutdown\n   no switchport\n!\ninterface Port-channel11.99\n
-    \  no shutdown\n   encapsulation vlan\n      client dot1q 99 network client\n!\ninterface
-    Port-channel11.100\n   no shutdown\n   encapsulation dot1q vlan 100\n   vrf BRANCH-10011\n
-    \  ip address 10.255.101.0/31\n   no qos trust\n   service-policy type qos input
-    TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      no priority\n      bandwidth
-    percent 5\n   !\n   tx-queue 1\n      no priority\n      bandwidth percent 1\n
-    \  !\n   tx-queue 2\n      no priority\n      bandwidth percent 19\n   !\n   tx-queue
-    3\n      no priority\n      bandwidth percent 20\n   !\n   tx-queue 4\n      priority
-    strict\n      bandwidth percent 30\n   !\n   tx-queue 5\n      priority strict\n
-    \     bandwidth percent 25\n\n!\ninterface Port-channel11.200\n   no shutdown\n
-    \  encapsulation dot1q vlan 200\n   vrf CORP-10012\n   ip address 10.255.101.4/31\n
-    \  no qos trust\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  isis network point-to-point\n!\ninterface Ethernet10\n   description P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet10\n
+    \  no shutdown\n   mtu 1500\n   mac security profile Backbone\n   no switchport\n
+    \  ip address 10.1.0.0/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    Ethernet11\n   description SF_SITE_101_TOR-1A_Ethernet3\n   no shutdown\n   channel-group
+    11 mode active\n!\ninterface Ethernet12\n   description SF_SITE_101_TOR-1A_Ethernet4\n
+    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Port-channel11\n
+    \  no shutdown\n   no switchport\n!\ninterface Port-channel11.99\n   no shutdown\n
+    \  encapsulation vlan\n      client dot1q 99 network client\n!\ninterface Port-channel11.100\n
+    \  no shutdown\n   encapsulation dot1q vlan 100\n   vrf BRANCH-10011\n   ip address
+    10.255.101.0/31\n   no qos trust\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
     \  !\n   tx-queue 0\n      no priority\n      bandwidth percent 5\n   !\n   tx-queue
     1\n      no priority\n      bandwidth percent 1\n   !\n   tx-queue 2\n      no
     priority\n      bandwidth percent 19\n   !\n   tx-queue 3\n      no priority\n
     \     bandwidth percent 20\n   !\n   tx-queue 4\n      priority strict\n      bandwidth
     percent 30\n   !\n   tx-queue 5\n      priority strict\n      bandwidth percent
-    25\n\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n
-    \  ip address 100.1.2.1/32\n   isis enable CORE\n   isis passive\n   node-segment
-    ipv4 index 1\n!\ninterface Loopback10\n   description Inband management\n   ip
-    address 192.168.101.14/32\n!\ninterface Management1\n   description oob_management\n
-    \  no shutdown\n   ip address 192.168.0.14/24\nip access-list BUSINESS\n   5 remark
-    Management SSH\n   10 permit tcp any any eq ssh\n   20 permit tcp any eq ssh any\n
-    \  30 remark Management telnet\n   40 permit tcp any any eq telnet\n   50 permit
-    tcp any eq telnet any\n   60 remark Management SOC\n   70 permit ip host 172.0.193.0
-    0.255.0.255 any\n   80 permit ip any host 172.0.193.0 0.255.0.255\n   90 remark
-    Web CSR Accountlink SSL\n   100 permit tcp any any eq https\n   110 permit tcp
-    any eq https any\n   120 remark Messaging - Print\n   130 permit tcp any any eq
-    ldp\n   140 permit tcp any eq ldp any\n   150 permit tcp any any eq 9100\n   160
-    permit tcp any eq 9100 any\n   170 remark Login MS-DS\n   180 permit tcp any any
-    eq microsoft-ds\n   190 permit tcp any eq microsoft-ds any\n   200 permit tcp
-    any any eq 137\n   210 permit tcp any eq 137 any\n   220 permit tcp any any eq
-    138\n   230 permit tcp any eq 138 any\n   240 permit tcp any any eq 139\n   250
-    permit tcp any eq 139 any\n   260 permit tcp any any eq 1748\n   270 permit tcp
-    any eq 1748 any\n   280 remark other\n   290 permit tcp any any range 18480 19999\n
-    \  300 permit tcp any range 18480 19999 any\n   310 permit tcp any any range 20021
-    20479\n   320 permit tcp any range 20021 20479 any\n   330 remark Voice AES Traffic\n
-    \  340 permit tcp any any eq 1050\n   350 permit tcp any eq 1050 any\n   360 permit
-    tcp any any eq 450\n   370 permit tcp any eq 450 any\n   380 remark Wireless CAPWAP\n
-    \  390 permit udp any any eq 5246 5247\n   400 permit udp any eq 5246 5247 any\n!\nip
-    routing\nip routing vrf BRANCH-10011\nip routing vrf CORP-10012\n!\nqos map cos
-    0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos map dscp 0 1 2 3 4
-    5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class 0 to cos 0\nqos
-    map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos map traffic-class
-    1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp
-    1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group BUSINESS\n!\npolicy-map
+    25\n\n!\ninterface Port-channel11.200\n   no shutdown\n   encapsulation dot1q
+    vlan 200\n   vrf CORP-10012\n   ip address 10.255.101.4/31\n   no qos trust\n
+    \  service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue
+    0\n      no priority\n      bandwidth percent 5\n   !\n   tx-queue 1\n      no
+    priority\n      bandwidth percent 1\n   !\n   tx-queue 2\n      no priority\n
+    \     bandwidth percent 19\n   !\n   tx-queue 3\n      no priority\n      bandwidth
+    percent 20\n   !\n   tx-queue 4\n      priority strict\n      bandwidth percent
+    30\n   !\n   tx-queue 5\n      priority strict\n      bandwidth percent 25\n\n!\ninterface
+    Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
+    100.1.2.1/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
+    1\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.14/32\n!\ninterface
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.14/24\nip
+    access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
+    ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
+    tcp any any eq telnet\n   50 permit tcp any eq telnet any\n   60 remark Management
+    SOC\n   70 permit ip host 172.0.193.0 0.255.0.255 any\n   80 permit ip any host
+    172.0.193.0 0.255.0.255\n   90 remark Web CSR Accountlink SSL\n   100 permit tcp
+    any any eq https\n   110 permit tcp any eq https any\n   120 remark Messaging
+    - Print\n   130 permit tcp any any eq ldp\n   140 permit tcp any eq ldp any\n
+    \  150 permit tcp any any eq 9100\n   160 permit tcp any eq 9100 any\n   170 remark
+    Login MS-DS\n   180 permit tcp any any eq microsoft-ds\n   190 permit tcp any
+    eq microsoft-ds any\n   200 permit tcp any any eq 137\n   210 permit tcp any eq
+    137 any\n   220 permit tcp any any eq 138\n   230 permit tcp any eq 138 any\n
+    \  240 permit tcp any any eq 139\n   250 permit tcp any eq 139 any\n   260 permit
+    tcp any any eq 1748\n   270 permit tcp any eq 1748 any\n   280 remark other\n
+    \  290 permit tcp any any range 18480 19999\n   300 permit tcp any range 18480
+    19999 any\n   310 permit tcp any any range 20021 20479\n   320 permit tcp any
+    range 20021 20479 any\n   330 remark Voice AES Traffic\n   340 permit tcp any
+    any eq 1050\n   350 permit tcp any eq 1050 any\n   360 permit tcp any any eq 450\n
+    \  370 permit tcp any eq 450 any\n   380 remark Wireless CAPWAP\n   390 permit
+    udp any any eq 5246 5247\n   400 permit udp any eq 5246 5247 any\n!\nip routing\nip
+    routing vrf BRANCH-10011\nip routing vrf CORP-10012\n!\nqos map cos 0 to traffic-class
+    0\nqos map cos 1 to traffic-class 1\nqos map dscp 0 1 2 3 4 5 6 7\nqos map dscp
+    8 9 10 11 12 13 14 15\nqos map traffic-class 0 to cos 0\nqos map traffic-class
+    0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos map traffic-class 1 to cos
+    1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class 1 to exp 1\n!\nclass-map
+    type qos match-any BUSINESS\n   match ip access-group BUSINESS\n!\npolicy-map
     type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n   class BUSINESS\n      set
     traffic-class 2\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier
     3\n!\nrouter bgp 6.6971\n   router-id 100.1.2.1\n   distance bgp 20 200 200\n
@@ -359,7 +386,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -370,24 +397,26 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_101_BL-2\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
-    enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
-    secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_BL-2\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
+    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvrf instance BRANCH-10013\n!\nvrf
     instance CORP-10014\n!\ninterface Port-Channel11\n   description SF_SITE_101_TOR-1B_Po3\n
@@ -404,15 +433,15 @@ cvp_configlets:
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.10/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet9\n   description
-    P2P_LINK_TO_SF_SITE_103_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
-    \  ip address 10.1.0.4/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
-    Ethernet11\n   description SF_SITE_101_TOR-1B_Ethernet3\n   no shutdown\n   channel-group
-    11 mode active\n!\ninterface Ethernet12\n   description SF_SITE_101_TOR-1B_Ethernet4\n
-    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Port-channel11\n
-    \  no shutdown\n   no switchport\n!\ninterface Port-channel11.101\n   no shutdown\n
-    \  encapsulation dot1q vlan 101\n   vrf BRANCH-10013\n   ip address 10.255.101.2/31\n
-    \  no qos trust\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    P2P_LINK_TO_SF_SITE_103_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   mac security
+    profile Backbone\n   no switchport\n   ip address 10.1.0.4/31\n   mpls ip\n   isis
+    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
+    \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_101_TOR-1B_Ethernet3\n
+    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
+    SF_SITE_101_TOR-1B_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
+    Port-channel11\n   no shutdown\n   no switchport\n!\ninterface Port-channel11.101\n
+    \  no shutdown\n   encapsulation dot1q vlan 101\n   vrf BRANCH-10013\n   ip address
+    10.255.101.2/31\n   no qos trust\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
     \  !\n   tx-queue 0\n      no priority\n      bandwidth percent 5\n   !\n   tx-queue
     1\n      no priority\n      bandwidth percent 1\n   !\n   tx-queue 2\n      no
     priority\n      bandwidth percent 19\n   !\n   tx-queue 3\n      no priority\n
@@ -505,7 +534,7 @@ cvp_configlets:
     wait-for-bgp\n  authentication mode md5\n  graceful-restart restart-hold-time
     300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd
     all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n    multi-topology\ninterface
-    Loopback10\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology
+    Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology
     address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -516,12 +545,14 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_101_RR-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_RR-1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet7\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.9/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -567,7 +598,7 @@ cvp_configlets:
     \  vrf default\n      no shutdown\n!\n!\nrouter isis CORE\n  lsp purge origination-identification\n
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
-    unicast\n    bfd all-interfaces\n!\ninterface Loopback10\n  isis multi-topology
+    unicast\n    bfd all-interfaces\n!\ninterface Loopback0\n  isis multi-topology
     address-family ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_SPINE-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -578,12 +609,14 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_101_SPINE-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_SPINE-1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.0/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -607,7 +640,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_SPINE-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -618,12 +651,14 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_101_SPINE-2\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_SPINE-2\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.4/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -647,7 +682,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_101_TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -658,24 +693,27 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_101_TOR-1A\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_TOR-1A\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\ninterface Port-Channel3\n
     \  description SF_SITE_101_BL-1_Po11\n   no shutdown\n   switchport\n   switchport
@@ -727,24 +765,27 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_101_TOR-1B\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_TOR-1B\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\ninterface Port-Channel3\n
     \  description SF_SITE_101_BL-2_Po11\n   no shutdown\n   switchport\n   switchport
@@ -796,41 +837,44 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_102_BL-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
-    enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
-    secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_BL-1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
+    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvrf instance BRANCH-10015\n!\ninterface
     Port-Channel11\n   description SF_SITE_102_TOR-1A_Po3\n   no shutdown\n   switchport\n
     \  switchport trunk allowed vlan 102-103,202-203\n   switchport mode trunk\n   qos
     trust dscp\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n!\ninterface
     Ethernet3\n   description P2P_LINK_TO_SF_SITE_104_BL-1_Ethernet6\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.7/31\n   mpls ip\n   isis
+    \  mtu 1500\n   mac security profile Backbone\n   no switchport\n   ip address
+    10.1.0.7/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis
+    metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    Ethernet4\n   description P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet3\n   no shutdown\n
+    \  mtu 1500\n   no switchport\n   ip address 10.1.0.5/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet4\n   description P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet3\n
-    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.5/31\n   mpls
+    \  isis network point-to-point\n!\ninterface Ethernet7\n   description P2P_LINK_TO_SF_SITE_102_RR-1_Ethernet3\n
+    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.8/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
-    hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   description
-    P2P_LINK_TO_SF_SITE_102_RR-1_Ethernet3\n   no shutdown\n   mtu 1500\n   no switchport\n
-    \  ip address 10.1.0.8/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
-    Ethernet9\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet9\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis
+    hello padding\n   isis network point-to-point\n!\ninterface Ethernet9\n   description
+    P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet9\n   no shutdown\n   mtu 1500\n   mac security
+    profile Backbone\n   no switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_102_TOR-1A_Ethernet3\n
     \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
@@ -920,7 +964,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -931,24 +975,26 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_102_BL-2\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
-    enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
-    secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_BL-2\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
+    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface Port-Channel11\n
     \  description SF_SITE_102_TOR-1B_Po3\n   no shutdown\n   switchport\n   switchport
@@ -965,14 +1011,15 @@ cvp_configlets:
     \  ip address 10.1.0.10/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
     level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
     Ethernet10\n   description P2P_LINK_TO_SF_SITE_103_BL-1_Ethernet10\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.8/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF_SITE_102_TOR-1B_Ethernet3\n
-    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
-    SF_SITE_102_TOR-1B_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
-    Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
-    100.2.2.2/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
-    2\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.22/32\n!\ninterface
+    \  mtu 1500\n   mac security profile Backbone\n   no switchport\n   ip address
+    10.1.0.8/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis
+    metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    Ethernet11\n   description SF_SITE_102_TOR-1B_Ethernet3\n   no shutdown\n   channel-group
+    11 mode active\n!\ninterface Ethernet12\n   description SF_SITE_102_TOR-1B_Ethernet4\n
+    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Loopback0\n   description
+    MPLS_Overlay_peering\n   no shutdown\n   ip address 100.2.2.2/32\n   isis enable
+    CORE\n   isis passive\n   node-segment ipv4 index 2\n!\ninterface Loopback10\n
+    \  description Inband management\n   ip address 192.168.101.22/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.22/24\nip
     access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
     ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
@@ -1033,7 +1080,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -1044,12 +1091,14 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_102_RR-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_RR-1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet7\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.9/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1095,7 +1144,7 @@ cvp_configlets:
     \  vrf default\n      no shutdown\n!\n!\nrouter isis CORE\n  lsp purge origination-identification\n
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
-    unicast\n    bfd all-interfaces\n!\ninterface Loopback10\n  isis multi-topology
+    unicast\n    bfd all-interfaces\n!\ninterface Loopback0\n  isis multi-topology
     address-family ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_SPINE-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -1106,12 +1155,14 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_102_SPINE-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_SPINE-1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.0/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1135,7 +1186,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_SPINE-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -1146,12 +1197,14 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_102_SPINE-2\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_SPINE-2\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
+    mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.4/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1175,7 +1228,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_102_TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -1186,24 +1239,27 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_102_TOR-1A\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_TOR-1A\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface Port-Channel3\n
     \  description SF_SITE_102_BL-1_Po11\n   no shutdown\n   switchport\n   switchport
@@ -1255,24 +1311,27 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_102_TOR-1B\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_TOR-1B\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface Port-Channel3\n
     \  description SF_SITE_102_BL-2_Po11\n   no shutdown\n   switchport\n   switchport
@@ -1324,24 +1383,26 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_103_BL-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
-    enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
-    secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_103_BL-1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
+    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 200\n   name vlan_200\n!\nvlan
     201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface
@@ -1351,41 +1412,42 @@ cvp_configlets:
     Ethernet3\n   description SF_SITE_103_TOR-1A_Ethernet3\n   no shutdown\n   channel-group
     3 mode active\n!\ninterface Ethernet4\n   description SF_SITE_103_TOR-1A_Ethernet4\n
     \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet9\n   description
-    P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet9\n   no shutdown\n   mtu 1500\n   no switchport\n
-    \  ip address 10.1.0.5/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
-    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
-    Ethernet10\n   description P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.9/31\n   mpls ip\n   isis
+    P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet9\n   no shutdown\n   mtu 1500\n   mac security
+    profile Backbone\n   no switchport\n   ip address 10.1.0.5/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
-    \  no shutdown\n   ip address 100.3.2.1/32\n   isis enable CORE\n   isis passive\n
-    \  node-segment ipv4 index 1\n!\ninterface Loopback10\n   description Inband management\n
-    \  ip address 192.168.101.25/32\n!\ninterface Management1\n   description oob_management\n
-    \  no shutdown\n   ip address 192.168.0.25/24\nip access-list BUSINESS\n   5 remark
-    Management SSH\n   10 permit tcp any any eq ssh\n   20 permit tcp any eq ssh any\n
-    \  30 remark Management telnet\n   40 permit tcp any any eq telnet\n   50 permit
-    tcp any eq telnet any\n   60 remark Management SOC\n   70 permit ip host 172.0.193.0
-    0.255.0.255 any\n   80 permit ip any host 172.0.193.0 0.255.0.255\n   90 remark
-    Web CSR Accountlink SSL\n   100 permit tcp any any eq https\n   110 permit tcp
-    any eq https any\n   120 remark Messaging - Print\n   130 permit tcp any any eq
-    ldp\n   140 permit tcp any eq ldp any\n   150 permit tcp any any eq 9100\n   160
-    permit tcp any eq 9100 any\n   170 remark Login MS-DS\n   180 permit tcp any any
-    eq microsoft-ds\n   190 permit tcp any eq microsoft-ds any\n   200 permit tcp
-    any any eq 137\n   210 permit tcp any eq 137 any\n   220 permit tcp any any eq
-    138\n   230 permit tcp any eq 138 any\n   240 permit tcp any any eq 139\n   250
-    permit tcp any eq 139 any\n   260 permit tcp any any eq 1748\n   270 permit tcp
-    any eq 1748 any\n   280 remark other\n   290 permit tcp any any range 18480 19999\n
-    \  300 permit tcp any range 18480 19999 any\n   310 permit tcp any any range 20021
-    20479\n   320 permit tcp any range 20021 20479 any\n   330 remark Voice AES Traffic\n
-    \  340 permit tcp any any eq 1050\n   350 permit tcp any eq 1050 any\n   360 permit
-    tcp any any eq 450\n   370 permit tcp any eq 450 any\n   380 remark Wireless CAPWAP\n
-    \  390 permit udp any any eq 5246 5247\n   400 permit udp any eq 5246 5247 any\n!\nip
-    routing\n!\nqos map cos 0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos
-    map dscp 0 1 2 3 4 5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class
-    0 to cos 0\nqos map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp
-    0\nqos map traffic-class 1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map
-    traffic-class 1 to exp 1\n!\nclass-map type qos match-any BUSINESS\n   match ip
-    access-group BUSINESS\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
+    \  isis network point-to-point\n!\ninterface Ethernet10\n   description P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10\n
+    \  no shutdown\n   mtu 1500\n   mac security profile Backbone\n   no switchport\n
+    \  ip address 10.1.0.9/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
+    level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
+    100.3.2.1/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
+    1\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.25/32\n!\ninterface
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.25/24\nip
+    access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
+    ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
+    tcp any any eq telnet\n   50 permit tcp any eq telnet any\n   60 remark Management
+    SOC\n   70 permit ip host 172.0.193.0 0.255.0.255 any\n   80 permit ip any host
+    172.0.193.0 0.255.0.255\n   90 remark Web CSR Accountlink SSL\n   100 permit tcp
+    any any eq https\n   110 permit tcp any eq https any\n   120 remark Messaging
+    - Print\n   130 permit tcp any any eq ldp\n   140 permit tcp any eq ldp any\n
+    \  150 permit tcp any any eq 9100\n   160 permit tcp any eq 9100 any\n   170 remark
+    Login MS-DS\n   180 permit tcp any any eq microsoft-ds\n   190 permit tcp any
+    eq microsoft-ds any\n   200 permit tcp any any eq 137\n   210 permit tcp any eq
+    137 any\n   220 permit tcp any any eq 138\n   230 permit tcp any eq 138 any\n
+    \  240 permit tcp any any eq 139\n   250 permit tcp any eq 139 any\n   260 permit
+    tcp any any eq 1748\n   270 permit tcp any eq 1748 any\n   280 remark other\n
+    \  290 permit tcp any any range 18480 19999\n   300 permit tcp any range 18480
+    19999 any\n   310 permit tcp any any range 20021 20479\n   320 permit tcp any
+    range 20021 20479 any\n   330 remark Voice AES Traffic\n   340 permit tcp any
+    any eq 1050\n   350 permit tcp any eq 1050 any\n   360 permit tcp any any eq 450\n
+    \  370 permit tcp any eq 450 any\n   380 remark Wireless CAPWAP\n   390 permit
+    udp any any eq 5246 5247\n   400 permit udp any eq 5246 5247 any\n!\nip routing\n!\nqos
+    map cos 0 to traffic-class 0\nqos map cos 1 to traffic-class 1\nqos map dscp 0
+    1 2 3 4 5 6 7\nqos map dscp 8 9 10 11 12 13 14 15\nqos map traffic-class 0 to
+    cos 0\nqos map traffic-class 0 to dscp 0\nqos map traffic-class 0 to exp 0\nqos
+    map traffic-class 1 to cos 1\nqos map traffic-class 1 to dscp 8\nqos map traffic-class
+    1 to exp 1\n!\nclass-map type qos match-any BUSINESS\n   match ip access-group
+    BUSINESS\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n
     \  class BUSINESS\n      set traffic-class 2\n!\nrouter bfd\n   multihop interval
     1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.3.2.1\n
     \  distance bgp 20 200 200\n   graceful-restart restart-time 300\n   graceful-restart\n
@@ -1420,7 +1482,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF_SITE_103_TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
@@ -1431,24 +1493,27 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_103_TOR-1A\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
-    priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_103_TOR-1A\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nspanning-tree
+    mode mstp\nspanning-tree mst 0 priority 32768\n!\naaa authorization exec default
+    local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role
+    network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 200\n   name vlan_200\n!\nvlan
     201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface
@@ -1498,37 +1563,40 @@ cvp_configlets:
     level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
     source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
-    SF_SITE_104_BL-1\nip name-server vrf default 8.8.4.4\nip name-server vrf default
-    8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
-    server 1.north-america.pool.ntp.org\n!\nqos profile TENANT-1G\n   service-policy
-    type qos input TENANT-INGRESS-CLASSIFIER-1G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\nqos profile TENANT-10G\n   service-policy type
-    qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n   tx-queue 0\n      bandwidth
-    percent 5\n      no priority\n   !\n   tx-queue 1\n      bandwidth percent 1\n
-    \     no priority\n   !\n   tx-queue 2\n      bandwidth percent 19\n      no priority\n
-    \  !\n   tx-queue 3\n      bandwidth percent 20\n      no priority\n   !\n   tx-queue
-    4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
-    percent 25\n      no priority\n!\naaa authorization exec default local\n!\nno
-    enable password\nno aaa root\n!\nusername cvpadmin privilege 15 role network-admin
-    secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
+    security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     mka session rekey-period 86400\n!\nhostname SF_SITE_104_BL-1\nip name-server
+    vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
+    server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
+    profile TENANT-1G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G\n
+    \  !\n   tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\nqos profile
+    TENANT-10G\n   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G\n   !\n
+    \  tx-queue 0\n      bandwidth percent 5\n      no priority\n   !\n   tx-queue
+    1\n      bandwidth percent 1\n      no priority\n   !\n   tx-queue 2\n      bandwidth
+    percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
+    \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
+    \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
+    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 200\n   name vlan_200\n!\nvlan
     201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface
     Ethernet6\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.6/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet10\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10\n
-    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.1/31\n   mpls
-    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
-    hello padding\n   isis network point-to-point\n!\ninterface Loopback0\n   description
-    MPLS_Overlay_peering\n   no shutdown\n   ip address 100.4.2.1/32\n   isis enable
-    CORE\n   isis passive\n   node-segment ipv4 index 1\n!\ninterface Loopback10\n
-    \  description Inband management\n   ip address 192.168.101.27/32\n!\ninterface
+    \  mtu 1500\n   mac security profile Backbone\n   no switchport\n   ip address
+    10.1.0.6/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis
+    metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    Ethernet10\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10\n   no shutdown\n
+    \  mtu 1500\n   mac security profile Backbone\n   no switchport\n   ip address
+    10.1.0.1/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis
+    metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
+    Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
+    100.4.2.1/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
+    1\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.27/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.27/24\nip
     access-list BUSINESS\n   5 remark Management SSH\n   10 permit tcp any any eq
     ssh\n   20 permit tcp any eq ssh any\n   30 remark Management telnet\n   40 permit
@@ -1589,7 +1657,7 @@ cvp_configlets:
     \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
     restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4
     unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-    \   multi-topology\ninterface Loopback10\n  isis multi-topology address-family
+    \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
 cvp_topology:
   AVD_FABRIC:

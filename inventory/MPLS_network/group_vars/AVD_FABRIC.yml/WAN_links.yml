@@ -12,6 +12,7 @@ l3_edge:
       interfaces:
         - Ethernet10
         - Ethernet10
+      macsec_profile: Backbone
       ip_pool: WAN_pool
     - id: 2
       nodes:
@@ -20,6 +21,7 @@ l3_edge:
       interfaces:
         - Ethernet9
         - Ethernet9
+      macsec_profile: Backbone
       ip_pool: WAN_pool
     - id: 3
       nodes:
@@ -28,6 +30,7 @@ l3_edge:
       interfaces:
         - Ethernet9
         - Ethernet9
+      macsec_profile: Backbone
       ip_pool: WAN_pool
     - id: 4
       nodes:
@@ -36,6 +39,7 @@ l3_edge:
       interfaces:
         - Ethernet6
         - Ethernet3
+      macsec_profile: Backbone
       ip_pool: WAN_pool
     - id: 5
       nodes:
@@ -44,4 +48,5 @@ l3_edge:
       interfaces:
         - Ethernet10
         - Ethernet10
+      macsec_profile: Backbone
       ip_pool: WAN_pool

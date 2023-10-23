@@ -37,6 +37,9 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [MACsec](#macsec)
+  - [MACsec Summary](#macsec-summary)
+  - [MACsec Device Configuration](#macsec-device-configuration)
 
 ## Management
 
@@ -482,4 +485,41 @@ match-list input string SAKlogs
 ### VRF Instances Device Configuration
 
 ```eos
+```
+
+## MACsec
+
+### MACsec Summary
+
+License is not installed.
+
+FIPS restrictions enabled.
+
+#### MACsec Profiles Summary
+
+**Profile Backbone:**
+
+Settings:
+
+| Cipher | Key-Server Priority | Rekey-Period | SCI |
+| ------ | ------------------- | ------------ | --- |
+| aes256-gcm-xpn | - | 86400 | - |
+
+Keys:
+
+| Key ID | Fallback |
+| ------ |  -------- |
+| 4261636b62306e65 | False |
+
+### MACsec Device Configuration
+
+```eos
+!
+mac security
+   fips restrictions
+   !
+   profile Backbone
+      cipher aes256-gcm-xpn
+      key 4261636b62306e65 7 <removed> fallback
+      mka session rekey-period 86400
 ```
