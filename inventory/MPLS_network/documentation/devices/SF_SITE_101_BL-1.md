@@ -1053,7 +1053,7 @@ Keys:
 
 | Key ID | Fallback |
 | ------ |  -------- |
-| 4261636b62306e65 | False |
+| 4261636b62306e65 | - |
 
 ### MACsec Device Configuration
 
@@ -1064,7 +1064,7 @@ mac security
    !
    profile Backbone
       cipher aes256-gcm-xpn
-      key 4261636b62306e65 7 <removed> fallback
+      key 4261636b62306e65 7 <removed>
       mka session rekey-period 86400
 ```
 

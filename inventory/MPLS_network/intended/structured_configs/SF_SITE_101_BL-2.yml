@@ -381,7 +381,6 @@ mac_security:
     connection_keys:
     - id: 4261636b62306e65
       encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-      fallback: false
     mka:
       session:
         rekey_period: 86400

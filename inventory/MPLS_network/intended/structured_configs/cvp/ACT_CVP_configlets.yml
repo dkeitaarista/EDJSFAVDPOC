@@ -10,7 +10,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname BRANCH-A2A-CE1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -39,7 +39,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname BRANCH-A2A-CE2\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -68,7 +68,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname BRANCH-A2A-CE3\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -97,7 +97,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname BRANCH-A2A-CE4\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -126,7 +126,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname CORP-A2A-CE1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -155,7 +155,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname CORP-A2A-CE2\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -184,7 +184,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname CORP-A2A-CE3\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -213,7 +213,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname CORP-A2A-CE4\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -242,7 +242,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_BL-1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -399,7 +399,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_BL-2\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -547,7 +547,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_RR-1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -611,7 +611,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_SPINE-1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -653,7 +653,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_SPINE-2\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -695,7 +695,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_TOR-1A\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -767,7 +767,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_101_TOR-1B\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -839,7 +839,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_BL-1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -977,7 +977,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_BL-2\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -1093,7 +1093,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_RR-1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -1157,7 +1157,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_SPINE-1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -1199,7 +1199,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_SPINE-2\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
@@ -1241,7 +1241,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_TOR-1A\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -1313,7 +1313,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_102_TOR-1B\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -1385,7 +1385,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_103_BL-1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -1495,7 +1495,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_103_TOR-1A\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
@@ -1565,7 +1565,7 @@ cvp_configlets:
     input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
     MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nmac
     security\n   fips restrictions\n   !\n   profile Backbone\n      cipher aes256-gcm-xpn\n
-    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A fallback\n
+    \     key 4261636b62306e65 7 08751E18584F5641105D5E577A7D217E6661204054415A\n
     \     mka session rekey-period 86400\n!\nhostname SF_SITE_104_BL-1\nip name-server
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nqos
