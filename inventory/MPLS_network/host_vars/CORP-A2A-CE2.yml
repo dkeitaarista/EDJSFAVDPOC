@@ -10,8 +10,10 @@ custom_structured_configuration_ethernet_interfaces:
 # BGP peering with border leaf
 
 custom_structured_configuration_router_bgp:
-  as: 65504
+  as: 65522
   router_id: 10.255.101.7
+  redistribute_routes:
+    - source_protocol: connected
   neighbors:
     - ip_address: 10.255.101.6
       remote_as: '6.6971'

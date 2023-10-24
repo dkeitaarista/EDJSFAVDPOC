@@ -124,7 +124,7 @@ router_bgp:
           install: true
     neighbors:
     - ip_address: 10.255.101.5
-      remote_as: '65502'
+      remote_as: '65521'
       bfd: true
     eos_cli: 'bgp additional-paths receive
 

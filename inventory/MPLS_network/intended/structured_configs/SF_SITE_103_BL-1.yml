@@ -56,6 +56,45 @@ router_bgp:
   - ip_address: 100.1.1.2
     peer_group: MPLS-OVERLAY-PEERS
     description: SF_SITE_102_RR-1
+  vrfs:
+  - name: CORP-10020
+    router_id: 100.3.2.1
+    rd: 100.3.2.1:10020
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10020
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10020
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10020
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10020
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.103.4
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.103.4
+      remote_as: '65525'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
@@ -76,6 +115,9 @@ local_users:
 vrfs:
 - name: default
   ip_routing: false
+- name: CORP-10020
+  tenant: CORP
+  ip_routing: true
 management_interfaces:
 - name: Management1
   description: oob_management
@@ -154,13 +196,32 @@ ethernet_interfaces:
     profile: Backbone
   mpls:
     ip: true
+- name: Port-channel11.204
+  peer_type: l3_interface
+  ip_address: 10.255.103.3/31
+  shutdown: false
+  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
+    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
+    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 204
+  vrf: CORP-10020
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
+- name: Port-channel11
+  type: routed
+  peer_type: l3_interface
+  shutdown: false
 port_channel_interfaces:
 - name: Port-Channel3
   description: SF_SITE_103_TOR-1A_Po3
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-103,200-203
+  vlans: 100-104,200-204
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G
@@ -224,6 +285,9 @@ vlans:
 - id: 103
   name: vlan_103
   tenant: BRANCH
+- id: 104
+  name: vlan_104
+  tenant: BRANCH
 - id: 200
   name: vlan_200
   tenant: CORP
@@ -235,6 +299,9 @@ vlans:
   tenant: CORP
 - id: 203
   name: vlan_203
+  tenant: CORP
+- id: 204
+  name: vlan_204
   tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true

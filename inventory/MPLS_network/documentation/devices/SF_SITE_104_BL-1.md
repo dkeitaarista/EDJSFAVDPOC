@@ -278,10 +278,12 @@ vlan internal order ascending range 1006 1199
 | 101 | vlan_101 | - |
 | 102 | vlan_102 | - |
 | 103 | vlan_103 | - |
+| 104 | vlan_104 | - |
 | 200 | vlan_200 | - |
 | 201 | vlan_201 | - |
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
+| 204 | vlan_204 | - |
 
 ### VLANs Device Configuration
 
@@ -299,6 +301,9 @@ vlan 102
 vlan 103
    name vlan_103
 !
+vlan 104
+   name vlan_104
+!
 vlan 200
    name vlan_200
 !
@@ -310,6 +315,9 @@ vlan 202
 !
 vlan 203
    name vlan_203
+!
+vlan 204
+   name vlan_204
 ```
 
 ## Interfaces
@@ -330,6 +338,8 @@ vlan 203
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
 | Ethernet6 | P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3 | routed | - | 10.1.0.6/31 | default | 1500 | False | - | - |
+| Ethernet7 | - | routed | - | 10.255.104.0/31 | BRANCH-10020 | - | False | - | - |
+| Ethernet8 | - | routed | - | 10.255.104.3/31 | CORP-10022 | - | False | - | - |
 | Ethernet10 | P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10 | routed | - | 10.1.0.1/31 | default | 1500 | False | - | - |
 
 ##### ISIS
@@ -356,6 +366,72 @@ interface Ethernet6
    isis metric 10
    isis hello padding
    isis network point-to-point
+!
+interface Ethernet7
+   no shutdown
+   no switchport
+   vrf BRANCH-10020
+   ip address 10.255.104.0/31
+   no qos trust
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      no priority
+      bandwidth percent 5
+   !
+   tx-queue 1
+      no priority
+      bandwidth percent 1
+   !
+   tx-queue 2
+      no priority
+      bandwidth percent 19
+   !
+   tx-queue 3
+      no priority
+      bandwidth percent 20
+   !
+   tx-queue 4
+      priority strict
+      bandwidth percent 30
+   !
+   tx-queue 5
+      priority strict
+      bandwidth percent 25
+
+!
+interface Ethernet8
+   no shutdown
+   no switchport
+   vrf CORP-10022
+   ip address 10.255.104.3/31
+   no qos trust
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      no priority
+      bandwidth percent 5
+   !
+   tx-queue 1
+      no priority
+      bandwidth percent 1
+   !
+   tx-queue 2
+      no priority
+      bandwidth percent 19
+   !
+   tx-queue 3
+      no priority
+      bandwidth percent 20
+   !
+   tx-queue 4
+      priority strict
+      bandwidth percent 30
+   !
+   tx-queue 5
+      priority strict
+      bandwidth percent 25
+
 !
 interface Ethernet10
    description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet10
@@ -431,12 +507,16 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
+| BRANCH-10020 | True |
+| CORP-10022 | True |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
+ip routing vrf BRANCH-10020
+ip routing vrf CORP-10022
 ```
 
 ### IPv6 Routing
@@ -446,6 +526,8 @@ ip routing
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
+| BRANCH-10020 | false |
+| CORP-10022 | false |
 | default | false |
 
 ### Router ISIS
@@ -552,6 +634,8 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
+| 10.255.104.1 | 65506 | BRANCH-10020 | - | - | - | - | True | - | - | - |
+| 10.255.104.4 | 65526 | CORP-10022 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -582,6 +666,13 @@ router isis CORE
 | Peer Group | Activate | Route-map In | Route-map Out |
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
+
+#### Router BGP VRFs
+
+| VRF | Route-Distinguisher | Redistribute |
+| --- | ------------------- | ------------ |
+| BRANCH-10020 | 100.4.2.1:10020 | connected |
+| CORP-10022 | 100.4.2.1:10022 | connected |
 
 #### Router BGP Device Configuration
 
@@ -620,6 +711,46 @@ router bgp 6.6971
    address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
       neighbor default encapsulation mpls next-hop-self source-interface null=
+   !
+   vrf BRANCH-10020
+      rd 100.4.2.1:10020
+      route-target import vpn-ipv4 6.6971:10020
+      route-target import vpn-ipv6 6.6971:10020
+      route-target export vpn-ipv4 6.6971:10020
+      route-target export vpn-ipv6 6.6971:10020
+      router-id 100.4.2.1
+      neighbor 10.255.104.1 remote-as 65506
+      neighbor 10.255.104.1 bfd
+      redistribute connected
+      !
+      address-family ipv4
+         bgp additional-paths install
+         neighbor 10.255.104.1 activate
+      !
+      bgp additional-paths receive
+      bgp additional-paths send any
+      bgp bestpath tie-break router-id
+
+   !
+   vrf CORP-10022
+      rd 100.4.2.1:10022
+      route-target import vpn-ipv4 6.6971:10022
+      route-target import vpn-ipv6 6.6971:10022
+      route-target export vpn-ipv4 6.6971:10022
+      route-target export vpn-ipv6 6.6971:10022
+      router-id 100.4.2.1
+      neighbor 10.255.104.4 remote-as 65526
+      neighbor 10.255.104.4 bfd
+      redistribute connected
+      !
+      address-family ipv4
+         bgp additional-paths install
+         neighbor 10.255.104.4 activate
+      !
+      bgp additional-paths receive
+      bgp additional-paths send any
+      bgp bestpath tie-break router-id
+
 ```
 
 ## BFD
@@ -767,10 +898,16 @@ ip access-list BUSINESS
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
+| BRANCH-10020 | enabled |
+| CORP-10022 | enabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
+!
+vrf instance BRANCH-10020
+!
+vrf instance CORP-10022
 ```
 
 ## MACsec
@@ -994,6 +1131,13 @@ qos profile TENANT-10G
       bandwidth percent 25
       no priority
 ```
+
+#### QOS Interfaces
+
+| Interface | Trust | Default DSCP | Default COS | Shape rate |
+| --------- | ----- | ------------ | ----------- | ---------- |
+| Ethernet7 | disabled | - | - | - |
+| Ethernet8 | disabled | - | - | - |
 
 ## EOS CLI
 

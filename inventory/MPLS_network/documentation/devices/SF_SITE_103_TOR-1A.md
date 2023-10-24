@@ -32,7 +32,6 @@
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
-  - [Router ISIS](#router-isis)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
@@ -42,9 +41,6 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
-- [MACsec](#macsec)
-  - [MACsec Summary](#macsec-summary)
-  - [MACsec Device Configuration](#macsec-device-configuration)
 - [Quality Of Service](#quality-of-service)
   - [QOS](#qos)
   - [QOS Class Maps](#qos-class-maps)
@@ -295,10 +291,12 @@ vlan internal order ascending range 1006 1199
 | 101 | vlan_101 | - |
 | 102 | vlan_102 | - |
 | 103 | vlan_103 | - |
+| 104 | vlan_104 | - |
 | 200 | vlan_200 | - |
 | 201 | vlan_201 | - |
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
+| 204 | vlan_204 | - |
 
 ### VLANs Device Configuration
 
@@ -316,6 +314,9 @@ vlan 102
 vlan 103
    name vlan_103
 !
+vlan 104
+   name vlan_104
+!
 vlan 200
    name vlan_200
 !
@@ -327,6 +328,9 @@ vlan 202
 !
 vlan 203
    name vlan_203
+!
+vlan 204
+   name vlan_204
 ```
 
 ## Interfaces
@@ -339,8 +343,10 @@ vlan 203
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | SF_SITE_103_BL-1_Ethernet3 | *trunk | *100-103,200-203 | *- | *- | 3 |
-| Ethernet4 | SF_SITE_103_BL-1_Ethernet4 | *trunk | *100-103,200-203 | *- | *- | 3 |
+| Ethernet3 | SF_SITE_103_BL-1_Ethernet3 | *trunk | *100-104,200-204 | *- | *- | 3 |
+| Ethernet4 | SF_SITE_103_BL-1_Ethernet4 | *trunk | *100-104,200-204 | *- | *- | 3 |
+| Ethernet7 |  BRANCH-A2A-CE5_Ethernet1 | access | 104 | - | - | - |
+| Ethernet8 |  CORP-A2A-CE5_Ethernet1 | access | 204 | - | - | - |
 
 *Inherited from Port-Channel Interface
 
@@ -357,6 +363,20 @@ interface Ethernet4
    description SF_SITE_103_BL-1_Ethernet4
    no shutdown
    channel-group 3 mode active
+!
+interface Ethernet7
+   description BRANCH-A2A-CE5_Ethernet1
+   no shutdown
+   switchport access vlan 104
+   switchport mode access
+   switchport
+!
+interface Ethernet8
+   description CORP-A2A-CE5_Ethernet1
+   no shutdown
+   switchport access vlan 204
+   switchport mode access
+   switchport
 ```
 
 ### Port-Channel Interfaces
@@ -367,7 +387,7 @@ interface Ethernet4
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF_SITE_103_BL-1_Po3 | switched | trunk | 100-103,200-203 | - | - | - | - | - | - |
+| Port-Channel3 | SF_SITE_103_BL-1_Po3 | switched | trunk | 100-104,200-204 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -377,7 +397,7 @@ interface Port-Channel3
    description SF_SITE_103_BL-1_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan 100-103,200-203
+   switchport trunk allowed vlan 100-104,200-204
    switchport mode trunk
    qos trust dscp
    service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
@@ -441,49 +461,6 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | False |
 | default | false |
-
-### Router ISIS
-
-#### Router ISIS Summary
-
-| Settings | Value |
-| -------- | ----- |
-| Instance | CORE |
-
-#### ISIS Interfaces Summary
-
-| Interface | ISIS Instance | ISIS Metric | Interface Mode |
-| --------- | ------------- | ----------- | -------------- |
-
-#### ISIS IPv4 Address Family Summary
-
-| Settings | Value |
-| -------- | ----- |
-| IPv4 Address-family Enabled | True |
-| TI-LFA Mode | node-protection |
-| TI-LFA Level | level-2 |
-
-#### ISIS IPv6 Address Family Summary
-
-| Settings | Value |
-| -------- | ----- |
-| IPv6 Address-family Enabled | True |
-| TI-LFA Mode | node-protection |
-| TI-LFA Level | level-2 |
-
-#### Router ISIS Device Configuration
-
-```eos
-!
-router isis CORE
-   !
-   address-family ipv4 unicast
-      fast-reroute ti-lfa mode node-protection level-2
-   !
-   address-family ipv6 unicast
-      fast-reroute ti-lfa mode node-protection level-2
-   !
-```
 
 ## Multicast
 
@@ -588,43 +565,6 @@ ip access-list BUSINESS
 ### VRF Instances Device Configuration
 
 ```eos
-```
-
-## MACsec
-
-### MACsec Summary
-
-License is not installed.
-
-FIPS restrictions enabled.
-
-#### MACsec Profiles Summary
-
-**Profile Backbone:**
-
-Settings:
-
-| Cipher | Key-Server Priority | Rekey-Period | SCI |
-| ------ | ------------------- | ------------ | --- |
-| aes256-gcm-xpn | - | 86400 | - |
-
-Keys:
-
-| Key ID | Fallback |
-| ------ |  -------- |
-| 4261636b62306e65 | - |
-
-### MACsec Device Configuration
-
-```eos
-!
-mac security
-   fips restrictions
-   !
-   profile Backbone
-      cipher aes256-gcm-xpn
-      key 4261636b62306e65 7 <removed>
-      mka session rekey-period 86400
 ```
 
 ## Quality Of Service

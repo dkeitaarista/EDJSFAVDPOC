@@ -57,7 +57,7 @@ cpes:
         endpoint_ports:
           - Ethernet1
         mode: access
-        vlans: 101
+        vlans: 200
   - name: BRANCH-A2A-CE2
     adapters:
       - switches:
@@ -67,7 +67,7 @@ cpes:
         endpoint_ports:
           - Ethernet1
         mode: access
-        vlans: 100
+        vlans: 101
   - name: CORP-A2A-CE2
     adapters:
       - switches:
@@ -77,4 +77,4 @@ cpes:
         endpoint_ports:
           - Ethernet1
         mode: access
-        vlans: 101
+        vlans: 201

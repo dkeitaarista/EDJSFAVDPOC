@@ -56,13 +56,31 @@ ethernet_interfaces:
   channel_group:
     id: 3
     mode: active
+- name: Ethernet7
+  peer: BRANCH-A2A-CE5
+  peer_interface: Ethernet1
+  peer_type: cpe
+  description: BRANCH-A2A-CE5_Ethernet1
+  shutdown: false
+  type: switched
+  mode: access
+  vlans: '104'
+- name: Ethernet8
+  peer: CORP-A2A-CE5
+  peer_interface: Ethernet1
+  peer_type: cpe
+  description: CORP-A2A-CE5_Ethernet1
+  shutdown: false
+  type: switched
+  mode: access
+  vlans: '204'
 port_channel_interfaces:
 - name: Port-Channel3
   description: SF_SITE_103_BL-1_Po3
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-103,200-203
+  vlans: 100-104,200-204
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G
@@ -81,6 +99,9 @@ vlans:
 - id: 103
   name: vlan_103
   tenant: BRANCH
+- id: 104
+  name: vlan_104
+  tenant: BRANCH
 - id: 200
   name: vlan_200
   tenant: CORP
@@ -93,31 +114,11 @@ vlans:
 - id: 203
   name: vlan_203
   tenant: CORP
+- id: 204
+  name: vlan_204
+  tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true
-router_isis:
-  instance: CORE
-  address_family_ipv4:
-    enabled: true
-    fast_reroute_ti_lfa:
-      mode: node-protection
-      level: level-2
-  address_family_ipv6:
-    enabled: true
-    fast_reroute_ti_lfa:
-      mode: node-protection
-      level: level-2
-mac_security:
-  fips_restrictions: true
-  profiles:
-  - name: Backbone
-    cipher: aes256-gcm-xpn
-    connection_keys:
-    - id: 4261636b62306e65
-      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-    mka:
-      session:
-        rekey_period: 86400
 logging:
   console: critical
   monitor: disabled

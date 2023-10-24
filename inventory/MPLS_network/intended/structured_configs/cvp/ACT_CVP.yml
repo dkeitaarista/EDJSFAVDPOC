@@ -16,6 +16,14 @@ cvp_devices:
     parentContainerName: CE_102
     configlets:
       - AVD_BRANCH-A2A-CE4
+  - fqdn: BRANCH-A2A-CE5
+    parentContainerName: CE_103
+    configlets:
+      - AVD_BRANCH-A2A-CE5
+  - fqdn: BRANCH-A2A-CE6
+    parentContainerName: CE_103
+    configlets:
+      - AVD_BRANCH-A2A-CE6
   - fqdn: CORP-A2A-CE1
     parentContainerName: CE_101
     configlets:
@@ -32,6 +40,14 @@ cvp_devices:
     parentContainerName: CE_102
     configlets:
       - AVD_CORP-A2A-CE4
+  - fqdn: CORP-A2A-CE5
+    parentContainerName: CE_103
+    configlets:
+      - AVD_CORP-A2A-CE5
+  - fqdn: CORP-A2A-CE6
+    parentContainerName: CE_103
+    configlets:
+      - AVD_CORP-A2A-CE6
   - fqdn: SF_SITE_101_BL-1
     parentContainerName: BORDER_LEAFS_101
     configlets:
@@ -115,6 +131,8 @@ cvp_containers:
     parentContainerName: SF_SITE_101
   CE_102:
     parentContainerName: SF_SITE_102
+  CE_103:
+    parentContainerName: SF_SITE_103
   ROUTE_REFLECTORS_101:
     parentContainerName: SF_SITE_101
   ROUTE_REFLECTORS_102:

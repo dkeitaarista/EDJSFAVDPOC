@@ -28,7 +28,6 @@
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
-  - [Router ISIS](#router-isis)
   - [Router BGP](#router-bgp)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
@@ -37,9 +36,6 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
-- [MACsec](#macsec)
-  - [MACsec Summary](#macsec-summary)
-  - [MACsec Device Configuration](#macsec-device-configuration)
 
 ## Management
 
@@ -51,7 +47,7 @@
 
 | Management Interface | description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | oob_management | oob | default | 192.168.0.24/24 | - |
+| Management1 | oob_management | oob | default | 192.168.0.34/24 | - |
 
 ##### IPv6
 
@@ -66,7 +62,7 @@
 interface Management1
    description oob_management
    no shutdown
-   ip address 192.168.0.24/24
+   ip address 192.168.0.34/24
 ```
 
 ### DNS Domain
@@ -312,7 +308,7 @@ interface Ethernet1
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback10 | Inband management | default | 192.168.101.24/32 |
+| Loopback10 | Inband management | default | 192.168.101.34/32 |
 
 ##### IPv6
 
@@ -327,7 +323,7 @@ interface Ethernet1
 !
 interface Loopback10
    description Inband management
-   ip address 192.168.101.24/32
+   ip address 192.168.101.34/32
 ```
 
 ## Routing
@@ -363,56 +359,13 @@ service routing protocols model multi-agent
 | default | False |
 | default | false |
 
-### Router ISIS
-
-#### Router ISIS Summary
-
-| Settings | Value |
-| -------- | ----- |
-| Instance | CORE |
-
-#### ISIS Interfaces Summary
-
-| Interface | ISIS Instance | ISIS Metric | Interface Mode |
-| --------- | ------------- | ----------- | -------------- |
-
-#### ISIS IPv4 Address Family Summary
-
-| Settings | Value |
-| -------- | ----- |
-| IPv4 Address-family Enabled | True |
-| TI-LFA Mode | node-protection |
-| TI-LFA Level | level-2 |
-
-#### ISIS IPv6 Address Family Summary
-
-| Settings | Value |
-| -------- | ----- |
-| IPv6 Address-family Enabled | True |
-| TI-LFA Mode | node-protection |
-| TI-LFA Level | level-2 |
-
-#### Router ISIS Device Configuration
-
-```eos
-!
-router isis CORE
-   !
-   address-family ipv4 unicast
-      fast-reroute ti-lfa mode node-protection level-2
-   !
-   address-family ipv6 unicast
-      fast-reroute ti-lfa mode node-protection level-2
-   !
-```
-
 ### Router BGP
 
 #### Router BGP Summary
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65522|  10.255.102.5 |
+| 65523|  10.255.102.5 |
 
 #### BGP Neighbors
 
@@ -424,10 +377,11 @@ router isis CORE
 
 ```eos
 !
-router bgp 65522
+router bgp 65523
    router-id 10.255.102.5
    neighbor 10.255.102.4 peer group CE-PEER-GROUP
    neighbor 10.255.102.4 remote-as 6.6971
+   redistribute connected
    !
    address-family ipv4
       neighbor CE-PEER-GROUP activate
@@ -485,41 +439,4 @@ match-list input string SAKlogs
 ### VRF Instances Device Configuration
 
 ```eos
-```
-
-## MACsec
-
-### MACsec Summary
-
-License is not installed.
-
-FIPS restrictions enabled.
-
-#### MACsec Profiles Summary
-
-**Profile Backbone:**
-
-Settings:
-
-| Cipher | Key-Server Priority | Rekey-Period | SCI |
-| ------ | ------------------- | ------------ | --- |
-| aes256-gcm-xpn | - | 86400 | - |
-
-Keys:
-
-| Key ID | Fallback |
-| ------ |  -------- |
-| 4261636b62306e65 | - |
-
-### MACsec Device Configuration
-
-```eos
-!
-mac security
-   fips restrictions
-   !
-   profile Backbone
-      cipher aes256-gcm-xpn
-      key 4261636b62306e65 7 <removed>
-      mka session rekey-period 86400
 ```

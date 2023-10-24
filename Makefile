@@ -11,15 +11,15 @@ help: ## Display help message (*: main entry points / []: part of an entry point
 
 .PHONY: fabric-build
 fabric-build: ## Build fabric configuration and documentation
-	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags build -i inventory/MPLS_network/inventory.yml --diff
+	ansible-playbook playbooks/cvp-fabric-deploy-CC.yml --tags build -i inventory/MPLS_network/inventory.yml --diff
 
 .PHONY: fabric-provision
 fabric-provision: ## Build fabric configuration and documentation and provision on CVP without executing the tasks
-	ansible-playbook playbooks/cvp-fabric-deploy.yml --tags provision -i inventory/MPLS_network/inventory.yml --diff
+	ansible-playbook playbooks/cvp-fabric-deploy-CC.yml --tags provision -i inventory/MPLS_network/inventory.yml --diff
 
 .PHONY: fabric-deploy
 fabric-deploy: ## Build fabric configuration and documentation and deloy on the network through CVP
-	ansible-playbook playbooks/cvp-fabric-deploy.yml --extra-vars "execute_tasks=true" --tags "build,provision,apply" -i inventory/MPLS_network/inventory.yml --diff
+	ansible-playbook playbooks/cvp-fabric-deploy-CC.yml --extra-vars "execute_tasks=true" --tags "build,provision,apply" -i inventory/MPLS_network/inventory.yml --diff
 
 .PHONY: fabric-validate
 fabric-validate: ## Run AVD fabric validate role

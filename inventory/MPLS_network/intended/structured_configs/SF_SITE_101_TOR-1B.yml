@@ -64,7 +64,7 @@ ethernet_interfaces:
   shutdown: false
   type: switched
   mode: access
-  vlans: '100'
+  vlans: '101'
 - name: Ethernet8
   peer: CORP-A2A-CE2
   peer_interface: Ethernet1
@@ -73,7 +73,7 @@ ethernet_interfaces:
   shutdown: false
   type: switched
   mode: access
-  vlans: '101'
+  vlans: '201'
 port_channel_interfaces:
 - name: Port-Channel3
   description: SF_SITE_101_BL-2_Po11
@@ -101,29 +101,6 @@ vlans:
   tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true
-router_isis:
-  instance: CORE
-  address_family_ipv4:
-    enabled: true
-    fast_reroute_ti_lfa:
-      mode: node-protection
-      level: level-2
-  address_family_ipv6:
-    enabled: true
-    fast_reroute_ti_lfa:
-      mode: node-protection
-      level: level-2
-mac_security:
-  fips_restrictions: true
-  profiles:
-  - name: Backbone
-    cipher: aes256-gcm-xpn
-    connection_keys:
-    - id: 4261636b62306e65
-      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-    mka:
-      session:
-        rekey_period: 86400
 logging:
   console: critical
   monitor: disabled

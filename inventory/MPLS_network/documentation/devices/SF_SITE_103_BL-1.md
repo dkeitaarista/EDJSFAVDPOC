@@ -279,10 +279,12 @@ vlan internal order ascending range 1006 1199
 | 101 | vlan_101 | - |
 | 102 | vlan_102 | - |
 | 103 | vlan_103 | - |
+| 104 | vlan_104 | - |
 | 200 | vlan_200 | - |
 | 201 | vlan_201 | - |
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
+| 204 | vlan_204 | - |
 
 ### VLANs Device Configuration
 
@@ -300,6 +302,9 @@ vlan 102
 vlan 103
    name vlan_103
 !
+vlan 104
+   name vlan_104
+!
 vlan 200
    name vlan_200
 !
@@ -311,6 +316,9 @@ vlan 202
 !
 vlan 203
    name vlan_203
+!
+vlan 204
+   name vlan_204
 ```
 
 ## Interfaces
@@ -323,10 +331,16 @@ vlan 203
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | SF_SITE_103_TOR-1A_Ethernet3 | *trunk | *100-103,200-203 | *- | *- | 3 |
-| Ethernet4 | SF_SITE_103_TOR-1A_Ethernet4 | *trunk | *100-103,200-203 | *- | *- | 3 |
+| Ethernet3 | SF_SITE_103_TOR-1A_Ethernet3 | *trunk | *100-104,200-204 | *- | *- | 3 |
+| Ethernet4 | SF_SITE_103_TOR-1A_Ethernet4 | *trunk | *100-104,200-204 | *- | *- | 3 |
 
 *Inherited from Port-Channel Interface
+
+##### Encapsulation Dot1q Interfaces
+
+| Interface | Description | Type | Vlan ID | Dot1q VLAN Tag |
+| --------- | ----------- | -----| ------- | -------------- |
+| Port-channel11.204 | - | l3dot1q | - | 204 |
 
 ##### IPv4
 
@@ -334,6 +348,7 @@ vlan 203
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
 | Ethernet9 | P2P_LINK_TO_SF_SITE_101_BL-2_Ethernet9 | routed | - | 10.1.0.5/31 | default | 1500 | False | - | - |
 | Ethernet10 | P2P_LINK_TO_SF_SITE_102_BL-2_Ethernet10 | routed | - | 10.1.0.9/31 | default | 1500 | False | - | - |
+| Port-channel11.204 | - | l3dot1q | - | 10.255.103.3/31 | CORP-10020 | - | False | - | - |
 
 ##### ISIS
 
@@ -383,6 +398,43 @@ interface Ethernet10
    isis metric 10
    isis hello padding
    isis network point-to-point
+!
+interface Port-channel11
+   no shutdown
+   no switchport
+!
+interface Port-channel11.204
+   no shutdown
+   encapsulation dot1q vlan 204
+   vrf CORP-10020
+   ip address 10.255.103.3/31
+   no qos trust
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      no priority
+      bandwidth percent 5
+   !
+   tx-queue 1
+      no priority
+      bandwidth percent 1
+   !
+   tx-queue 2
+      no priority
+      bandwidth percent 19
+   !
+   tx-queue 3
+      no priority
+      bandwidth percent 20
+   !
+   tx-queue 4
+      priority strict
+      bandwidth percent 30
+   !
+   tx-queue 5
+      priority strict
+      bandwidth percent 25
+
 ```
 
 ### Port-Channel Interfaces
@@ -393,7 +445,7 @@ interface Ethernet10
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF_SITE_103_TOR-1A_Po3 | switched | trunk | 100-103,200-203 | - | - | - | - | - | - |
+| Port-Channel3 | SF_SITE_103_TOR-1A_Po3 | switched | trunk | 100-104,200-204 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -403,7 +455,7 @@ interface Port-Channel3
    description SF_SITE_103_TOR-1A_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan 100-103,200-203
+   switchport trunk allowed vlan 100-104,200-204
    switchport mode trunk
    qos trust dscp
    service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
@@ -468,12 +520,14 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
+| CORP-10020 | True |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
+ip routing vrf CORP-10020
 ```
 
 ### IPv6 Routing
@@ -483,6 +537,7 @@ ip routing
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
+| CORP-10020 | false |
 | default | false |
 
 ### Router ISIS
@@ -589,6 +644,7 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
+| 10.255.103.4 | 65525 | CORP-10020 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -619,6 +675,12 @@ router isis CORE
 | Peer Group | Activate | Route-map In | Route-map Out |
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
+
+#### Router BGP VRFs
+
+| VRF | Route-Distinguisher | Redistribute |
+| --- | ------------------- | ------------ |
+| CORP-10020 | 100.3.2.1:10020 | connected |
 
 #### Router BGP Device Configuration
 
@@ -657,6 +719,26 @@ router bgp 6.6971
    address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
       neighbor default encapsulation mpls next-hop-self source-interface null=
+   !
+   vrf CORP-10020
+      rd 100.3.2.1:10020
+      route-target import vpn-ipv4 6.6971:10020
+      route-target import vpn-ipv6 6.6971:10020
+      route-target export vpn-ipv4 6.6971:10020
+      route-target export vpn-ipv6 6.6971:10020
+      router-id 100.3.2.1
+      neighbor 10.255.103.4 remote-as 65525
+      neighbor 10.255.103.4 bfd
+      redistribute connected
+      !
+      address-family ipv4
+         bgp additional-paths install
+         neighbor 10.255.103.4 activate
+      !
+      bgp additional-paths receive
+      bgp additional-paths send any
+      bgp bestpath tie-break router-id
+
 ```
 
 ## BFD
@@ -804,10 +886,13 @@ ip access-list BUSINESS
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
+| CORP-10020 | enabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
+!
+vrf instance CORP-10020
 ```
 
 ## MACsec
@@ -1036,6 +1121,7 @@ qos profile TENANT-10G
 
 | Interface | Trust | Default DSCP | Default COS | Shape rate |
 | --------- | ----- | ------------ | ----------- | ---------- |
+| Port-channel11.204 | disabled | - | - | - |
 | Port-Channel3 | dscp | - | - | - |
 
 ## EOS CLI
