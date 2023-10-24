@@ -12,6 +12,8 @@ custom_structured_configuration_ethernet_interfaces:
 custom_structured_configuration_router_bgp:
   as: 65524
   router_id: 10.255.102.7
+  redistribute_routes:
+    - source_protocol: connected
   neighbors:
     - ip_address: 10.255.102.6
       remote_as: '6.6971'

@@ -32,7 +32,6 @@
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
-  - [Router ISIS](#router-isis)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
@@ -42,9 +41,6 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
-- [MACsec](#macsec)
-  - [MACsec Summary](#macsec-summary)
-  - [MACsec Device Configuration](#macsec-device-configuration)
 - [Quality Of Service](#quality-of-service)
   - [QOS](#qos)
   - [QOS Class Maps](#qos-class-maps)
@@ -325,8 +321,8 @@ vlan 201
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet3 | SF_SITE_101_BL-2_Ethernet11 | *trunk | *100-101,200-201 | *- | *- | 3 |
 | Ethernet4 | SF_SITE_101_BL-2_Ethernet12 | *trunk | *100-101,200-201 | *- | *- | 3 |
-| Ethernet7 |  BRANCH-A2A-CE2_Ethernet1 | access | 100 | - | - | - |
-| Ethernet8 |  CORP-A2A-CE2_Ethernet1 | access | 101 | - | - | - |
+| Ethernet7 |  BRANCH-A2A-CE2_Ethernet1 | access | 101 | - | - | - |
+| Ethernet8 |  CORP-A2A-CE2_Ethernet1 | access | 201 | - | - | - |
 
 *Inherited from Port-Channel Interface
 
@@ -347,14 +343,14 @@ interface Ethernet4
 interface Ethernet7
    description BRANCH-A2A-CE2_Ethernet1
    no shutdown
-   switchport access vlan 100
+   switchport access vlan 101
    switchport mode access
    switchport
 !
 interface Ethernet8
    description CORP-A2A-CE2_Ethernet1
    no shutdown
-   switchport access vlan 101
+   switchport access vlan 201
    switchport mode access
    switchport
 ```
@@ -441,49 +437,6 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | False |
 | default | false |
-
-### Router ISIS
-
-#### Router ISIS Summary
-
-| Settings | Value |
-| -------- | ----- |
-| Instance | CORE |
-
-#### ISIS Interfaces Summary
-
-| Interface | ISIS Instance | ISIS Metric | Interface Mode |
-| --------- | ------------- | ----------- | -------------- |
-
-#### ISIS IPv4 Address Family Summary
-
-| Settings | Value |
-| -------- | ----- |
-| IPv4 Address-family Enabled | True |
-| TI-LFA Mode | node-protection |
-| TI-LFA Level | level-2 |
-
-#### ISIS IPv6 Address Family Summary
-
-| Settings | Value |
-| -------- | ----- |
-| IPv6 Address-family Enabled | True |
-| TI-LFA Mode | node-protection |
-| TI-LFA Level | level-2 |
-
-#### Router ISIS Device Configuration
-
-```eos
-!
-router isis CORE
-   !
-   address-family ipv4 unicast
-      fast-reroute ti-lfa mode node-protection level-2
-   !
-   address-family ipv6 unicast
-      fast-reroute ti-lfa mode node-protection level-2
-   !
-```
 
 ## Multicast
 
@@ -588,43 +541,6 @@ ip access-list BUSINESS
 ### VRF Instances Device Configuration
 
 ```eos
-```
-
-## MACsec
-
-### MACsec Summary
-
-License is not installed.
-
-FIPS restrictions enabled.
-
-#### MACsec Profiles Summary
-
-**Profile Backbone:**
-
-Settings:
-
-| Cipher | Key-Server Priority | Rekey-Period | SCI |
-| ------ | ------------------- | ------------ | --- |
-| aes256-gcm-xpn | - | 86400 | - |
-
-Keys:
-
-| Key ID | Fallback |
-| ------ |  -------- |
-| 4261636b62306e65 | - |
-
-### MACsec Device Configuration
-
-```eos
-!
-mac security
-   fips restrictions
-   !
-   profile Backbone
-      cipher aes256-gcm-xpn
-      key 4261636b62306e65 7 <removed>
-      mka session rekey-period 86400
 ```
 
 ## Quality Of Service

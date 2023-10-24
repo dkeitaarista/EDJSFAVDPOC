@@ -319,7 +319,8 @@ vlan 203
 
 | Interface | Description | Type | Vlan ID | Dot1q VLAN Tag |
 | --------- | ----------- | -----| ------- | -------------- |
-| Port-channel11.103 | - | l3dot1q | - | 103 |
+| Port-channel11.102 | - | l3dot1q | - | 102 |
+| Port-channel11.202 | - | l3dot1q | - | 202 |
 
 ##### Flexible Encapsulation Interfaces
 
@@ -335,7 +336,8 @@ vlan 203
 | Ethernet4 | P2P_LINK_TO_SF_SITE_102_SPINE-2_Ethernet3 | routed | - | 10.1.0.5/31 | default | 1500 | False | - | - |
 | Ethernet7 | P2P_LINK_TO_SF_SITE_102_RR-1_Ethernet3 | routed | - | 10.1.0.8/31 | default | 1500 | False | - | - |
 | Ethernet9 | P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet9 | routed | - | 10.1.0.3/31 | default | 1500 | False | - | - |
-| Port-channel11.103 | - | l3dot1q | - | 10.255.102.0/31 | BRANCH-10015 | - | False | - | - |
+| Port-channel11.102 | - | l3dot1q | - | 10.255.102.0/31 | BRANCH-10015 | - | False | - | - |
+| Port-channel11.202 | - | l3dot1q | - | 10.255.102.4/31 | CORP-10016 | - | False | - | - |
 
 ##### ISIS
 
@@ -423,11 +425,44 @@ interface Port-channel11.99
    encapsulation vlan
       client dot1q 99 network client
 !
-interface Port-channel11.103
+interface Port-channel11.102
    no shutdown
-   encapsulation dot1q vlan 103
+   encapsulation dot1q vlan 102
    vrf BRANCH-10015
    ip address 10.255.102.0/31
+   no qos trust
+   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
+   !
+   tx-queue 0
+      no priority
+      bandwidth percent 5
+   !
+   tx-queue 1
+      no priority
+      bandwidth percent 1
+   !
+   tx-queue 2
+      no priority
+      bandwidth percent 19
+   !
+   tx-queue 3
+      no priority
+      bandwidth percent 20
+   !
+   tx-queue 4
+      priority strict
+      bandwidth percent 30
+   !
+   tx-queue 5
+      priority strict
+      bandwidth percent 25
+
+!
+interface Port-channel11.202
+   no shutdown
+   encapsulation dot1q vlan 202
+   vrf CORP-10016
+   ip address 10.255.102.4/31
    no qos trust
    service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
    !
@@ -541,6 +576,7 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | True |
 | BRANCH-10015 | True |
+| CORP-10016 | True |
 
 #### IP Routing Device Configuration
 
@@ -548,6 +584,7 @@ service routing protocols model multi-agent
 !
 ip routing
 ip routing vrf BRANCH-10015
+ip routing vrf CORP-10016
 ```
 
 ### IPv6 Routing
@@ -558,6 +595,7 @@ ip routing vrf BRANCH-10015
 | --- | --------------- |
 | default | False |
 | BRANCH-10015 | false |
+| CORP-10016 | false |
 | default | false |
 
 ### Router ISIS
@@ -666,7 +704,8 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
-| 10.255.102.1 | 65521 | BRANCH-10015 | - | - | - | - | True | - | - | - |
+| 10.255.102.1 | 65503 | BRANCH-10015 | - | - | - | - | True | - | - | - |
+| 10.255.102.5 | 65523 | CORP-10016 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -709,6 +748,7 @@ router isis CORE
 | VRF | Route-Distinguisher | Redistribute |
 | --- | ------------------- | ------------ |
 | BRANCH-10015 | 100.2.2.1:10015 | connected |
+| CORP-10016 | 100.2.2.1:10016 | connected |
 
 #### Router BGP Device Configuration
 
@@ -762,13 +802,33 @@ router bgp 6.6971
       route-target export vpn-ipv4 6.6971:10015
       route-target export vpn-ipv6 6.6971:10015
       router-id 100.2.2.1
-      neighbor 10.255.102.1 remote-as 65521
+      neighbor 10.255.102.1 remote-as 65503
       neighbor 10.255.102.1 bfd
       redistribute connected
       !
       address-family ipv4
          bgp additional-paths install
          neighbor 10.255.102.1 activate
+      !
+      bgp additional-paths receive
+      bgp additional-paths send any
+      bgp bestpath tie-break router-id
+
+   !
+   vrf CORP-10016
+      rd 100.2.2.1:10016
+      route-target import vpn-ipv4 6.6971:10016
+      route-target import vpn-ipv6 6.6971:10016
+      route-target export vpn-ipv4 6.6971:10016
+      route-target export vpn-ipv6 6.6971:10016
+      router-id 100.2.2.1
+      neighbor 10.255.102.5 remote-as 65523
+      neighbor 10.255.102.5 bfd
+      redistribute connected
+      !
+      address-family ipv4
+         bgp additional-paths install
+         neighbor 10.255.102.5 activate
       !
       bgp additional-paths receive
       bgp additional-paths send any
@@ -943,12 +1003,15 @@ ip access-list BUSINESS
 | VRF Name | IP Routing |
 | -------- | ---------- |
 | BRANCH-10015 | enabled |
+| CORP-10016 | enabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
 !
 vrf instance BRANCH-10015
+!
+vrf instance CORP-10016
 ```
 
 ## MACsec
@@ -1177,7 +1240,8 @@ qos profile TENANT-10G
 
 | Interface | Trust | Default DSCP | Default COS | Shape rate |
 | --------- | ----- | ------------ | ----------- | ---------- |
-| Port-channel11.103 | disabled | - | - | - |
+| Port-channel11.102 | disabled | - | - | - |
+| Port-channel11.202 | disabled | - | - | - |
 | Port-Channel11 | dscp | - | - | - |
 
 ## EOS CLI

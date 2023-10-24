@@ -35,7 +35,7 @@ CORP:
             raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.101.5
-            remote_as: 65502
+            remote_as: 65521
             bfd: true
             nodes:
               - SF_SITE_101_BL-1
@@ -71,11 +71,157 @@ CORP:
                 trust: disabled
             raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
-          - ip_address: 10.255.101.3
-            remote_as: 65504
+          - ip_address: 10.255.101.7
+            remote_as: 65522
             bfd: true
             nodes:
               - SF_SITE_101_BL-2
+      - name: CORP-10016
+        vrf_vni: 10016
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        l3_interfaces:
+          - interfaces:
+              - Port-channel11.202
+            encapsulation_dot1q_vlan:
+              - 202
+            ip_addresses:
+              - 10.255.102.4/31
+            nodes:
+              - SF_SITE_102_BL-1
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
+              qos:
+                trust: disabled
+            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+        bgp_peers:
+          - ip_address: 10.255.102.5
+            remote_as: 65523
+            bfd: true
+            nodes:
+              - SF_SITE_102_BL-1
+      - name: CORP-10018
+        vrf_vni: 10018
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        l3_interfaces:
+          - interfaces:
+              - Port-channel11.203
+            encapsulation_dot1q_vlan:
+              - 203
+            ip_addresses:
+              - 10.255.102.6/31
+            nodes:
+              - SF_SITE_102_BL-2
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
+              qos:
+                trust: disabled
+            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+        bgp_peers:
+          - ip_address: 10.255.102.7
+            remote_as: 65524
+            bfd: true
+            nodes:
+              - SF_SITE_102_BL-2
+      - name: CORP-10020
+        vrf_vni: 10020
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        l3_interfaces:
+          - interfaces:
+              - Port-channel11.204
+            encapsulation_dot1q_vlan:
+              - 204
+            ip_addresses:
+              - 10.255.103.3/31
+            nodes:
+              - SF_SITE_103_BL-1
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
+              qos:
+                trust: disabled
+            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+        bgp_peers:
+          - ip_address: 10.255.103.4
+            remote_as: 65525
+            bfd: true
+            nodes:
+              - SF_SITE_103_BL-1
+      - name: CORP-10022
+        vrf_vni: 10022
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        l3_interfaces:
+          - interfaces:
+              - Ethernet8
+            ip_addresses:
+              - 10.255.104.3/31
+            nodes:
+              - SF_SITE_104_BL-1
+            structured_config:
+              service_policy:
+                qos:
+                  input: TENANT-INGRESS-CLASSIFIER-1G
+              qos:
+                trust: disabled
+            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+        bgp_peers:
+          - ip_address: 10.255.104.4
+            remote_as: 65526
+            bfd: true
+            nodes:
+              - SF_SITE_104_BL-1
     l2vlans:
       - id: 200
         name: vlan_200
@@ -93,3 +239,7 @@ CORP:
         name: vlan_203
         vxlan: false
         tags: [ site102 ]
+      - id: 204
+        name: vlan_204
+        vxlan: false
+        tags: [ site103 ]

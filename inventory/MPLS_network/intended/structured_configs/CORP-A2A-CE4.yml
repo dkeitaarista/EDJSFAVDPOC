@@ -37,29 +37,6 @@ management_api_http:
   enable_https: true
 ip_igmp_snooping:
   globally_enabled: true
-router_isis:
-  instance: CORE
-  address_family_ipv4:
-    enabled: true
-    fast_reroute_ti_lfa:
-      mode: node-protection
-      level: level-2
-  address_family_ipv6:
-    enabled: true
-    fast_reroute_ti_lfa:
-      mode: node-protection
-      level: level-2
-mac_security:
-  fips_restrictions: true
-  profiles:
-  - name: Backbone
-    cipher: aes256-gcm-xpn
-    connection_keys:
-    - id: 4261636b62306e65
-      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-    mka:
-      session:
-        rekey_period: 86400
 logging:
   console: critical
   monitor: disabled
@@ -105,6 +82,8 @@ ethernet_interfaces:
 router_bgp:
   as: '65524'
   router_id: 10.255.102.7
+  redistribute_routes:
+  - source_protocol: connected
   neighbors:
   - ip_address: 10.255.102.6
     remote_as: '6.6971'

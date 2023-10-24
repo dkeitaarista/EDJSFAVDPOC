@@ -87,6 +87,16 @@ all:
               hosts:
                 SF_SITE_103_TOR-1A:
                   ansible_host: 10.255.x.x
+            CE_103:
+              hosts:
+                BRANCH-A2A-CE5:
+                  ansible_host: 10.255.x.x
+                BRANCH-A2A-CE6:
+                  ansible_host: 10.255.x.x
+                CORP-A2A-CE5:
+                  ansible_host: 10.255.x.x
+                CORP-A2A-CE6:
+                  ansible_host: 10.255.x.x
         SF_SITE_104:
           children:
             BORDER_LEAFS_104:
@@ -116,4 +126,3 @@ all:
         BORDER_LEAFS_102:
         BORDER_LEAFS_103:
         BORDER_LEAFS_104:
- 

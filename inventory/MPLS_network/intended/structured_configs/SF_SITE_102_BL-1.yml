@@ -86,7 +86,45 @@ router_bgp:
           install: true
     neighbors:
     - ip_address: 10.255.102.1
-      remote_as: '65521'
+      remote_as: '65503'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+  - name: CORP-10016
+    router_id: 100.2.2.1
+    rd: 100.2.2.1:10016
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10016
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10016
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10016
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10016
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.102.5
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.102.5
+      remote_as: '65523'
       bfd: true
     eos_cli: 'bgp additional-paths receive
 
@@ -126,6 +164,9 @@ vrfs:
   ip_routing: false
 - name: BRANCH-10015
   tenant: BRANCH
+  ip_routing: true
+- name: CORP-10016
+  tenant: CORP
   ip_routing: true
 management_interfaces:
 - name: Management1
@@ -237,7 +278,7 @@ ethernet_interfaces:
     profile: Backbone
   mpls:
     ip: true
-- name: Port-channel11.103
+- name: Port-channel11.102
   peer_type: l3_interface
   ip_address: 10.255.102.0/31
   shutdown: false
@@ -245,8 +286,23 @@ ethernet_interfaces:
     2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
     \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
   type: l3dot1q
-  encapsulation_dot1q_vlan: 103
+  encapsulation_dot1q_vlan: 102
   vrf: BRANCH-10015
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
+- name: Port-channel11.202
+  peer_type: l3_interface
+  ip_address: 10.255.102.4/31
+  shutdown: false
+  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
+    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
+    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 202
+  vrf: CORP-10016
   service_policy:
     qos:
       input: TENANT-INGRESS-CLASSIFIER-1G

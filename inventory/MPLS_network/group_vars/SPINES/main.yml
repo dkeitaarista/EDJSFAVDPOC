@@ -23,4 +23,40 @@ PE_EOS_CLI: |
     isis multi-topology address-family ipv4 unicast
     isis multi-topology address-family ipv6 unicast
 
+#fabric IS-IS routing
+isis_area_id: "51.0001"
+isis_default_circuit_type: level-2
+isis_default_is_type: level-2
+isis_default_metric: 10
+#isis_maximum_paths: 4
+isis_ti_lfa:
+  enabled: true
+  protection: node
 
+# custom config for fabric IS-IS routing
+custom_structured_configuration_router_isis:
+  instance: "CORE"
+  address_family_ipv4:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+  address_family_ipv6:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+
+# MAC SECURITY PROFILE FOR WAN LINKS
+custom_structured_configuration_mac_security:
+  fips_restrictions: true
+  profiles:
+    - name: Backbone
+      cipher:  aes256-gcm-xpn
+      connection_keys:
+        - id: 4261636b62306e65
+          encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
+          # fallback: true
+      mka:
+        session:
+          rekey_period: 86400

@@ -689,8 +689,8 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
-| 10.255.101.3 | 65503 | BRANCH-10013 | - | - | - | - | True | - | - | - |
-| 10.255.101.3 | 65504 | CORP-10014 | - | - | - | - | True | - | - | - |
+| 10.255.101.3 | 65502 | BRANCH-10013 | - | - | - | - | True | - | - | - |
+| 10.255.101.7 | 65522 | CORP-10014 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -774,7 +774,7 @@ router bgp 6.6971
       route-target export vpn-ipv4 6.6971:10013
       route-target export vpn-ipv6 6.6971:10013
       router-id 100.1.2.2
-      neighbor 10.255.101.3 remote-as 65503
+      neighbor 10.255.101.3 remote-as 65502
       neighbor 10.255.101.3 bfd
       redistribute connected
       !
@@ -794,13 +794,13 @@ router bgp 6.6971
       route-target export vpn-ipv4 6.6971:10014
       route-target export vpn-ipv6 6.6971:10014
       router-id 100.1.2.2
-      neighbor 10.255.101.3 remote-as 65504
-      neighbor 10.255.101.3 bfd
+      neighbor 10.255.101.7 remote-as 65522
+      neighbor 10.255.101.7 bfd
       redistribute connected
       !
       address-family ipv4
          bgp additional-paths install
-         neighbor 10.255.101.3 activate
+         neighbor 10.255.101.7 activate
       !
       bgp additional-paths receive
       bgp additional-paths send any

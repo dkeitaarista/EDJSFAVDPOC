@@ -22,10 +22,14 @@
 | SF_101 | ce | BRANCH-A2A-CE2 | 192.168.0.30/24 | vEOS-lab | Provisioned | - |
 | SF_102 | ce | BRANCH-A2A-CE3 | 192.168.0.32/24 | vEOS-lab | Provisioned | - |
 | SF_102 | ce | BRANCH-A2A-CE4 | 192.168.0.33/24 | vEOS-lab | Provisioned | - |
+| SF_103 | ce | BRANCH-A2A-CE5 | 192.168.0.36/24 | vEOS-lab | Provisioned | - |
+| SF_103 | ce | BRANCH-A2A-CE6 | - | vEOS-lab | Provisioned | - |
 | SF_101 | ce | CORP-A2A-CE1 | 192.168.0.29/24 | vEOS-lab | Provisioned | - |
 | SF_101 | ce | CORP-A2A-CE2 | 192.168.0.31/24 | vEOS-lab | Provisioned | - |
-| SF_102 | ce | CORP-A2A-CE3 | 192.168.0.24/24 | vEOS-lab | Provisioned | - |
+| SF_102 | ce | CORP-A2A-CE3 | 192.168.0.34/24 | vEOS-lab | Provisioned | - |
 | SF_102 | ce | CORP-A2A-CE4 | 192.168.0.35/24 | vEOS-lab | Provisioned | - |
+| SF_103 | ce | CORP-A2A-CE5 | 192.168.0.37/24 | vEOS-lab | Provisioned | - |
+| SF_103 | ce | CORP-A2A-CE6 | - | vEOS-lab | Provisioned | - |
 | SF_101 | pe | SF_SITE_101_BL-1 | 192.168.0.14/24 | vEOS-lab | Provisioned | - |
 | SF_101 | pe | SF_SITE_101_BL-2 | 192.168.0.15/24 | vEOS-lab | Provisioned | - |
 | SF_101 | rr | SF_SITE_101_RR-1 | 192.168.0.13/24 | vEOS-lab | Provisioned | - |

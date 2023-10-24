@@ -721,7 +721,7 @@ router isis CORE
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 10.255.101.1 | 65501 | BRANCH-10011 | - | - | - | - | True | - | - | - |
-| 10.255.101.5 | 65502 | CORP-10012 | - | - | - | - | True | - | - | - |
+| 10.255.101.5 | 65521 | CORP-10012 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -838,7 +838,7 @@ router bgp 6.6971
       route-target export vpn-ipv4 6.6971:10012
       route-target export vpn-ipv6 6.6971:10012
       router-id 100.1.2.1
-      neighbor 10.255.101.5 remote-as 65502
+      neighbor 10.255.101.5 remote-as 65521
       neighbor 10.255.101.5 bfd
       redistribute connected
       !
