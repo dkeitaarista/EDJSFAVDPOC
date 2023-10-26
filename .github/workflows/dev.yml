@@ -49,6 +49,7 @@ jobs:
         if: steps.filter-site.outputs.workflows == 'true' 
 
       - name: Test configuration for inventory/MPLS_network
+        shell: bash
         run: make fabric-build
         if: steps.filter-site.outputs.workflows == 'true'
 
