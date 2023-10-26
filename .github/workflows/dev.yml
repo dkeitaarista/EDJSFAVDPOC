@@ -10,7 +10,8 @@ jobs:
     env:
       LABPASSPHRASE: ${{ secrets.LABPASSPHRASE }} # Not in use
     timeout-minutes: 15
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+    # runs-on: ubuntu-latest
     steps:
       - name: Hi
         run: echo "Hello World!"
