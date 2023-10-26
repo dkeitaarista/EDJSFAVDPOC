@@ -20,7 +20,9 @@ ce:
     - name: CORP-A2A-CE4
       id: 4
       mgmt_ip: 192.168.0.35/24
-
+    - name: BRANCH-VPWS-CE2
+      id: 5
+      mgmt_ip: 192.168.0.41/24
 vrfs:
   - name: default
     ip_routing: true

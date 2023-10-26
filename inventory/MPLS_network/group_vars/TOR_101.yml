@@ -1,6 +1,5 @@
 ---
 type: ethernet_aggregation
-
 ethernet_aggregation:
   defaults:
     platform: vEOS-lab
@@ -58,6 +57,26 @@ cpes:
           - Ethernet1
         mode: access
         vlans: 200
+  - name: BRANCH-VPWS-CE1
+    adapters:
+      - switches:
+          - SF_SITE_101_TOR-1A
+        switch_ports:
+          - Ethernet1
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 99
+  - name: BRANCH-VPWS-CE1
+    adapters:
+      - switches:
+          - SF_SITE_101_TOR-1A
+        switch_ports:
+          - Ethernet1
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 99
   - name: BRANCH-A2A-CE2
     adapters:
       - switches:
@@ -78,3 +97,4 @@ cpes:
           - Ethernet1
         mode: access
         vlans: 201
+

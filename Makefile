@@ -24,3 +24,5 @@ fabric-deploy: ## Build fabric configuration and documentation and deloy on the 
 .PHONY: fabric-validate
 fabric-validate: ## Run AVD fabric validate role
 	ansible-playbook playbooks/fabric-validate-state.yml -i inventory/MPLS_network/inventory.yml --diff
+
+

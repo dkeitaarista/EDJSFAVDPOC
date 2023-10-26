@@ -13,367 +13,581 @@ cvp:
 
 generic:
   # Define the global generic node parameters
-  version: CentOS-8-8.2.2004
+  version: CentOS-7.9.2009
   username: ansible
   password: ansible
 
 nodes:
-  # Define individual node parameters
-  #   - Parameters here will override global parameters
-  - SF_SITE_101_SPINE-1:
-    ip_addr: 192.168.0.11
-    node_type: veos
-    neighbors:
-      - neighborDevice: SF_SITE_101_BL-1
-        neighborPort: Ethernet3
-        port: Ethernet3
-      - neighborDevice: SF_SITE_101_BL-2
-        neighborPort: Ethernet3
-        port: Ethernet4
-  - SF_SITE_101_SPINE-2:
-    ip_addr: 192.168.0.12
-    node_type: veos
-    neighbors:
-      - neighborDevice: SF_SITE_101_BL-1
-        neighborPort: Ethernet4
-        port: Ethernet3
-      - neighborDevice: SF_SITE_101_BL-2
-        neighborPort: Ethernet4
-        port: Ethernet4
-  - SF_SITE_102_SPINE-1:
-    ip_addr: 192.168.0.18
-    node_type: veos
-    neighbors:
-      - neighborDevice: SF_SITE_102_BL-1
-        neighborPort: Ethernet3
-        port: Ethernet3
-      - neighborDevice: SF_SITE_102_BL-2
-        neighborPort: Ethernet3
-        port: Ethernet4
-  - SF_SITE_102_SPINE-2:
-    ip_addr: 192.168.0.19
-    node_type: veos
-    neighbors:
-      - neighborDevice: SF_SITE_102_BL-1
-        neighborPort: Ethernet4
-        port: Ethernet3
-      - neighborDevice: SF_SITE_102_BL-2
-        neighborPort: Ethernet4
-        port: Ethernet4
-  - SF_SITE_101_RR-1:
-    ip_addr: 192.168.0.13
-    node_type: veos
-    neighbors:
-      - neighborDevice: SF_SITE_101_BL-1
-        neighborPort: Ethernet7
-        port: Ethernet3
-      - neighborDevice: SF_SITE_101_BL-2
-        neighborPort: Ethernet7
-        port: Ethernet4
-  - SF_SITE_102_RR-1:
-    ip_addr: 192.168.0.20
-    node_type: veos
-    neighbors:
-      - neighborDevice: SF_SITE_102_BL-1
-        neighborPort: Ethernet7
-        port: Ethernet3
-      - neighborDevice: SF_SITE_102_BL-2
-        neighborPort: Ethernet7
-        port: Ethernet4
-  - SF_SITE_101_BL-1:
-    ip_addr: 192.168.0.14
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_101_TOR-1A
-        neighborPort: Ethernet3
-        port: Ethernet11
-      - neighborDevice: SF_SITE_101_TOR-1A
-        neighborPort: Ethernet4
-        port: Ethernet12
-      - neighborDevice: SF_SITE_102_BL-1
-        neighborPort: Ethernet9
-        port: Ethernet9
-      - neighborDevice: SF_SITE_104_BL-1
-        neighborPort: Ethernet10
-        port: Ethernet10
-  - SF_SITE_101_BL-2:
-    ip_addr: 192.168.0.15
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_101_TOR-1B
-        neighborPort: Ethernet3
-        port: Ethernet11
-      - neighborDevice: SF_SITE_101_TOR-1B
-        neighborPort: Ethernet4
-        port: Ethernet12
-      - neighborDevice: SF_SITE_103_BL-1
-        neighborPort: Ethernet9
-        port: Ethernet9
-  - SF_SITE_101_TOR-1A: 
-    ip_addr: 192.168.0.16
-    node_type: veos
-    neighbors: 
-      - neighborDevice: BRANCH-A2A-CE1
-        neighborPort: Ethernet1
-        port: Ethernet7
-      - neighborDevice: CORP-A2A-CE1
-        neighborPort: Ethernet1
-        port: Ethernet8
-  - SF_SITE_101_TOR-1B: 
-    ip_addr: 192.168.0.17
-    node_type: veos
-    neighbors: 
-      - neighborDevice: BRANCH-A2A-CE2
-        neighborPort: Ethernet1
-        port: Ethernet7
-      - neighborDevice: CORP-A2A-CE2
-        neighborPort: Ethernet1
-        port: Ethernet8
+  - SF-SITE-101-SPINE-1:
+      ip_addr: 192.168.0.11
+      node_type: veos
+      neighbors:
+        - neighborDevice: SF-SITE-101-BL-1
+          neighborPort: Ethernet3
+          port: Ethernet3
+        - neighborDevice: SF-SITE-101-BL-2
+          neighborPort: Ethernet3
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-101-SPINE-2:
+      ip_addr: 192.168.0.12
+      node_type: veos
+      neighbors:
+        - neighborDevice: SF-SITE-101-BL-1
+          neighborPort: Ethernet4
+          port: Ethernet3
+        - neighborDevice: SF-SITE-101-BL-2
+          neighborPort: Ethernet4
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-102-SPINE-1:
+      ip_addr: 192.168.0.18
+      node_type: veos
+      neighbors:
+        - neighborDevice: SF-SITE-102-BL-1
+          neighborPort: Ethernet3
+          port: Ethernet3
+        - neighborDevice: SF-SITE-102-BL-2
+          neighborPort: Ethernet3
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-102-SPINE-2:
+      ip_addr: 192.168.0.19
+      node_type: veos
+      neighbors:
+        - neighborDevice: SF-SITE-102-BL-1
+          neighborPort: Ethernet4
+          port: Ethernet3
+        - neighborDevice: SF-SITE-102-BL-2
+          neighborPort: Ethernet4
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-101-RR-1:
+      ip_addr: 192.168.0.13
+      node_type: veos
+      neighbors:
+        - neighborDevice: SF-SITE-101-BL-1
+          neighborPort: Ethernet7
+          port: Ethernet3
+        - neighborDevice: SF-SITE-101-BL-2
+          neighborPort: Ethernet7
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-102-RR-1:
+      ip_addr: 192.168.0.20
+      node_type: veos
+      neighbors:
+        - neighborDevice: SF-SITE-102-BL-1
+          neighborPort: Ethernet7
+          port: Ethernet3
+        - neighborDevice: SF-SITE-102-BL-2
+          neighborPort: Ethernet7
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-101-BL-1:
+      ip_addr: 192.168.0.14
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-101-TOR-1A
+          neighborPort: Ethernet3
+          port: Ethernet11
+        - neighborDevice: SF-SITE-101-TOR-1A
+          neighborPort: Ethernet4
+          port: Ethernet12
+        - neighborDevice: SF-SITE-102-BL-1
+          neighborPort: Ethernet9
+          port: Ethernet9
+        - neighborDevice: SF-SITE-104-BL-1
+          neighborPort: Ethernet10
+          port: Ethernet10
+        - neighborDevice: SF-SITE-101-SPINE-1
+          neighborPort: Ethernet3
+          port: Ethernet3
+        - neighborDevice: SF-SITE-101-SPINE-2
+          neighborPort: Ethernet3
+          port: Ethernet4
+        - neighborDevice: SF-SITE-101-RR-1
+          neighborPort: Ethernet3
+          port: Ethernet7
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-101-BL-2:
+      ip_addr: 192.168.0.15
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-101-TOR-1B
+          neighborPort: Ethernet3
+          port: Ethernet11
+        - neighborDevice: SF-SITE-101-TOR-1B
+          neighborPort: Ethernet4
+          port: Ethernet12
+        - neighborDevice: SF-SITE-103-BL-1
+          neighborPort: Ethernet9
+          port: Ethernet9
+        - neighborDevice: SF-SITE-101-SPINE-1
+          neighborPort: Ethernet4
+          port: Ethernet3
+        - neighborDevice: SF-SITE-101-SPINE-2
+          neighborPort: Ethernet4
+          port: Ethernet4
+        - neighborDevice: SF-SITE-101-RR-1
+          neighborPort: Ethernet4
+          port: Ethernet7
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-101-TOR-1A: 
+      ip_addr: 192.168.0.16
+      node_type: veos
+      neighbors: 
+        - neighborDevice: BRANCH-A2A-CE1
+          neighborPort: Ethernet1
+          port: Ethernet7
+        - neighborDevice: CORP-A2A-CE1
+          neighborPort: Ethernet1
+          port: Ethernet8
+        - neighborDevice: SF-SITE-101-BL-1
+          neighborPort: Ethernet11
+          port: Ethernet3
+        - neighborDevice: SF-SITE-101-BL-1
+          neighborPort: Ethernet12
+          port: Ethernet4
+        - neighborDevice: ServiceNow01
+          neighborPort: Ethernet1
+          port: Ethernet5
+        - neighborDevice: BRANCH-VPWS-CE1
+          neighborPort: Ethernet1
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-101-TOR-1B: 
+      ip_addr: 192.168.0.17
+      node_type: veos
+      neighbors: 
+        - neighborDevice: BRANCH-A2A-CE2
+          neighborPort: Ethernet1
+          port: Ethernet7
+        - neighborDevice: CORP-A2A-CE2
+          neighborPort: Ethernet1
+          port: Ethernet8
+        - neighborDevice: SF-SITE-101-BL-2
+          neighborPort: Ethernet11
+          port: Ethernet3
+        - neighborDevice: SF-SITE-101-BL-2
+          neighborPort: Ethernet12
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - BRANCH-A2A-CE1: 
-    ip_addr: 192.168.0.28
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_101_TOR-1A
-        neighborPort: Ethernet7
-        port: Ethernet1
+      ip_addr: 192.168.0.28
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-101-TOR-1A
+          neighborPort: Ethernet7
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - BRANCH-A2A-CE2: 
-    ip_addr: 192.168.0.30
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_101_TOR-1B
-        neighborPort: Ethernet7
-        port: Ethernet1
+      ip_addr: 192.168.0.30
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-101-TOR-1B
+          neighborPort: Ethernet7
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - CORP-A2A-CE1: 
-    ip_addr: 192.168.0.29
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_101_TOR-1A
-        neighborPort: Ethernet8
-        port: Ethernet1
+      ip_addr: 192.168.0.29
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-101-TOR-1A
+          neighborPort: Ethernet8
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - CORP-A2A-CE2: 
-    ip_addr: 192.168.0.31
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_101_TOR-1B
-        neighborPort: Ethernet8
-        port: Ethernet1
-  - SF_SITE_102_BL-1:
-    ip_addr: 192.168.0.21
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_102_TOR-1A
-        neighborPort: Ethernet3
-        port: Ethernet11
-      - neighborDevice: SF_SITE_102_TOR-1A
-        neighborPort: Ethernet4
-        port: Ethernet12
-      - neighborDevice: SF_SITE_104_BL-1
-        neighborPort: Ethernet6
-        port: Ethernet3
-  - SF_SITE_102_BL-2:
-    ip_addr: 192.168.0.22
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_102_TOR-1B
-        neighborPort: Ethernet3
-        port: Ethernet11
-      - neighborDevice: SF_SITE_102_TOR-1B
-        neighborPort: Ethernet4
-        port: Ethernet12
-      - neighborDevice: SF_SITE_103_BL-1
-        neighborPort: Ethernet10
-        port: Ethernet10
-  - SF_SITE_102_TOR-1A: 
-    ip_addr: 192.168.0.23
-    node_type: veos
-    neighbors: 
-      - neighborDevice: BRANCH-A2A-CE3
-        neighborPort: Ethernet1
-        port: Ethernet7
-      - neighborDevice: CORP-A2A-CE3
-        neighborPort: Ethernet1
-        port: Ethernet8
-  - SF_SITE_102_TOR-1B: 
-    ip_addr: 192.168.0.24
-    node_type: veos
-    neighbors: 
-      - neighborDevice: BRANCH-A2A-CE4
-        neighborPort: Ethernet1
-        port: Ethernet7
-      - neighborDevice: CORP-A2A-CE4
-        neighborPort: Ethernet1
-        port: Ethernet8
+      ip_addr: 192.168.0.31
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-101-TOR-1B
+          neighborPort: Ethernet8
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - BRANCH-VPWS-CE1: 
+      ip_addr: 192.168.0.40
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-101-TOR-1A
+          neighborPort: Ethernet1
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-102-BL-1:
+      ip_addr: 192.168.0.21
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-102-TOR-1A
+          neighborPort: Ethernet3
+          port: Ethernet11
+        - neighborDevice: SF-SITE-102-TOR-1A
+          neighborPort: Ethernet4
+          port: Ethernet12
+        - neighborDevice: SF-SITE-104-BL-1
+          neighborPort: Ethernet6
+          port: Ethernet3
+        - neighborDevice: SF-SITE-102-RR-1
+          neighborPort: Ethernet3
+          port: Ethernet7
+        - neighborDevice: SF-SITE-102-SPINE-1
+          neighborPort: Ethernet3
+          port: Ethernet3
+        - neighborDevice: SF-SITE-102-SPINE-2
+          neighborPort: Ethernet3
+          port: Ethernet4
+        - neighborDevice: SF-SITE-101-BL-1
+          neighborPort: Ethernet9
+          port: Ethernet9
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-102-BL-2:
+      ip_addr: 192.168.0.22
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-102-TOR-1B
+          neighborPort: Ethernet3
+          port: Ethernet11
+        - neighborDevice: SF-SITE-102-TOR-1B
+          neighborPort: Ethernet4
+          port: Ethernet12
+        - neighborDevice: SF-SITE-103-BL-1
+          neighborPort: Ethernet10
+          port: Ethernet10
+        - neighborDevice: SF-SITE-102-RR-1
+          neighborPort: Ethernet4
+          port: Ethernet7
+        - neighborDevice: SF-SITE-102-SPINE-1
+          neighborPort: Ethernet4
+          port: Ethernet3
+        - neighborDevice: SF-SITE-102-SPINE-2
+          neighborPort: Ethernet4
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-102-TOR-1A: 
+      ip_addr: 192.168.0.23
+      node_type: veos
+      neighbors: 
+        - neighborDevice: BRANCH-A2A-CE3
+          neighborPort: Ethernet1
+          port: Ethernet7
+        - neighborDevice: CORP-A2A-CE3
+          neighborPort: Ethernet1
+          port: Ethernet8
+        - neighborDevice: SF-SITE-102-BL-1
+          neighborPort: Ethernet11
+          port: Ethernet3
+        - neighborDevice: SF-SITE-102-BL-1
+          neighborPort: Ethernet12
+          port: Ethernet4    
+        - neighborDevice: BRANCH-VPWS-CE2
+          neighborPort: Ethernet1
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - BRANCH-VPWS-CE2:
+      ip_addr: 192.168.0.41
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-102-TOR-1A
+          neighborPort: Ethernet1
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-102-TOR-1B: 
+      ip_addr: 192.168.0.24
+      node_type: veos
+      neighbors: 
+        - neighborDevice: BRANCH-A2A-CE4
+          neighborPort: Ethernet1
+          port: Ethernet7
+        - neighborDevice: CORP-A2A-CE4
+          neighborPort: Ethernet1
+          port: Ethernet8
+        - neighborDevice: SF-SITE-102-BL-2
+          neighborPort: Ethernet11
+          port: Ethernet3
+        - neighborDevice: SF-SITE-102-BL-2
+          neighborPort: Ethernet12
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - BRANCH-A2A-CE3: 
-    ip_addr: 192.168.0.32
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_102_TOR-1A
-        neighborPort: Ethernet7
-        port: Ethernet1
+      ip_addr: 192.168.0.32
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-102-TOR-1A
+          neighborPort: Ethernet7
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - BRANCH-A2A-CE4: 
-    ip_addr: 192.168.0.33
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_102_TOR-1B
-        neighborPort: Ethernet7
-        port: Ethernet1
+      ip_addr: 192.168.0.33
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-102-TOR-1B
+          neighborPort: Ethernet7
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - CORP-A2A-CE3: 
-    ip_addr: 192.168.0.34
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_102_TOR-1A
-        neighborPort: Ethernet8
-        port: Ethernet1
+      ip_addr: 192.168.0.34
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-102-TOR-1A
+          neighborPort: Ethernet8
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - CORP-A2A-CE4: 
-    ip_addr: 192.168.0.35
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_102_TOR-1B
-        neighborPort: Ethernet8
-        port: Ethernet1
-  - SF_SITE_103_BL-1:
-    ip_addr: 192.168.0.25
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_103_TOR-1A
-        neighborPort: Ethernet3
-        port: Ethernet3
-      - neighborDevice: SF_SITE_103_TOR-1A
-        neighborPort: Ethernet4
-        port: Ethernet4
-  - SF_SITE_103_TOR-1A:
-    ip_addr: 192.168.0.26
-    node_type: veos
-    neighbors: 
-      - neighborDevice: BRANCH-A2A-CE5
-        neighborPort: Ethernet1
-        port: Ethernet7
-      - neighborDevice: CORP-A2A-CE5
-        neighborPort: Ethernet1
-        port: Ethernet8
+      ip_addr: 192.168.0.35
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-102-TOR-1B
+          neighborPort: Ethernet8
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-103-BL-1:
+      ip_addr: 192.168.0.25
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-103-TOR-1A
+          neighborPort: Ethernet3
+          port: Ethernet3
+        - neighborDevice: SF-SITE-103-TOR-1A
+          neighborPort: Ethernet4
+          port: Ethernet4
+        - neighborDevice: SF-SITE-101-BL-2
+          neighborPort: Ethernet9
+          port: Ethernet9
+        - neighborDevice: SF-SITE-102-BL-2
+          neighborPort: Ethernet10
+          port: Ethernet10
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-103-TOR-1A:
+      ip_addr: 192.168.0.26
+      node_type: veos
+      neighbors: 
+        - neighborDevice: BRANCH-A2A-CE5
+          neighborPort: Ethernet1
+          port: Ethernet7
+        - neighborDevice: CORP-A2A-CE5
+          neighborPort: Ethernet1
+          port: Ethernet8
+        - neighborDevice: SF-SITE-103-BL-1
+          neighborPort: Ethernet3
+          port: Ethernet3
+        - neighborDevice: SF-SITE-103-BL-1
+          neighborPort: Ethernet4
+          port: Ethernet4
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - BRANCH-A2A-CE5:
-    ip_addr: 192.168.0.36
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_103_TOR-1A
-        neighborPort: Ethernet7
-        port: Ethernet1
+      ip_addr: 192.168.0.36
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-103-TOR-1A
+          neighborPort: Ethernet7
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - CORP-A2A-CE5:
-    ip_addr: 192.168.0.37
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_103_TOR-1A
-        neighborPort: Ethernet8
-        port: Ethernet1
-  - SF_SITE_104_BL-1:
-    ip_addr: 192.168.0.27
-    node_type: veos
-    neighbors: 
-      - neighborDevice: BRANCH-A2A-CE6
-        neighborPort: Ethernet1
-        port: Ethernet7
-      - neighborDevice: CORP-A2A-CE6
-        neighborPort: Ethernet1
-        port: Ethernet8
+      ip_addr: 192.168.0.37
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-103-TOR-1A
+          neighborPort: Ethernet8
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - SF-SITE-104-BL-1:
+      ip_addr: 192.168.0.27
+      node_type: veos
+      neighbors: 
+        - neighborDevice: BRANCH-A2A-CE6
+          neighborPort: Ethernet1
+          port: Ethernet7
+        - neighborDevice: CORP-A2A-CE6
+          neighborPort: Ethernet1
+          port: Ethernet8
+        - neighborDevice: SF-SITE-101-BL-1
+          neighborPort: Ethernet10
+          port: Ethernet10
+        - neighborDevice: SF-SITE-102-BL-1
+          neighborPort: Ethernet3
+          port: Ethernet6
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - BRANCH-A2A-CE6:
-    ip_addr: 192.168.0.38
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_104_BL-1
-        neighborPort: Ethernet7
-        port: Ethernet1
+      ip_addr: 192.168.0.38
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-104-BL-1
+          neighborPort: Ethernet7
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
   - CORP-A2A-CE6:
-    ip_addr: 192.168.0.39
-    node_type: veos
-    neighbors: 
-      - neighborDevice: SF_SITE_104_BL-1
-        neighborPort: Ethernet8
-        port: Ethernet1
+      ip_addr: 192.168.0.39
+      node_type: veos
+      neighbors: 
+        - neighborDevice: SF-SITE-104-BL-1
+          neighborPort: Ethernet8
+          port: Ethernet1
+        - neighborDevice: cvp1
+          neighborPort: Management0
+          port: Management1
+  - ServiceNow01:
+      ip_addr: 192.168.0.57
+      node_type: generic
+      neighbors:
+        - neighborDevice: SF-SITE-101-TOR-1A
+          neighborPort: Ethernet5
+          port: Ethernet1
   - cvp1:
-    ip_addr: 192.168.0.5
-    node_type: cvp
-    neighbors:
-      - neighborDevice: SF_SITE_101_SPINE-1
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_101_SPINE-2
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_102_SPINE-1
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_102_SPINE-2
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_101_BL-1
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_101_BL-2
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_102_BL-1
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_102_BL-2
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_101_TOR-1A
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_101_TOR-1B
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_102_TOR-1A
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_102_TOR-1A
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: BRANCH-A2A-CE1
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: BRANCH-A2A-CE2
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: BRANCH-A2A-CE3
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: BRANCH-A2A-CE4
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: CORP-A2A-CE1
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: CORP-A2A-CE2
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: CORP-A2A-CE3
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: CORP-A2A-CE4
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_103_BL-1
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_103_TOR-1A
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: BRANCH-A2A-CE5
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: CORP-A2A-CE5
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: SF_SITE_104_BL-1
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: BRANCH-A2A-CE6
-        neighborPort: Management1
-        port: Management0
-      - neighborDevice: CORP-A2A-CE6
-        neighborPort: Management1
-        port: Management0
+      ip_addr: 192.168.0.5
+      node_type: cvp
+      neighbors:
+        - neighborDevice: SF-SITE-101-SPINE-1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-101-SPINE-2
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-102-SPINE-1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-102-SPINE-2
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-101-BL-1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-101-BL-2
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-102-BL-1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-102-BL-2
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-101-TOR-1A
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-101-TOR-1B
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-102-TOR-1A
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-102-TOR-1B
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: BRANCH-A2A-CE1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: BRANCH-A2A-CE2
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: BRANCH-A2A-CE3
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: BRANCH-A2A-CE4
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: CORP-A2A-CE1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: CORP-A2A-CE2
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: CORP-A2A-CE3
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: CORP-A2A-CE4
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-103-BL-1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-103-TOR-1A
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: BRANCH-A2A-CE5
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: CORP-A2A-CE5
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-104-BL-1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: BRANCH-A2A-CE6
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: CORP-A2A-CE6
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: BRANCH-VPWS-CE1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: BRANCH-VPWS-CE2
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-101-RR-1
+          neighborPort: Management1
+          port: Management0
+        - neighborDevice: SF-SITE-102-RR-1
+          neighborPort: Management1
+          port: Management0
 
       
       

@@ -74,6 +74,15 @@ ethernet_interfaces:
   type: switched
   mode: access
   vlans: '200'
+- name: Ethernet1
+  peer: BRANCH-VPWS-CE1
+  peer_interface: Ethernet1
+  peer_type: cpe
+  description: BRANCH-VPWS-CE1_Ethernet1
+  shutdown: false
+  type: switched
+  mode: access
+  vlans: '99'
 port_channel_interfaces:
 - name: Port-Channel3
   description: SF_SITE_101_BL-1_Po11

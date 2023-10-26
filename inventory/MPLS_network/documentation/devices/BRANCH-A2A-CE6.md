@@ -261,14 +261,14 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | Uplink to SF_SITE_102_TOR-1B | routed | - | 10.255.104.1/31 | default | - | - | - | - |
+| Ethernet1 | Uplink to SF_SITE_104_BL-1 | routed | - | 10.255.104.1/31 | default | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
 interface Ethernet1
-   description Uplink to SF_SITE_102_TOR-1B
+   description Uplink to SF_SITE_104_BL-1
    no switchport
    ip address 10.255.104.1/31
 ```
@@ -281,22 +281,23 @@ interface Ethernet1
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback10 | Inband management | default | {{ mgmt_loopback_ipv4_pool | ansible.utils.ipmath((management_interfaces[0]['ip_address'] | string | ansible.utils.ipaddr('address')).split('.')[3]) }}/32 |
+| Loopback0 |  CE IP for test | default | 10.104.104.1/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
-| Loopback10 | Inband management | default | - |
+| Loopback0 |  CE IP for test | default | - |
 
 
 #### Loopback Interfaces Device Configuration
 
 ```eos
 !
-interface Loopback10
-   description Inband management
-   ip address {{ mgmt_loopback_ipv4_pool | ansible.utils.ipmath((management_interfaces[0]['ip_address'] | string | ansible.utils.ipaddr('address')).split('.')[3]) }}/32
+interface Loopback0
+   description  CE IP for test
+   no shutdown
+   ip address 10.104.104.1/32
 ```
 
 ## Routing

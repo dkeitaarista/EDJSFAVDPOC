@@ -308,22 +308,23 @@ interface Ethernet1
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback10 | Inband management | default | 192.168.101.30/32 |
+| Loopback0 |  CE IP for test | default | 10.101.101.2/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
-| Loopback10 | Inband management | default | - |
+| Loopback0 |  CE IP for test | default | - |
 
 
 #### Loopback Interfaces Device Configuration
 
 ```eos
 !
-interface Loopback10
-   description Inband management
-   ip address 192.168.101.30/32
+interface Loopback0
+   description  CE IP for test
+   no shutdown
+   ip address 10.101.101.2/32
 ```
 
 ## Routing

@@ -71,9 +71,10 @@ ntp:
   - name: 1.north-america.pool.ntp.org
     vrf: default
 loopback_interfaces:
-- name: Loopback10
-  description: Inband management
-  ip_address: 192.168.101.30/32
+- name: Loopback0
+  description: ' CE IP for test'
+  shutdown: false
+  ip_address: 10.101.101.2/32
 ethernet_interfaces:
 - name: Ethernet1
   description: Uplink to SF_SITE_101_TOR-1B

@@ -24,6 +24,8 @@
 | SF_102 | ce | BRANCH-A2A-CE4 | 192.168.0.33/24 | vEOS-lab | Provisioned | - |
 | SF_103 | ce | BRANCH-A2A-CE5 | 192.168.0.36/24 | vEOS-lab | Provisioned | - |
 | SF_103 | ce | BRANCH-A2A-CE6 | - | vEOS-lab | Provisioned | - |
+| SF_101 | ce | BRANCH-VPWS-CE1 | 192.168.0.40/24 | vEOS-lab | Provisioned | - |
+| SF_102 | ce | BRANCH-VPWS-CE2 | 192.168.0.41/24 | vEOS-lab | Provisioned | - |
 | SF_101 | ce | CORP-A2A-CE1 | 192.168.0.29/24 | vEOS-lab | Provisioned | - |
 | SF_101 | ce | CORP-A2A-CE2 | 192.168.0.31/24 | vEOS-lab | Provisioned | - |
 | SF_102 | ce | CORP-A2A-CE3 | 192.168.0.34/24 | vEOS-lab | Provisioned | - |
@@ -130,6 +132,19 @@
 
 | POD | Node | Loopback0 |
 | --- | ---- | --------- |
+| SF_101 | BRANCH-A2A-CE1 | 10.101.101.1/32 |
+| SF_101 | BRANCH-A2A-CE2 | 10.101.101.2/32 |
+| SF_102 | BRANCH-A2A-CE3 | 10.102.102.1/32 |
+| SF_102 | BRANCH-A2A-CE4 | 10.102.102.2/32 |
+| SF_103 | BRANCH-A2A-CE5 | 10.103.103.1/32 |
+| SF_103 | BRANCH-A2A-CE6 | 10.104.104.1/32 |
+| SF_101 | BRANCH-VPWS-CE1 | 10.101.101.5/32 |
+| SF_101 | CORP-A2A-CE1 | 10.101.101.3/32 |
+| SF_101 | CORP-A2A-CE2 | 10.101.101.4/32 |
+| SF_102 | CORP-A2A-CE3 | 10.102.102.3/32 |
+| SF_102 | CORP-A2A-CE4 | 10.102.102.4/32 |
+| SF_103 | CORP-A2A-CE5 | 10.105.105.1/32 |
+| SF_103 | CORP-A2A-CE6 | 10.104.104.2/32 |
 | SF_101 | SF_SITE_101_BL-1 | 100.1.2.1/32 |
 | SF_101 | SF_SITE_101_BL-2 | 100.1.2.2/32 |
 | SF_101 | SF_SITE_101_RR-1 | 100.1.1.1/32 |

@@ -22,3 +22,11 @@ custom_structured_configuration_router_bgp:
     peer_groups:
       - name: CE-PEER-GROUP
         activate: true
+# Interface Loopback0 for CE
+custom_structured_configuration_loopback_interfaces:
+  - name: Loopback0
+    description: " CE IP for test"
+    shutdown: false
+    ip_address: 10.102.102.4/32
+
+

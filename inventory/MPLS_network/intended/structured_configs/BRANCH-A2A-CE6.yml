@@ -63,13 +63,13 @@ ntp:
   - name: 1.north-america.pool.ntp.org
     vrf: default
 loopback_interfaces:
-- name: Loopback10
-  description: Inband management
-  ip_address: '{{ mgmt_loopback_ipv4_pool | ansible.utils.ipmath((management_interfaces[0][''ip_address''] | string | ansible.utils.ipaddr(''address'')).split(''.'')[3])
-    }}/32'
+- name: Loopback0
+  description: ' CE IP for test'
+  shutdown: false
+  ip_address: 10.104.104.1/32
 ethernet_interfaces:
 - name: Ethernet1
-  description: Uplink to SF_SITE_102_TOR-1B
+  description: Uplink to SF_SITE_104_BL-1
   type: routed
   ip_address: 10.255.104.1/31
 router_bgp:

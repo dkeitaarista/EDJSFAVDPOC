@@ -319,6 +319,7 @@ vlan 203
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+| Ethernet1 |  BRANCH-VPWS-CE2_Ethernet1 | access | 99 | - | - | - |
 | Ethernet3 | SF_SITE_102_BL-1_Ethernet11 | *trunk | *102-103,202-203 | *- | *- | 3 |
 | Ethernet4 | SF_SITE_102_BL-1_Ethernet12 | *trunk | *102-103,202-203 | *- | *- | 3 |
 | Ethernet7 |  BRANCH-A2A-CE3_Ethernet1 | access | 102 | - | - | - |
@@ -329,6 +330,13 @@ vlan 203
 #### Ethernet Interfaces Device Configuration
 
 ```eos
+!
+interface Ethernet1
+   description BRANCH-VPWS-CE2_Ethernet1
+   no shutdown
+   switchport access vlan 99
+   switchport mode access
+   switchport
 !
 interface Ethernet3
    description SF_SITE_102_BL-1_Ethernet11

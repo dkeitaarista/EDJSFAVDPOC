@@ -5,6 +5,8 @@ ce,BRANCH-A2A-CE3,Ethernet1,,,,True
 ce,BRANCH-A2A-CE4,Ethernet1,,,,True
 ce,BRANCH-A2A-CE5,Ethernet1,,,,True
 ce,BRANCH-A2A-CE6,Ethernet1,,,,True
+ce,BRANCH-VPWS-CE1,Ethernet1,,,,True
+ce,BRANCH-VPWS-CE2,Ethernet1,,,,True
 ce,CORP-A2A-CE1,Ethernet1,,,,True
 ce,CORP-A2A-CE2,Ethernet1,,,,True
 ce,CORP-A2A-CE3,Ethernet1,,,,True
@@ -37,6 +39,7 @@ p,SF_SITE_101_SPINE-1,Ethernet3,pe,SF_SITE_101_BL-1,Ethernet3,True
 p,SF_SITE_101_SPINE-1,Ethernet4,pe,SF_SITE_101_BL-2,Ethernet3,True
 p,SF_SITE_101_SPINE-2,Ethernet3,pe,SF_SITE_101_BL-1,Ethernet4,True
 p,SF_SITE_101_SPINE-2,Ethernet4,pe,SF_SITE_101_BL-2,Ethernet4,True
+ethernet_aggregation,SF_SITE_101_TOR-1A,Ethernet1,cpe,BRANCH-VPWS-CE1,Ethernet1,True
 ethernet_aggregation,SF_SITE_101_TOR-1A,Ethernet3,pe,SF_SITE_101_BL-1,Ethernet11,True
 ethernet_aggregation,SF_SITE_101_TOR-1A,Ethernet4,pe,SF_SITE_101_BL-1,Ethernet12,True
 ethernet_aggregation,SF_SITE_101_TOR-1A,Ethernet7,cpe,BRANCH-A2A-CE1,Ethernet1,True
@@ -71,6 +74,7 @@ p,SF_SITE_102_SPINE-1,Ethernet3,pe,SF_SITE_102_BL-1,Ethernet3,True
 p,SF_SITE_102_SPINE-1,Ethernet4,pe,SF_SITE_102_BL-2,Ethernet3,True
 p,SF_SITE_102_SPINE-2,Ethernet3,pe,SF_SITE_102_BL-1,Ethernet4,True
 p,SF_SITE_102_SPINE-2,Ethernet4,pe,SF_SITE_102_BL-2,Ethernet4,True
+ethernet_aggregation,SF_SITE_102_TOR-1A,Ethernet1,cpe,BRANCH-VPWS-CE2,Ethernet1,True
 ethernet_aggregation,SF_SITE_102_TOR-1A,Ethernet3,pe,SF_SITE_102_BL-1,Ethernet11,True
 ethernet_aggregation,SF_SITE_102_TOR-1A,Ethernet4,pe,SF_SITE_102_BL-1,Ethernet12,True
 ethernet_aggregation,SF_SITE_102_TOR-1A,Ethernet7,cpe,BRANCH-A2A-CE3,Ethernet1,True

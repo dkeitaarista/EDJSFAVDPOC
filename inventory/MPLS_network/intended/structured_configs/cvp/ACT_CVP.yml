@@ -24,6 +24,14 @@ cvp_devices:
     parentContainerName: CE_103
     configlets:
       - AVD_BRANCH-A2A-CE6
+  - fqdn: BRANCH-VPWS-CE1
+    parentContainerName: CE_101
+    configlets:
+      - AVD_BRANCH-VPWS-CE1
+  - fqdn: BRANCH-VPWS-CE2
+    parentContainerName: CE_102
+    configlets:
+      - AVD_BRANCH-VPWS-CE2
   - fqdn: CORP-A2A-CE1
     parentContainerName: CE_101
     configlets:

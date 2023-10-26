@@ -38,6 +38,8 @@ all:
                   ansible_host: 10.255.x.x
                 BRANCH-A2A-CE2:
                   ansible_host: 10.255.x.x
+                BRANCH-VPWS-CE1:
+                  ansible_host: 10.225.x.x
                 CORP-A2A-CE1:
                   ansible_host: 10.255.x.x
                 CORP-A2A-CE2:
@@ -76,6 +78,8 @@ all:
                 CORP-A2A-CE3:
                   ansible_host: 10.255.x.x
                 CORP-A2A-CE4:
+                  ansible_host: 10.255.x.x
+                BRANCH-VPWS-CE2:
                   ansible_host: 10.255.x.x
         SF_SITE_103:
           children:
