@@ -46,15 +46,13 @@ jobs:
       #         - 'sites/site_2/**'
 
       - name: Install collections
-        run: | 
-          ansible-galaxy collection install -r requirements.yml
-          if: steps.filter-site.outputs.workflows == 'true' 
+        run: ansible-galaxy collection install -r requirements.yml
+        if: steps.filter-site.outputs.workflows == 'true' 
 
       - name: Test configuration for inventory/MPLS_network
         shell: sh
-        run: | 
-          make fabric-build
-          if: steps.filter-site.outputs.workflows == 'true'
+        run: make fabric-build
+        if: steps.filter-site.outputs.workflows == 'true'
 
       # - name: Test configuration for site2
       #   run: make build-site-2
