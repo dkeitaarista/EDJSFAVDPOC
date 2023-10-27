@@ -12,15 +12,15 @@ ethernet_aggregation:
       qos:
         trust: dscp
   nodes:
-    - name: SF_SITE_103_TOR-1A
+    - name: SF-SITE-103-TOR-1A
       id: 1
       mgmt_ip: 192.168.0.26/24
       uplink_interfaces:
         - Ethernet3
         - Ethernet4
       uplink_switches:
-        - SF_SITE_103_BL-1
-        - SF_SITE_103_BL-1
+        - SF-SITE-103-BL-1
+        - SF-SITE-103-BL-1
       uplink_switch_interfaces:
         - Ethernet3
         - Ethernet4
@@ -31,7 +31,7 @@ cpes:
   - name: BRANCH-A2A-CE5
     adapters:
       - switches:
-          - SF_SITE_103_TOR-1A
+          - SF-SITE-103-TOR-1A
         switch_ports:
           - Ethernet7
         endpoint_ports:
@@ -41,7 +41,7 @@ cpes:
   - name: CORP-A2A-CE5
     adapters:
       - switches:
-          - SF_SITE_103_TOR-1A
+          - SF-SITE-103-TOR-1A
         switch_ports:
           - Ethernet8
         endpoint_ports:

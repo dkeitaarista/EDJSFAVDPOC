@@ -1,0 +1,491 @@
+hostname: SF-SITE-101-BL-1
+router_bgp:
+  as: '6.6971'
+  router_id: 100.1.2.1
+  distance:
+    external_routes: 20
+    internal_routes: 200
+    local_routes: 200
+  bgp_defaults:
+  - bgp asn notation asdot
+  - bgp always-compare-med
+  bgp:
+    default:
+      ipv4_unicast: false
+  maximum_paths:
+    paths: 4
+    ecmp: 4
+  graceful_restart:
+    enabled: true
+    restart_time: 300
+  peer_groups:
+  - name: MPLS-OVERLAY-PEERS
+    type: mpls
+    update_source: Loopback0
+    bfd: true
+    send_community: all
+    maximum_routes: 0
+    remote_as: '6.6971'
+  address_family_ipv4:
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: false
+  address_family_evpn:
+    neighbor_default:
+      encapsulation: mpls
+      next_hop_self_source_interface: Loopback0
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+  address_family_vpn_ipv4:
+    neighbor_default_encapsulation_mpls_next_hop_self:
+      source_interface: null
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+  address_family_vpn_ipv6:
+    neighbor_default_encapsulation_mpls_next_hop_self:
+      source_interface: null=
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+  neighbors:
+  - ip_address: 100.1.1.1
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF-SITE-101-RR-1
+  - ip_address: 100.1.1.2
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF-SITE-102-RR-1
+  vrfs:
+  - name: CORP-10012
+    router_id: 100.1.2.1
+    rd: 100.1.2.1:10012
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10012
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10012
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10012
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10012
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.101.5
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.101.5
+      remote_as: '65521'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+  - name: CORP-10016
+    router_id: 100.1.2.1
+    rd: 100.1.2.1:10016
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10016
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10016
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10016
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10016
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.102.5
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.102.5
+      remote_as: '65523'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+  - name: CORP-10020
+    router_id: 100.1.2.1
+    rd: 100.1.2.1:10020
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10020
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10020
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10020
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10020
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.103.4
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.103.4
+      remote_as: '65525'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+ip_name_servers:
+- ip_address: 10.255.0.2
+  vrf: default
+local_users:
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+vrfs:
+- name: default
+  ip_routing: false
+- name: CORP-10012
+  tenant: CORP
+  ip_routing: true
+- name: CORP-10016
+  tenant: CORP
+  ip_routing: true
+- name: CORP-10020
+  tenant: CORP
+  ip_routing: true
+management_interfaces:
+- name: Management1
+  description: oob_management
+  shutdown: false
+  vrf: default
+  ip_address: 192.168.0.14/24
+  gateway: null
+  type: oob
+management_api_http:
+  enable_vrfs:
+  - name: default
+  enable_https: true
+eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
+  6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
+  send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
+  0\nqos map exp 1 to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n class BUSINESS\n    police
+  rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes\n!\nrouter isis CORE\n  lsp purge origination-identification\n
+  \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart restart-hold-time 300\n  authentication
+  key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
+  \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology address-family ipv6
+  unicast\n"
+ethernet_interfaces:
+- name: Ethernet11
+  peer: SF-SITE-101-TOR-1A
+  peer_interface: Ethernet3
+  peer_type: ethernet_aggregation
+  description: SF-SITE-101-TOR-1A_Ethernet3
+  shutdown: false
+  type: port-channel-member
+  channel_group:
+    id: 11
+    mode: active
+- name: Ethernet12
+  peer: SF-SITE-101-TOR-1A
+  peer_interface: Ethernet4
+  peer_type: ethernet_aggregation
+  description: SF-SITE-101-TOR-1A_Ethernet4
+  shutdown: false
+  type: port-channel-member
+  channel_group:
+    id: 11
+    mode: active
+- name: Ethernet3
+  peer: SF-SITE-101-SPINE-1
+  peer_interface: Ethernet3
+  peer_type: p
+  description: P2P_LINK_TO_SF-SITE-101-SPINE-1_Ethernet3
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.1/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
+- name: Ethernet4
+  peer: SF-SITE-101-SPINE-2
+  peer_interface: Ethernet3
+  peer_type: p
+  description: P2P_LINK_TO_SF-SITE-101-SPINE-2_Ethernet3
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.5/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
+- name: Ethernet7
+  peer: SF-SITE-101-RR-1
+  peer_interface: Ethernet3
+  peer_type: rr
+  description: P2P_LINK_TO_SF-SITE-101-RR-1_Ethernet3
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.8/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
+- name: Ethernet10
+  peer: SF-SITE-104-BL-1
+  peer_interface: Ethernet10
+  peer_type: pe
+  description: P2P_LINK_TO_SF-SITE-104-BL-1_Ethernet10
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.1.0.0/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mac_security:
+    profile: Backbone
+  mpls:
+    ip: true
+- name: Ethernet9
+  peer: SF-SITE-102-BL-1
+  peer_interface: Ethernet9
+  peer_type: pe
+  description: P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet9
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.1.0.2/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mac_security:
+    profile: Backbone
+  mpls:
+    ip: true
+- name: Port-channel11.200
+  peer_type: l3_interface
+  ip_address: 10.255.101.4/31
+  shutdown: false
+  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
+    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
+    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 200
+  vrf: CORP-10012
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
+- name: Port-channel11.202
+  peer_type: l3_interface
+  ip_address: 10.255.102.4/31
+  shutdown: false
+  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
+    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
+    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 202
+  vrf: CORP-10016
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
+- name: Port-channel11.204
+  peer_type: l3_interface
+  ip_address: 10.255.103.3/31
+  shutdown: false
+  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
+    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
+    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 204
+  vrf: CORP-10020
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
+- name: Port-channel11
+  type: routed
+  peer_type: l3_interface
+  shutdown: false
+port_channel_interfaces:
+- name: Port-Channel11
+  description: SF-SITE-101-TOR-1A_Po3
+  type: switched
+  shutdown: false
+  mode: trunk
+  vlans: 100-101,200-201
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: dscp
+loopback_interfaces:
+- name: Loopback0
+  description: MPLS_Overlay_peering
+  shutdown: false
+  ip_address: 100.1.2.1/32
+  isis_enable: CORE
+  isis_passive: true
+  node_segment:
+    ipv4_index: 1
+- name: Loopback10
+  description: Inband management
+  ip_address: 192.168.101.14/32
+router_isis:
+  instance: CORE
+  log_adjacency_changes: true
+  net: 51.0001.1921.6800.0001.00
+  router_id: 100.1.2.1
+  is_type: level-2
+  address_family_ipv4:
+    enabled: true
+    maximum_paths: 4
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+  timers:
+    local_convergence:
+      delay: 10000
+      protected_prefixes: true
+  advertise:
+    passive_only: false
+  segment_routing_mpls:
+    router_id: 100.1.2.1
+    enabled: true
+  address_family_ipv6:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+mpls:
+  ip: true
+router_bfd:
+  multihop:
+    interval: 1200
+    min_rx: 1200
+    multiplier: 3
+vlans:
+- id: 100
+  name: vlan_100
+  tenant: BRANCH
+- id: 101
+  name: vlan_101
+  tenant: BRANCH
+- id: 200
+  name: vlan_200
+  tenant: CORP
+- id: 201
+  name: vlan_201
+  tenant: CORP
+ip_igmp_snooping:
+  globally_enabled: true
+mac_security:
+  fips_restrictions: true
+  profiles:
+  - name: Backbone
+    cipher: aes256-gcm-xpn
+    connection_keys:
+    - id: 4261636b62306e65
+      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
+    mka:
+      session:
+        rekey_period: 86400
+logging:
+  console: critical
+  monitor: disabled
+  buffered:
+    size: 180000
+    level: informational
+  trap: warnings
+  synchronous:
+    level: critical
+  format:
+    timestamp: high-resolution
+    sequence_numbers: true
+  source_interface: Loopback10
+  policy:
+    match:
+      match_lists:
+      - name: SAKlogs
+        action: discard
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+ntp:
+  servers:
+  - name: 0.north-america.pool.ntp.org
+    preferred: true
+    vrf: default
+  - name: 1.north-america.pool.ntp.org
+    vrf: default

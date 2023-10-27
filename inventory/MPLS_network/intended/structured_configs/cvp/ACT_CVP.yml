@@ -1,9 +1,5 @@
 ---
 cvp_devices:
-  - fqdn: BRANCH-A2A-CE1
-    parentContainerName: CE_101
-    configlets:
-      - AVD_BRANCH-A2A-CE1
   - fqdn: BRANCH-A2A-CE2
     parentContainerName: CE_101
     configlets:
@@ -12,16 +8,12 @@ cvp_devices:
     parentContainerName: CE_102
     configlets:
       - AVD_BRANCH-A2A-CE3
-  - fqdn: BRANCH-A2A-CE4
-    parentContainerName: CE_102
-    configlets:
-      - AVD_BRANCH-A2A-CE4
   - fqdn: BRANCH-A2A-CE5
     parentContainerName: CE_103
     configlets:
       - AVD_BRANCH-A2A-CE5
   - fqdn: BRANCH-A2A-CE6
-    parentContainerName: CE_103
+    parentContainerName: CE_104
     configlets:
       - AVD_BRANCH-A2A-CE6
   - fqdn: BRANCH-VPWS-CE1
@@ -52,78 +44,74 @@ cvp_devices:
     parentContainerName: CE_103
     configlets:
       - AVD_CORP-A2A-CE5
-  - fqdn: CORP-A2A-CE6
-    parentContainerName: CE_103
-    configlets:
-      - AVD_CORP-A2A-CE6
-  - fqdn: SF_SITE_101_BL-1
+  - fqdn: SF-SITE-101-BL-1
     parentContainerName: BORDER_LEAFS_101
     configlets:
-      - AVD_SF_SITE_101_BL-1
-  - fqdn: SF_SITE_101_BL-2
+      - AVD_SF-SITE-101-BL-1
+  - fqdn: SF-SITE-101-BL-2
     parentContainerName: BORDER_LEAFS_101
     configlets:
-      - AVD_SF_SITE_101_BL-2
-  - fqdn: SF_SITE_101_RR-1
+      - AVD_SF-SITE-101-BL-2
+  - fqdn: SF-SITE-101-RR-1
     parentContainerName: ROUTE_REFLECTORS_101
     configlets:
-      - AVD_SF_SITE_101_RR-1
-  - fqdn: SF_SITE_101_SPINE-1
+      - AVD_SF-SITE-101-RR-1
+  - fqdn: SF-SITE-101-SPINE-1
     parentContainerName: SPINES_101
     configlets:
-      - AVD_SF_SITE_101_SPINE-1
-  - fqdn: SF_SITE_101_SPINE-2
+      - AVD_SF-SITE-101-SPINE-1
+  - fqdn: SF-SITE-101-SPINE-2
     parentContainerName: SPINES_101
     configlets:
-      - AVD_SF_SITE_101_SPINE-2
-  - fqdn: SF_SITE_101_TOR-1A
+      - AVD_SF-SITE-101-SPINE-2
+  - fqdn: SF-SITE-101-TOR-1A
     parentContainerName: TOR_101
     configlets:
-      - AVD_SF_SITE_101_TOR-1A
-  - fqdn: SF_SITE_101_TOR-1B
+      - AVD_SF-SITE-101-TOR-1A
+  - fqdn: SF-SITE-101-TOR-1B
     parentContainerName: TOR_101
     configlets:
-      - AVD_SF_SITE_101_TOR-1B
-  - fqdn: SF_SITE_102_BL-1
+      - AVD_SF-SITE-101-TOR-1B
+  - fqdn: SF-SITE-102-BL-1
     parentContainerName: BORDER_LEAFS_102
     configlets:
-      - AVD_SF_SITE_102_BL-1
-  - fqdn: SF_SITE_102_BL-2
+      - AVD_SF-SITE-102-BL-1
+  - fqdn: SF-SITE-102-BL-2
     parentContainerName: BORDER_LEAFS_102
     configlets:
-      - AVD_SF_SITE_102_BL-2
-  - fqdn: SF_SITE_102_RR-1
+      - AVD_SF-SITE-102-BL-2
+  - fqdn: SF-SITE-102-RR-1
     parentContainerName: ROUTE_REFLECTORS_102
     configlets:
-      - AVD_SF_SITE_102_RR-1
-  - fqdn: SF_SITE_102_SPINE-1
+      - AVD_SF-SITE-102-RR-1
+  - fqdn: SF-SITE-102-SPINE-1
     parentContainerName: SPINES_102
     configlets:
-      - AVD_SF_SITE_102_SPINE-1
-  - fqdn: SF_SITE_102_SPINE-2
+      - AVD_SF-SITE-102-SPINE-1
+  - fqdn: SF-SITE-102-SPINE-2
     parentContainerName: SPINES_102
     configlets:
-      - AVD_SF_SITE_102_SPINE-2
-  - fqdn: SF_SITE_102_TOR-1A
+      - AVD_SF-SITE-102-SPINE-2
+  - fqdn: SF-SITE-102-TOR-1A
     parentContainerName: TOR_102
     configlets:
-      - AVD_SF_SITE_102_TOR-1A
-  - fqdn: SF_SITE_102_TOR-1B
+      - AVD_SF-SITE-102-TOR-1A
+  - fqdn: SF-SITE-102-TOR-1B
     parentContainerName: TOR_102
     configlets:
-      - AVD_SF_SITE_102_TOR-1B
-  - fqdn: SF_SITE_103_BL-1
+      - AVD_SF-SITE-102-TOR-1B
+  - fqdn: SF-SITE-103-BL-1
     parentContainerName: BORDER_LEAFS_103
     configlets:
-      - AVD_SF_SITE_103_BL-1
-  - fqdn: SF_SITE_103_TOR-1A
+      - AVD_SF-SITE-103-BL-1
+  - fqdn: SF-SITE-103-TOR-1A
     parentContainerName: TOR_103
     configlets:
-      - AVD_SF_SITE_103_TOR-1A
-  - fqdn: SF_SITE_104_BL-1
+      - AVD_SF-SITE-103-TOR-1A
+  - fqdn: SF-SITE-104-BL-1
     parentContainerName: BORDER_LEAFS_104
     configlets:
-      - AVD_SF_SITE_104_BL-1
+      - AVD_SF-SITE-104-BL-1
 cvp_containers:
   AVD_FABRIC:
     parentContainerName: Tenant
@@ -141,6 +129,8 @@ cvp_containers:
     parentContainerName: SF_SITE_102
   CE_103:
     parentContainerName: SF_SITE_103
+  CE_104:
+    parentContainerName: SF_SITE_104
   ROUTE_REFLECTORS_101:
     parentContainerName: SF_SITE_101
   ROUTE_REFLECTORS_102:

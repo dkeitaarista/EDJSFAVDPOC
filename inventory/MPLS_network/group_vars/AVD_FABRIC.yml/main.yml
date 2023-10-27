@@ -35,10 +35,10 @@ aaa_authorization:
 
 # DNS servers.
 name_servers:
- - 8.8.8.8
- - 8.8.4.4
+ - 10.255.0.2
+ 
 
-dns_domain: EDJ.poc
+# dns_domain: EDJ.poc
 
 # Logging
 custom_structured_configuration_logging:

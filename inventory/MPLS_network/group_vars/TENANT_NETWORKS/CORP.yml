@@ -25,7 +25,7 @@ CORP:
             ip_addresses:
               - 10.255.101.4/31
             nodes:
-              - SF_SITE_101_BL-1
+              - SF-SITE-101-BL-1
             structured_config:
               service_policy:
                 qos:
@@ -38,7 +38,7 @@ CORP:
             remote_as: 65521
             bfd: true
             nodes:
-              - SF_SITE_101_BL-1
+              - SF-SITE-101-BL-1
       - name: CORP-10014
         vrf_vni: 10014
         address_families:
@@ -62,7 +62,7 @@ CORP:
             ip_addresses:
               - 10.255.101.6/31
             nodes:
-              - SF_SITE_101_BL-2
+              - SF-SITE-101-BL-2
             structured_config:
               service_policy:
                 qos:
@@ -75,7 +75,7 @@ CORP:
             remote_as: 65522
             bfd: true
             nodes:
-              - SF_SITE_101_BL-2
+              - SF-SITE-101-BL-2
       - name: CORP-10016
         vrf_vni: 10016
         address_families:
@@ -99,7 +99,7 @@ CORP:
             ip_addresses:
               - 10.255.102.4/31
             nodes:
-              - SF_SITE_102_BL-1
+              - SF-SITE-101-BL-1
             structured_config:
               service_policy:
                 qos:
@@ -112,7 +112,7 @@ CORP:
             remote_as: 65523
             bfd: true
             nodes:
-              - SF_SITE_102_BL-1
+              - SF-SITE-101-BL-1
       - name: CORP-10018
         vrf_vni: 10018
         address_families:
@@ -136,7 +136,7 @@ CORP:
             ip_addresses:
               - 10.255.102.6/31
             nodes:
-              - SF_SITE_102_BL-2
+              - SF-SITE-101-BL-2
             structured_config:
               service_policy:
                 qos:
@@ -149,7 +149,7 @@ CORP:
             remote_as: 65524
             bfd: true
             nodes:
-              - SF_SITE_102_BL-2
+              - SF-SITE-101-BL-2
       - name: CORP-10020
         vrf_vni: 10020
         address_families:
@@ -173,7 +173,7 @@ CORP:
             ip_addresses:
               - 10.255.103.3/31
             nodes:
-              - SF_SITE_103_BL-1
+              - SF-SITE-101-BL-1
             structured_config:
               service_policy:
                 qos:
@@ -186,7 +186,7 @@ CORP:
             remote_as: 65525
             bfd: true
             nodes:
-              - SF_SITE_103_BL-1
+              - SF-SITE-101-BL-1
       - name: CORP-10022
         vrf_vni: 10022
         address_families:
@@ -208,7 +208,7 @@ CORP:
             ip_addresses:
               - 10.255.104.3/31
             nodes:
-              - SF_SITE_104_BL-1
+              - SF-SITE-103-BL-1
             structured_config:
               service_policy:
                 qos:
@@ -221,7 +221,7 @@ CORP:
             remote_as: 65526
             bfd: true
             nodes:
-              - SF_SITE_104_BL-1
+              - SF-SITE-103-BL-1
     l2vlans:
       - id: 200
         name: vlan_200

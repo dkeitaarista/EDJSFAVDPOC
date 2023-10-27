@@ -456,36 +456,6 @@ ansible_facts:
         vlans: ''
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
-    SF_SITE_104_BL-1:
-      switch:
-        id: 1
-        type: pe
-        platform: vEOS-lab
-        is_deployed: true
-        mgmt_interface: Management1
-        mgmt_ip: 192.168.0.27/24
-        mpls_lsr: true
-        loopback_ipv4_pool: 100.4.2.0/24
-        bgp_as: '6.6971'
-        underlay_routing_protocol: isis-sr
-        dc_name: SF_104
-        router_id: 100.4.2.1
-        evpn_role: client
-        mpls_overlay_role: client
-        evpn_route_servers: []
-        mpls_route_reflectors:
-        - SF_SITE_101_RR-1
-        - SF_SITE_102_RR-1
-        overlay:
-          peering_address: 100.4.2.1
-          evpn_mpls: true
-        max_parallel_uplinks: 1
-        max_uplink_switches: 0
-        uplinks: []
-        uplink_peers: []
-        vlans: 100-104,200-204
-        local_endpoint_trunk_groups: []
-        endpoint_trunk_groups: []
     SF_SITE_102_SPINE-1:
       switch:
         id: 1
@@ -815,6 +785,36 @@ ansible_facts:
         uplinks: []
         uplink_peers: []
         vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF_SITE_104_BL-1:
+      switch:
+        id: 1
+        type: pe
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.27/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.4.2.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_104
+        router_id: 100.4.2.1
+        evpn_role: client
+        mpls_overlay_role: client
+        evpn_route_servers: []
+        mpls_route_reflectors:
+        - SF_SITE_101_RR-1
+        - SF_SITE_102_RR-1
+        overlay:
+          peering_address: 100.4.2.1
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: 100-104,200-204
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     SF_SITE_101_SPINE-1:
@@ -1151,16 +1151,16 @@ ansible_facts:
   avd_overlay_peers:
     SF_SITE_101_RR-1:
     - SF_SITE_103_BL-1
-    - SF_SITE_104_BL-1
     - SF_SITE_102_BL-1
     - SF_SITE_102_BL-2
+    - SF_SITE_104_BL-1
     - SF_SITE_101_BL-1
     - SF_SITE_101_BL-2
     SF_SITE_102_RR-1:
     - SF_SITE_103_BL-1
-    - SF_SITE_104_BL-1
     - SF_SITE_102_BL-1
     - SF_SITE_102_BL-2
+    - SF_SITE_104_BL-1
     - SF_SITE_101_BL-1
     - SF_SITE_101_BL-2
   avd_topology_peers:
@@ -1325,36 +1325,6 @@ avd_switch_facts:
       uplinks: []
       uplink_peers: []
       vlans: ''
-      local_endpoint_trunk_groups: []
-      endpoint_trunk_groups: []
-  SF_SITE_104_BL-1:
-    switch:
-      id: 1
-      type: pe
-      platform: vEOS-lab
-      is_deployed: true
-      mgmt_interface: Management1
-      mgmt_ip: 192.168.0.27/24
-      mpls_lsr: true
-      loopback_ipv4_pool: 100.4.2.0/24
-      bgp_as: '6.6971'
-      underlay_routing_protocol: isis-sr
-      dc_name: SF_104
-      router_id: 100.4.2.1
-      evpn_role: client
-      mpls_overlay_role: client
-      evpn_route_servers: []
-      mpls_route_reflectors:
-      - SF_SITE_101_RR-1
-      - SF_SITE_102_RR-1
-      overlay:
-        peering_address: 100.4.2.1
-        evpn_mpls: true
-      max_parallel_uplinks: 1
-      max_uplink_switches: 0
-      uplinks: []
-      uplink_peers: []
-      vlans: 100-104,200-204
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   SF_SITE_102_SPINE-1:
@@ -1686,6 +1656,36 @@ avd_switch_facts:
       uplinks: []
       uplink_peers: []
       vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF_SITE_104_BL-1:
+    switch:
+      id: 1
+      type: pe
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.27/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.4.2.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_104
+      router_id: 100.4.2.1
+      evpn_role: client
+      mpls_overlay_role: client
+      evpn_route_servers: []
+      mpls_route_reflectors:
+      - SF_SITE_101_RR-1
+      - SF_SITE_102_RR-1
+      overlay:
+        peering_address: 100.4.2.1
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: 100-104,200-204
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   SF_SITE_101_SPINE-1:
@@ -2022,16 +2022,16 @@ avd_switch_facts:
 avd_overlay_peers:
   SF_SITE_101_RR-1:
   - SF_SITE_103_BL-1
-  - SF_SITE_104_BL-1
   - SF_SITE_102_BL-1
   - SF_SITE_102_BL-2
+  - SF_SITE_104_BL-1
   - SF_SITE_101_BL-1
   - SF_SITE_101_BL-2
   SF_SITE_102_RR-1:
   - SF_SITE_103_BL-1
-  - SF_SITE_104_BL-1
   - SF_SITE_102_BL-1
   - SF_SITE_102_BL-2
+  - SF_SITE_104_BL-1
   - SF_SITE_101_BL-1
   - SF_SITE_101_BL-2
 avd_topology_peers:
@@ -2061,8 +2061,6 @@ groups:
   - SF_SITE_102_BL-2
   - SF_SITE_103_BL-1
   - SF_SITE_104_BL-1
-  - SF_SITE_101_RR-1
-  - SF_SITE_102_RR-1
   - SF_SITE_101_SPINE-1
   - SF_SITE_101_SPINE-2
   - SF_SITE_102_SPINE-1
@@ -2072,16 +2070,18 @@ groups:
   - SF_SITE_102_TOR-1A
   - SF_SITE_102_TOR-1B
   - SF_SITE_103_TOR-1A
-  - BRANCH-A2A-CE3
-  - BRANCH-A2A-CE4
-  - CORP-A2A-CE3
-  - CORP-A2A-CE4
-  - BRANCH-VPWS-CE2
+  - SF_SITE_101_RR-1
+  - SF_SITE_102_RR-1
   - BRANCH-A2A-CE1
   - BRANCH-A2A-CE2
   - BRANCH-VPWS-CE1
   - CORP-A2A-CE1
   - CORP-A2A-CE2
+  - BRANCH-A2A-CE3
+  - BRANCH-A2A-CE4
+  - CORP-A2A-CE3
+  - CORP-A2A-CE4
+  - BRANCH-VPWS-CE2
   - BRANCH-A2A-CE5
   - BRANCH-A2A-CE6
   - CORP-A2A-CE5
@@ -2096,7 +2096,6 @@ groups:
   - BRANCH-A2A-CE6
   - CORP-A2A-CE5
   - CORP-A2A-CE6
-  - SF_SITE_104_BL-1
   - SF_SITE_102_SPINE-1
   - SF_SITE_102_SPINE-2
   - SF_SITE_102_BL-1
@@ -2109,6 +2108,7 @@ groups:
   - CORP-A2A-CE3
   - CORP-A2A-CE4
   - BRANCH-VPWS-CE2
+  - SF_SITE_104_BL-1
   - SF_SITE_101_SPINE-1
   - SF_SITE_101_SPINE-2
   - SF_SITE_101_BL-1
@@ -2228,7 +2228,7 @@ groups:
   - SF_SITE_102_BL-2
   - SF_SITE_103_BL-1
   - SF_SITE_104_BL-1
-omit: __omit_place_holder__85deea673da145ed574431c4aa14e3f26a3a76cb
+omit: __omit_place_holder__53801ac1c8785c6cade89d02db563e9a0cdeb54f
 ansible_version:
   string: 2.12.10
   full: 2.12.10

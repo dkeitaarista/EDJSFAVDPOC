@@ -4,7 +4,6 @@
 
 - [Management](#management)
   - [Management Interfaces](#management-interfaces)
-  - [DNS Domain](#dns-domain)
   - [IP Name Servers](#ip-name-servers)
   - [Clock Settings](#clock-settings)
   - [NTP](#ntp)
@@ -65,31 +64,18 @@ interface Management1
    ip address 192.168.0.37/24
 ```
 
-### DNS Domain
-
-#### DNS domain: EDJ.poc
-
-#### DNS Domain Device Configuration
-
-```eos
-dns domain EDJ.poc
-!
-```
-
 ### IP Name Servers
 
 #### IP Name Servers Summary
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
-| 8.8.8.8 | default | - |
-| 8.8.4.4 | default | - |
+| 10.255.0.2 | default | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
-ip name-server vrf default 8.8.4.4
-ip name-server vrf default 8.8.8.8
+ip name-server vrf default 10.255.0.2
 ```
 
 ### Clock Settings

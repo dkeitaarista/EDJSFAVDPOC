@@ -225,7 +225,7 @@ BRANCH:
             ip_addresses:
               - 10.255.104.0/31
             nodes:
-              - SF_SITE_104_BL-1
+              - SF-SITE-103-BL-1
             structured_config:
               service_policy:
                 qos:
@@ -238,7 +238,7 @@ BRANCH:
             remote_as: 65506
             bfd: true
             nodes:
-              - SF_SITE_104_BL-1
+              - SF-SITE-103-BL-1
     l2vlans:
       - id: 100
         name: vlan_100

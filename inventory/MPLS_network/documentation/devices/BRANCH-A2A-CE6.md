@@ -3,7 +3,7 @@
 ## Table of Contents
 
 - [Management](#management)
-  - [DNS Domain](#dns-domain)
+  - [Management Interfaces](#management-interfaces)
   - [IP Name Servers](#ip-name-servers)
   - [Clock Settings](#clock-settings)
   - [NTP](#ntp)
@@ -38,15 +38,30 @@
 
 ## Management
 
-### DNS Domain
+### Management Interfaces
 
-#### DNS domain: EDJ.poc
+#### Management Interfaces Summary
 
-#### DNS Domain Device Configuration
+##### IPv4
+
+| Management Interface | description | Type | VRF | IP Address | Gateway |
+| -------------------- | ----------- | ---- | --- | ---------- | ------- |
+| Management1 | oob_management | oob | default | 192.168.0.38/24 | - |
+
+##### IPv6
+
+| Management Interface | description | Type | VRF | IPv6 Address | IPv6 Gateway |
+| -------------------- | ----------- | ---- | --- | ------------ | ------------ |
+| Management1 | oob_management | oob | default | - | - |
+
+#### Management Interfaces Device Configuration
 
 ```eos
-dns domain EDJ.poc
 !
+interface Management1
+   description oob_management
+   no shutdown
+   ip address 192.168.0.38/24
 ```
 
 ### IP Name Servers
@@ -55,14 +70,12 @@ dns domain EDJ.poc
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
-| 8.8.8.8 | default | - |
-| 8.8.4.4 | default | - |
+| 10.255.0.2 | default | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
-ip name-server vrf default 8.8.4.4
-ip name-server vrf default 8.8.8.8
+ip name-server vrf default 10.255.0.2
 ```
 
 ### Clock Settings

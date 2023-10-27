@@ -27,6 +27,8 @@
       vars:
         container_root: 'AVD_FABRIC'
         configlets_prefix: 'AVD'
+        container_apply_mode: strict
+        device_apply_mode: strict
         state: present
 
     - name: Register feature branch

@@ -12,27 +12,27 @@ ethernet_aggregation:
       qos:
         trust: dscp
   nodes:
-    - name: SF_SITE_102_TOR-1A
+    - name: SF-SITE-102-TOR-1A
       id: 1
       mgmt_ip: 192.168.0.23/24
       uplink_interfaces:
         - Ethernet3
         - Ethernet4
       uplink_switches:
-        - SF_SITE_102_BL-1
-        - SF_SITE_102_BL-1
+        - SF-SITE-102-BL-1
+        - SF-SITE-102-BL-1
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
-    - name: SF_SITE_102_TOR-1B
+    - name: SF-SITE-102-TOR-1B
       id: 2
       mgmt_ip: 192.168.0.24/24
       uplink_interfaces:
         - Ethernet3
         - Ethernet4
       uplink_switches:
-        - SF_SITE_102_BL-2
-        - SF_SITE_102_BL-2
+        - SF-SITE-102-BL-2
+        - SF-SITE-102-BL-2
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
@@ -42,7 +42,7 @@ cpes:
   - name: BRANCH-A2A-CE3
     adapters:
       - switches:
-          - SF_SITE_102_TOR-1A
+          - SF-SITE-102-TOR-1A
         switch_ports:
           - Ethernet7
         endpoint_ports:
@@ -52,7 +52,7 @@ cpes:
   - name: CORP-A2A-CE3
     adapters:
       - switches:
-          - SF_SITE_102_TOR-1A
+          - SF-SITE-102-TOR-1A
         switch_ports:
           - Ethernet8
         endpoint_ports:
@@ -62,7 +62,7 @@ cpes:
   - name: BRANCH-VPWS-CE2
     adapters:
       - switches:
-          - SF_SITE_102_TOR-1A
+          - SF-SITE-102-TOR-1A
         switch_ports:
           - Ethernet1
         endpoint_ports:
@@ -72,7 +72,7 @@ cpes:
   - name: BRANCH-A2A-CE4
     adapters:
       - switches:
-          - SF_SITE_102_TOR-1B
+          - SF-SITE-102-TOR-1B
         switch_ports:
           - Ethernet7
         endpoint_ports:
@@ -82,7 +82,7 @@ cpes:
   - name: CORP-A2A-CE4
     adapters:
       - switches:
-          - SF_SITE_102_TOR-1B
+          - SF-SITE-102-TOR-1B
         switch_ports:
           - Ethernet8
         endpoint_ports:

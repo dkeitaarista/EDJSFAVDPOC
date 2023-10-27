@@ -1,0 +1,239 @@
+hostname: SF-SITE-101-RR-1
+router_bgp:
+  as: '6.6971'
+  router_id: 100.1.1.1
+  distance:
+    external_routes: 20
+    internal_routes: 200
+    local_routes: 200
+  bgp_defaults:
+  - bgp asn notation asdot
+  - bgp always-compare-med
+  bgp:
+    default:
+      ipv4_unicast: false
+  maximum_paths:
+    paths: 4
+    ecmp: 4
+  graceful_restart:
+    enabled: true
+    restart_time: 300
+  bgp_cluster_id: 100.1.1.1
+  peer_groups:
+  - name: MPLS-OVERLAY-PEERS
+    type: mpls
+    update_source: Loopback0
+    bfd: true
+    send_community: all
+    maximum_routes: 0
+    remote_as: '6.6971'
+    route_reflector_client: true
+  - name: RR-OVERLAY-PEERS
+    type: mpls
+    update_source: Loopback0
+    bfd: true
+    send_community: all
+    maximum_routes: 0
+    remote_as: '6.6971'
+  address_family_ipv4:
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: false
+    - name: RR-OVERLAY-PEERS
+      activate: false
+  address_family_evpn:
+    neighbor_default:
+      encapsulation: mpls
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+    - name: RR-OVERLAY-PEERS
+      activate: true
+  address_family_vpn_ipv4:
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+    - name: RR-OVERLAY-PEERS
+      activate: true
+  address_family_vpn_ipv6:
+    peer_groups:
+    - name: MPLS-OVERLAY-PEERS
+      activate: true
+    - name: RR-OVERLAY-PEERS
+      activate: true
+  neighbors:
+  - ip_address: 100.1.2.1
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF-SITE-101-BL-1
+  - ip_address: 100.1.2.2
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF-SITE-101-BL-2
+  - ip_address: 100.2.2.1
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF-SITE-102-BL-1
+  - ip_address: 100.2.2.2
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF-SITE-102-BL-2
+  - ip_address: 100.3.2.1
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF-SITE-103-BL-1
+  - ip_address: 100.4.2.1
+    peer_group: MPLS-OVERLAY-PEERS
+    description: SF-SITE-104-BL-1
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+ip_name_servers:
+- ip_address: 10.255.0.2
+  vrf: default
+spanning_tree:
+  mode: none
+local_users:
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+vrfs:
+- name: default
+  ip_routing: false
+management_interfaces:
+- name: Management1
+  description: oob_management
+  shutdown: false
+  vrf: default
+  ip_address: 192.168.0.13/24
+  gateway: null
+  type: oob
+management_api_http:
+  enable_vrfs:
+  - name: default
+  enable_https: true
+eos_cli: "!\nrouter isis CORE\n  lsp purge origination-identification\n  set-overload-bit on-startup wait-for-bgp\n  authentication
+  mode md5\n  graceful-restart restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd all-interfaces\n!\ninterface
+  Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n"
+loopback_interfaces:
+- name: Loopback0
+  description: MPLS_Overlay_peering
+  shutdown: false
+  ip_address: 100.1.1.1/32
+  isis_enable: CORE
+  isis_passive: true
+  node_segment:
+    ipv4_index: 1
+- name: Loopback10
+  description: Inband management
+  ip_address: 192.168.101.13/32
+router_isis:
+  instance: CORE
+  log_adjacency_changes: true
+  net: 51.0001.1921.6800.0001.00
+  router_id: 100.1.1.1
+  is_type: level-2
+  address_family_ipv4:
+    enabled: true
+    maximum_paths: 4
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+  timers:
+    local_convergence:
+      delay: 10000
+      protected_prefixes: true
+  advertise:
+    passive_only: false
+  segment_routing_mpls:
+    router_id: 100.1.1.1
+    enabled: true
+  address_family_ipv6:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+mpls:
+  ip: true
+router_bfd:
+  multihop:
+    interval: 1200
+    min_rx: 1200
+    multiplier: 3
+ethernet_interfaces:
+- name: Ethernet3
+  peer: SF-SITE-101-BL-1
+  peer_interface: Ethernet7
+  peer_type: pe
+  description: P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet7
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.9/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
+- name: Ethernet4
+  peer: SF-SITE-101-BL-2
+  peer_interface: Ethernet7
+  peer_type: pe
+  description: P2P_LINK_TO_SF-SITE-101-BL-2_Ethernet7
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.11/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
+logging:
+  console: critical
+  monitor: disabled
+  buffered:
+    size: 180000
+    level: informational
+  trap: warnings
+  synchronous:
+    level: critical
+  format:
+    timestamp: high-resolution
+    sequence_numbers: true
+  source_interface: Loopback10
+  policy:
+    match:
+      match_lists:
+      - name: SAKlogs
+        action: discard
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+ntp:
+  servers:
+  - name: 0.north-america.pool.ntp.org
+    preferred: true
+    vrf: default
+  - name: 1.north-america.pool.ntp.org
+    vrf: default
+mac_security:
+  fips_restrictions: true
+  profiles:
+  - name: Backbone
+    cipher: aes256-gcm-xpn
+    connection_keys:
+    - id: 4261636b62306e65
+      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
+    mka:
+      session:
+        rekey_period: 86400
