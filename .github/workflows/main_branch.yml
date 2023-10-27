@@ -1,0 +1,70 @@
+name: Deploy updates
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-prod:
+    env:
+      LABPASSPHRASE: ${{ secrets.LABPASSPHRASE }}
+      CVP_host: 'x.x.x.x'  ### REPLACE WITH CVP IP ADDRESS
+      OVPN_profile: SE_ACT_Ubuntu.ovpn  ### REPLACE WITH ACTUAL FILE FOR SPECIFIC ACT ENVIRONMENT
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hi
+        run: echo "Hello World!"
+
+#       - name: Checkout
+#         uses: actions/checkout@v3
+
+#       - name: Install zsh
+#         run: sudo apt install -y zsh
+
+#       - name: Setup Python
+#         uses: actions/setup-python@v3
+
+#       - name: Install Python requirements
+#         run: pip3 install -r requirements.txt
+
+#       - name: Run pre-commit on files
+#         uses: pre-commit/action@v3.0.0
+
+#       - name: Check paths for group_vars
+#         uses: dorny/paths-filter@v2
+#         id: filter-group_vars
+#         with:
+#           filters: |
+#             workflows:
+#               - 'inventory/group_vars/**'
+
+#       - name: Install collections
+#         run: ansible-galaxy collection install -r requirements.yml
+#         if: steps.filter-group_vars.outputs.workflows == 'true'
+
+# ###
+# # ACT connectivity 
+#       - name: Install OVPN
+#         run: sudo apt --assume-yes --no-install-recommends install openvpn
+#         if: steps.filter-group_vars.outputs.workflows == 'true'
+
+#       - name: Install resolvconf
+#         run: sudo apt install resolvconf openvpn-systemd-resolved
+#         if: steps.filter-group_vars.outputs.workflows == 'true'
+
+#       - name: Connect VPN
+#         run: sudo openvpn --config ".github/vpn/$OVPN_profile" --daemon
+#         if: steps.filter-group_vars.outputs.workflows == 'true'
+
+#       - name: Wait for a VPN connection
+#         timeout-minutes: 1
+#         run: until ping -c1 $CVP_host; do sleep 2; done
+#         if: steps.filter-group_vars.outputs.workflows == 'true'
+# # ACT connectivity
+# ###
+
+#       - name: Build and deploy configuration for the fabric
+#         run: make fabric-deploy_remote
+#         if: steps.filter-group_vars.outputs.workflows == 'true'

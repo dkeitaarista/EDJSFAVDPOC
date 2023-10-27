@@ -1,0 +1,47 @@
+name: Test the upcoming changes
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  feature-branch-validation:
+    env:
+      PASSPHRASE: ${{ secrets.PASSPHRASE }}
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hi
+        run: echo "Hello World!"
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install zsh
+        run: sudo apt install -y zsh
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+
+      - name: Install Python requirements
+        run: pip3 install -r requirements.txt
+
+      - name: Run pre-commit on files
+        uses: pre-commit/action@v3.0.0
+
+      - name: Check paths for group_vars
+        uses: dorny/paths-filter@v2
+        id: filter-group_vars
+        with:
+          filters: |
+            workflows:
+              - 'inventory/MPLS_network/group_vars/**'
+
+      - name: Install collections
+        run: ansible-galaxy collection install -r requirements.yml
+        if: steps.filter-group_vars.outputs.workflows == 'true'
+
+      - name: Test configuration for the fabric
+        run: make fabric-build
+        if: steps.filter-group_vars.outputs.workflows == 'true'
