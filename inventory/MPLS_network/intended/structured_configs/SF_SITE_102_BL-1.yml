@@ -155,10 +155,10 @@ ip_name_servers:
 - ip_address: 8.8.4.4
   vrf: default
 local_users:
-- name: cvpadmin
+- name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
 vrfs:
 - name: default
   ip_routing: false

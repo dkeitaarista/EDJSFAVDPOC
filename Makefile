@@ -1,5 +1,5 @@
 ### Generic Variables
-# SHELL := /bin/zsh
+SHELL := /bin/zsh
 
 .PHONY: help
 help: ## Display help message (*: main entry points / []: part of an entry point)

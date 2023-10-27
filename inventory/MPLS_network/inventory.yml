@@ -4,7 +4,7 @@ all:
     CVP:
       hosts:
         ACT_CVP:
-          ansible_host: 10.255.x.x
+          ansible_host: 10-255-39-46.act.arista.com
     AVD_FABRIC:
       children:
         SF_SITE_101:

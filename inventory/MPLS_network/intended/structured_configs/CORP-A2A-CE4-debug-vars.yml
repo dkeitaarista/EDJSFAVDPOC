@@ -57,10 +57,10 @@ overlay_rt_type:
   admin_subfield: bgp_as
 fabric_evpn_encapsulation: mpls
 local_users:
-- name: cvpadmin
+- name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
 clock:
   timezone: CST
 aaa_authorization:
@@ -2221,7 +2221,7 @@ groups:
   - SF_SITE_102_BL-2
   - SF_SITE_103_BL-1
   - SF_SITE_104_BL-1
-omit: __omit_place_holder__993a245f55a16f8d29d144ed68396862b58917ee
+omit: __omit_place_holder__9f08445803a1a437b2bcae9ecdf64a3aad935410
 ansible_version:
   string: 2.12.10
   full: 2.12.10

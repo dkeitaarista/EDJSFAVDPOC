@@ -13,7 +13,7 @@ cvp_configlets:
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
     server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.1/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.1/32\n!\ninterface
@@ -37,7 +37,7 @@ cvp_configlets:
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
     server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1B\n
     \  no switchport\n   ip address 10.255.101.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.2/32\n!\ninterface
@@ -61,7 +61,7 @@ cvp_configlets:
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
     server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1A\n
     \  no switchport\n   ip address 10.255.102.1/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.102.102.1/32\n!\ninterface
@@ -85,7 +85,7 @@ cvp_configlets:
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
     server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1B\n
     \  no switchport\n   ip address 10.255.102.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.102.102.2/32\n!\ninterface
@@ -109,7 +109,7 @@ cvp_configlets:
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
     server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_103_TOR-1A\n
     \  no switchport\n   ip address 10.255.103.1/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.103.103.1/32\n!\ninterface
@@ -133,7 +133,7 @@ cvp_configlets:
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
     server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_104_BL-1\n
     \  no switchport\n   ip address 10.255.104.1/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.104.104.1/32\n!\nrouter bgp
@@ -156,7 +156,7 @@ cvp_configlets:
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
     server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.9/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.5/32\n!\ninterface
@@ -179,7 +179,7 @@ cvp_configlets:
     8.8.8.8\ndns domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp
     server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.11/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.41/32\n!\ninterface Management1\n
@@ -202,7 +202,7 @@ cvp_configlets:
     domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
     1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.5/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.3/32\n!\ninterface
@@ -225,7 +225,7 @@ cvp_configlets:
     domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
     1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1B\n
     \  no switchport\n   ip address 10.255.101.7/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.4/32\n!\ninterface
@@ -248,7 +248,7 @@ cvp_configlets:
     domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
     1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1A\n
     \  no switchport\n   ip address 10.255.102.5/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.102.102.3/32\n!\ninterface
@@ -271,7 +271,7 @@ cvp_configlets:
     domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
     1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1B\n
     \  no switchport\n   ip address 10.255.102.7/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.102.102.4/32\n!\ninterface
@@ -294,7 +294,7 @@ cvp_configlets:
     domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
     1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_103_TOR-1A\n
     \  no switchport\n   ip address 10.255.103.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.105.105.1/32\n!\ninterface
@@ -317,7 +317,7 @@ cvp_configlets:
     domain EDJ.poc\n!\nntp server 0.north-america.pool.ntp.org prefer\nntp server
     1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_104_BL-1\n
     \  no switchport\n   ip address 10.255.104.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.104.104.2/32\n!\nrouter bgp
@@ -352,8 +352,8 @@ cvp_configlets:
     percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
     \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
     \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername arista privilege
+    15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvrf instance BRANCH-10011\n!\nvrf
     instance CORP-10012\n!\ninterface Port-Channel11\n   description SF_SITE_101_TOR-1A_Po3\n
@@ -509,8 +509,8 @@ cvp_configlets:
     percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
     \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
     \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername arista privilege
+    15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvrf instance BRANCH-10013\n!\nvrf
     instance CORP-10014\n!\ninterface Port-Channel11\n   description SF_SITE_101_TOR-1B_Po3\n
@@ -646,7 +646,7 @@ cvp_configlets:
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
     mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet7\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.9/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -710,7 +710,7 @@ cvp_configlets:
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
     mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.0/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -752,7 +752,7 @@ cvp_configlets:
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
     mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_101_BL-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.4/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -804,7 +804,7 @@ cvp_configlets:
     4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
     percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\ninterface Port-Channel3\n
     \  description SF_SITE_101_BL-1_Po11\n   no shutdown\n   switchport\n   switchport
@@ -873,7 +873,7 @@ cvp_configlets:
     4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
     percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\ninterface Port-Channel3\n
     \  description SF_SITE_101_BL-2_Po11\n   no shutdown\n   switchport\n   switchport
@@ -941,8 +941,8 @@ cvp_configlets:
     percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
     \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
     \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername arista privilege
+    15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvrf instance BRANCH-10015\n!\nvrf
     instance CORP-10016\n!\ninterface Port-Channel11\n   description SF_SITE_102_TOR-1A_Po3\n
@@ -1094,8 +1094,8 @@ cvp_configlets:
     percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
     \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
     \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername arista privilege
+    15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvrf instance BRANCH-10017\n!\nvrf
     instance BRANCH-10019\n!\nvrf instance CORP-10018\n!\ninterface Port-Channel11\n
@@ -1245,7 +1245,7 @@ cvp_configlets:
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
     mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet7\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.9/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1309,7 +1309,7 @@ cvp_configlets:
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
     mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.0/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1351,7 +1351,7 @@ cvp_configlets:
     vrf default 8.8.4.4\nip name-server vrf default 8.8.8.8\ndns domain EDJ.poc\n!\nntp
     server 0.north-america.pool.ntp.org prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree
     mode none\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF_SITE_102_BL-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.4/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1403,7 +1403,7 @@ cvp_configlets:
     4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
     percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface Port-Channel3\n
     \  description SF_SITE_102_BL-1_Po11\n   no shutdown\n   switchport\n   switchport
@@ -1472,7 +1472,7 @@ cvp_configlets:
     4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
     percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
     202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\ninterface Port-Channel3\n
     \  description SF_SITE_102_BL-2_Po11\n   no shutdown\n   switchport\n   switchport
@@ -1540,8 +1540,8 @@ cvp_configlets:
     percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
     \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
     \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername arista privilege
+    15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 104\n   name vlan_104\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan
@@ -1666,7 +1666,7 @@ cvp_configlets:
     4\n      bandwidth percent 30\n      no priority\n   !\n   tx-queue 5\n      bandwidth
     percent 25\n      no priority\n!\nspanning-tree mode mstp\nspanning-tree mst 0
     priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername cvpadmin privilege 15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 104\n   name vlan_104\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan
@@ -1736,8 +1736,8 @@ cvp_configlets:
     percent 19\n      no priority\n   !\n   tx-queue 3\n      bandwidth percent 20\n
     \     no priority\n   !\n   tx-queue 4\n      bandwidth percent 30\n      no priority\n
     \  !\n   tx-queue 5\n      bandwidth percent 25\n      no priority\n!\naaa authorization
-    exec default local\n!\nno enable password\nno aaa root\n!\nusername cvpadmin privilege
-    15 role network-admin secret sha512 $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0\n!\nclock
+    exec default local\n!\nno enable password\nno aaa root\n!\nusername arista privilege
+    15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 104\n   name vlan_104\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan

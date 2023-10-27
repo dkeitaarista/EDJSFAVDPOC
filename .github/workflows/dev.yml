@@ -8,7 +8,7 @@ on:
 jobs:
   dev:
     env:
-      LABPASSPHRASE: ${{ secrets.LABPASSPHRASE }} # Not in use
+      LABPASSPHRASE: ${{ secrets.LABPASSPHRASE }} 
     timeout-minutes: 15
     # runs-on: macos-latest
     runs-on: ubuntu-latest
