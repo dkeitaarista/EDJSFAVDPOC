@@ -50,31 +50,31 @@
 
 
 # interface profile to replicate QoS profiles on sub-interfaces
-# interface_qos_profiles_1G: |
-#   !
-#   tx-queue 0
-#      no priority
-#      bandwidth percent 5
-#   !
-#   tx-queue 1
-#      no priority
-#      bandwidth percent 1
-#   !
-#   tx-queue 2
-#      no priority
-#      bandwidth percent 19
-#   !
-#   tx-queue 3
-#      no priority
-#      bandwidth percent 20
-#   !
-#   tx-queue 4
-#      priority strict
-#      bandwidth percent 30
-#   !
-#   tx-queue 5
-#      priority strict
-#      bandwidth percent 25
+interface_qos_profiles_1G: |
+  # !
+  # tx-queue 0
+  #    no priority
+  #    bandwidth percent 5
+  # !
+  # tx-queue 1
+  #    no priority
+  #    bandwidth percent 1
+  # !
+  # tx-queue 2
+  #    no priority
+  #    bandwidth percent 19
+  # !
+  # tx-queue 3
+  #    no priority
+  #    bandwidth percent 20
+  # !
+  # tx-queue 4
+  #    priority strict
+  #    bandwidth percent 30
+  # !
+  # tx-queue 5
+  #    priority strict
+  #    bandwidth percent 25
 
 # QoS ACLs
 ip_access_lists:

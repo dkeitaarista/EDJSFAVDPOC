@@ -378,9 +378,63 @@ ethernet_interfaces:
   peer_type: l3_interface
   ip_address: 10.255.101.0/31
   shutdown: false
+  eos_cli: '# !
+
+    # tx-queue 0
+
+    #    no priority
+
+    #    bandwidth percent 5
+
+    # !
+
+    # tx-queue 1
+
+    #    no priority
+
+    #    bandwidth percent 1
+
+    # !
+
+    # tx-queue 2
+
+    #    no priority
+
+    #    bandwidth percent 19
+
+    # !
+
+    # tx-queue 3
+
+    #    no priority
+
+    #    bandwidth percent 20
+
+    # !
+
+    # tx-queue 4
+
+    #    priority strict
+
+    #    bandwidth percent 30
+
+    # !
+
+    # tx-queue 5
+
+    #    priority strict
+
+    #    bandwidth percent 25
+
+    '
   type: l3dot1q
   encapsulation_dot1q_vlan: 100
   vrf: BRANCH-10011
+  service_policy:
+    qos:
+      input: TENANT-INGRESS-CLASSIFIER-1G
+  qos:
+    trust: disabled
 - name: Port-channel11.200
   peer_type: l3_interface
   ip_address: 10.255.101.4/31
