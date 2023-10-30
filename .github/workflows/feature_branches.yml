@@ -39,8 +39,15 @@ jobs:
               - 'inventory/MPLS_network/group_vars/**'
 
       - name: Install collections
-        run: ansible-galaxy collection install --ignore-certs -r requirements.yml 
+        run: | 
+          mkdir ansible_collections
+          ansible-galaxy collection install arista.avd -p ansible_collections
+          pip3 install -r ansible_collections/arista/avd/requirements.txt 
         if: steps.filter-group_vars.outputs.workflows == 'true'
+      
+      # - name: Install collections
+      #   run: ansible-galaxy collection install -r requirements.yml 
+      #   if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Test configuration for the fabric
         run: make fabric-build
