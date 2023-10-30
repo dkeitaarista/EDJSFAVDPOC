@@ -329,11 +329,13 @@ service routing protocols model multi-agent
 
 | VRF | Routing Enabled |
 | --- | --------------- |
-| default | False |
+| default | True |
 
 #### IP Routing Device Configuration
 
 ```eos
+!
+ip routing
 ```
 
 ### IPv6 Routing

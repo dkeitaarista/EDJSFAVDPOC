@@ -57,6 +57,44 @@ router_bgp:
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-RR-1
   vrfs:
+  - name: BRANCH-10011
+    router_id: 100.1.2.1
+    rd: 100.1.2.1:10011
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10011
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10011
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10011
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10011
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.101.1
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.101.1
+      remote_as: '65501'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
   - name: CORP-10012
     router_id: 100.1.2.1
     rd: 100.1.2.1:10012
@@ -171,6 +209,15 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
+  vpws:
+  - name: BRANCH
+    rd: 100.1.2.1:5000
+    route_targets:
+      import_export: 6.6971:5000
+    pseudowires:
+    - name: SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+      id_local: 100
+      id_remote: 101
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
@@ -189,6 +236,9 @@ local_users:
 vrfs:
 - name: default
   ip_routing: false
+- name: BRANCH-10011
+  tenant: BRANCH
+  ip_routing: true
 - name: CORP-10012
   tenant: CORP
   ip_routing: true
@@ -324,51 +374,44 @@ ethernet_interfaces:
     profile: Backbone
   mpls:
     ip: true
+- name: Port-channel11.100
+  peer_type: l3_interface
+  ip_address: 10.255.101.0/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 100
+  vrf: BRANCH-10011
 - name: Port-channel11.200
   peer_type: l3_interface
   ip_address: 10.255.101.4/31
   shutdown: false
-  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
-    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
-    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
   type: l3dot1q
   encapsulation_dot1q_vlan: 200
   vrf: CORP-10012
-  service_policy:
-    qos:
-      input: TENANT-INGRESS-CLASSIFIER-1G
-  qos:
-    trust: disabled
 - name: Port-channel11.202
   peer_type: l3_interface
   ip_address: 10.255.102.4/31
   shutdown: false
-  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
-    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
-    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
   type: l3dot1q
   encapsulation_dot1q_vlan: 202
   vrf: CORP-10016
-  service_policy:
-    qos:
-      input: TENANT-INGRESS-CLASSIFIER-1G
-  qos:
-    trust: disabled
 - name: Port-channel11.204
   peer_type: l3_interface
   ip_address: 10.255.103.3/31
   shutdown: false
-  eos_cli: "!\ntx-queue 0\n   no priority\n   bandwidth percent 5\n!\ntx-queue 1\n   no priority\n   bandwidth percent 1\n!\ntx-queue
-    2\n   no priority\n   bandwidth percent 19\n!\ntx-queue 3\n   no priority\n   bandwidth percent 20\n!\ntx-queue 4\n   priority strict\n
-    \  bandwidth percent 30\n!\ntx-queue 5\n   priority strict\n   bandwidth percent 25\n"
   type: l3dot1q
   encapsulation_dot1q_vlan: 204
   vrf: CORP-10020
-  service_policy:
-    qos:
-      input: TENANT-INGRESS-CLASSIFIER-1G
-  qos:
-    trust: disabled
+- name: Port-channel11.99
+  type: l2dot1q
+  peer_type: point_to_point_service
+  encapsulation_vlan:
+    client:
+      dot1q:
+        vlan: 99
+    network:
+      client: true
+  shutdown: false
 - name: Port-channel11
   type: routed
   peer_type: l3_interface
@@ -430,6 +473,17 @@ router_bfd:
     interval: 1200
     min_rx: 1200
     multiplier: 3
+patch_panel:
+  patches:
+  - name: SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+    enabled: true
+    connectors:
+    - id: '1'
+      type: interface
+      endpoint: Port-channel11.99
+    - id: '2'
+      type: pseudowire
+      endpoint: bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
 vlans:
 - id: 100
   name: vlan_100

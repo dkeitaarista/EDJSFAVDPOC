@@ -73,6 +73,7 @@ loopback_interfaces:
   description: ' CE IP for test'
   shutdown: false
   ip_address: 10.102.102.3/32
+ip_routing: true
 ethernet_interfaces:
 - name: Ethernet1
   description: Uplink to SF_SITE_102_TOR-1A

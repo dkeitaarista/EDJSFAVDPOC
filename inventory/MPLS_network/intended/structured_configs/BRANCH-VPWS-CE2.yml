@@ -72,6 +72,7 @@ loopback_interfaces:
 - name: Loopback10
   description: Inband management
   ip_address: 192.168.101.41/32
+ip_routing: true
 ethernet_interfaces:
 - name: Ethernet1
   description: Uplink to SF_SITE_101_TOR-1A

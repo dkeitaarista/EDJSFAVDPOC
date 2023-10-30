@@ -56,6 +56,54 @@ router_bgp:
   - ip_address: 100.1.1.2
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-RR-1
+  vrfs:
+  - name: BRANCH-10015
+    router_id: 100.2.2.1
+    rd: 100.2.2.1:10015
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10015
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10015
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10015
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10015
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.102.1
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.102.1
+      remote_as: '65503'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+  vpws:
+  - name: BRANCH
+    rd: 100.2.2.1:5000
+    route_targets:
+      import_export: 6.6971:5000
+    pseudowires:
+    - name: SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+      id_local: 101
+      id_remote: 100
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
@@ -74,6 +122,9 @@ local_users:
 vrfs:
 - name: default
   ip_routing: false
+- name: BRANCH-10015
+  tenant: BRANCH
+  ip_routing: true
 management_interfaces:
 - name: Management1
   description: oob_management
@@ -184,6 +235,27 @@ ethernet_interfaces:
     profile: Backbone
   mpls:
     ip: true
+- name: Port-channel11.102
+  peer_type: l3_interface
+  ip_address: 10.255.102.0/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 102
+  vrf: BRANCH-10015
+- name: Port-channel11.99
+  type: l2dot1q
+  peer_type: point_to_point_service
+  encapsulation_vlan:
+    client:
+      dot1q:
+        vlan: 99
+    network:
+      client: true
+  shutdown: false
+- name: Port-channel11
+  type: routed
+  peer_type: l3_interface
+  shutdown: false
 port_channel_interfaces:
 - name: Port-Channel11
   description: SF-SITE-102-TOR-1A_Po3
@@ -241,6 +313,17 @@ router_bfd:
     interval: 1200
     min_rx: 1200
     multiplier: 3
+patch_panel:
+  patches:
+  - name: SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+    enabled: true
+    connectors:
+    - id: '1'
+      type: interface
+      endpoint: Port-channel11.99
+    - id: '2'
+      type: pseudowire
+      endpoint: bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
 vlans:
 - id: 102
   name: vlan_102

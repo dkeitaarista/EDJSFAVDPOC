@@ -35,6 +35,9 @@
 - [MPLS](#mpls)
   - [MPLS and LDP](#mpls-and-ldp)
   - [MPLS Interfaces](#mpls-interfaces)
+- [Patch Panel](#patch-panel)
+  - [Patch Panel Summary](#patch-panel-summary)
+  - [Patch Panel Configuration](#patch-panel-configuration)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
@@ -51,7 +54,6 @@
   - [QOS](#qos)
   - [QOS Class Maps](#qos-class-maps)
   - [QOS Policy Maps](#qos-policy-maps)
-  - [QOS Profiles](#qos-profiles)
 - [EOS CLI](#eos-cli)
 
 ## Management
@@ -298,6 +300,18 @@ vlan 203
 
 *Inherited from Port-Channel Interface
 
+##### Encapsulation Dot1q Interfaces
+
+| Interface | Description | Type | Vlan ID | Dot1q VLAN Tag |
+| --------- | ----------- | -----| ------- | -------------- |
+| Port-channel11.102 | - | l3dot1q | - | 102 |
+
+##### Flexible Encapsulation Interfaces
+
+| Interface | Description | Type | Vlan ID | Client Unmatched | Client Dot1q VLAN | Client Dot1q Outer Tag | Client Dot1q Inner Tag | Network Retain Client Encapsulation | Network Dot1q VLAN | Network Dot1q Outer Tag | Network Dot1q Inner Tag |
+| --------- | ----------- | ---- | ------- | -----------------| ----------------- | ---------------------- | ---------------------- | ----------------------------------- | ------------------ | ----------------------- | ----------------------- |
+| Port-channel11.99 | - | l2dot1q | - | False | 99 | - | - | True | - | - | - |
+
 ##### IPv4
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
@@ -306,6 +320,7 @@ vlan 203
 | Ethernet4 | P2P_LINK_TO_SF-SITE-102-SPINE-2_Ethernet3 | routed | - | 10.1.0.5/31 | default | 1500 | False | - | - |
 | Ethernet7 | P2P_LINK_TO_SF-SITE-102-RR-1_Ethernet3 | routed | - | 10.1.0.8/31 | default | 1500 | False | - | - |
 | Ethernet9 | P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet9 | routed | - | 10.1.0.3/31 | default | 1500 | False | - | - |
+| Port-channel11.102 | - | l3dot1q | - | 10.255.102.0/31 | BRANCH-10015 | - | False | - | - |
 
 ##### ISIS
 
@@ -383,6 +398,21 @@ interface Ethernet12
    description SF-SITE-102-TOR-1A_Ethernet4
    no shutdown
    channel-group 11 mode active
+!
+interface Port-channel11
+   no shutdown
+   no switchport
+!
+interface Port-channel11.99
+   no shutdown
+   encapsulation vlan
+      client dot1q 99 network client
+!
+interface Port-channel11.102
+   no shutdown
+   encapsulation dot1q vlan 102
+   vrf BRANCH-10015
+   ip address 10.255.102.0/31
 ```
 
 ### Port-Channel Interfaces
@@ -468,12 +498,14 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
+| BRANCH-10015 | True |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
+ip routing vrf BRANCH-10015
 ```
 
 ### IPv6 Routing
@@ -483,6 +515,7 @@ ip routing
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
+| BRANCH-10015 | false |
 | default | false |
 
 ### Router ISIS
@@ -591,6 +624,7 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
+| 10.255.102.1 | 65503 | BRANCH-10015 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -622,6 +656,18 @@ router isis CORE
 | ---------- | -------- | ------------ | ------------- |
 | MPLS-OVERLAY-PEERS | True | - | - |
 
+#### Router BGP VPWS Instances
+
+| Instance | Route-Distinguisher | Both Route-Target | MPLS Control Word | Label Flow | MTU | Pseudowire | Local ID | Remote ID |
+| -------- | ------------------- | ----------------- | ----------------- | -----------| --- | ---------- | -------- | --------- |
+| BRANCH | 100.2.2.1:5000 | 6.6971:5000 | False | False | - | SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 | 101 | 100 |
+
+#### Router BGP VRFs
+
+| VRF | Route-Distinguisher | Redistribute |
+| --- | ------------------- | ------------ |
+| BRANCH-10015 | 100.2.2.1:10015 | connected |
+
 #### Router BGP Device Configuration
 
 ```eos
@@ -646,6 +692,13 @@ router bgp 6.6971
    neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS
    neighbor 100.1.1.2 description SF-SITE-102-RR-1
    !
+   vpws BRANCH
+      rd 100.2.2.1:5000
+      route-target import export evpn 6.6971:5000
+      !
+      pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+         evpn vpws id local 101 remote 100
+   !
    address-family evpn
       neighbor default encapsulation mpls next-hop-self source-interface Loopback0
       neighbor MPLS-OVERLAY-PEERS activate
@@ -659,6 +712,26 @@ router bgp 6.6971
    address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
       neighbor default encapsulation mpls next-hop-self source-interface null=
+   !
+   vrf BRANCH-10015
+      rd 100.2.2.1:10015
+      route-target import vpn-ipv4 6.6971:10015
+      route-target import vpn-ipv6 6.6971:10015
+      route-target export vpn-ipv4 6.6971:10015
+      route-target export vpn-ipv6 6.6971:10015
+      router-id 100.2.2.1
+      neighbor 10.255.102.1 remote-as 65503
+      neighbor 10.255.102.1 bfd
+      redistribute connected
+      !
+      address-family ipv4
+         bgp additional-paths install
+         neighbor 10.255.102.1 activate
+      !
+      bgp additional-paths receive
+      bgp additional-paths send any
+      bgp bestpath tie-break router-id
+
 ```
 
 ## BFD
@@ -708,6 +781,25 @@ mpls ip
 | Ethernet4 | True | - | - |
 | Ethernet7 | True | - | - |
 | Ethernet9 | True | - | - |
+
+## Patch Panel
+
+### Patch Panel Summary
+
+| Patch Name | Enabled | Connector A Type | Connector A Endpoint | Connector B Type | Connector B Endpoint |
+| ---------- | ------- | ---------------- | -------------------- | ---------------- | -------------------- |
+| SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 | True | Interface | Port-channel11.99 | Pseudowire | bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 |
+
+### Patch Panel Configuration
+
+```eos
+!
+patch panel
+   patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+      connector 1 interface Port-channel11.99
+      connector 2 pseudowire bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
+   !
+```
 
 ## Multicast
 
@@ -808,10 +900,13 @@ ip access-list BUSINESS
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
+| BRANCH-10015 | enabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
+!
+vrf instance BRANCH-10015
 ```
 
 ## MACsec
@@ -932,108 +1027,6 @@ class-map type qos match-any BUSINESS
 policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
    class BUSINESS
       set traffic-class 2
-```
-
-### QOS Profiles
-
-#### QOS Profiles Summary
-
-
-QOS Profile: **TENANT-1G**
-
-**Settings**
-
-| Default COS | Default DSCP | Trust | Shape Rate | QOS Service Policy |
-| ----------- | ------------ | ----- | ---------- | ------------------ |
-| - | - | - | - | TENANT-INGRESS-CLASSIFIER-1G |
-
-**TX Queues**
-
-| TX queue | Type | Bandwidth | Priority | Shape Rate | Comment |
-| -------- | ---- | --------- | -------- | ---------- | ------- |
-| 0 | All | 5 | no priority | - | - |
-| 1 | All | 1 | no priority | - | - |
-| 2 | All | 19 | no priority | - | - |
-| 3 | All | 20 | no priority | - | - |
-| 4 | All | 30 | no priority | - | - |
-| 5 | All | 25 | no priority | - | - |
-
-QOS Profile: **TENANT-10G**
-
-**Settings**
-
-| Default COS | Default DSCP | Trust | Shape Rate | QOS Service Policy |
-| ----------- | ------------ | ----- | ---------- | ------------------ |
-| - | - | - | - | TENANT-INGRESS-CLASSIFIER-10G |
-
-**TX Queues**
-
-| TX queue | Type | Bandwidth | Priority | Shape Rate | Comment |
-| -------- | ---- | --------- | -------- | ---------- | ------- |
-| 0 | All | 5 | no priority | - | - |
-| 1 | All | 1 | no priority | - | - |
-| 2 | All | 19 | no priority | - | - |
-| 3 | All | 20 | no priority | - | - |
-| 4 | All | 30 | no priority | - | - |
-| 5 | All | 25 | no priority | - | - |
-
-#### QOS Profile Device Configuration
-
-```eos
-!
-qos profile TENANT-1G
-   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
-   !
-   tx-queue 0
-      bandwidth percent 5
-      no priority
-   !
-   tx-queue 1
-      bandwidth percent 1
-      no priority
-   !
-   tx-queue 2
-      bandwidth percent 19
-      no priority
-   !
-   tx-queue 3
-      bandwidth percent 20
-      no priority
-   !
-   tx-queue 4
-      bandwidth percent 30
-      no priority
-   !
-   tx-queue 5
-      bandwidth percent 25
-      no priority
-!
-qos profile TENANT-10G
-   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G
-   !
-   tx-queue 0
-      bandwidth percent 5
-      no priority
-   !
-   tx-queue 1
-      bandwidth percent 1
-      no priority
-   !
-   tx-queue 2
-      bandwidth percent 19
-      no priority
-   !
-   tx-queue 3
-      bandwidth percent 20
-      no priority
-   !
-   tx-queue 4
-      bandwidth percent 30
-      no priority
-   !
-   tx-queue 5
-      bandwidth percent 25
-      no priority
 ```
 
 #### QOS Interfaces

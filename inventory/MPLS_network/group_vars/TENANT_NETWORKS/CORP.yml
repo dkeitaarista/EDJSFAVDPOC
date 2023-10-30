@@ -26,13 +26,13 @@ CORP:
               - 10.255.101.4/31
             nodes:
               - SF-SITE-101-BL-1
-            structured_config:
-              service_policy:
-                qos:
-                  input: TENANT-INGRESS-CLASSIFIER-1G
-              qos:
-                trust: disabled
-            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+            # structured_config:
+            #   service_policy:
+            #     qos:
+            #       input: TENANT-INGRESS-CLASSIFIER-1G
+            #   qos:
+            #     trust: disabled
+            # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.101.5
             remote_as: 65521
@@ -63,13 +63,13 @@ CORP:
               - 10.255.101.6/31
             nodes:
               - SF-SITE-101-BL-2
-            structured_config:
-              service_policy:
-                qos:
-                  input: TENANT-INGRESS-CLASSIFIER-1G
-              qos:
-                trust: disabled
-            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+            # structured_config:
+            #   service_policy:
+            #     qos:
+            #       input: TENANT-INGRESS-CLASSIFIER-1G
+            #   qos:
+            #     trust: disabled
+            # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.101.7
             remote_as: 65522
@@ -100,13 +100,13 @@ CORP:
               - 10.255.102.4/31
             nodes:
               - SF-SITE-101-BL-1
-            structured_config:
-              service_policy:
-                qos:
-                  input: TENANT-INGRESS-CLASSIFIER-1G
-              qos:
-                trust: disabled
-            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+            # structured_config:
+            #   service_policy:
+            #     qos:
+            #       input: TENANT-INGRESS-CLASSIFIER-1G
+            #   qos:
+            #     trust: disabled
+            # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.102.5
             remote_as: 65523
@@ -137,13 +137,13 @@ CORP:
               - 10.255.102.6/31
             nodes:
               - SF-SITE-101-BL-2
-            structured_config:
-              service_policy:
-                qos:
-                  input: TENANT-INGRESS-CLASSIFIER-1G
-              qos:
-                trust: disabled
-            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+            # structured_config:
+            #   service_policy:
+            #     qos:
+            #       input: TENANT-INGRESS-CLASSIFIER-1G
+            #   qos:
+            #     trust: disabled
+            # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.102.7
             remote_as: 65524
@@ -174,13 +174,13 @@ CORP:
               - 10.255.103.3/31
             nodes:
               - SF-SITE-101-BL-1
-            structured_config:
-              service_policy:
-                qos:
-                  input: TENANT-INGRESS-CLASSIFIER-1G
-              qos:
-                trust: disabled
-            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+            # structured_config:
+            #   service_policy:
+            #     qos:
+            #       input: TENANT-INGRESS-CLASSIFIER-1G
+            #   qos:
+            #     trust: disabled
+            # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.103.4
             remote_as: 65525
@@ -209,13 +209,13 @@ CORP:
               - 10.255.104.3/31
             nodes:
               - SF-SITE-103-BL-1
-            structured_config:
-              service_policy:
-                qos:
-                  input: TENANT-INGRESS-CLASSIFIER-1G
-              qos:
-                trust: disabled
-            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+            # structured_config:
+            #   service_policy:
+            #     qos:
+            #       input: TENANT-INGRESS-CLASSIFIER-1G
+            #   qos:
+            #     trust: disabled
+            # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.104.4
             remote_as: 65526

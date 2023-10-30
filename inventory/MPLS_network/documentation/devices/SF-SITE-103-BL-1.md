@@ -51,7 +51,6 @@
   - [QOS](#qos)
   - [QOS Class Maps](#qos-class-maps)
   - [QOS Policy Maps](#qos-policy-maps)
-  - [QOS Profiles](#qos-profiles)
 - [EOS CLI](#eos-cli)
 
 ## Management
@@ -357,66 +356,12 @@ interface Ethernet7
    no switchport
    vrf BRANCH-10020
    ip address 10.255.104.0/31
-   no qos trust
-   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
-   !
-   tx-queue 0
-      no priority
-      bandwidth percent 5
-   !
-   tx-queue 1
-      no priority
-      bandwidth percent 1
-   !
-   tx-queue 2
-      no priority
-      bandwidth percent 19
-   !
-   tx-queue 3
-      no priority
-      bandwidth percent 20
-   !
-   tx-queue 4
-      priority strict
-      bandwidth percent 30
-   !
-   tx-queue 5
-      priority strict
-      bandwidth percent 25
-
 !
 interface Ethernet8
    no shutdown
    no switchport
    vrf CORP-10022
    ip address 10.255.104.3/31
-   no qos trust
-   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
-   !
-   tx-queue 0
-      no priority
-      bandwidth percent 5
-   !
-   tx-queue 1
-      no priority
-      bandwidth percent 1
-   !
-   tx-queue 2
-      no priority
-      bandwidth percent 19
-   !
-   tx-queue 3
-      no priority
-      bandwidth percent 20
-   !
-   tx-queue 4
-      priority strict
-      bandwidth percent 30
-   !
-   tx-queue 5
-      priority strict
-      bandwidth percent 25
-
 !
 interface Ethernet9
    description P2P_LINK_TO_SF-SITE-101-BL-2_Ethernet9
@@ -1053,114 +998,10 @@ policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
       set traffic-class 2
 ```
 
-### QOS Profiles
-
-#### QOS Profiles Summary
-
-
-QOS Profile: **TENANT-1G**
-
-**Settings**
-
-| Default COS | Default DSCP | Trust | Shape Rate | QOS Service Policy |
-| ----------- | ------------ | ----- | ---------- | ------------------ |
-| - | - | - | - | TENANT-INGRESS-CLASSIFIER-1G |
-
-**TX Queues**
-
-| TX queue | Type | Bandwidth | Priority | Shape Rate | Comment |
-| -------- | ---- | --------- | -------- | ---------- | ------- |
-| 0 | All | 5 | no priority | - | - |
-| 1 | All | 1 | no priority | - | - |
-| 2 | All | 19 | no priority | - | - |
-| 3 | All | 20 | no priority | - | - |
-| 4 | All | 30 | no priority | - | - |
-| 5 | All | 25 | no priority | - | - |
-
-QOS Profile: **TENANT-10G**
-
-**Settings**
-
-| Default COS | Default DSCP | Trust | Shape Rate | QOS Service Policy |
-| ----------- | ------------ | ----- | ---------- | ------------------ |
-| - | - | - | - | TENANT-INGRESS-CLASSIFIER-10G |
-
-**TX Queues**
-
-| TX queue | Type | Bandwidth | Priority | Shape Rate | Comment |
-| -------- | ---- | --------- | -------- | ---------- | ------- |
-| 0 | All | 5 | no priority | - | - |
-| 1 | All | 1 | no priority | - | - |
-| 2 | All | 19 | no priority | - | - |
-| 3 | All | 20 | no priority | - | - |
-| 4 | All | 30 | no priority | - | - |
-| 5 | All | 25 | no priority | - | - |
-
-#### QOS Profile Device Configuration
-
-```eos
-!
-qos profile TENANT-1G
-   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
-   !
-   tx-queue 0
-      bandwidth percent 5
-      no priority
-   !
-   tx-queue 1
-      bandwidth percent 1
-      no priority
-   !
-   tx-queue 2
-      bandwidth percent 19
-      no priority
-   !
-   tx-queue 3
-      bandwidth percent 20
-      no priority
-   !
-   tx-queue 4
-      bandwidth percent 30
-      no priority
-   !
-   tx-queue 5
-      bandwidth percent 25
-      no priority
-!
-qos profile TENANT-10G
-   service-policy type qos input TENANT-INGRESS-CLASSIFIER-10G
-   !
-   tx-queue 0
-      bandwidth percent 5
-      no priority
-   !
-   tx-queue 1
-      bandwidth percent 1
-      no priority
-   !
-   tx-queue 2
-      bandwidth percent 19
-      no priority
-   !
-   tx-queue 3
-      bandwidth percent 20
-      no priority
-   !
-   tx-queue 4
-      bandwidth percent 30
-      no priority
-   !
-   tx-queue 5
-      bandwidth percent 25
-      no priority
-```
-
 #### QOS Interfaces
 
 | Interface | Trust | Default DSCP | Default COS | Shape rate |
 | --------- | ----- | ------------ | ----------- | ---------- |
-| Ethernet7 | disabled | - | - | - |
-| Ethernet8 | disabled | - | - | - |
 | Port-Channel3 | dscp | - | - | - |
 
 ## EOS CLI

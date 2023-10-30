@@ -56,6 +56,76 @@ router_bgp:
   - ip_address: 100.1.1.2
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-RR-1
+  vrfs:
+  - name: BRANCH-10017
+    router_id: 100.2.2.2
+    rd: 100.2.2.2:10017
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10017
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10017
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10017
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10017
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.102.3
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.102.3
+      remote_as: '65504'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+  - name: BRANCH-10019
+    router_id: 100.2.2.2
+    rd: 100.2.2.2:10019
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10019
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10019
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10019
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10019
+    redistribute_routes:
+    - source_protocol: connected
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+    address_family_ipv4:
+      bgp:
+        additional_paths:
+          install: true
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
@@ -74,6 +144,12 @@ local_users:
 vrfs:
 - name: default
   ip_routing: false
+- name: BRANCH-10017
+  tenant: BRANCH
+  ip_routing: true
+- name: BRANCH-10019
+  tenant: BRANCH
+  ip_routing: true
 management_interfaces:
 - name: Management1
   description: oob_management
@@ -182,6 +258,24 @@ ethernet_interfaces:
     profile: Backbone
   mpls:
     ip: true
+- name: Port-channel11.103
+  peer_type: l3_interface
+  ip_address: 10.255.102.2/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 103
+  vrf: BRANCH-10017
+- name: Port-channel11.104
+  peer_type: l3_interface
+  ip_address: 10.255.103.0/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 104
+  vrf: BRANCH-10019
+- name: Port-channel11
+  type: routed
+  peer_type: l3_interface
+  shutdown: false
 port_channel_interfaces:
 - name: Port-Channel11
   description: SF-SITE-102-TOR-1B_Po3

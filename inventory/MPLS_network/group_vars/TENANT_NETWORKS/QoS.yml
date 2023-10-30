@@ -1,80 +1,80 @@
 ---
 # Define QoS profiles
-qos_profiles:
-  - name: TENANT-1G
-    service_policy:
-      type:
-        qos_input: TENANT-INGRESS-CLASSIFIER-1G
-    tx_queues:
-      - id: 0
-        bandwidth_percent: 5
-        priority: no priority
-      - id: 1
-        bandwidth_percent: 1
-        priority: no priority
-      - id: 2
-        bandwidth_percent: 19
-        priority: no priority
-      - id: 3
-        bandwidth_percent: 20
-        priority: no priority
-      - id: 4
-        bandwidth_percent: 30
-        priority: no priority
-      - id: 5
-        bandwidth_percent: 25
-        priority: no priority
-  - name: TENANT-10G
-    service_policy:
-      type:
-        qos_input: TENANT-INGRESS-CLASSIFIER-10G
-    tx_queues:
-      - id: 0
-        bandwidth_percent: 5
-        priority: no priority
-      - id: 1
-        bandwidth_percent: 1
-        priority: no priority
-      - id: 2
-        bandwidth_percent: 19
-        priority: no priority
-      - id: 3
-        bandwidth_percent: 20
-        priority: no priority
-      - id: 4
-        bandwidth_percent: 30
-        priority: no priority
-      - id: 5
-        bandwidth_percent: 25
-        priority: no priority
+# qos_profiles:
+#   - name: TENANT-1G
+#     service_policy:
+#       type:
+#         qos_input: TENANT-INGRESS-CLASSIFIER-1G
+#     tx_queues:
+#       - id: 0
+#         bandwidth_percent: 5
+#         priority: no priority
+#       - id: 1
+#         bandwidth_percent: 1
+#         priority: no priority
+#       - id: 2
+#         bandwidth_percent: 19
+#         priority: no priority
+#       - id: 3
+#         bandwidth_percent: 20
+#         priority: no priority
+#       - id: 4
+#         bandwidth_percent: 30
+#         priority: no priority
+#       - id: 5
+#         bandwidth_percent: 25
+#         priority: no priority
+#   - name: TENANT-10G
+#     service_policy:
+#       type:
+#         qos_input: TENANT-INGRESS-CLASSIFIER-10G
+#     tx_queues:
+#       - id: 0
+#         bandwidth_percent: 5
+#         priority: no priority
+#       - id: 1
+#         bandwidth_percent: 1
+#         priority: no priority
+#       - id: 2
+#         bandwidth_percent: 19
+#         priority: no priority
+#       - id: 3
+#         bandwidth_percent: 20
+#         priority: no priority
+#       - id: 4
+#         bandwidth_percent: 30
+#         priority: no priority
+#       - id: 5
+#         bandwidth_percent: 25
+#         priority: no priority
 
 
 # interface profile to replicate QoS profiles on sub-interfaces
-interface_qos_profiles_1G: |
-  !
-  tx-queue 0
-     no priority
-     bandwidth percent 5
-  !
-  tx-queue 1
-     no priority
-     bandwidth percent 1
-  !
-  tx-queue 2
-     no priority
-     bandwidth percent 19
-  !
-  tx-queue 3
-     no priority
-     bandwidth percent 20
-  !
-  tx-queue 4
-     priority strict
-     bandwidth percent 30
-  !
-  tx-queue 5
-     priority strict
-     bandwidth percent 25
+# interface_qos_profiles_1G: |
+#   !
+#   tx-queue 0
+#      no priority
+#      bandwidth percent 5
+#   !
+#   tx-queue 1
+#      no priority
+#      bandwidth percent 1
+#   !
+#   tx-queue 2
+#      no priority
+#      bandwidth percent 19
+#   !
+#   tx-queue 3
+#      no priority
+#      bandwidth percent 20
+#   !
+#   tx-queue 4
+#      priority strict
+#      bandwidth percent 30
+#   !
+#   tx-queue 5
+#      priority strict
+#      bandwidth percent 25
 
 # QoS ACLs
 ip_access_lists:
