@@ -1,16 +1,16 @@
 ---
 collections:
 
-  # - name: arista.avd
-  #   version: 4.3.0
+  - name: arista.avd
+    version: 4.3.0
 
-  # - name: arista.cvp
-  #   version: 3.8.0
+  - name: arista.cvp
+    version: 3.8.0
 
-  # - name: community.general
-  #   version: 7.5.0
+  - name: community.general
+    version: 7.5.0
 
-  - name: https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/
-    type: git
-    version: devel
+  # - name: https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/
+  #   type: git
+  #   version: devel
 
