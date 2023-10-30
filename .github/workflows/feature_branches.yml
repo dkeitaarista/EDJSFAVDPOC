@@ -40,9 +40,9 @@ jobs:
 
       - name: Install collections
         run: | 
-          ansible-galaxy collection install arista.avd
-          ansible-galaxy collection install arista.cvp
-          ansible-galaxy collection install community.general
+          ansible-galaxy collection install --ignore-certs arista.avd
+          ansible-galaxy collection install --ignore-certs arista.cvp
+          ansible-galaxy collection install --ignore-certs community.general
         if: steps.filter-group_vars.outputs.workflows == 'true'
       
       # - name: Install collections
