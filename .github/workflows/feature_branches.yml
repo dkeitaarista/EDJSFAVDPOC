@@ -40,9 +40,9 @@ jobs:
 
       - name: Install collections
         run: | 
-          mkdir ansible_collections
-          ansible-galaxy collection install arista.avd -p ansible_collections
-          pip3 install -r ansible_collections/arista/avd/requirements.txt 
+          ansible-galaxy collection install arista.avd
+          ansible-galaxy collection install arista.cvp
+          ansible-galaxy collection install community.general
         if: steps.filter-group_vars.outputs.workflows == 'true'
       
       # - name: Install collections
