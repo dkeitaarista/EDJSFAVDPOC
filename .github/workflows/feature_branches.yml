@@ -10,7 +10,7 @@ jobs:
     env:
       PASSPHRASE: ${{ secrets.PASSPHRASE }}
     timeout-minutes: 15
-    runs-on: mac-last
+    runs-on: macos-last
     steps:
       - name: Hi
         run: echo "Hello World!"
