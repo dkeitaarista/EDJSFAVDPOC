@@ -43,13 +43,13 @@ BRANCH:
               - 10.255.101.0/31
             nodes:
               - SF-SITE-101-BL-1
-            structured_config:
-              service_policy:
-                qos:
-                  input: TENANT-INGRESS-CLASSIFIER-1G
-              qos:
-                trust: disabled
-            raw_eos_cli: "{{ interface_qos_profiles_1G }}"
+            # structured_config:
+            #   service_policy:
+            #     qos:
+            #       input: TENANT-INGRESS-CLASSIFIER-1G
+            #   qos:
+            #     trust: disabled
+            # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.101.1
             remote_as: 65501

@@ -39,18 +39,9 @@
   - [IP IGMP Snooping](#ip-igmp-snooping)
 - [Filters](#filters)
   - [Match-lists](#match-lists)
-- [ACL](#acl)
-  - [IP Access-lists](#ip-access-lists)
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
-- [MACsec](#macsec)
-  - [MACsec Summary](#macsec-summary)
-  - [MACsec Device Configuration](#macsec-device-configuration)
-- [Quality Of Service](#quality-of-service)
-  - [QOS](#qos)
-  - [QOS Class Maps](#qos-class-maps)
-  - [QOS Policy Maps](#qos-policy-maps)
 - [EOS CLI](#eos-cli)
 
 ## Management
@@ -367,7 +358,6 @@ interface Ethernet9
    description P2P_LINK_TO_SF-SITE-101-BL-2_Ethernet9
    no shutdown
    mtu 1500
-   mac security profile Backbone
    no switchport
    ip address 10.1.0.5/31
    mpls ip
@@ -381,7 +371,6 @@ interface Ethernet10
    description P2P_LINK_TO_SF-SITE-102-BL-2_Ethernet10
    no shutdown
    mtu 1500
-   mac security profile Backbone
    no switchport
    ip address 10.1.0.9/31
    mpls ip
@@ -412,8 +401,6 @@ interface Port-Channel3
    switchport
    switchport trunk allowed vlan 100-104,200-204
    switchport mode trunk
-   qos trust dscp
-   service-policy type qos input TENANT-INGRESS-CLASSIFIER-1G
 ```
 
 ### Loopback Interfaces
@@ -424,7 +411,7 @@ interface Port-Channel3
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | MPLS_Overlay_peering | default | 100.3.2.1/32 |
+| Loopback0 | MPLS_Overlay_peering | default | 100.3.2.25/32 |
 | Loopback10 | Inband management | default | 192.168.101.25/32 |
 
 ##### IPv6
@@ -447,10 +434,10 @@ interface Port-Channel3
 interface Loopback0
    description MPLS_Overlay_peering
    no shutdown
-   ip address 100.3.2.1/32
+   ip address 100.3.2.25/32
    isis enable CORE
    isis passive
-   node-segment ipv4 index 1
+   node-segment ipv4 index 25
 !
 interface Loopback10
    description Inband management
@@ -505,9 +492,9 @@ ip routing vrf CORP-10022
 | Settings | Value |
 | -------- | ----- |
 | Instance | CORE |
-| Net-ID | 51.0001.1921.6800.0001.00 |
+| Net-ID | 51.0001.1921.6800.0025.00 |
 | Type | level-2 |
-| Router-ID | 100.3.2.1 |
+| Router-ID | 100.3.2.25 |
 | Log Adjacency Changes | True |
 | Local Convergence Delay (ms) | 10000 |
 | SR MPLS Enabled | True |
@@ -524,7 +511,7 @@ ip routing vrf CORP-10022
 
 | Loopback | IPv4 Index | IPv6 Index |
 | -------- | ---------- | ---------- |
-| Loopback0 | 1 | - |
+| Loopback0 | 25 | - |
 
 #### ISIS IPv4 Address Family Summary
 
@@ -548,9 +535,9 @@ ip routing vrf CORP-10022
 ```eos
 !
 router isis CORE
-   net 51.0001.1921.6800.0001.00
+   net 51.0001.1921.6800.0025.00
    is-type level-2
-   router-id ipv4 100.3.2.1
+   router-id ipv4 100.3.2.25
    log-adjacency-changes
    timers local-convergence-delay 10000 protected-prefixes
    !
@@ -571,7 +558,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 6.6971|  100.3.2.1 |
+| 6.6971|  100.3.2.25 |
 
 | BGP Tuning |
 | ---------- |
@@ -600,8 +587,8 @@ router isis CORE
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 100.1.1.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
-| 100.1.1.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
+| 100.1.1.13 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
+| 100.1.1.20 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 10.255.104.1 | 65506 | BRANCH-10020 | - | - | - | - | True | - | - | - |
 | 10.255.104.4 | 65526 | CORP-10022 | - | - | - | - | True | - | - | - |
 
@@ -639,15 +626,15 @@ router isis CORE
 
 | VRF | Route-Distinguisher | Redistribute |
 | --- | ------------------- | ------------ |
-| BRANCH-10020 | 100.3.2.1:10020 | connected |
-| CORP-10022 | 100.3.2.1:10022 | connected |
+| BRANCH-10020 | 100.3.2.25:10020 | connected |
+| CORP-10022 | 100.3.2.25:10022 | connected |
 
 #### Router BGP Device Configuration
 
 ```eos
 !
 router bgp 6.6971
-   router-id 100.3.2.1
+   router-id 100.3.2.25
    distance bgp 20 200 200
    graceful-restart restart-time 300
    graceful-restart
@@ -661,10 +648,10 @@ router bgp 6.6971
    neighbor MPLS-OVERLAY-PEERS bfd
    neighbor MPLS-OVERLAY-PEERS send-community
    neighbor MPLS-OVERLAY-PEERS maximum-routes 0
-   neighbor 100.1.1.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.1.1.1 description SF-SITE-101-RR-1
-   neighbor 100.1.1.2 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.1.1.2 description SF-SITE-102-RR-1
+   neighbor 100.1.1.13 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.1.1.13 description SF-SITE-101-RR-1
+   neighbor 100.1.1.20 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.1.1.20 description SF-SITE-102-RR-1
    !
    address-family evpn
       neighbor default encapsulation mpls next-hop-self source-interface Loopback0
@@ -678,15 +665,14 @@ router bgp 6.6971
    !
    address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
-      neighbor default encapsulation mpls next-hop-self source-interface null=
    !
    vrf BRANCH-10020
-      rd 100.3.2.1:10020
+      rd 100.3.2.25:10020
       route-target import vpn-ipv4 6.6971:10020
       route-target import vpn-ipv6 6.6971:10020
       route-target export vpn-ipv4 6.6971:10020
       route-target export vpn-ipv6 6.6971:10020
-      router-id 100.3.2.1
+      router-id 100.3.2.25
       neighbor 10.255.104.1 remote-as 65506
       neighbor 10.255.104.1 bfd
       redistribute connected
@@ -701,12 +687,12 @@ router bgp 6.6971
 
    !
    vrf CORP-10022
-      rd 100.3.2.1:10022
+      rd 100.3.2.25:10022
       route-target import vpn-ipv4 6.6971:10022
       route-target import vpn-ipv6 6.6971:10022
       route-target export vpn-ipv4 6.6971:10022
       route-target export vpn-ipv6 6.6971:10022
-      router-id 100.3.2.1
+      router-id 100.3.2.25
       neighbor 10.255.104.4 remote-as 65526
       neighbor 10.255.104.4 bfd
       redistribute connected
@@ -809,57 +795,6 @@ match-list input string SAKlogs
    40 match regex MKA-3-SESSION_FAILURE
 ```
 
-## ACL
-
-### IP Access-lists
-
-#### IP Access-lists Configuration
-
-```eos
-ip access-list BUSINESS
-   5 remark Management SSH
-   10 permit tcp any any eq ssh
-   20 permit tcp any eq ssh any
-   30 remark Management telnet
-   40 permit tcp any any eq telnet
-   50 permit tcp any eq telnet any
-   60 remark Management SOC
-   70 permit ip host 172.0.193.0 0.255.0.255 any
-   80 permit ip any host 172.0.193.0 0.255.0.255
-   90 remark Web CSR Accountlink SSL
-   100 permit tcp any any eq https
-   110 permit tcp any eq https any
-   120 remark Messaging - Print
-   130 permit tcp any any eq ldp
-   140 permit tcp any eq ldp any
-   150 permit tcp any any eq 9100
-   160 permit tcp any eq 9100 any
-   170 remark Login MS-DS
-   180 permit tcp any any eq microsoft-ds
-   190 permit tcp any eq microsoft-ds any
-   200 permit tcp any any eq 137
-   210 permit tcp any eq 137 any
-   220 permit tcp any any eq 138
-   230 permit tcp any eq 138 any
-   240 permit tcp any any eq 139
-   250 permit tcp any eq 139 any
-   260 permit tcp any any eq 1748
-   270 permit tcp any eq 1748 any
-   280 remark other
-   290 permit tcp any any range 18480 19999
-   300 permit tcp any range 18480 19999 any
-   310 permit tcp any any range 20021 20479
-   320 permit tcp any range 20021 20479 any
-   330 remark Voice AES Traffic
-   340 permit tcp any any eq 1050
-   350 permit tcp any eq 1050 any
-   360 permit tcp any any eq 450
-   370 permit tcp any eq 450 any
-   380 remark Wireless CAPWAP
-   390 permit udp any any eq 5246 5247
-   400 permit udp any eq 5246 5247 any
-```
-
 ## VRF Instances
 
 ### VRF Instances Summary
@@ -878,140 +813,15 @@ vrf instance BRANCH-10020
 vrf instance CORP-10022
 ```
 
-## MACsec
-
-### MACsec Summary
-
-License is not installed.
-
-FIPS restrictions enabled.
-
-#### MACsec Profiles Summary
-
-**Profile Backbone:**
-
-Settings:
-
-| Cipher | Key-Server Priority | Rekey-Period | SCI |
-| ------ | ------------------- | ------------ | --- |
-| aes256-gcm-xpn | - | 86400 | - |
-
-Keys:
-
-| Key ID | Fallback |
-| ------ |  -------- |
-| 4261636b62306e65 | - |
-
-### MACsec Device Configuration
-
-```eos
-!
-mac security
-   fips restrictions
-   !
-   profile Backbone
-      cipher aes256-gcm-xpn
-      key 4261636b62306e65 7 <removed>
-      mka session rekey-period 86400
-```
-
-## Quality Of Service
-
-### QOS
-
-#### QOS Summary
-
-QOS rewrite DSCP: **disabled**
-
-##### QOS Mappings
-
-
-| COS to Traffic Class mappings |
-| ----------------------------- |
-| 0 to traffic-class 0 |
-| 1 to traffic-class 1 |
-
-
-| DSCP to Traffic Class mappings |
-| ------------------------------ |
-| 0 1 2 3 4 5 6 7 |
-| 8 9 10 11 12 13 14 15 |
-
-
-| Traffic Class to DSCP or COS mappings |
-| ------------------------------------- |
-| 0 to cos 0 |
-| 0 to dscp 0 |
-| 0 to exp 0 |
-| 1 to cos 1 |
-| 1 to dscp 8 |
-| 1 to exp 1 |
-
-#### QOS Device Configuration
-
-```eos
-!
-qos map cos 0 to traffic-class 0
-qos map cos 1 to traffic-class 1
-qos map dscp 0 1 2 3 4 5 6 7
-qos map dscp 8 9 10 11 12 13 14 15
-qos map traffic-class 0 to cos 0
-qos map traffic-class 0 to dscp 0
-qos map traffic-class 0 to exp 0
-qos map traffic-class 1 to cos 1
-qos map traffic-class 1 to dscp 8
-qos map traffic-class 1 to exp 1
-```
-
-### QOS Class Maps
-
-#### QOS Class Maps Summary
-
-| Name | Field | Value |
-| ---- | ----- | ----- |
-| BUSINESS | acl | BUSINESS |
-
-#### Class-maps Device Configuration
-
-```eos
-!
-class-map type qos match-any BUSINESS
-   match ip access-group BUSINESS
-```
-
-### QOS Policy Maps
-
-#### QOS Policy Maps Summary
-
-**TENANT-INGRESS-CLASSIFIER-1G**
-
-| class | Set | Value |
-| ----- | --- | ----- |
-| BUSINESS | traffic_class | 2 |
-
-#### QOS Policy Maps configuration
-
-```eos
-!
-policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
-   class BUSINESS
-      set traffic-class 2
-```
-
-#### QOS Interfaces
-
-| Interface | Trust | Default DSCP | Default COS | Shape rate |
-| --------- | ----- | ------------ | ----------- | ---------- |
-| Port-Channel3 | dscp | - | - | - |
-
 ## EOS CLI
 
 ```eos
 !
 !
+mpls label range static 16 15984
 mpls label range bgp-sr 16000 8000
 mpls label range isis-sr 16000 8000
-mpls label range static 16 15984
+
 !
 router bgp 6.6971
   vpws BRANCH
@@ -1022,20 +832,14 @@ router bgp 6.6971
   address-family vpn-ipv6
     bgp additional-paths receive
     bgp additional-paths send any
-!
-qos map exp 0 to traffic-class 0
-qos map exp 1 to traffic-class 1
-!
-policy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G
- class BUSINESS
-    police rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes
+
 !
 router isis CORE
   lsp purge origination-identification
   set-overload-bit on-startup wait-for-bgp
   authentication mode md5
   graceful-restart restart-hold-time 300
-  authentication key 7 U93fJqF1/pY=
+  authentication key edwardjones
   address-family ipv4 unicast
     bfd all-interfaces
   address-family ipv6 unicast

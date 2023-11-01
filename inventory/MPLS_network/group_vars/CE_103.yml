@@ -9,10 +9,10 @@ ce:
     spanning_tree_mode: mstp
   nodes:
     - name: BRANCH-A2A-CE5
-      id: 1
+      id: 36
       mgmt_ip: 192.168.0.36/24
     - name: CORP-A2A-CE5
-      id: 3
+      id: 37
       mgmt_ip: 192.168.0.37/24
 
 # DOES NOT PROVIDE THE INTENDED OUTCOME. IP ROUTING IS NOT CONFIGURED ON ROUTER

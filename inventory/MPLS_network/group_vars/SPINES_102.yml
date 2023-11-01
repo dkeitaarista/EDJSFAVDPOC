@@ -12,8 +12,8 @@ p:
     isis_system_id_prefix: "1921.6800"
   nodes:
   - name: SF-SITE-102-SPINE-1
-    id: 1
+    id: 18
     mgmt_ip: 192.168.0.18/24
   - name: SF-SITE-102-SPINE-2
-    id: 2
+    id: 19
     mgmt_ip: 192.168.0.19/24

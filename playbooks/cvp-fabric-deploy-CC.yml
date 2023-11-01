@@ -31,21 +31,21 @@
         device_apply_mode: strict
         state: present
 
-    - name: Register feature branch
-      tags: [ provision ]
-      command: "git branch --show-current"
-      register: branch_name
-    - name: Bundle the generated tasks into a Change Control in CloudVision
-      vars:
-        taskIds: "{{ cvp_configlets_status.taskIds }}"
-        activities_list: |
-          [ {% for task in taskIds %}  {'task_id': "{{ task }}", 'stage': 'main'} {% if not loop.last %}, {% endif %} {% endfor %} ] 
-      tags: [ provision ]
-      arista.cvp.cv_change_control_v3:
-        state: set
-        name: "{{ branch_name.stdout }}"
-        change:
-          stages:
-            - name: main
-              mode: parallel
-          activities: "{{ activities_list }}"
+    # - name: Register feature branch
+    #   tags: [ provision ]
+    #   command: "git branch --show-current"
+    #   register: branch_name
+    # - name: Bundle the generated tasks into a Change Control in CloudVision
+    #   vars:
+    #     taskIds: "{{ cvp_configlets_status.taskIds }}"
+    #     activities_list: |
+    #       [ {% for task in taskIds %}  {'task_id': "{{ task }}", 'stage': 'main'} {% if not loop.last %}, {% endif %} {% endfor %} ] 
+    #   tags: [ provision ]
+    #   arista.cvp.cv_change_control_v3:
+    #     state: set
+    #     name: "{{ branch_name.stdout }}"
+    #     change:
+    #       stages:
+    #         - name: main
+    #           mode: parallel
+    #       activities: "{{ activities_list }}"

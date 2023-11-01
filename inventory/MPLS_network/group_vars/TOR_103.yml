@@ -5,15 +5,15 @@ ethernet_aggregation:
   defaults:
     platform: vEOS-lab
     spanning_tree_mode: mstp
-    uplink_structured_config:
-      service_policy:
-        qos:
-          input: TENANT-INGRESS-CLASSIFIER-1G
-      qos:
-        trust: dscp
+    # uplink_structured_config:
+    #   service_policy:
+    #     qos:
+    #       input: TENANT-INGRESS-CLASSIFIER-1G
+    #   qos:
+    #     trust: dscp
   nodes:
     - name: SF-SITE-103-TOR-1A
-      id: 1
+      id: 26
       mgmt_ip: 192.168.0.26/24
       uplink_interfaces:
         - Ethernet3

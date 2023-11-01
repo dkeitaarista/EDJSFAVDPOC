@@ -1,7 +1,7 @@
 hostname: SF-SITE-101-BL-1
 router_bgp:
   as: '6.6971'
-  router_id: 100.1.2.1
+  router_id: 100.1.2.14
   distance:
     external_routes: 20
     internal_routes: 200
@@ -45,21 +45,21 @@ router_bgp:
       activate: true
   address_family_vpn_ipv6:
     neighbor_default_encapsulation_mpls_next_hop_self:
-      source_interface: null=
+      source_interface: null
     peer_groups:
     - name: MPLS-OVERLAY-PEERS
       activate: true
   neighbors:
-  - ip_address: 100.1.1.1
+  - ip_address: 100.1.1.13
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-101-RR-1
-  - ip_address: 100.1.1.2
+  - ip_address: 100.1.1.20
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-RR-1
   vrfs:
   - name: BRANCH-10011
-    router_id: 100.1.2.1
-    rd: 100.1.2.1:10011
+    router_id: 100.1.2.14
+    rd: 100.1.2.14:10011
     route_targets:
       import:
       - address_family: vpn-ipv4
@@ -96,8 +96,8 @@ router_bgp:
 
       '
   - name: CORP-10012
-    router_id: 100.1.2.1
-    rd: 100.1.2.1:10012
+    router_id: 100.1.2.14
+    rd: 100.1.2.14:10012
     route_targets:
       import:
       - address_family: vpn-ipv4
@@ -134,8 +134,8 @@ router_bgp:
 
       '
   - name: CORP-10016
-    router_id: 100.1.2.1
-    rd: 100.1.2.1:10016
+    router_id: 100.1.2.14
+    rd: 100.1.2.14:10016
     route_targets:
       import:
       - address_family: vpn-ipv4
@@ -172,8 +172,8 @@ router_bgp:
 
       '
   - name: CORP-10020
-    router_id: 100.1.2.1
-    rd: 100.1.2.1:10020
+    router_id: 100.1.2.14
+    rd: 100.1.2.14:10020
     route_targets:
       import:
       - address_family: vpn-ipv4
@@ -211,7 +211,7 @@ router_bgp:
       '
   vpws:
   - name: BRANCH
-    rd: 100.1.2.1:5000
+    rd: 100.1.2.14:5000
     route_targets:
       import_export: 6.6971:5000
     pseudowires:
@@ -260,15 +260,13 @@ management_api_http:
   enable_vrfs:
   - name: default
   enable_https: true
-eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\nrouter bgp
-  6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
-  send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n!\nqos map exp 0 to traffic-class
-  0\nqos map exp 1 to traffic-class 1\n!\npolicy-map type quality-of-service TENANT-INGRESS-CLASSIFIER-1G\n class BUSINESS\n    police
-  rate 1440 mbps burst-size 125000 bytes rate 1540 mbps burst-size 125000 bytes\n!\nrouter isis CORE\n  lsp purge origination-identification\n
-  \ set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart restart-hold-time 300\n  authentication
-  key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd all-interfaces\n  address-family ipv6 unicast\n    bfd all-interfaces\n
-  \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology address-family ipv6
-  unicast\n"
+eos_cli: "!\nmpls label range static 16 15984\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\n\n!\nrouter
+  bgp 6.6971\n  vpws BRANCH\n    mpls control-word\n  address-family vpn-ipv4\n    bgp additional-paths receive\n    bgp additional-paths
+  send any\n  address-family vpn-ipv6\n    bgp additional-paths receive\n    bgp additional-paths send any\n\n!\nrouter isis CORE\n
+  \ lsp purge origination-identification\n  set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+  restart-hold-time 300\n  authentication key edwardjones\n  address-family ipv4 unicast\n    bfd all-interfaces\n  address-family ipv6
+  unicast\n    bfd all-interfaces\n    multi-topology\ninterface Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis
+  multi-topology address-family ipv6 unicast\n"
 ethernet_interfaces:
 - name: Ethernet11
   peer: SF-SITE-101-TOR-1A
@@ -352,8 +350,6 @@ ethernet_interfaces:
   isis_network_point_to_point: true
   isis_hello_padding: true
   isis_circuit_type: level-2
-  mac_security:
-    profile: Backbone
   mpls:
     ip: true
 - name: Ethernet9
@@ -370,71 +366,15 @@ ethernet_interfaces:
   isis_network_point_to_point: true
   isis_hello_padding: true
   isis_circuit_type: level-2
-  mac_security:
-    profile: Backbone
   mpls:
     ip: true
 - name: Port-channel11.100
   peer_type: l3_interface
   ip_address: 10.255.101.0/31
   shutdown: false
-  eos_cli: '# !
-
-    # tx-queue 0
-
-    #    no priority
-
-    #    bandwidth percent 5
-
-    # !
-
-    # tx-queue 1
-
-    #    no priority
-
-    #    bandwidth percent 1
-
-    # !
-
-    # tx-queue 2
-
-    #    no priority
-
-    #    bandwidth percent 19
-
-    # !
-
-    # tx-queue 3
-
-    #    no priority
-
-    #    bandwidth percent 20
-
-    # !
-
-    # tx-queue 4
-
-    #    priority strict
-
-    #    bandwidth percent 30
-
-    # !
-
-    # tx-queue 5
-
-    #    priority strict
-
-    #    bandwidth percent 25
-
-    '
   type: l3dot1q
   encapsulation_dot1q_vlan: 100
   vrf: BRANCH-10011
-  service_policy:
-    qos:
-      input: TENANT-INGRESS-CLASSIFIER-1G
-  qos:
-    trust: disabled
 - name: Port-channel11.200
   peer_type: l3_interface
   ip_address: 10.255.101.4/31
@@ -477,28 +417,23 @@ port_channel_interfaces:
   shutdown: false
   mode: trunk
   vlans: 100-101,200-201
-  service_policy:
-    qos:
-      input: TENANT-INGRESS-CLASSIFIER-1G
-  qos:
-    trust: dscp
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
   shutdown: false
-  ip_address: 100.1.2.1/32
+  ip_address: 100.1.2.14/32
   isis_enable: CORE
   isis_passive: true
   node_segment:
-    ipv4_index: 1
+    ipv4_index: 14
 - name: Loopback10
   description: Inband management
   ip_address: 192.168.101.14/32
 router_isis:
   instance: CORE
   log_adjacency_changes: true
-  net: 51.0001.1921.6800.0001.00
-  router_id: 100.1.2.1
+  net: 51.0001.1921.6800.0014.00
+  router_id: 100.1.2.14
   is_type: level-2
   address_family_ipv4:
     enabled: true
@@ -513,7 +448,7 @@ router_isis:
   advertise:
     passive_only: false
   segment_routing_mpls:
-    router_id: 100.1.2.1
+    router_id: 100.1.2.14
     enabled: true
   address_family_ipv6:
     enabled: true
@@ -553,17 +488,6 @@ vlans:
   tenant: CORP
 ip_igmp_snooping:
   globally_enabled: true
-mac_security:
-  fips_restrictions: true
-  profiles:
-  - name: Backbone
-    cipher: aes256-gcm-xpn
-    connection_keys:
-    - id: 4261636b62306e65
-      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-    mka:
-      session:
-        rekey_period: 86400
 logging:
   console: critical
   monitor: disabled

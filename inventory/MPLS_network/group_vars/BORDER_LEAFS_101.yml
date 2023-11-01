@@ -16,8 +16,8 @@ pe:
       tags: [ site101 ]
   nodes:
     - name: SF-SITE-101-BL-1
-      id: 1
+      id: 14
       mgmt_ip: 192.168.0.14/24
     - name: SF-SITE-101-BL-2
-      id: 2
+      id: 15
       mgmt_ip: 192.168.0.15/24

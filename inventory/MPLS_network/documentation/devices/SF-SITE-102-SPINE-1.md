@@ -36,9 +36,6 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
-- [MACsec](#macsec)
-  - [MACsec Summary](#macsec-summary)
-  - [MACsec Device Configuration](#macsec-device-configuration)
 - [EOS CLI](#eos-cli)
 
 ## Management
@@ -321,7 +318,7 @@ interface Ethernet4
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | LSR_Router_ID | default | 100.2.0.1/32 |
+| Loopback0 | LSR_Router_ID | default | 100.2.0.18/32 |
 | Loopback10 | Inband management | default | 192.168.101.18/32 |
 
 ##### IPv6
@@ -344,10 +341,10 @@ interface Ethernet4
 interface Loopback0
    description LSR_Router_ID
    no shutdown
-   ip address 100.2.0.1/32
+   ip address 100.2.0.18/32
    isis enable CORE
    isis passive
-   node-segment ipv4 index 1
+   node-segment ipv4 index 18
 !
 interface Loopback10
    description Inband management
@@ -396,9 +393,9 @@ ip routing
 | Settings | Value |
 | -------- | ----- |
 | Instance | CORE |
-| Net-ID | 51.0001.1921.6800.0001.00 |
+| Net-ID | 51.0001.1921.6800.0018.00 |
 | Type | level-2 |
-| Router-ID | 100.2.0.1 |
+| Router-ID | 100.2.0.18 |
 | Log Adjacency Changes | True |
 | Local Convergence Delay (ms) | 10000 |
 | SR MPLS Enabled | True |
@@ -415,7 +412,7 @@ ip routing
 
 | Loopback | IPv4 Index | IPv6 Index |
 | -------- | ---------- | ---------- |
-| Loopback0 | 1 | - |
+| Loopback0 | 18 | - |
 
 #### ISIS IPv4 Address Family Summary
 
@@ -439,9 +436,9 @@ ip routing
 ```eos
 !
 router isis CORE
-   net 51.0001.1921.6800.0001.00
+   net 51.0001.1921.6800.0018.00
    is-type level-2
-   router-id ipv4 100.2.0.1
+   router-id ipv4 100.2.0.18
    log-adjacency-changes
    timers local-convergence-delay 10000 protected-prefixes
    !
@@ -523,51 +520,15 @@ match-list input string SAKlogs
 ```eos
 ```
 
-## MACsec
-
-### MACsec Summary
-
-License is not installed.
-
-FIPS restrictions enabled.
-
-#### MACsec Profiles Summary
-
-**Profile Backbone:**
-
-Settings:
-
-| Cipher | Key-Server Priority | Rekey-Period | SCI |
-| ------ | ------------------- | ------------ | --- |
-| aes256-gcm-xpn | - | 86400 | - |
-
-Keys:
-
-| Key ID | Fallback |
-| ------ |  -------- |
-| 4261636b62306e65 | - |
-
-### MACsec Device Configuration
-
-```eos
-!
-mac security
-   fips restrictions
-   !
-   profile Backbone
-      cipher aes256-gcm-xpn
-      key 4261636b62306e65 7 <removed>
-      mka session rekey-period 86400
-```
-
 ## EOS CLI
 
 ```eos
 !
 !
+mpls label range static 16 15984
 mpls label range bgp-sr 16000 8000
 mpls label range isis-sr 16000 8000
-mpls label range static 16 15984
+
 !
 
 router isis CORE
@@ -575,7 +536,7 @@ router isis CORE
   set-overload-bit on-startup wait-for-bgp
   authentication mode md5
   graceful-restart restart-hold-time 300
-  authentication key 7 U93fJqF1/pY=
+  authentication key edwardjones
   address-family ipv4 unicast
     bfd all-interfaces
   address-family ipv6 unicast

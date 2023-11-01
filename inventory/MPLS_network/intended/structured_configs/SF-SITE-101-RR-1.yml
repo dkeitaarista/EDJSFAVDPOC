@@ -1,7 +1,7 @@
 hostname: SF-SITE-101-RR-1
 router_bgp:
   as: '6.6971'
-  router_id: 100.1.1.1
+  router_id: 100.1.1.13
   distance:
     external_routes: 20
     internal_routes: 200
@@ -18,7 +18,7 @@ router_bgp:
   graceful_restart:
     enabled: true
     restart_time: 300
-  bgp_cluster_id: 100.1.1.1
+  bgp_cluster_id: 100.1.1.13
   peer_groups:
   - name: MPLS-OVERLAY-PEERS
     type: mpls
@@ -62,22 +62,22 @@ router_bgp:
     - name: RR-OVERLAY-PEERS
       activate: true
   neighbors:
-  - ip_address: 100.1.2.1
+  - ip_address: 100.1.2.14
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-101-BL-1
-  - ip_address: 100.1.2.2
+  - ip_address: 100.1.2.15
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-101-BL-2
-  - ip_address: 100.2.2.1
+  - ip_address: 100.2.2.21
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-BL-1
-  - ip_address: 100.2.2.2
+  - ip_address: 100.2.2.22
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-BL-2
-  - ip_address: 100.3.2.1
+  - ip_address: 100.3.2.25
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-103-BL-1
-  - ip_address: 100.4.2.1
+  - ip_address: 100.4.2.27
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-104-BL-1
 service_routing_protocols_model: multi-agent
@@ -113,25 +113,25 @@ management_api_http:
   - name: default
   enable_https: true
 eos_cli: "!\nrouter isis CORE\n  lsp purge origination-identification\n  set-overload-bit on-startup wait-for-bgp\n  authentication
-  mode md5\n  graceful-restart restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd all-interfaces\n!\ninterface
+  mode md5\n  graceful-restart restart-hold-time 300\n  authentication key edwardjones\n  address-family ipv4 unicast\n    bfd all-interfaces\n!\ninterface
   Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n"
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
   shutdown: false
-  ip_address: 100.1.1.1/32
+  ip_address: 100.1.1.13/32
   isis_enable: CORE
   isis_passive: true
   node_segment:
-    ipv4_index: 1
+    ipv4_index: 13
 - name: Loopback10
   description: Inband management
   ip_address: 192.168.101.13/32
 router_isis:
   instance: CORE
   log_adjacency_changes: true
-  net: 51.0001.1921.6800.0001.00
-  router_id: 100.1.1.1
+  net: 51.0001.1921.6800.0013.00
+  router_id: 100.1.1.13
   is_type: level-2
   address_family_ipv4:
     enabled: true
@@ -146,7 +146,7 @@ router_isis:
   advertise:
     passive_only: false
   segment_routing_mpls:
-    router_id: 100.1.1.1
+    router_id: 100.1.1.13
     enabled: true
   address_family_ipv6:
     enabled: true
@@ -226,14 +226,3 @@ ntp:
     vrf: default
   - name: 1.north-america.pool.ntp.org
     vrf: default
-mac_security:
-  fips_restrictions: true
-  profiles:
-  - name: Backbone
-    cipher: aes256-gcm-xpn
-    connection_keys:
-    - id: 4261636b62306e65
-      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-    mka:
-      session:
-        rekey_period: 86400

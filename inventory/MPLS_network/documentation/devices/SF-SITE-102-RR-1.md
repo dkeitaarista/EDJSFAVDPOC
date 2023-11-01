@@ -39,9 +39,6 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
-- [MACsec](#macsec)
-  - [MACsec Summary](#macsec-summary)
-  - [MACsec Device Configuration](#macsec-device-configuration)
 - [EOS CLI](#eos-cli)
 
 ## Management
@@ -324,7 +321,7 @@ interface Ethernet4
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | MPLS_Overlay_peering | default | 100.1.1.2/32 |
+| Loopback0 | MPLS_Overlay_peering | default | 100.1.1.20/32 |
 | Loopback10 | Inband management | default | 192.168.101.20/32 |
 
 ##### IPv6
@@ -347,10 +344,10 @@ interface Ethernet4
 interface Loopback0
    description MPLS_Overlay_peering
    no shutdown
-   ip address 100.1.1.2/32
+   ip address 100.1.1.20/32
    isis enable CORE
    isis passive
-   node-segment ipv4 index 2
+   node-segment ipv4 index 20
 !
 interface Loopback10
    description Inband management
@@ -399,9 +396,9 @@ ip routing
 | Settings | Value |
 | -------- | ----- |
 | Instance | CORE |
-| Net-ID | 51.0001.1921.6800.0002.00 |
+| Net-ID | 51.0001.1921.6800.0020.00 |
 | Type | level-2 |
-| Router-ID | 100.1.1.2 |
+| Router-ID | 100.1.1.20 |
 | Log Adjacency Changes | True |
 | Local Convergence Delay (ms) | 10000 |
 | SR MPLS Enabled | True |
@@ -418,7 +415,7 @@ ip routing
 
 | Loopback | IPv4 Index | IPv6 Index |
 | -------- | ---------- | ---------- |
-| Loopback0 | 2 | - |
+| Loopback0 | 20 | - |
 
 #### ISIS IPv4 Address Family Summary
 
@@ -442,9 +439,9 @@ ip routing
 ```eos
 !
 router isis CORE
-   net 51.0001.1921.6800.0002.00
+   net 51.0001.1921.6800.0020.00
    is-type level-2
-   router-id ipv4 100.1.1.2
+   router-id ipv4 100.1.1.20
    log-adjacency-changes
    timers local-convergence-delay 10000 protected-prefixes
    !
@@ -465,11 +462,11 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 6.6971|  100.1.1.2 |
+| 6.6971|  100.1.1.20 |
 
 | BGP AS | Cluster ID |
 | ------ | --------- |
-| 6.6971|  100.1.1.2 |
+| 6.6971|  100.1.1.20 |
 
 | BGP Tuning |
 | ---------- |
@@ -510,12 +507,12 @@ router isis CORE
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 100.1.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.1.2.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.2.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.2.2.2 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.3.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 100.4.2.1 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 100.1.2.14 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 100.1.2.15 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 100.2.2.21 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 100.2.2.22 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 100.3.2.25 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 100.4.2.27 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
 
 #### Router BGP EVPN Address Family
 
@@ -555,13 +552,13 @@ router isis CORE
 ```eos
 !
 router bgp 6.6971
-   router-id 100.1.1.2
+   router-id 100.1.1.20
    distance bgp 20 200 200
    graceful-restart restart-time 300
    graceful-restart
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
-   bgp cluster-id 100.1.1.2
+   bgp cluster-id 100.1.1.20
    bgp asn notation asdot
    bgp always-compare-med
    neighbor MPLS-OVERLAY-PEERS peer group
@@ -577,18 +574,18 @@ router bgp 6.6971
    neighbor RR-OVERLAY-PEERS bfd
    neighbor RR-OVERLAY-PEERS send-community
    neighbor RR-OVERLAY-PEERS maximum-routes 0
-   neighbor 100.1.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.1.2.1 description SF-SITE-101-BL-1
-   neighbor 100.1.2.2 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.1.2.2 description SF-SITE-101-BL-2
-   neighbor 100.2.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.2.2.1 description SF-SITE-102-BL-1
-   neighbor 100.2.2.2 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.2.2.2 description SF-SITE-102-BL-2
-   neighbor 100.3.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.3.2.1 description SF-SITE-103-BL-1
-   neighbor 100.4.2.1 peer group MPLS-OVERLAY-PEERS
-   neighbor 100.4.2.1 description SF-SITE-104-BL-1
+   neighbor 100.1.2.14 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.1.2.14 description SF-SITE-101-BL-1
+   neighbor 100.1.2.15 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.1.2.15 description SF-SITE-101-BL-2
+   neighbor 100.2.2.21 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.2.2.21 description SF-SITE-102-BL-1
+   neighbor 100.2.2.22 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.2.2.22 description SF-SITE-102-BL-2
+   neighbor 100.3.2.25 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.3.2.25 description SF-SITE-103-BL-1
+   neighbor 100.4.2.27 peer group MPLS-OVERLAY-PEERS
+   neighbor 100.4.2.27 description SF-SITE-104-BL-1
    !
    address-family evpn
       neighbor default encapsulation mpls
@@ -693,43 +690,6 @@ match-list input string SAKlogs
 ```eos
 ```
 
-## MACsec
-
-### MACsec Summary
-
-License is not installed.
-
-FIPS restrictions enabled.
-
-#### MACsec Profiles Summary
-
-**Profile Backbone:**
-
-Settings:
-
-| Cipher | Key-Server Priority | Rekey-Period | SCI |
-| ------ | ------------------- | ------------ | --- |
-| aes256-gcm-xpn | - | 86400 | - |
-
-Keys:
-
-| Key ID | Fallback |
-| ------ |  -------- |
-| 4261636b62306e65 | - |
-
-### MACsec Device Configuration
-
-```eos
-!
-mac security
-   fips restrictions
-   !
-   profile Backbone
-      cipher aes256-gcm-xpn
-      key 4261636b62306e65 7 <removed>
-      mka session rekey-period 86400
-```
-
 ## EOS CLI
 
 ```eos
@@ -740,7 +700,7 @@ router isis CORE
   set-overload-bit on-startup wait-for-bgp
   authentication mode md5
   graceful-restart restart-hold-time 300
-  authentication key 7 U93fJqF1/pY=
+  authentication key edwardjones
   address-family ipv4 unicast
     bfd all-interfaces
 !

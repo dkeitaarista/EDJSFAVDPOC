@@ -11,8 +11,8 @@ rr:
     raw_eos_cli: "{{ PE_EOS_CLI }}"
   nodes:
   - name: SF-SITE-101-RR-1
-    id: 1
+    id: 13
     mgmt_ip: 192.168.0.13/24
   - name: SF-SITE-102-RR-1
-    id: 2
+    id: 20
     mgmt_ip: 192.168.0.20/24

@@ -31,28 +31,28 @@ management_api_http:
   enable_vrfs:
   - name: default
   enable_https: true
-eos_cli: "!\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\nmpls label range static 16 15984\n!\n\nrouter
+eos_cli: "!\nmpls label range static 16 15984\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\n\n!\n\nrouter
   isis CORE\n  lsp purge origination-identification\n  set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
-  restart-hold-time 300\n  authentication key 7 U93fJqF1/pY=\n  address-family ipv4 unicast\n    bfd all-interfaces\n  address-family
-  ipv6 unicast\n    bfd all-interfaces\n    multi-topology\ninterface Loopback0\n  isis multi-topology address-family ipv4 unicast\n
-  \ isis multi-topology address-family ipv6 unicast\n"
+  restart-hold-time 300\n  authentication key edwardjones\n  address-family ipv4 unicast\n    bfd all-interfaces\n  address-family ipv6
+  unicast\n    bfd all-interfaces\n    multi-topology\ninterface Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis
+  multi-topology address-family ipv6 unicast\n"
 loopback_interfaces:
 - name: Loopback0
   description: LSR_Router_ID
   shutdown: false
-  ip_address: 100.1.0.2/32
+  ip_address: 100.1.0.12/32
   isis_enable: CORE
   isis_passive: true
   node_segment:
-    ipv4_index: 2
+    ipv4_index: 12
 - name: Loopback10
   description: Inband management
   ip_address: 192.168.101.12/32
 router_isis:
   instance: CORE
   log_adjacency_changes: true
-  net: 51.0001.1921.6800.0002.00
-  router_id: 100.1.0.2
+  net: 51.0001.1921.6800.0012.00
+  router_id: 100.1.0.12
   is_type: level-2
   address_family_ipv4:
     enabled: true
@@ -67,7 +67,7 @@ router_isis:
   advertise:
     passive_only: false
   segment_routing_mpls:
-    router_id: 100.1.0.2
+    router_id: 100.1.0.12
     enabled: true
   address_family_ipv6:
     enabled: true
@@ -142,14 +142,3 @@ ntp:
     vrf: default
   - name: 1.north-america.pool.ntp.org
     vrf: default
-mac_security:
-  fips_restrictions: true
-  profiles:
-  - name: Backbone
-    cipher: aes256-gcm-xpn
-    connection_keys:
-    - id: 4261636b62306e65
-      encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-    mka:
-      session:
-        rekey_period: 86400
