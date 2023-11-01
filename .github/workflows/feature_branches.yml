@@ -10,7 +10,7 @@ jobs:
     env:
       PASSPHRASE: ${{ secrets.PASSPHRASE }}
     timeout-minutes: 15
-    runs-on: ubuntu-last
+    runs-on: [ self-hosted, macOS, X64 ]
     steps:
       - name: Hi
         run: echo "Hello World!"
@@ -18,8 +18,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # - name: Install zsh
-      #   run: sudo apt install -y zsh
+      - name: Install zsh
+        run: sudo apt install -y zsh
 
       - name: Setup Python
         uses: actions/setup-python@v3
@@ -37,17 +37,10 @@ jobs:
           filters: |
             workflows:
               - 'inventory/MPLS_network/group_vars/**'
-
-      - name: Install collections
-        run: | 
-          ansible-galaxy collection install --ignore-certs arista.avd
-          ansible-galaxy collection install --ignore-certs arista.cvp
-          ansible-galaxy collection install --ignore-certs community.general
-        if: steps.filter-group_vars.outputs.workflows == 'true'
       
-      # - name: Install collections
-      #   run: ansible-galaxy collection install -r requirements.yml 
-      #   if: steps.filter-group_vars.outputs.workflows == 'true'
+      - name: Install collections
+        run: ansible-galaxy collection install -r requirements.yml 
+        if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Test configuration for the fabric
         run: make fabric-build
