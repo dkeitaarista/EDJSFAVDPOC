@@ -279,11 +279,11 @@ custom_structured_configuration_ethernet_interfaces:
   ip_address: 10.255.101.9/31
 custom_structured_configuration_router_bgp:
   as: 65531
-  router_id: 10.255.101.9
+  router_id: 10.255.101.10
   redistribute_routes:
   - source_protocol: connected
   neighbors:
-  - ip_address: 10.255.101.8
+  - ip_address: 10.255.101.11
     remote_as: '65531'
     peer_group: CE-PEER-VPWS
   address_family_ipv4:
@@ -2104,7 +2104,7 @@ groups:
   - SF-SITE-102-BL-2
   - SF-SITE-103-BL-1
   - SF-SITE-104-BL-1
-omit: __omit_place_holder__78d83311ea38a25be097c11b1e0883ec7bb68ca7
+omit: __omit_place_holder__9e0f22e584f7eb6db756312d49e47ee463b8b4f9
 ansible_version:
   string: 2.12.10
   full: 2.12.10

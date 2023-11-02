@@ -57,7 +57,7 @@ BRANCH:
             nodes:
               - SF-SITE-101-BL-1
       - name: BRANCH-10013
-        vrf_vni: 10013
+        vrf_vni: 10011
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -94,7 +94,7 @@ BRANCH:
             nodes:
               - SF-SITE-101-BL-2
       - name: BRANCH-10015
-        vrf_vni: 10015
+        vrf_vni: 10011
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -131,7 +131,7 @@ BRANCH:
             nodes:
               - SF-SITE-102-BL-1
       - name: BRANCH-10017
-        vrf_vni: 10017
+        vrf_vni: 10011
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -168,7 +168,7 @@ BRANCH:
             nodes:
               - SF-SITE-102-BL-2
       - name: BRANCH-10019
-        vrf_vni: 10019
+        vrf_vni: 10011
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -190,7 +190,7 @@ BRANCH:
             ip_addresses:
               - 10.255.103.0/31
             nodes:
-              - SF-SITE-102-BL-2
+              - SF-SITE-103-BL-1
             # structured_config:
             #   service_policy:
             #     qos:
@@ -205,7 +205,7 @@ BRANCH:
             nodes:
               - SF-SITE-103-BL-1
       - name: BRANCH-10020
-        vrf_vni: 10020
+        vrf_vni: 10011
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -225,7 +225,7 @@ BRANCH:
             ip_addresses:
               - 10.255.104.0/31
             nodes:
-              - SF-SITE-103-BL-1
+              - SF-SITE-104-BL-1
             # structured_config:
             #   service_policy:
             #     qos:
@@ -238,7 +238,7 @@ BRANCH:
             remote_as: 65506
             bfd: true
             nodes:
-              - SF-SITE-103-BL-1
+              - SF-SITE-104-BL-1
     l2vlans:
       - id: 100
         name: vlan_100

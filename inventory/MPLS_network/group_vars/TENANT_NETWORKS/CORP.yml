@@ -40,7 +40,7 @@ CORP:
             nodes:
               - SF-SITE-101-BL-1
       - name: CORP-10014
-        vrf_vni: 10014
+        vrf_vni: 10012
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -77,7 +77,7 @@ CORP:
             nodes:
               - SF-SITE-101-BL-2
       - name: CORP-10016
-        vrf_vni: 10016
+        vrf_vni: 10012
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -99,7 +99,7 @@ CORP:
             ip_addresses:
               - 10.255.102.4/31
             nodes:
-              - SF-SITE-101-BL-1
+              - SF-SITE-102-BL-1
             # structured_config:
             #   service_policy:
             #     qos:
@@ -112,9 +112,9 @@ CORP:
             remote_as: 65523
             bfd: true
             nodes:
-              - SF-SITE-101-BL-1
+              - SF-SITE-102-BL-1
       - name: CORP-10018
-        vrf_vni: 10018
+        vrf_vni: 10012
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -136,7 +136,7 @@ CORP:
             ip_addresses:
               - 10.255.102.6/31
             nodes:
-              - SF-SITE-101-BL-2
+              - SF-SITE-102-BL-2
             # structured_config:
             #   service_policy:
             #     qos:
@@ -149,9 +149,9 @@ CORP:
             remote_as: 65524
             bfd: true
             nodes:
-              - SF-SITE-101-BL-2
+              - SF-SITE-102-BL-2
       - name: CORP-10020
-        vrf_vni: 10020
+        vrf_vni: 10012
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -171,9 +171,9 @@ CORP:
             encapsulation_dot1q_vlan:
               - 204
             ip_addresses:
-              - 10.255.103.3/31
+              - 10.255.103.2/31
             nodes:
-              - SF-SITE-101-BL-1
+              - SF-SITE-103-BL-1
             # structured_config:
             #   service_policy:
             #     qos:
@@ -182,13 +182,13 @@ CORP:
             #     trust: disabled
             # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
-          - ip_address: 10.255.103.4
+          - ip_address: 10.255.103.3
             remote_as: 65525
             bfd: true
             nodes:
-              - SF-SITE-101-BL-1
+              - SF-SITE-103-BL-1
       - name: CORP-10022
-        vrf_vni: 10022
+        vrf_vni: 10012
         address_families:
           - vpn-ipv4
           - vpn-ipv6
@@ -206,9 +206,9 @@ CORP:
           - interfaces:
               - Ethernet8
             ip_addresses:
-              - 10.255.104.3/31
+              - 10.255.104.2/31
             nodes:
-              - SF-SITE-103-BL-1
+              - SF-SITE-104-BL-1
             # structured_config:
             #   service_policy:
             #     qos:
@@ -217,11 +217,11 @@ CORP:
             #     trust: disabled
             # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
-          - ip_address: 10.255.104.4
+          - ip_address: 10.255.104.3
             remote_as: 65526
             bfd: true
             nodes:
-              - SF-SITE-103-BL-1
+              - SF-SITE-104-BL-1
     l2vlans:
       - id: 200
         name: vlan_200

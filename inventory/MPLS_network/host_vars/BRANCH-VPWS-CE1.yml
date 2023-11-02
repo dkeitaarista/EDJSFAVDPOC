@@ -11,11 +11,11 @@ custom_structured_configuration_ethernet_interfaces:
 
 custom_structured_configuration_router_bgp:
   as: 65531
-  router_id: 10.255.101.9
+  router_id: 10.255.101.10
   redistribute_routes:
     - source_protocol: connected
   neighbors:
-    - ip_address: 10.255.101.8
+    - ip_address: 10.255.101.11
       remote_as: '65531'
       peer_group: CE-PEER-VPWS
   address_family_ipv4:

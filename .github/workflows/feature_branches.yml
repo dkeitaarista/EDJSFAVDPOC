@@ -19,9 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # - name: Install CLI tools for Xcode
-      #   run: xcode-select -r
-
       - name: Install zsh
         run: arch -arm64 brew install zsh
 
@@ -45,6 +42,7 @@ jobs:
           filters: |
             workflows:
               - 'inventory/MPLS_network/group_vars/**'
+              - 'inventory/MPLS_network/inventory.yml'
               - '.github/workflows/**'
       - name: Check ansible version before installation
         run: ansible --version 

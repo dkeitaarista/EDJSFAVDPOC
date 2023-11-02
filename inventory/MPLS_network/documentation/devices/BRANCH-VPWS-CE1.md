@@ -354,22 +354,22 @@ ip routing
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65531|  10.255.101.9 |
+| 65531|  10.255.101.10 |
 
 #### BGP Neighbors
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 10.255.101.8 | 65531 | default | - | - | - | - | - | - | - | - |
+| 10.255.101.11 | 65531 | default | - | - | - | - | - | - | - | - |
 
 #### Router BGP Device Configuration
 
 ```eos
 !
 router bgp 65531
-   router-id 10.255.101.9
-   neighbor 10.255.101.8 peer group CE-PEER-VPWS
-   neighbor 10.255.101.8 remote-as 65531
+   router-id 10.255.101.10
+   neighbor 10.255.101.11 peer group CE-PEER-VPWS
+   neighbor 10.255.101.11 remote-as 65531
    redistribute connected
    !
    address-family ipv4

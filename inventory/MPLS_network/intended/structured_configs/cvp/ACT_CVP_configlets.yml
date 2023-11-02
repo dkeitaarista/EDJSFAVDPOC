@@ -155,8 +155,8 @@ cvp_configlets:
     \  no switchport\n   ip address 10.255.101.9/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.5/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.40/24\n!\nip
-    routing\n!\nrouter bgp 65531\n   router-id 10.255.101.9\n   neighbor 10.255.101.8
-    peer group CE-PEER-VPWS\n   neighbor 10.255.101.8 remote-as 65531\n   redistribute
+    routing\n!\nrouter bgp 65531\n   router-id 10.255.101.10\n   neighbor 10.255.101.11
+    peer group CE-PEER-VPWS\n   neighbor 10.255.101.11 remote-as 65531\n   redistribute
     connected\n   !\n   address-family ipv4\n      neighbor CE-PEER-VPWS activate\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"

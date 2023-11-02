@@ -9,62 +9,77 @@ jobs:
   deploy-prod:
     env:
       LABPASSPHRASE: ${{ secrets.LABPASSPHRASE }}
-      CVP_host: 'x.x.x.x'  ### REPLACE WITH CVP IP ADDRESS
-      OVPN_profile: SE_ACT_Ubuntu.ovpn  ### REPLACE WITH ACTUAL FILE FOR SPECIFIC ACT ENVIRONMENT
+      CVP_host: '10.255.39.46'  ### REPLACE WITH CVP IP ADDRESS
+      OVPN_profile: PS.ovpn  ### REPLACE WITH ACTUAL FILE FOR SPECIFIC ACT ENVIRONMENT
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - name: Hi
         run: echo "Hello World!"
 
-#       - name: Checkout
-#         uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Install zsh
+        run: arch -arm64 brew install zsh
 
-#       - name: Install zsh
-#         run: sudo apt install -y zsh
+      - name: Setup Python
+        # uses: actions/setup-python@v3
+        run: arch -arm64 brew install python3
 
-#       - name: Setup Python
-#         uses: actions/setup-python@v3
+      # - name: Install zsh
+      #   run: sudo apt install -y zsh
 
-#       - name: Install Python requirements
-#         run: pip3 install -r requirements.txt
+      # - name: Setup Python
+      #   uses: actions/setup-python@v3
 
-#       - name: Run pre-commit on files
-#         uses: pre-commit/action@v3.0.0
+      - name: Install Python requirements
+        run: pip3 install -r requirements.txt
 
-#       - name: Check paths for group_vars
-#         uses: dorny/paths-filter@v2
-#         id: filter-group_vars
-#         with:
-#           filters: |
-#             workflows:
-#               - 'inventory/group_vars/**'
+      # - name: Run pre-commit on files
+      #   uses: pre-commit/action@v3.0.0
+      
+      - name: Run pre-commit on files
+        run: |
+          pip3 install pre-commit
+          pre-commit install
 
-#       - name: Install collections
-#         run: ansible-galaxy collection install -r requirements.yml
-#         if: steps.filter-group_vars.outputs.workflows == 'true'
+      - name: Check paths for group_vars
+        uses: dorny/paths-filter@v2
+        id: filter-group_vars
+        with:
+          filters: |
+            workflows:
+              - 'inventory/MPLS_network/group_vars/**'
+              - 'inventory/MPLS_network/inventory.yml'
+              - '.github/workflows/**'
+            
+      - name: Install collections
+        run: ansible-galaxy collection install -r requirements.yml
+        if: steps.filter-group_vars.outputs.workflows == 'true'
 
 # ###
 # # ACT connectivity 
-#       - name: Install OVPN
-#         run: sudo apt --assume-yes --no-install-recommends install openvpn
-#         if: steps.filter-group_vars.outputs.workflows == 'true'
+      - name: Install OVPN
+        run: arch -arm64 brew install openvpn
+        # run: sudo apt --assume-yes --no-install-recommends install openvpn
+        if: steps.filter-group_vars.outputs.workflows == 'true'
 
-#       - name: Install resolvconf
-#         run: sudo apt install resolvconf openvpn-systemd-resolved
-#         if: steps.filter-group_vars.outputs.workflows == 'true'
+      - name: Install resolvconf
+        run: arch -arm64 brew install resolvconf openvpn-systemd-resolved
+        if: steps.filter-group_vars.outputs.workflows == 'true'
 
-#       - name: Connect VPN
-#         run: sudo openvpn --config ".github/vpn/$OVPN_profile" --daemon
-#         if: steps.filter-group_vars.outputs.workflows == 'true'
+      - name: Connect VPN
+        run: openvpn --config ".github/vpn/$OVPN_profile" --daemon
+        if: steps.filter-group_vars.outputs.workflows == 'true'
 
-#       - name: Wait for a VPN connection
-#         timeout-minutes: 1
-#         run: until ping -c1 $CVP_host; do sleep 2; done
-#         if: steps.filter-group_vars.outputs.workflows == 'true'
+      - name: Wait for a VPN connection
+        timeout-minutes: 1
+        run: until ping -c1 $CVP_host; do sleep 2; done
+        if: steps.filter-group_vars.outputs.workflows == 'true'
 # # ACT connectivity
 # ###
 
-#       - name: Build and deploy configuration for the fabric
-#         run: make fabric-deploy_remote
-#         if: steps.filter-group_vars.outputs.workflows == 'true'
+      - name: Build and deploy configuration for the fabric
+        run: make fabric-provision
+        if: steps.filter-group_vars.outputs.workflows == 'true'
