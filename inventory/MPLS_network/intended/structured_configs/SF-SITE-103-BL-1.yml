@@ -57,36 +57,36 @@ router_bgp:
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-RR-1
   vrfs:
-  - name: BRANCH-10020
+  - name: BRANCH-10019
     router_id: 100.3.2.25
-    rd: 100.3.2.25:10020
+    rd: 100.3.2.25:10011
     route_targets:
       import:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:10020
+        - 6.6971:10011
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:10020
+        - 6.6971:10011
       export:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:10020
+        - 6.6971:10011
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:10020
+        - 6.6971:10011
     redistribute_routes:
     - source_protocol: connected
     address_family_ipv4:
       neighbors:
-      - ip_address: 10.255.104.1
+      - ip_address: 10.255.103.1
         activate: true
       bgp:
         additional_paths:
           install: true
     neighbors:
-    - ip_address: 10.255.104.1
-      remote_as: '65506'
+    - ip_address: 10.255.103.1
+      remote_as: '65505'
       bfd: true
     eos_cli: 'bgp additional-paths receive
 
@@ -95,36 +95,36 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
-  - name: CORP-10022
+  - name: CORP-10020
     router_id: 100.3.2.25
-    rd: 100.3.2.25:10022
+    rd: 100.3.2.25:10012
     route_targets:
       import:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:10022
+        - 6.6971:10012
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:10022
+        - 6.6971:10012
       export:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:10022
+        - 6.6971:10012
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:10022
+        - 6.6971:10012
     redistribute_routes:
     - source_protocol: connected
     address_family_ipv4:
       neighbors:
-      - ip_address: 10.255.104.4
+      - ip_address: 10.255.103.3
         activate: true
       bgp:
         additional_paths:
           install: true
     neighbors:
-    - ip_address: 10.255.104.4
-      remote_as: '65526'
+    - ip_address: 10.255.103.3
+      remote_as: '65525'
       bfd: true
     eos_cli: 'bgp additional-paths receive
 
@@ -151,10 +151,10 @@ local_users:
 vrfs:
 - name: default
   ip_routing: false
-- name: BRANCH-10020
+- name: BRANCH-10019
   tenant: BRANCH
   ip_routing: true
-- name: CORP-10022
+- name: CORP-10020
   tenant: CORP
   ip_routing: true
 management_interfaces:
@@ -229,18 +229,24 @@ ethernet_interfaces:
   isis_circuit_type: level-2
   mpls:
     ip: true
-- name: Ethernet7
+- name: Port-channel11.104
   peer_type: l3_interface
-  ip_address: 10.255.104.0/31
+  ip_address: 10.255.103.0/31
   shutdown: false
-  type: routed
-  vrf: BRANCH-10020
-- name: Ethernet8
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 104
+  vrf: BRANCH-10019
+- name: Port-channel11.204
   peer_type: l3_interface
-  ip_address: 10.255.104.3/31
+  ip_address: 10.255.103.2/31
   shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 204
+  vrf: CORP-10020
+- name: Port-channel11
   type: routed
-  vrf: CORP-10022
+  peer_type: l3_interface
+  shutdown: false
 port_channel_interfaces:
 - name: Port-Channel3
   description: SF-SITE-103-TOR-1A_Po3

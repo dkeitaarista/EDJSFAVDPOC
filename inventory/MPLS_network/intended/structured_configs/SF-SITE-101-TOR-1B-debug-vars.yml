@@ -237,7 +237,7 @@ BRANCH:
       nodes:
       - SF-SITE-101-BL-1
   - name: BRANCH-10013
-    vrf_vni: 10013
+    vrf_vni: 10011
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -270,7 +270,7 @@ BRANCH:
       nodes:
       - SF-SITE-101-BL-2
   - name: BRANCH-10015
-    vrf_vni: 10015
+    vrf_vni: 10011
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -303,7 +303,7 @@ BRANCH:
       nodes:
       - SF-SITE-102-BL-1
   - name: BRANCH-10017
-    vrf_vni: 10017
+    vrf_vni: 10011
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -336,7 +336,7 @@ BRANCH:
       nodes:
       - SF-SITE-102-BL-2
   - name: BRANCH-10019
-    vrf_vni: 10019
+    vrf_vni: 10011
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -361,7 +361,7 @@ BRANCH:
       ip_addresses:
       - 10.255.103.0/31
       nodes:
-      - SF-SITE-102-BL-2
+      - SF-SITE-103-BL-1
     bgp_peers:
     - ip_address: 10.255.103.1
       remote_as: 65505
@@ -369,7 +369,7 @@ BRANCH:
       nodes:
       - SF-SITE-103-BL-1
   - name: BRANCH-10020
-    vrf_vni: 10020
+    vrf_vni: 10011
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -392,13 +392,13 @@ BRANCH:
       ip_addresses:
       - 10.255.104.0/31
       nodes:
-      - SF-SITE-103-BL-1
+      - SF-SITE-104-BL-1
     bgp_peers:
     - ip_address: 10.255.104.1
       remote_as: 65506
       bfd: true
       nodes:
-      - SF-SITE-103-BL-1
+      - SF-SITE-104-BL-1
   l2vlans:
   - id: 100
     name: vlan_100
@@ -463,7 +463,7 @@ CORP:
       nodes:
       - SF-SITE-101-BL-1
   - name: CORP-10014
-    vrf_vni: 10014
+    vrf_vni: 10012
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -496,7 +496,7 @@ CORP:
       nodes:
       - SF-SITE-101-BL-2
   - name: CORP-10016
-    vrf_vni: 10016
+    vrf_vni: 10012
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -521,15 +521,15 @@ CORP:
       ip_addresses:
       - 10.255.102.4/31
       nodes:
-      - SF-SITE-101-BL-1
+      - SF-SITE-102-BL-1
     bgp_peers:
     - ip_address: 10.255.102.5
       remote_as: 65523
       bfd: true
       nodes:
-      - SF-SITE-101-BL-1
+      - SF-SITE-102-BL-1
   - name: CORP-10018
-    vrf_vni: 10018
+    vrf_vni: 10012
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -554,15 +554,15 @@ CORP:
       ip_addresses:
       - 10.255.102.6/31
       nodes:
-      - SF-SITE-101-BL-2
+      - SF-SITE-102-BL-2
     bgp_peers:
     - ip_address: 10.255.102.7
       remote_as: 65524
       bfd: true
       nodes:
-      - SF-SITE-101-BL-2
+      - SF-SITE-102-BL-2
   - name: CORP-10020
-    vrf_vni: 10020
+    vrf_vni: 10012
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -585,17 +585,17 @@ CORP:
       encapsulation_dot1q_vlan:
       - 204
       ip_addresses:
-      - 10.255.103.3/31
+      - 10.255.103.2/31
       nodes:
-      - SF-SITE-101-BL-1
+      - SF-SITE-103-BL-1
     bgp_peers:
-    - ip_address: 10.255.103.4
+    - ip_address: 10.255.103.3
       remote_as: 65525
       bfd: true
       nodes:
-      - SF-SITE-101-BL-1
+      - SF-SITE-103-BL-1
   - name: CORP-10022
-    vrf_vni: 10022
+    vrf_vni: 10012
     address_families:
     - vpn-ipv4
     - vpn-ipv6
@@ -616,15 +616,15 @@ CORP:
     - interfaces:
       - Ethernet8
       ip_addresses:
-      - 10.255.104.3/31
+      - 10.255.104.2/31
       nodes:
-      - SF-SITE-103-BL-1
+      - SF-SITE-104-BL-1
     bgp_peers:
-    - ip_address: 10.255.104.4
+    - ip_address: 10.255.104.3
       remote_as: 65526
       bfd: true
       nodes:
-      - SF-SITE-103-BL-1
+      - SF-SITE-104-BL-1
   l2vlans:
   - id: 200
     name: vlan_200
@@ -2674,7 +2674,7 @@ groups:
   - SF-SITE-102-BL-2
   - SF-SITE-103-BL-1
   - SF-SITE-104-BL-1
-omit: __omit_place_holder__9e0f22e584f7eb6db756312d49e47ee463b8b4f9
+omit: __omit_place_holder__fd7bf6e5dff56c3d687fbfdef5f04251ba298241
 ansible_version:
   string: 2.12.10
   full: 2.12.10

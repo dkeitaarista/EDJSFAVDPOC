@@ -59,22 +59,22 @@ router_bgp:
   vrfs:
   - name: BRANCH-10015
     router_id: 100.2.2.21
-    rd: 100.2.2.21:10015
+    rd: 100.2.2.21:10011
     route_targets:
       import:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:10015
+        - 6.6971:10011
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:10015
+        - 6.6971:10011
       export:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:10015
+        - 6.6971:10011
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:10015
+        - 6.6971:10011
     redistribute_routes:
     - source_protocol: connected
     address_family_ipv4:
@@ -87,6 +87,44 @@ router_bgp:
     neighbors:
     - ip_address: 10.255.102.1
       remote_as: '65503'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+  - name: CORP-10016
+    router_id: 100.2.2.21
+    rd: 100.2.2.21:10012
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10012
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10012
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10012
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10012
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.102.5
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.102.5
+      remote_as: '65523'
       bfd: true
     eos_cli: 'bgp additional-paths receive
 
@@ -124,6 +162,9 @@ vrfs:
   ip_routing: false
 - name: BRANCH-10015
   tenant: BRANCH
+  ip_routing: true
+- name: CORP-10016
+  tenant: CORP
   ip_routing: true
 management_interfaces:
 - name: Management1
@@ -236,6 +277,13 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 102
   vrf: BRANCH-10015
+- name: Port-channel11.202
+  peer_type: l3_interface
+  ip_address: 10.255.102.4/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 202
+  vrf: CORP-10016
 - name: Port-channel11.99
   type: l2dot1q
   peer_type: point_to_point_service

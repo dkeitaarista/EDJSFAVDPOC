@@ -2104,7 +2104,7 @@ groups:
   - SF-SITE-102-BL-2
   - SF-SITE-103-BL-1
   - SF-SITE-104-BL-1
-omit: __omit_place_holder__9e0f22e584f7eb6db756312d49e47ee463b8b4f9
+omit: __omit_place_holder__fd7bf6e5dff56c3d687fbfdef5f04251ba298241
 ansible_version:
   string: 2.12.10
   full: 2.12.10

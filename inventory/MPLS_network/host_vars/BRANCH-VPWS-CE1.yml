@@ -5,7 +5,7 @@ custom_structured_configuration_ethernet_interfaces:
   - name: Ethernet1
     description: Uplink to SF_SITE_101_TOR-1A
     type: routed
-    ip_address: 10.255.101.9/31
+    ip_address: 10.255.101.10/31
 
 # BGP peering with other CE across VPWS
 

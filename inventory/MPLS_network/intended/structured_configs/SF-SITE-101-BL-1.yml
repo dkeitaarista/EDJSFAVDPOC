@@ -133,82 +133,6 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
-  - name: CORP-10016
-    router_id: 100.1.2.14
-    rd: 100.1.2.14:10016
-    route_targets:
-      import:
-      - address_family: vpn-ipv4
-        route_targets:
-        - 6.6971:10016
-      - address_family: vpn-ipv6
-        route_targets:
-        - 6.6971:10016
-      export:
-      - address_family: vpn-ipv4
-        route_targets:
-        - 6.6971:10016
-      - address_family: vpn-ipv6
-        route_targets:
-        - 6.6971:10016
-    redistribute_routes:
-    - source_protocol: connected
-    address_family_ipv4:
-      neighbors:
-      - ip_address: 10.255.102.5
-        activate: true
-      bgp:
-        additional_paths:
-          install: true
-    neighbors:
-    - ip_address: 10.255.102.5
-      remote_as: '65523'
-      bfd: true
-    eos_cli: 'bgp additional-paths receive
-
-      bgp additional-paths send any
-
-      bgp bestpath tie-break router-id
-
-      '
-  - name: CORP-10020
-    router_id: 100.1.2.14
-    rd: 100.1.2.14:10020
-    route_targets:
-      import:
-      - address_family: vpn-ipv4
-        route_targets:
-        - 6.6971:10020
-      - address_family: vpn-ipv6
-        route_targets:
-        - 6.6971:10020
-      export:
-      - address_family: vpn-ipv4
-        route_targets:
-        - 6.6971:10020
-      - address_family: vpn-ipv6
-        route_targets:
-        - 6.6971:10020
-    redistribute_routes:
-    - source_protocol: connected
-    address_family_ipv4:
-      neighbors:
-      - ip_address: 10.255.103.4
-        activate: true
-      bgp:
-        additional_paths:
-          install: true
-    neighbors:
-    - ip_address: 10.255.103.4
-      remote_as: '65525'
-      bfd: true
-    eos_cli: 'bgp additional-paths receive
-
-      bgp additional-paths send any
-
-      bgp bestpath tie-break router-id
-
-      '
   vpws:
   - name: BRANCH
     rd: 100.1.2.14:5000
@@ -240,12 +164,6 @@ vrfs:
   tenant: BRANCH
   ip_routing: true
 - name: CORP-10012
-  tenant: CORP
-  ip_routing: true
-- name: CORP-10016
-  tenant: CORP
-  ip_routing: true
-- name: CORP-10020
   tenant: CORP
   ip_routing: true
 management_interfaces:
@@ -382,20 +300,6 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 200
   vrf: CORP-10012
-- name: Port-channel11.202
-  peer_type: l3_interface
-  ip_address: 10.255.102.4/31
-  shutdown: false
-  type: l3dot1q
-  encapsulation_dot1q_vlan: 202
-  vrf: CORP-10016
-- name: Port-channel11.204
-  peer_type: l3_interface
-  ip_address: 10.255.103.3/31
-  shutdown: false
-  type: l3dot1q
-  encapsulation_dot1q_vlan: 204
-  vrf: CORP-10020
 - name: Port-channel11.99
   type: l2dot1q
   peer_type: point_to_point_service

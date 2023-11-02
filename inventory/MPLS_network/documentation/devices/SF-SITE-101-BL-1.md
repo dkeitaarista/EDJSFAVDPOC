@@ -297,8 +297,6 @@ vlan 201
 | --------- | ----------- | -----| ------- | -------------- |
 | Port-channel11.100 | - | l3dot1q | - | 100 |
 | Port-channel11.200 | - | l3dot1q | - | 200 |
-| Port-channel11.202 | - | l3dot1q | - | 202 |
-| Port-channel11.204 | - | l3dot1q | - | 204 |
 
 ##### Flexible Encapsulation Interfaces
 
@@ -317,8 +315,6 @@ vlan 201
 | Ethernet10 | P2P_LINK_TO_SF-SITE-104-BL-1_Ethernet10 | routed | - | 10.1.0.0/31 | default | 1500 | False | - | - |
 | Port-channel11.100 | - | l3dot1q | - | 10.255.101.0/31 | BRANCH-10011 | - | False | - | - |
 | Port-channel11.200 | - | l3dot1q | - | 10.255.101.4/31 | CORP-10012 | - | False | - | - |
-| Port-channel11.202 | - | l3dot1q | - | 10.255.102.4/31 | CORP-10016 | - | False | - | - |
-| Port-channel11.204 | - | l3dot1q | - | 10.255.103.3/31 | CORP-10020 | - | False | - | - |
 
 ##### ISIS
 
@@ -429,18 +425,6 @@ interface Port-channel11.200
    encapsulation dot1q vlan 200
    vrf CORP-10012
    ip address 10.255.101.4/31
-!
-interface Port-channel11.202
-   no shutdown
-   encapsulation dot1q vlan 202
-   vrf CORP-10016
-   ip address 10.255.102.4/31
-!
-interface Port-channel11.204
-   no shutdown
-   encapsulation dot1q vlan 204
-   vrf CORP-10020
-   ip address 10.255.103.3/31
 ```
 
 ### Port-Channel Interfaces
@@ -526,8 +510,6 @@ service routing protocols model multi-agent
 | default | True |
 | BRANCH-10011 | True |
 | CORP-10012 | True |
-| CORP-10016 | True |
-| CORP-10020 | True |
 
 #### IP Routing Device Configuration
 
@@ -536,8 +518,6 @@ service routing protocols model multi-agent
 ip routing
 ip routing vrf BRANCH-10011
 ip routing vrf CORP-10012
-ip routing vrf CORP-10016
-ip routing vrf CORP-10020
 ```
 
 ### IPv6 Routing
@@ -549,8 +529,6 @@ ip routing vrf CORP-10020
 | default | False |
 | BRANCH-10011 | false |
 | CORP-10012 | false |
-| CORP-10016 | false |
-| CORP-10020 | false |
 | default | false |
 
 ### Router ISIS
@@ -662,8 +640,6 @@ router isis CORE
 | 100.1.1.20 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 10.255.101.1 | 65501 | BRANCH-10011 | - | - | - | - | True | - | - | - |
 | 10.255.101.5 | 65521 | CORP-10012 | - | - | - | - | True | - | - | - |
-| 10.255.102.5 | 65523 | CORP-10016 | - | - | - | - | True | - | - | - |
-| 10.255.103.4 | 65525 | CORP-10020 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -707,8 +683,6 @@ router isis CORE
 | --- | ------------------- | ------------ |
 | BRANCH-10011 | 100.1.2.14:10011 | connected |
 | CORP-10012 | 100.1.2.14:10012 | connected |
-| CORP-10016 | 100.1.2.14:10016 | connected |
-| CORP-10020 | 100.1.2.14:10020 | connected |
 
 #### Router BGP Device Configuration
 
@@ -788,46 +762,6 @@ router bgp 6.6971
       address-family ipv4
          bgp additional-paths install
          neighbor 10.255.101.5 activate
-      !
-      bgp additional-paths receive
-      bgp additional-paths send any
-      bgp bestpath tie-break router-id
-
-   !
-   vrf CORP-10016
-      rd 100.1.2.14:10016
-      route-target import vpn-ipv4 6.6971:10016
-      route-target import vpn-ipv6 6.6971:10016
-      route-target export vpn-ipv4 6.6971:10016
-      route-target export vpn-ipv6 6.6971:10016
-      router-id 100.1.2.14
-      neighbor 10.255.102.5 remote-as 65523
-      neighbor 10.255.102.5 bfd
-      redistribute connected
-      !
-      address-family ipv4
-         bgp additional-paths install
-         neighbor 10.255.102.5 activate
-      !
-      bgp additional-paths receive
-      bgp additional-paths send any
-      bgp bestpath tie-break router-id
-
-   !
-   vrf CORP-10020
-      rd 100.1.2.14:10020
-      route-target import vpn-ipv4 6.6971:10020
-      route-target import vpn-ipv6 6.6971:10020
-      route-target export vpn-ipv4 6.6971:10020
-      route-target export vpn-ipv6 6.6971:10020
-      router-id 100.1.2.14
-      neighbor 10.255.103.4 remote-as 65525
-      neighbor 10.255.103.4 bfd
-      redistribute connected
-      !
-      address-family ipv4
-         bgp additional-paths install
-         neighbor 10.255.103.4 activate
       !
       bgp additional-paths receive
       bgp additional-paths send any
@@ -953,8 +887,6 @@ match-list input string SAKlogs
 | -------- | ---------- |
 | BRANCH-10011 | enabled |
 | CORP-10012 | enabled |
-| CORP-10016 | enabled |
-| CORP-10020 | enabled |
 
 ### VRF Instances Device Configuration
 
@@ -963,10 +895,6 @@ match-list input string SAKlogs
 vrf instance BRANCH-10011
 !
 vrf instance CORP-10012
-!
-vrf instance CORP-10016
-!
-vrf instance CORP-10020
 ```
 
 ## EOS CLI

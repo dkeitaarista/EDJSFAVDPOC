@@ -56,6 +56,83 @@ router_bgp:
   - ip_address: 100.1.1.20
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-RR-1
+  vrfs:
+  - name: BRANCH-10020
+    router_id: 100.4.2.27
+    rd: 100.4.2.27:10011
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10011
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10011
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10011
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10011
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.104.1
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.104.1
+      remote_as: '65506'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
+  - name: CORP-10022
+    router_id: 100.4.2.27
+    rd: 100.4.2.27:10012
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10012
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10012
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:10012
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:10012
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.104.3
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.104.3
+      remote_as: '65526'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
 service_routing_protocols_model: multi-agent
 ip_routing: true
 vlan_internal_order:
@@ -74,6 +151,12 @@ local_users:
 vrfs:
 - name: default
   ip_routing: false
+- name: BRANCH-10020
+  tenant: BRANCH
+  ip_routing: true
+- name: CORP-10022
+  tenant: CORP
+  ip_routing: true
 management_interfaces:
 - name: Management1
   description: oob_management
@@ -171,6 +254,18 @@ ethernet_interfaces:
   isis_circuit_type: level-2
   mpls:
     ip: true
+- name: Ethernet7
+  peer_type: l3_interface
+  ip_address: 10.255.104.0/31
+  shutdown: false
+  type: routed
+  vrf: BRANCH-10020
+- name: Ethernet8
+  peer_type: l3_interface
+  ip_address: 10.255.104.2/31
+  shutdown: false
+  type: routed
+  vrf: CORP-10022
 vlans:
 - id: 100
   name: vlan_100
