@@ -12,4 +12,4 @@ repos:
       #   files: inventory/MPLS_network/(inventory.yml|group_vars\/|host_vars\/)
 
       - id: check-yaml
-        files: inventory/MPLS_network/(inventory.yml|group_vars\/|host_vars\/)
+        files: inventory/MPLS_network/(inventory.yml|group_vars\/|host_vars\/)|\.github\/
