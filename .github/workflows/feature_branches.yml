@@ -46,7 +46,9 @@ jobs:
             workflows:
               - 'inventory/MPLS_network/group_vars/**'
               - '.github/workflows/**'
-      
+      - name: Check ansible version before installation
+        run: ansible --version 
+        
       - name: Install collections
         run: ansible-galaxy collection install -r requirements.yml 
         if: steps.filter-group_vars.outputs.workflows == 'true'
