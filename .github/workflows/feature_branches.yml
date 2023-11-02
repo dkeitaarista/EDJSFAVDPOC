@@ -22,7 +22,8 @@ jobs:
       #   run: sudo apt install -y zsh
 
       - name: Setup Python
-        uses: actions/setup-python@v3
+        # uses: actions/setup-python@v3
+        run: brew install python3
 
       - name: Install Python requirements
         run: pip3 install -r requirements.txt
