@@ -70,7 +70,7 @@ jobs:
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Connect VPN
-        run: openvpn --config ".github/vpn/$OVPN_profile" --daemon
+        run: openvpn --config "../vpn/$OVPN_profile" --daemon
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Wait for a VPN connection
