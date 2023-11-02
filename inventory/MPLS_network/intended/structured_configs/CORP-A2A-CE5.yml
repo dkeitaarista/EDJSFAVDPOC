@@ -85,7 +85,7 @@ router_bgp:
   redistribute_routes:
   - source_protocol: connected
   neighbors:
-  - ip_address: 10.255.103.4
+  - ip_address: 10.255.103.2
     remote_as: '6.6971'
     peer_group: CE-PEER-GROUP
   address_family_ipv4:

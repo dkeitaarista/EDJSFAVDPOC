@@ -360,7 +360,7 @@ ip routing
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 10.255.101.2 | 6.6971 | default | - | - | - | - | True | - | - | - |
+| 10.255.102.0 | 6.6971 | default | - | - | - | - | True | - | - | - |
 
 #### Router BGP Device Configuration
 
@@ -368,9 +368,9 @@ ip routing
 !
 router bgp 65503
    router-id 10.255.102.1
-   neighbor 10.255.101.2 peer group CE-PEER-GROUP
-   neighbor 10.255.101.2 remote-as 6.6971
-   neighbor 10.255.101.2 bfd
+   neighbor 10.255.102.0 peer group CE-PEER-GROUP
+   neighbor 10.255.102.0 remote-as 6.6971
+   neighbor 10.255.102.0 bfd
    redistribute connected
    !
    address-family ipv4

@@ -78,7 +78,7 @@ ethernet_interfaces:
 - name: Ethernet1
   description: Uplink to SF_SITE_101_TOR-1A
   type: routed
-  ip_address: 10.255.101.9/31
+  ip_address: 10.255.101.10/31
 router_bgp:
   as: '65531'
   router_id: 10.255.101.10

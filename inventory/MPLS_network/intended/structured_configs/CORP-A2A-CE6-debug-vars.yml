@@ -221,7 +221,7 @@ custom_structured_configuration_router_bgp:
   redistribute_routes:
   - source_protocol: connected
   neighbors:
-  - ip_address: 10.255.104.4
+  - ip_address: 10.255.104.2
     remote_as: '6.6971'
     peer_group: CE-PEER-GROUP
   address_family_ipv4:
@@ -2042,7 +2042,7 @@ groups:
   - SF-SITE-102-BL-2
   - SF-SITE-103-BL-1
   - SF-SITE-104-BL-1
-omit: __omit_place_holder__fd7bf6e5dff56c3d687fbfdef5f04251ba298241
+omit: __omit_place_holder__477ba5d018a5e26c6b25d62ea6e4f4979a4261ad
 ansible_version:
   string: 2.12.10
   full: 2.12.10

@@ -63,9 +63,9 @@ cvp_configlets:
     \  no switchport\n   ip address 10.255.102.1/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.102.102.1/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.32/24\n!\nip
-    routing\n!\nrouter bgp 65503\n   router-id 10.255.102.1\n   neighbor 10.255.101.2
-    peer group CE-PEER-GROUP\n   neighbor 10.255.101.2 remote-as 6.6971\n   neighbor
-    10.255.101.2 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
+    routing\n!\nrouter bgp 65503\n   router-id 10.255.102.1\n   neighbor 10.255.102.0
+    peer group CE-PEER-GROUP\n   neighbor 10.255.102.0 remote-as 6.6971\n   neighbor
+    10.255.102.0 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
     CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
     shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
@@ -152,7 +152,7 @@ cvp_configlets:
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
     aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
-    \  no switchport\n   ip address 10.255.101.9/31\n!\ninterface Loopback0\n   description
+    \  no switchport\n   ip address 10.255.101.10/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.5/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.40/24\n!\nip
     routing\n!\nrouter bgp 65531\n   router-id 10.255.101.10\n   neighbor 10.255.101.11
@@ -293,8 +293,8 @@ cvp_configlets:
     \  no switchport\n   ip address 10.255.103.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.105.105.1/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.37/24\n!\nip
-    routing\n!\nrouter bgp 65525\n   router-id 10.255.103.3\n   neighbor 10.255.103.4
-    peer group CE-PEER-GROUP\n   neighbor 10.255.103.4 remote-as 6.6971\n   redistribute
+    routing\n!\nrouter bgp 65525\n   router-id 10.255.103.3\n   neighbor 10.255.103.2
+    peer group CE-PEER-GROUP\n   neighbor 10.255.103.2 remote-as 6.6971\n   redistribute
     connected\n   !\n   address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
@@ -316,8 +316,8 @@ cvp_configlets:
     \  no switchport\n   ip address 10.255.104.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.104.104.2/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.39/24\n!\nip
-    routing\n!\nrouter bgp 65526\n   router-id 10.255.104.3\n   neighbor 10.255.104.4
-    peer group CE-PEER-GROUP\n   neighbor 10.255.104.4 remote-as 6.6971\n   redistribute
+    routing\n!\nrouter bgp 65526\n   router-id 10.255.104.3\n   neighbor 10.255.104.2
+    peer group CE-PEER-GROUP\n   neighbor 10.255.104.2 remote-as 6.6971\n   redistribute
     connected\n   !\n   address-family ipv4\n      neighbor CE-PEER-GROUP activate\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"

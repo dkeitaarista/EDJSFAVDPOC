@@ -274,7 +274,7 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | Uplink to SF_SITE_101_TOR-1A | routed | - | 10.255.101.9/31 | default | - | - | - | - |
+| Ethernet1 | Uplink to SF_SITE_101_TOR-1A | routed | - | 10.255.101.10/31 | default | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -283,7 +283,7 @@ vlan internal order ascending range 1006 1199
 interface Ethernet1
    description Uplink to SF_SITE_101_TOR-1A
    no switchport
-   ip address 10.255.101.9/31
+   ip address 10.255.101.10/31
 ```
 
 ### Loopback Interfaces
