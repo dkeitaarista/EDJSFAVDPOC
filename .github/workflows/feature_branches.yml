@@ -18,8 +18,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install CLI tools for Xcoe
-        run: xcode-select install
+      # - name: Install CLI tools for Xcode
+      #   run: xcode-select -r
 
       - name: Install zsh
         run: arch -arm64 brew install zsh
