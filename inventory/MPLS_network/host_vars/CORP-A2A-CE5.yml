@@ -3,7 +3,7 @@
 
 custom_structured_configuration_ethernet_interfaces:
   - name: Ethernet1
-    description: Uplink to SF_SITE_102_TOR-1B
+    description: Uplink to SF_SITE_103_TOR-1A
     type: routed
     ip_address: 10.255.103.3/31
 
@@ -15,10 +15,16 @@ custom_structured_configuration_router_bgp:
   redistribute_routes:
     - source_protocol: connected
   neighbors:
-    - ip_address: 10.255.103.4
+    - ip_address: 10.255.103.2
       remote_as: '6.6971'
       peer_group: CE-PEER-GROUP
   address_family_ipv4:
     peer_groups:
       - name: CE-PEER-GROUP
         activate: true
+# Interface Loopback0 for CE
+custom_structured_configuration_loopback_interfaces:
+  - name: Loopback0
+    description: " CE IP for test"
+    shutdown: false
+    ip_address: 10.105.105.1/32

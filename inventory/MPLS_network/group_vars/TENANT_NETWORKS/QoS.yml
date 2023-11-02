@@ -1,362 +1,362 @@
 ---
 # Define QoS profiles
-qos_profiles:
-  - name: TENANT-1G
-    service_policy:
-      type:
-        qos_input: TENANT-INGRESS-CLASSIFIER-1G
-    tx_queues:
-      - id: 0
-        bandwidth_percent: 5
-        priority: no priority
-      - id: 1
-        bandwidth_percent: 1
-        priority: no priority
-      - id: 2
-        bandwidth_percent: 19
-        priority: no priority
-      - id: 3
-        bandwidth_percent: 20
-        priority: no priority
-      - id: 4
-        bandwidth_percent: 30
-        priority: no priority
-      - id: 5
-        bandwidth_percent: 25
-        priority: no priority
-  - name: TENANT-10G
-    service_policy:
-      type:
-        qos_input: TENANT-INGRESS-CLASSIFIER-10G
-    tx_queues:
-      - id: 0
-        bandwidth_percent: 5
-        priority: no priority
-      - id: 1
-        bandwidth_percent: 1
-        priority: no priority
-      - id: 2
-        bandwidth_percent: 19
-        priority: no priority
-      - id: 3
-        bandwidth_percent: 20
-        priority: no priority
-      - id: 4
-        bandwidth_percent: 30
-        priority: no priority
-      - id: 5
-        bandwidth_percent: 25
-        priority: no priority
+# qos_profiles:
+#   - name: TENANT-1G
+#     service_policy:
+#       type:
+#         qos_input: TENANT-INGRESS-CLASSIFIER-1G
+#     tx_queues:
+#       - id: 0
+#         bandwidth_percent: 5
+#         priority: no priority
+#       - id: 1
+#         bandwidth_percent: 1
+#         priority: no priority
+#       - id: 2
+#         bandwidth_percent: 19
+#         priority: no priority
+#       - id: 3
+#         bandwidth_percent: 20
+#         priority: no priority
+#       - id: 4
+#         bandwidth_percent: 30
+#         priority: no priority
+#       - id: 5
+#         bandwidth_percent: 25
+#         priority: no priority
+#   - name: TENANT-10G
+#     service_policy:
+#       type:
+#         qos_input: TENANT-INGRESS-CLASSIFIER-10G
+#     tx_queues:
+#       - id: 0
+#         bandwidth_percent: 5
+#         priority: no priority
+#       - id: 1
+#         bandwidth_percent: 1
+#         priority: no priority
+#       - id: 2
+#         bandwidth_percent: 19
+#         priority: no priority
+#       - id: 3
+#         bandwidth_percent: 20
+#         priority: no priority
+#       - id: 4
+#         bandwidth_percent: 30
+#         priority: no priority
+#       - id: 5
+#         bandwidth_percent: 25
+#         priority: no priority
 
 
 # interface profile to replicate QoS profiles on sub-interfaces
 interface_qos_profiles_1G: |
-  !
-  tx-queue 0
-     no priority
-     bandwidth percent 5
-  !
-  tx-queue 1
-     no priority
-     bandwidth percent 1
-  !
-  tx-queue 2
-     no priority
-     bandwidth percent 19
-  !
-  tx-queue 3
-     no priority
-     bandwidth percent 20
-  !
-  tx-queue 4
-     priority strict
-     bandwidth percent 30
-  !
-  tx-queue 5
-     priority strict
-     bandwidth percent 25
+  # !
+  # tx-queue 0
+  #    no priority
+  #    bandwidth percent 5
+  # !
+  # tx-queue 1
+  #    no priority
+  #    bandwidth percent 1
+  # !
+  # tx-queue 2
+  #    no priority
+  #    bandwidth percent 19
+  # !
+  # tx-queue 3
+  #    no priority
+  #    bandwidth percent 20
+  # !
+  # tx-queue 4
+  #    priority strict
+  #    bandwidth percent 30
+  # !
+  # tx-queue 5
+  #    priority strict
+  #    bandwidth percent 25
 
 # QoS ACLs
-ip_access_lists:
-  - name: BUSINESS
-    entries:
-      - sequence: 5
-        remark: "Management SSH"
-      - sequence: 10
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - ssh
-      - sequence: 20
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - ssh
-        destination: any
-      - sequence: 30
-        remark: "Management telnet"
-      - sequence: 40
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - telnet
-      - sequence: 50
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - telnet
-        destination: any
-      - sequence: 60
-        remark: "Management SOC"
-      - sequence: 70
-        action: permit
-        protocol: ip
-        source: 172.0.193.0 0.255.0.255
-        destination: any
-      - sequence: 80
-        action: permit
-        protocol: ip
-        source: any
-        destination: 172.0.193.0 0.255.0.255
-      - sequence: 90
-        remark: "Web CSR Accountlink SSL"
-      - sequence: 100
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - https
-      - sequence: 110
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - https
-        destination: any
-      - sequence: 120
-        remark: "Messaging - Print"
-      - sequence: 130
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - ldp
-      - sequence: 140
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - ldp
-        destination: any
-      - sequence: 150
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 9100
-      - sequence: 160
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 9100
-        destination: any
-      - sequence: 170
-        remark: "Login MS-DS"
-      - sequence: 180
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - microsoft-ds
-      - sequence: 190
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - microsoft-ds
-        destination: any
-      - sequence: 200
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 137
-      - sequence: 210
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 137
-        destination: any
-      - sequence: 220
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 138
-      - sequence: 230
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 138
-        destination: any
-      - sequence: 240
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 139
-      - sequence: 250
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 139
-        destination: any
-      - sequence: 260
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 1748
-      - sequence: 270
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 1748
-        destination: any
-      - sequence: 280
-        remark: "other"
-      - sequence: 290
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 18480 19999
-        destination_ports_match: range
-      - sequence: 300
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 18480 19999
-        source_ports_match: range
-        destination: any
-      - sequence: 310
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 20021 20479
-        destination_ports_match: range
-      - sequence: 320
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 20021 20479
-        source_ports_match: range
-        destination: any
-      - sequence: 330
-        remark: "Voice AES Traffic"
-      - sequence: 340
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 1050
-      - sequence: 350
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 1050
-        destination: any
-      - sequence: 360
-        action: permit
-        protocol: tcp
-        source: any
-        destination: any
-        destination_ports:
-          - 450
-      - sequence: 370
-        action: permit
-        protocol: tcp
-        source: any
-        source_ports:
-          - 450
-        destination: any
-      - sequence: 380
-        remark: "Wireless CAPWAP"
-      - sequence: 390
-        action: permit
-        protocol: udp
-        source: any
-        destination: any
-        destination_ports:
-          - 5246
-          - 5247
-      - sequence: 400
-        action: permit
-        protocol: udp
-        source: any
-        source_ports:
-          - 5246
-          - 5247
-        destination: any
+# ip_access_lists:
+#   - name: BUSINESS
+#     entries:
+#       - sequence: 5
+#         remark: "Management SSH"
+#       - sequence: 10
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - ssh
+#       - sequence: 20
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - ssh
+#         destination: any
+#       - sequence: 30
+#         remark: "Management telnet"
+#       - sequence: 40
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - telnet
+#       - sequence: 50
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - telnet
+#         destination: any
+#       - sequence: 60
+#         remark: "Management SOC"
+#       - sequence: 70
+#         action: permit
+#         protocol: ip
+#         source: 172.0.193.0 0.255.0.255
+#         destination: any
+#       - sequence: 80
+#         action: permit
+#         protocol: ip
+#         source: any
+#         destination: 172.0.193.0 0.255.0.255
+#       - sequence: 90
+#         remark: "Web CSR Accountlink SSL"
+#       - sequence: 100
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - https
+#       - sequence: 110
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - https
+#         destination: any
+#       - sequence: 120
+#         remark: "Messaging - Print"
+#       - sequence: 130
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - ldp
+#       - sequence: 140
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - ldp
+#         destination: any
+#       - sequence: 150
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 9100
+#       - sequence: 160
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 9100
+#         destination: any
+#       - sequence: 170
+#         remark: "Login MS-DS"
+#       - sequence: 180
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - microsoft-ds
+#       - sequence: 190
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - microsoft-ds
+#         destination: any
+#       - sequence: 200
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 137
+#       - sequence: 210
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 137
+#         destination: any
+#       - sequence: 220
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 138
+#       - sequence: 230
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 138
+#         destination: any
+#       - sequence: 240
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 139
+#       - sequence: 250
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 139
+#         destination: any
+#       - sequence: 260
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 1748
+#       - sequence: 270
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 1748
+#         destination: any
+#       - sequence: 280
+#         remark: "other"
+#       - sequence: 290
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 18480 19999
+#         destination_ports_match: range
+#       - sequence: 300
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 18480 19999
+#         source_ports_match: range
+#         destination: any
+#       - sequence: 310
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 20021 20479
+#         destination_ports_match: range
+#       - sequence: 320
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 20021 20479
+#         source_ports_match: range
+#         destination: any
+#       - sequence: 330
+#         remark: "Voice AES Traffic"
+#       - sequence: 340
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 1050
+#       - sequence: 350
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 1050
+#         destination: any
+#       - sequence: 360
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 450
+#       - sequence: 370
+#         action: permit
+#         protocol: tcp
+#         source: any
+#         source_ports:
+#           - 450
+#         destination: any
+#       - sequence: 380
+#         remark: "Wireless CAPWAP"
+#       - sequence: 390
+#         action: permit
+#         protocol: udp
+#         source: any
+#         destination: any
+#         destination_ports:
+#           - 5246
+#           - 5247
+#       - sequence: 400
+#         action: permit
+#         protocol: udp
+#         source: any
+#         source_ports:
+#           - 5246
+#           - 5247
+#         destination: any
 
 
 # QoS
-qos:
-  map:
-    cos:
-      - "0 to traffic-class 0"
-      - "1 to traffic-class 1"
-    dscp:
-      - "0 1 2 3 4 5 6 7"
-      - "8 9 10 11 12 13 14 15"
-    traffic_class:
-      - "0 to cos 0"
-      - "1 to cos 1"
-      - "0 to dscp 0"
-      - "1 to dscp 8"
-      - "0 to exp 0"
-      - "1 to exp 1"
+# qos:
+#   map:
+#     cos:
+#       - "0 to traffic-class 0"
+#       - "1 to traffic-class 1"
+#     dscp:
+#       - "0 1 2 3 4 5 6 7"
+#       - "8 9 10 11 12 13 14 15"
+#     traffic_class:
+#       - "0 to cos 0"
+#       - "1 to cos 1"
+#       - "0 to dscp 0"
+#       - "1 to dscp 8"
+#       - "0 to exp 0"
+#       - "1 to exp 1"
 # see PE_EOS_CLI key in group_vars/ALL_BL/main.yml for qos map exp
 
 # Class maps
-class_maps:
-  qos:
-    - name: BUSINESS
-      ip:
-        access_group: BUSINESS
+# class_maps:
+#   qos:
+#     - name: BUSINESS
+#       ip:
+#         access_group: BUSINESS
 
 # Policy-map
 # see PE_EOS_CLI key in group_vars/ALL_BL/main.yml for police rate because it is not in the data model
-policy_maps:
-  qos:
-    - name: TENANT-INGRESS-CLASSIFIER-1G
-      classes:
-        - name: BUSINESS
-          set:
-            traffic_class: 2
+# policy_maps:
+#   qos:
+#     - name: TENANT-INGRESS-CLASSIFIER-1G
+#       classes:
+#         - name: BUSINESS
+#           set:
+#             traffic_class: 2

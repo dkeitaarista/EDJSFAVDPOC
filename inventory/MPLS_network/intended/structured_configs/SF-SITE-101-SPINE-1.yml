@@ -1,0 +1,144 @@
+hostname: SF-SITE-101-SPINE-1
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+ip_name_servers:
+- ip_address: 10.255.0.2
+  vrf: default
+spanning_tree:
+  mode: none
+local_users:
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+vrfs:
+- name: default
+  ip_routing: false
+management_interfaces:
+- name: Management1
+  description: oob_management
+  shutdown: false
+  vrf: default
+  ip_address: 192.168.0.11/24
+  gateway: null
+  type: oob
+management_api_http:
+  enable_vrfs:
+  - name: default
+  enable_https: true
+eos_cli: "!\nmpls label range static 16 15984\nmpls label range bgp-sr 16000 8000\nmpls label range isis-sr 16000 8000\n\n!\n\nrouter
+  isis CORE\n  lsp purge origination-identification\n  set-overload-bit on-startup wait-for-bgp\n  authentication mode md5\n  graceful-restart
+  restart-hold-time 300\n  authentication key edwardjones\n  address-family ipv4 unicast\n    bfd all-interfaces\n  address-family ipv6
+  unicast\n    bfd all-interfaces\n    multi-topology\ninterface Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis
+  multi-topology address-family ipv6 unicast\n"
+loopback_interfaces:
+- name: Loopback0
+  description: LSR_Router_ID
+  shutdown: false
+  ip_address: 100.1.0.11/32
+  isis_enable: CORE
+  isis_passive: true
+  node_segment:
+    ipv4_index: 11
+- name: Loopback10
+  description: Inband management
+  ip_address: 192.168.101.11/32
+router_isis:
+  instance: CORE
+  log_adjacency_changes: true
+  net: 51.0001.1921.6800.0011.00
+  router_id: 100.1.0.11
+  is_type: level-2
+  address_family_ipv4:
+    enabled: true
+    maximum_paths: 4
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+  timers:
+    local_convergence:
+      delay: 10000
+      protected_prefixes: true
+  advertise:
+    passive_only: false
+  segment_routing_mpls:
+    router_id: 100.1.0.11
+    enabled: true
+  address_family_ipv6:
+    enabled: true
+    fast_reroute_ti_lfa:
+      mode: node-protection
+      level: level-2
+mpls:
+  ip: true
+ethernet_interfaces:
+- name: Ethernet3
+  peer: SF-SITE-101-BL-1
+  peer_interface: Ethernet3
+  peer_type: pe
+  description: P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet3
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.0/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
+- name: Ethernet4
+  peer: SF-SITE-101-BL-2
+  peer_interface: Ethernet3
+  peer_type: pe
+  description: P2P_LINK_TO_SF-SITE-101-BL-2_Ethernet3
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.0.0.2/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
+logging:
+  console: critical
+  monitor: disabled
+  buffered:
+    size: 180000
+    level: informational
+  trap: warnings
+  synchronous:
+    level: critical
+  format:
+    timestamp: high-resolution
+    sequence_numbers: true
+  source_interface: Loopback10
+  policy:
+    match:
+      match_lists:
+      - name: SAKlogs
+        action: discard
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+ntp:
+  servers:
+  - name: 0.north-america.pool.ntp.org
+    preferred: true
+    vrf: default
+  - name: 1.north-america.pool.ntp.org
+    vrf: default

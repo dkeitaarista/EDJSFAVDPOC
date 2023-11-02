@@ -6,9 +6,13 @@ vlan_internal_order:
     beginning: 1006
     ending: 1199
 ip_name_servers:
+<<<<<<< HEAD
 - ip_address: 8.8.8.8
   vrf: default
 - ip_address: 8.8.4.4
+=======
+- ip_address: 10.255.0.2
+>>>>>>> dk-avdpoc-20231102
   vrf: default
 spanning_tree:
   mode: mstp
@@ -16,6 +20,7 @@ spanning_tree:
   - id: '0'
     priority: 32768
 local_users:
+<<<<<<< HEAD
 - name: cvpadmin
   privilege: 15
   role: network-admin
@@ -23,6 +28,23 @@ local_users:
 vrfs:
 - name: default
   ip_routing: false
+=======
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+vrfs:
+- name: default
+  ip_routing: false
+management_interfaces:
+- name: Management1
+  description: oob_management
+  shutdown: false
+  vrf: default
+  ip_address: 192.168.0.39/24
+  gateway: null
+  type: oob
+>>>>>>> dk-avdpoc-20231102
 management_api_http:
   enable_vrfs:
   - name: default
@@ -63,6 +85,7 @@ ntp:
   - name: 1.north-america.pool.ntp.org
     vrf: default
 loopback_interfaces:
+<<<<<<< HEAD
 - name: Loopback10
   description: Inband management
   ip_address: '{{ mgmt_loopback_ipv4_pool | ansible.utils.ipmath((management_interfaces[0][''ip_address''] | string | ansible.utils.ipaddr(''address'')).split(''.'')[3])
@@ -70,6 +93,16 @@ loopback_interfaces:
 ethernet_interfaces:
 - name: Ethernet1
   description: Uplink to SF_SITE_102_TOR-1B
+=======
+- name: Loopback0
+  description: ' CE IP for test'
+  shutdown: false
+  ip_address: 10.104.104.2/32
+ip_routing: true
+ethernet_interfaces:
+- name: Ethernet1
+  description: Uplink to SF_SITE_104_BL-1
+>>>>>>> dk-avdpoc-20231102
   type: routed
   ip_address: 10.255.104.3/31
 router_bgp:
@@ -78,7 +111,11 @@ router_bgp:
   redistribute_routes:
   - source_protocol: connected
   neighbors:
+<<<<<<< HEAD
   - ip_address: 10.255.104.4
+=======
+  - ip_address: 10.255.104.2
+>>>>>>> dk-avdpoc-20231102
     remote_as: '6.6971'
     peer_group: CE-PEER-GROUP
   address_family_ipv4:

@@ -6,9 +6,7 @@ vlan_internal_order:
     beginning: 1006
     ending: 1199
 ip_name_servers:
-- ip_address: 8.8.8.8
-  vrf: default
-- ip_address: 8.8.4.4
+- ip_address: 10.255.0.2
   vrf: default
 spanning_tree:
   mode: mstp
@@ -16,10 +14,10 @@ spanning_tree:
   - id: '0'
     priority: 32768
 local_users:
-- name: cvpadmin
+- name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
 vrfs:
 - name: default
   ip_routing: false
@@ -71,9 +69,11 @@ ntp:
   - name: 1.north-america.pool.ntp.org
     vrf: default
 loopback_interfaces:
-- name: Loopback10
-  description: Inband management
-  ip_address: 192.168.101.29/32
+- name: Loopback0
+  description: ' CE IP for test'
+  shutdown: false
+  ip_address: 10.101.101.3/32
+ip_routing: true
 ethernet_interfaces:
 - name: Ethernet1
   description: Uplink to SF_SITE_101_TOR-1A

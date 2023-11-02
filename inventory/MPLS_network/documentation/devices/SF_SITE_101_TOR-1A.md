@@ -168,13 +168,13 @@ management api http-commands
 
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
-| cvpadmin | 15 | network-admin | False | - |
+| arista | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
-username cvpadmin privilege 15 role network-admin secret sha512 <removed>
+username arista privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization
@@ -319,6 +319,7 @@ vlan 201
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+| Ethernet1 |  BRANCH-VPWS-CE1_Ethernet1 | access | 99 | - | - | - |
 | Ethernet3 | SF_SITE_101_BL-1_Ethernet11 | *trunk | *100-101,200-201 | *- | *- | 3 |
 | Ethernet4 | SF_SITE_101_BL-1_Ethernet12 | *trunk | *100-101,200-201 | *- | *- | 3 |
 | Ethernet7 |  BRANCH-A2A-CE1_Ethernet1 | access | 100 | - | - | - |
@@ -329,6 +330,13 @@ vlan 201
 #### Ethernet Interfaces Device Configuration
 
 ```eos
+!
+interface Ethernet1
+   description BRANCH-VPWS-CE1_Ethernet1
+   no shutdown
+   switchport access vlan 99
+   switchport mode access
+   switchport
 !
 interface Ethernet3
    description SF_SITE_101_BL-1_Ethernet11

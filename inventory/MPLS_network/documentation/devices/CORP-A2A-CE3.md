@@ -4,7 +4,6 @@
 
 - [Management](#management)
   - [Management Interfaces](#management-interfaces)
-  - [DNS Domain](#dns-domain)
   - [IP Name Servers](#ip-name-servers)
   - [Clock Settings](#clock-settings)
   - [NTP](#ntp)
@@ -63,6 +62,7 @@ interface Management1
    description oob_management
    no shutdown
    ip address 192.168.0.34/24
+<<<<<<< HEAD
 ```
 
 ### DNS Domain
@@ -74,6 +74,8 @@ interface Management1
 ```eos
 dns domain EDJ.poc
 !
+=======
+>>>>>>> dk-avdpoc-20231102
 ```
 
 ### IP Name Servers
@@ -82,14 +84,12 @@ dns domain EDJ.poc
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
-| 8.8.8.8 | default | - |
-| 8.8.4.4 | default | - |
+| 10.255.0.2 | default | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
-ip name-server vrf default 8.8.4.4
-ip name-server vrf default 8.8.8.8
+ip name-server vrf default 10.255.0.2
 ```
 
 ### Clock Settings
@@ -158,13 +158,13 @@ management api http-commands
 
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
-| cvpadmin | 15 | network-admin | False | - |
+| arista | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
-username cvpadmin privilege 15 role network-admin secret sha512 <removed>
+username arista privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization
@@ -308,22 +308,33 @@ interface Ethernet1
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
+<<<<<<< HEAD
 | Loopback10 | Inband management | default | 192.168.101.34/32 |
+=======
+| Loopback0 |  CE IP for test | default | 10.102.102.3/32 |
+>>>>>>> dk-avdpoc-20231102
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
-| Loopback10 | Inband management | default | - |
+| Loopback0 |  CE IP for test | default | - |
 
 
 #### Loopback Interfaces Device Configuration
 
 ```eos
 !
+<<<<<<< HEAD
 interface Loopback10
    description Inband management
    ip address 192.168.101.34/32
+=======
+interface Loopback0
+   description  CE IP for test
+   no shutdown
+   ip address 10.102.102.3/32
+>>>>>>> dk-avdpoc-20231102
 ```
 
 ## Routing
@@ -343,11 +354,13 @@ service routing protocols model multi-agent
 
 | VRF | Routing Enabled |
 | --- | --------------- |
-| default | False |
+| default | True |
 
 #### IP Routing Device Configuration
 
 ```eos
+!
+ip routing
 ```
 
 ### IPv6 Routing

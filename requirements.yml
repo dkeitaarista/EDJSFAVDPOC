@@ -1,0 +1,15 @@
+---
+collections:
+
+  - name: arista.avd
+    version: 4.3.0
+
+  - name: arista.cvp
+    version: 3.8.0
+
+  - name: community.general
+    version: 7.5.0
+
+
+
+

@@ -57,10 +57,17 @@ overlay_rt_type:
   admin_subfield: bgp_as
 fabric_evpn_encapsulation: mpls
 local_users:
+<<<<<<< HEAD
 - name: cvpadmin
   privilege: 15
   role: network-admin
   sha512_password: $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0
+=======
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+>>>>>>> dk-avdpoc-20231102
 clock:
   timezone: CST
 aaa_authorization:
@@ -1180,6 +1187,29 @@ cpes:
     - Ethernet1
     mode: access
     vlans: 200
+<<<<<<< HEAD
+=======
+- name: BRANCH-VPWS-CE1
+  adapters:
+  - switches:
+    - SF_SITE_101_TOR-1A
+    switch_ports:
+    - Ethernet1
+    endpoint_ports:
+    - Ethernet1
+    mode: access
+    vlans: 99
+- name: BRANCH-VPWS-CE1
+  adapters:
+  - switches:
+    - SF_SITE_101_TOR-1A
+    switch_ports:
+    - Ethernet1
+    endpoint_ports:
+    - Ethernet1
+    mode: access
+    vlans: 99
+>>>>>>> dk-avdpoc-20231102
 - name: BRANCH-A2A-CE2
   adapters:
   - switches:
@@ -1212,6 +1242,7 @@ group_names:
 - TOR_101
 ansible_facts:
   avd_switch_facts:
+<<<<<<< HEAD
     SF_SITE_104_BL-1:
       switch:
         id: 1
@@ -1242,6 +1273,8 @@ ansible_facts:
         vlans: 100-104,200-204
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
+=======
+>>>>>>> dk-avdpoc-20231102
     SF_SITE_103_BL-1:
       switch:
         id: 1
@@ -1706,6 +1739,58 @@ ansible_facts:
         vlans: ''
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
+<<<<<<< HEAD
+=======
+    BRANCH-VPWS-CE2:
+      switch:
+        id: 5
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.41/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_102
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF_SITE_104_BL-1:
+      switch:
+        id: 1
+        type: pe
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.27/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.4.2.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_104
+        router_id: 100.4.2.1
+        evpn_role: client
+        mpls_overlay_role: client
+        evpn_route_servers: []
+        mpls_route_reflectors:
+        - SF_SITE_101_RR-1
+        - SF_SITE_102_RR-1
+        overlay:
+          peering_address: 100.4.2.1
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: 100-104,200-204
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+>>>>>>> dk-avdpoc-20231102
     SF_SITE_101_SPINE-1:
       switch:
         id: 1
@@ -1980,6 +2065,28 @@ ansible_facts:
         vlans: ''
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
+<<<<<<< HEAD
+=======
+    BRANCH-VPWS-CE1:
+      switch:
+        id: 5
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.40/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_101
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+>>>>>>> dk-avdpoc-20231102
     CORP-A2A-CE1:
       switch:
         id: 3
@@ -2020,6 +2127,7 @@ ansible_facts:
         endpoint_trunk_groups: []
   avd_overlay_peers:
     SF_SITE_101_RR-1:
+<<<<<<< HEAD
     - SF_SITE_104_BL-1
     - SF_SITE_103_BL-1
     - SF_SITE_102_BL-1
@@ -2031,6 +2139,19 @@ ansible_facts:
     - SF_SITE_103_BL-1
     - SF_SITE_102_BL-1
     - SF_SITE_102_BL-2
+=======
+    - SF_SITE_103_BL-1
+    - SF_SITE_102_BL-1
+    - SF_SITE_102_BL-2
+    - SF_SITE_104_BL-1
+    - SF_SITE_101_BL-1
+    - SF_SITE_101_BL-2
+    SF_SITE_102_RR-1:
+    - SF_SITE_103_BL-1
+    - SF_SITE_102_BL-1
+    - SF_SITE_102_BL-2
+    - SF_SITE_104_BL-1
+>>>>>>> dk-avdpoc-20231102
     - SF_SITE_101_BL-1
     - SF_SITE_101_BL-2
   avd_topology_peers:
@@ -2045,6 +2166,7 @@ ansible_facts:
     SF_SITE_101_BL-2:
     - SF_SITE_101_TOR-1B
 avd_switch_facts:
+<<<<<<< HEAD
   SF_SITE_104_BL-1:
     switch:
       id: 1
@@ -2075,6 +2197,8 @@ avd_switch_facts:
       vlans: 100-104,200-204
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
+=======
+>>>>>>> dk-avdpoc-20231102
   SF_SITE_103_BL-1:
     switch:
       id: 1
@@ -2539,6 +2663,58 @@ avd_switch_facts:
       vlans: ''
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
+<<<<<<< HEAD
+=======
+  BRANCH-VPWS-CE2:
+    switch:
+      id: 5
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.41/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_102
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF_SITE_104_BL-1:
+    switch:
+      id: 1
+      type: pe
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.27/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.4.2.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_104
+      router_id: 100.4.2.1
+      evpn_role: client
+      mpls_overlay_role: client
+      evpn_route_servers: []
+      mpls_route_reflectors:
+      - SF_SITE_101_RR-1
+      - SF_SITE_102_RR-1
+      overlay:
+        peering_address: 100.4.2.1
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: 100-104,200-204
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+>>>>>>> dk-avdpoc-20231102
   SF_SITE_101_SPINE-1:
     switch:
       id: 1
@@ -2813,6 +2989,28 @@ avd_switch_facts:
       vlans: ''
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
+<<<<<<< HEAD
+=======
+  BRANCH-VPWS-CE1:
+    switch:
+      id: 5
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.40/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_101
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+>>>>>>> dk-avdpoc-20231102
   CORP-A2A-CE1:
     switch:
       id: 3
@@ -2853,6 +3051,7 @@ avd_switch_facts:
       endpoint_trunk_groups: []
 avd_overlay_peers:
   SF_SITE_101_RR-1:
+<<<<<<< HEAD
   - SF_SITE_104_BL-1
   - SF_SITE_103_BL-1
   - SF_SITE_102_BL-1
@@ -2864,6 +3063,19 @@ avd_overlay_peers:
   - SF_SITE_103_BL-1
   - SF_SITE_102_BL-1
   - SF_SITE_102_BL-2
+=======
+  - SF_SITE_103_BL-1
+  - SF_SITE_102_BL-1
+  - SF_SITE_102_BL-2
+  - SF_SITE_104_BL-1
+  - SF_SITE_101_BL-1
+  - SF_SITE_101_BL-2
+  SF_SITE_102_RR-1:
+  - SF_SITE_103_BL-1
+  - SF_SITE_102_BL-1
+  - SF_SITE_102_BL-2
+  - SF_SITE_104_BL-1
+>>>>>>> dk-avdpoc-20231102
   - SF_SITE_101_BL-1
   - SF_SITE_101_BL-2
 avd_topology_peers:
@@ -2880,22 +3092,36 @@ avd_topology_peers:
 avd_requirements:
   failed: false
   changed: false
+<<<<<<< HEAD
+=======
+execute_tasks: 'true'
+>>>>>>> dk-avdpoc-20231102
 playbook_dir: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/playbooks
 ansible_playbook_python: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/.avdcvpenv/bin/python3
 ansible_config_file: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/ansible.cfg
 groups:
   all:
   - ACT_CVP
+<<<<<<< HEAD
   - SF_SITE_101_SPINE-1
   - SF_SITE_101_SPINE-2
   - SF_SITE_102_SPINE-1
   - SF_SITE_102_SPINE-2
+=======
+>>>>>>> dk-avdpoc-20231102
   - SF_SITE_101_BL-1
   - SF_SITE_101_BL-2
   - SF_SITE_102_BL-1
   - SF_SITE_102_BL-2
   - SF_SITE_103_BL-1
   - SF_SITE_104_BL-1
+<<<<<<< HEAD
+=======
+  - SF_SITE_101_SPINE-1
+  - SF_SITE_101_SPINE-2
+  - SF_SITE_102_SPINE-1
+  - SF_SITE_102_SPINE-2
+>>>>>>> dk-avdpoc-20231102
   - SF_SITE_101_TOR-1A
   - SF_SITE_101_TOR-1B
   - SF_SITE_102_TOR-1A
@@ -2905,21 +3131,38 @@ groups:
   - SF_SITE_102_RR-1
   - BRANCH-A2A-CE1
   - BRANCH-A2A-CE2
+<<<<<<< HEAD
   - CORP-A2A-CE1
   - CORP-A2A-CE2
   - BRANCH-A2A-CE5
   - BRANCH-A2A-CE6
   - CORP-A2A-CE5
   - CORP-A2A-CE6
+=======
+  - BRANCH-VPWS-CE1
+  - CORP-A2A-CE1
+  - CORP-A2A-CE2
+>>>>>>> dk-avdpoc-20231102
   - BRANCH-A2A-CE3
   - BRANCH-A2A-CE4
   - CORP-A2A-CE3
   - CORP-A2A-CE4
+<<<<<<< HEAD
+=======
+  - BRANCH-VPWS-CE2
+  - BRANCH-A2A-CE5
+  - BRANCH-A2A-CE6
+  - CORP-A2A-CE5
+  - CORP-A2A-CE6
+>>>>>>> dk-avdpoc-20231102
   ungrouped: []
   CVP:
   - ACT_CVP
   AVD_FABRIC:
+<<<<<<< HEAD
   - SF_SITE_104_BL-1
+=======
+>>>>>>> dk-avdpoc-20231102
   - SF_SITE_103_BL-1
   - SF_SITE_103_TOR-1A
   - BRANCH-A2A-CE5
@@ -2937,6 +3180,11 @@ groups:
   - BRANCH-A2A-CE4
   - CORP-A2A-CE3
   - CORP-A2A-CE4
+<<<<<<< HEAD
+=======
+  - BRANCH-VPWS-CE2
+  - SF_SITE_104_BL-1
+>>>>>>> dk-avdpoc-20231102
   - SF_SITE_101_SPINE-1
   - SF_SITE_101_SPINE-2
   - SF_SITE_101_BL-1
@@ -2946,6 +3194,10 @@ groups:
   - SF_SITE_101_TOR-1B
   - BRANCH-A2A-CE1
   - BRANCH-A2A-CE2
+<<<<<<< HEAD
+=======
+  - BRANCH-VPWS-CE1
+>>>>>>> dk-avdpoc-20231102
   - CORP-A2A-CE1
   - CORP-A2A-CE2
   SF_SITE_101:
@@ -2958,6 +3210,10 @@ groups:
   - SF_SITE_101_TOR-1B
   - BRANCH-A2A-CE1
   - BRANCH-A2A-CE2
+<<<<<<< HEAD
+=======
+  - BRANCH-VPWS-CE1
+>>>>>>> dk-avdpoc-20231102
   - CORP-A2A-CE1
   - CORP-A2A-CE2
   SPINES_101:
@@ -2974,6 +3230,10 @@ groups:
   CE_101:
   - BRANCH-A2A-CE1
   - BRANCH-A2A-CE2
+<<<<<<< HEAD
+=======
+  - BRANCH-VPWS-CE1
+>>>>>>> dk-avdpoc-20231102
   - CORP-A2A-CE1
   - CORP-A2A-CE2
   SF_SITE_102:
@@ -2988,6 +3248,10 @@ groups:
   - BRANCH-A2A-CE4
   - CORP-A2A-CE3
   - CORP-A2A-CE4
+<<<<<<< HEAD
+=======
+  - BRANCH-VPWS-CE2
+>>>>>>> dk-avdpoc-20231102
   SPINES_102:
   - SF_SITE_102_SPINE-1
   - SF_SITE_102_SPINE-2
@@ -3004,6 +3268,10 @@ groups:
   - BRANCH-A2A-CE4
   - CORP-A2A-CE3
   - CORP-A2A-CE4
+<<<<<<< HEAD
+=======
+  - BRANCH-VPWS-CE2
+>>>>>>> dk-avdpoc-20231102
   SF_SITE_103:
   - SF_SITE_103_BL-1
   - SF_SITE_103_TOR-1A
@@ -3051,7 +3319,11 @@ groups:
   - SF_SITE_102_BL-2
   - SF_SITE_103_BL-1
   - SF_SITE_104_BL-1
+<<<<<<< HEAD
 omit: __omit_place_holder__e112fe9ccfd9557ba0b2c641b757264dd0d15af1
+=======
+omit: __omit_place_holder__53801ac1c8785c6cade89d02db563e9a0cdeb54f
+>>>>>>> dk-avdpoc-20231102
 ansible_version:
   string: 2.12.10
   full: 2.12.10
@@ -3065,5 +3337,11 @@ ansible_inventory_sources:
 - /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/inventory/MPLS_network/inventory.yml
 ansible_skip_tags: []
 ansible_run_tags:
+<<<<<<< HEAD
 - build
+=======
+- apply
+- build
+- provision
+>>>>>>> dk-avdpoc-20231102
 ansible_verbosity: 0

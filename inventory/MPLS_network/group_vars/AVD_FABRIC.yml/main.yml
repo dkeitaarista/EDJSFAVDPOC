@@ -16,50 +16,13 @@ overlay_rt_type:
 # fabric evpn encap
 fabric_evpn_encapsulation: mpls
 
-# # fabric IS-IS routing
-# isis_area_id: "51.0001"
-# isis_default_circuit_type: level-2
-# isis_default_is_type: level-2
-# isis_default_metric: 10
-# #isis_maximum_paths: 4
-# isis_ti_lfa:
-#   enabled: true
-#   protection: node
-
-# # custom config for fabric IS-IS routing
-# custom_structured_configuration_router_isis:
-#   instance: "CORE"
-#   address_family_ipv4:
-#     enabled: true
-#     fast_reroute_ti_lfa:
-#       mode: node-protection
-#       level: level-2
-#   address_family_ipv6:
-#     enabled: true
-#     fast_reroute_ti_lfa:
-#       mode: node-protection
-#       level: level-2
-
-# # MAC SECURITY PROFILE FOR WAN LINKS
-# custom_structured_configuration_mac_security:
-#   fips_restrictions: true
-#   profiles:
-#     - name: Backbone
-#       cipher:  aes256-gcm-xpn
-#       connection_keys:
-#         - id: 4261636b62306e65
-#           encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-#           # fallback: true
-#       mka:
-#         session:
-#           rekey_period: 86400
-
 #define local users
 local_users:
-  - name: cvpadmin
+  - name: arista
     privilege: 15
     role: network-admin
-    sha512_password: "$6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0"
+    # sha512_password: "$6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0"
+    sha512_password: "$6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1"
 
 #Timezone
 clock:
@@ -72,10 +35,10 @@ aaa_authorization:
 
 # DNS servers.
 name_servers:
- - 8.8.8.8
- - 8.8.4.4
+ - 10.255.0.2
+ 
 
-dns_domain: EDJ.poc
+# dns_domain: EDJ.poc
 
 # Logging
 custom_structured_configuration_logging:

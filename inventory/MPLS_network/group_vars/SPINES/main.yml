@@ -3,9 +3,10 @@
 
 PE_EOS_CLI: |
   !
+  mpls label range static 16 15984
   mpls label range bgp-sr 16000 8000
   mpls label range isis-sr 16000 8000
-  mpls label range static 16 15984
+  
   !
 
   router isis CORE
@@ -13,7 +14,7 @@ PE_EOS_CLI: |
     set-overload-bit on-startup wait-for-bgp
     authentication mode md5
     graceful-restart restart-hold-time 300
-    authentication key 7 U93fJqF1/pY=
+    authentication key edwardjones
     address-family ipv4 unicast
       bfd all-interfaces
     address-family ipv6 unicast
@@ -48,15 +49,15 @@ custom_structured_configuration_router_isis:
       level: level-2
 
 # MAC SECURITY PROFILE FOR WAN LINKS
-custom_structured_configuration_mac_security:
-  fips_restrictions: true
-  profiles:
-    - name: Backbone
-      cipher:  aes256-gcm-xpn
-      connection_keys:
-        - id: 4261636b62306e65
-          encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
-          # fallback: true
-      mka:
-        session:
-          rekey_period: 86400
+# custom_structured_configuration_mac_security:
+#   fips_restrictions: true
+#   profiles:
+#     - name: Backbone
+#       cipher:  aes256-gcm-xpn
+#       connection_keys:
+#         - id: 4261636b62306e65
+#           encrypted_key: 08751E18584F5641105D5E577A7D217E6661204054415A
+#           # fallback: true
+#       mka:
+#         session:
+#           rekey_period: 86400

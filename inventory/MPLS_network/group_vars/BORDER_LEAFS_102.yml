@@ -7,7 +7,7 @@ pe:
   defaults:
     platform: vEOS-lab
     loopback_ipv4_pool: 100.2.2.0/24
-    mpls_route_reflectors: [ SF_SITE_101_RR-1, SF_SITE_102_RR-1 ]
+    mpls_route_reflectors: [ SF-SITE-101-RR-1, SF-SITE-102-RR-1 ]
     bgp_defaults: "{{ FABRIC_BGP_DEFAULTS }}"
     isis_system_id_prefix: "1921.6800"
     structured_config: "{{ PE_BGP_STRUCTURED_CONFIG }}"
@@ -15,9 +15,9 @@ pe:
     filter:
       tags: [ site102 ]
   nodes:
-    - name: SF_SITE_102_BL-1
-      id: 1
+    - name: SF-SITE-102-BL-1
+      id: 21
       mgmt_ip: 192.168.0.21/24
-    - name: SF_SITE_102_BL-2
-      id: 2
+    - name: SF-SITE-102-BL-2
+      id: 22
       mgmt_ip: 192.168.0.22/24

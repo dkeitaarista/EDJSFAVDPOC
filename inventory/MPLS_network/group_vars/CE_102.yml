@@ -9,18 +9,23 @@ ce:
     spanning_tree_mode: mstp
   nodes:
     - name: BRANCH-A2A-CE3
-      id: 1
+      id: 32
       mgmt_ip: 192.168.0.32/24
     - name: BRANCH-A2A-CE4
-      id: 2
+      id: 33
       mgmt_ip: 192.168.0.33/24
     - name: CORP-A2A-CE3
-      id: 3
+      id: 34
       mgmt_ip: 192.168.0.34/24
     - name: CORP-A2A-CE4
-      id: 4
+      id: 35
       mgmt_ip: 192.168.0.35/24
-
+    - name: BRANCH-VPWS-CE2
+      id: 41
+      mgmt_ip: 192.168.0.41/24
+# DOES NOT PROVIDE THE INTENDED OUTCOME. IP ROUTING IS NOT CONFIGURED ON ROUTER
 vrfs:
   - name: default
     ip_routing: true
+# IP ROUTING CONFIGURATION
+custom_structured_configuration_ip_routing: true

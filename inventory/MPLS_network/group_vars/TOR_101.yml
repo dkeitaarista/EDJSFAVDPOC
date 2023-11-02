@@ -1,38 +1,37 @@
 ---
 type: ethernet_aggregation
-
 ethernet_aggregation:
   defaults:
     platform: vEOS-lab
     spanning_tree_mode: mstp
-    uplink_structured_config:
-      service_policy:
-        qos:
-          input: TENANT-INGRESS-CLASSIFIER-1G
-      qos:
-        trust: dscp
+    # uplink_structured_config:
+    #   service_policy:
+    #     qos:
+    #       input: TENANT-INGRESS-CLASSIFIER-1G
+    #   qos:
+    #     trust: dscp
   nodes:
-    - name: SF_SITE_101_TOR-1A
-      id: 1
+    - name: SF-SITE-101-TOR-1A
+      id: 16
       mgmt_ip: 192.168.0.16/24
       uplink_interfaces:
         - Ethernet3
         - Ethernet4
       uplink_switches:
-        - SF_SITE_101_BL-1
-        - SF_SITE_101_BL-1
+        - SF-SITE-101-BL-1
+        - SF-SITE-101-BL-1
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
-    - name: SF_SITE_101_TOR-1B
-      id: 2
+    - name: SF-SITE-101-TOR-1B
+      id: 17
       mgmt_ip: 192.168.0.17/24
       uplink_interfaces:
         - Ethernet3
         - Ethernet4
       uplink_switches:
-        - SF_SITE_101_BL-2
-        - SF_SITE_101_BL-2
+        - SF-SITE-101-BL-2
+        - SF-SITE-101-BL-2
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
@@ -41,7 +40,7 @@ cpes:
   - name: BRANCH-A2A-CE1
     adapters:
       - switches:
-          - SF_SITE_101_TOR-1A
+          - SF-SITE-101-TOR-1A
         switch_ports:
           - Ethernet7
         endpoint_ports:
@@ -51,17 +50,37 @@ cpes:
   - name: CORP-A2A-CE1
     adapters:
       - switches:
-          - SF_SITE_101_TOR-1A
+          - SF-SITE-101-TOR-1A
         switch_ports:
           - Ethernet8
         endpoint_ports:
           - Ethernet1
         mode: access
         vlans: 200
+  - name: BRANCH-VPWS-CE1
+    adapters:
+      - switches:
+          - SF-SITE-101-TOR-1A
+        switch_ports:
+          - Ethernet1
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 99
+  - name: BRANCH-VPWS-CE1
+    adapters:
+      - switches:
+          - SF-SITE-101-TOR-1A
+        switch_ports:
+          - Ethernet1
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 99
   - name: BRANCH-A2A-CE2
     adapters:
       - switches:
-          - SF_SITE_101_TOR-1B
+          - SF-SITE-101-TOR-1B
         switch_ports:
           - Ethernet7
         endpoint_ports:
@@ -71,7 +90,7 @@ cpes:
   - name: CORP-A2A-CE2
     adapters:
       - switches:
-          - SF_SITE_101_TOR-1B
+          - SF-SITE-101-TOR-1B
         switch_ports:
           - Ethernet8
         endpoint_ports:

@@ -1,0 +1,30 @@
+---
+# L3 interface to TOR
+
+custom_structured_configuration_ethernet_interfaces:
+  - name: Ethernet1
+    description: Uplink to SF_SITE_101_TOR-1A
+    type: routed
+    ip_address: 10.255.101.10/31
+
+# BGP peering with other CE across VPWS
+
+custom_structured_configuration_router_bgp:
+  as: 65531
+  router_id: 10.255.101.10
+  redistribute_routes:
+    - source_protocol: connected
+  neighbors:
+    - ip_address: 10.255.101.11
+      remote_as: '65531'
+      peer_group: CE-PEER-VPWS
+  address_family_ipv4:
+    peer_groups:
+      - name: CE-PEER-VPWS
+        activate: true
+# Interface Loopback0 for CE
+custom_structured_configuration_loopback_interfaces:
+  - name: Loopback0
+    description: " CE IP for test"
+    shutdown: false
+    ip_address: 10.101.101.5/32

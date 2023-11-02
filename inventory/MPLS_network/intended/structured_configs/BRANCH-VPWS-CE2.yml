@@ -1,0 +1,93 @@
+hostname: BRANCH-VPWS-CE2
+service_routing_protocols_model: multi-agent
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+ip_name_servers:
+- ip_address: 10.255.0.2
+  vrf: default
+spanning_tree:
+  mode: mstp
+  mst_instances:
+  - id: '0'
+    priority: 32768
+local_users:
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+vrfs:
+- name: default
+  ip_routing: false
+management_interfaces:
+- name: Management1
+  description: oob_management
+  shutdown: false
+  vrf: default
+  ip_address: 192.168.0.41/24
+  gateway: null
+  type: oob
+management_api_http:
+  enable_vrfs:
+  - name: default
+  enable_https: true
+ip_igmp_snooping:
+  globally_enabled: true
+logging:
+  console: critical
+  monitor: disabled
+  buffered:
+    size: 180000
+    level: informational
+  trap: warnings
+  synchronous:
+    level: critical
+  format:
+    timestamp: high-resolution
+    sequence_numbers: true
+  source_interface: Loopback10
+  policy:
+    match:
+      match_lists:
+      - name: SAKlogs
+        action: discard
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+ntp:
+  servers:
+  - name: 0.north-america.pool.ntp.org
+    preferred: true
+    vrf: default
+  - name: 1.north-america.pool.ntp.org
+    vrf: default
+loopback_interfaces:
+- name: Loopback10
+  description: Inband management
+  ip_address: 192.168.101.41/32
+ip_routing: true
+ethernet_interfaces:
+- name: Ethernet1
+  description: Uplink to SF_SITE_101_TOR-1A
+  type: routed
+  ip_address: 10.255.101.11/31
+router_bgp:
+  as: '65531'
+  router_id: 10.255.101.11
+  redistribute_routes:
+  - source_protocol: connected
+  neighbors:
+  - ip_address: 10.255.101.10
+    remote_as: '65531'
+    peer_group: CE-PEER-VPWS
+  address_family_ipv4:
+    peer_groups:
+    - name: CE-PEER-VPWS
+      activate: true

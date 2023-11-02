@@ -1,0 +1,56 @@
+### Workflow for Self hosted on runner on macOS/laptop
+name: Test the upcoming changes
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  feature-branch-validation:
+    env:
+      PASSPHRASE: ${{ secrets.PASSPHRASE }}
+    timeout-minutes: 15
+    runs-on: [ self-hosted, macOS, X64 ]
+    steps:
+      - name: Hi
+        run: echo "Hello World!"
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install zsh
+        run: arch -arm64 brew install zsh
+
+      - name: Setup Python
+        # uses: actions/setup-python@v3
+        run: arch -arm64 brew install python3
+
+      - name: Install Python requirements
+        run: pip3 install -r requirements.txt
+
+      - name: Run pre-commit on files
+        # uses: pre-commit/action@v3.0.0
+        run: |
+          pip3 install pre-commit
+          pre-commit install
+
+      - name: Check paths for group_vars
+        uses: dorny/paths-filter@v2
+        id: filter-group_vars
+        with:
+          filters: |
+            workflows:
+              - 'inventory/MPLS_network/group_vars/**'
+              - 'inventory/MPLS_network/inventory.yml'
+              - '.github/workflows/**'
+      - name: Check ansible version before installation
+        run: ansible --version 
+        
+      - name: Install collections
+        run: ansible-galaxy collection install -r requirements.yml 
+        if: steps.filter-group_vars.outputs.workflows == 'true'
+
+      - name: Test configuration for the fabric
+        run: make fabric-build
+        if: steps.filter-group_vars.outputs.workflows == 'true'

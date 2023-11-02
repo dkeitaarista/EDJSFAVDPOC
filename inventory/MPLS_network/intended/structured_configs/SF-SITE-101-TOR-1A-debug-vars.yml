@@ -1,0 +1,2692 @@
+l3_edge:
+  p2p_links_ip_pools:
+  - name: WAN_pool
+    ipv4_pool: 10.1.0.0/24
+    prefix_size: 31
+  p2p_links:
+  - id: 1
+    nodes:
+    - SF-SITE-101-BL-1
+    - SF-SITE-104-BL-1
+    interfaces:
+    - Ethernet10
+    - Ethernet10
+    ip_pool: WAN_pool
+  - id: 2
+    nodes:
+    - SF-SITE-101-BL-1
+    - SF-SITE-102-BL-1
+    interfaces:
+    - Ethernet9
+    - Ethernet9
+    ip_pool: WAN_pool
+  - id: 3
+    nodes:
+    - SF-SITE-101-BL-2
+    - SF-SITE-103-BL-1
+    interfaces:
+    - Ethernet9
+    - Ethernet9
+    ip_pool: WAN_pool
+  - id: 4
+    nodes:
+    - SF-SITE-104-BL-1
+    - SF-SITE-102-BL-1
+    interfaces:
+    - Ethernet6
+    - Ethernet3
+    ip_pool: WAN_pool
+  - id: 5
+    nodes:
+    - SF-SITE-102-BL-2
+    - SF-SITE-103-BL-1
+    interfaces:
+    - Ethernet10
+    - Ethernet10
+    ip_pool: WAN_pool
+fabric_name: AVD_FABRIC
+design:
+  type: mpls
+bgp_as: '6.6971'
+overlay_rt_type:
+  admin_subfield: bgp_as
+fabric_evpn_encapsulation: mpls
+local_users:
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+clock:
+  timezone: CST
+aaa_authorization:
+  exec:
+    default: local
+name_servers:
+- 10.255.0.2
+custom_structured_configuration_logging:
+  console: critical
+  monitor: disabled
+  buffered:
+    size: 180000
+    level: informational
+  trap: warnings
+  synchronous:
+    level: critical
+  format:
+    timestamp: high-resolution
+    sequence_numbers: true
+  source_interface: Loopback10
+  policy:
+    match:
+      match_lists:
+      - name: SAKlogs
+        action: discard
+match_list_input:
+  string:
+  - name: SAKlogs
+    sequence_numbers:
+    - sequence: 10
+      match_regex: MKA-6-SAK_ACTIVATED
+    - sequence: 20
+      match_regex: MKA-6-SAK_CREATED
+    - sequence: 30
+      match_regex: MKA-5-STATE_CHG
+    - sequence: 40
+      match_regex: MKA-3-SESSION_FAILURE
+mgmt_interface_vrf: default
+mgmt_gateway: null
+custom_structured_configuration_daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+custom_structured_configuration_ntp:
+  servers:
+  - name: 0.north-america.pool.ntp.org
+    preferred: true
+    vrf: default
+  - name: 1.north-america.pool.ntp.org
+    vrf: default
+FABRIC_BGP_DEFAULTS:
+- bgp asn notation asdot
+- bgp always-compare-med
+mgmt_loopback_ipv4_pool: 192.168.101.0/24
+custom_structured_configuration_loopback_interfaces:
+- name: Loopback10
+  description: Inband management
+  ip_address: '{{ mgmt_loopback_ipv4_pool | ansible.utils.ipmath((management_interfaces[0][''ip_address''] | string | ansible.utils.ipaddr(''address'')).split(''.'')[3]) }}/32'
+node_type_keys:
+- key: p
+  type: p
+  mpls_lsr: true
+  default_mpls_overlay_role: none
+  default_overlay_routing_protocol: ibgp
+  default_underlay_routing_protocol: isis-sr
+- key: pe
+  type: pe
+  mpls_lsr: true
+  connected_endpoints: true
+  default_mpls_overlay_role: client
+  default_evpn_role: client
+  network_services:
+    l1: true
+    l2: true
+    l3: true
+  default_overlay_routing_protocol: ibgp
+  default_underlay_routing_protocol: isis-sr
+  default_overlay_address_families:
+  - vpn-ipv4
+  - vpn-ipv6
+  - evpn
+  default_evpn_encapsulation: mpls
+- key: rr
+  type: rr
+  mpls_lsr: true
+  default_mpls_overlay_role: server
+  default_evpn_role: server
+  default_overlay_routing_protocol: ibgp
+  default_underlay_routing_protocol: isis-sr
+  default_overlay_address_families:
+  - vpn-ipv4
+  - vpn-ipv6
+  - evpn
+  default_evpn_encapsulation: mpls
+- key: ethernet_aggregation
+  type: ethernet_aggregation
+  connected_endpoints: true
+  network_services:
+    l2: true
+  underlay_router: false
+  uplink_type: port-channel
+- key: ce
+  type: ce
+  connected_endpoints: true
+  network_services:
+    l2: true
+  underlay_router: false
+  uplink_type: port-channel
+bgp_default_ipv4_unicast: false
+bgp_update_wait_install: false
+bgp_distance:
+  external_routes: 20
+  internal_routes: 200
+  local_routes: 200
+bgp_graceful_restart:
+  enabled: true
+  restart_time: 300
+p2p_uplinks_mtu: 1500
+bfd_multihop:
+  interval: 1200
+  min_rx: 1200
+  multiplier: 3
+BRANCH:
+- name: BRANCH
+  pseudowire_rt_base: 5000
+  mac_vrf_id_base: 5000
+  point_to_point_services:
+  - name: SF_SITE_101_BL-1-SF_SITE_102_BL-1
+    type: vpws-pseudowire
+    subinterfaces:
+    - number: 99
+    endpoints:
+    - id: 1
+      nodes:
+      - SF-SITE-101-BL-1
+      interfaces:
+      - Port-channel11
+    - id: 2
+      nodes:
+      - SF-SITE-102-BL-1
+      interfaces:
+      - Port-channel11
+  vrfs:
+  - name: BRANCH-10011
+    vrf_vni: 10011
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.100
+      encapsulation_dot1q_vlan:
+      - 100
+      ip_addresses:
+      - 10.255.101.0/31
+      nodes:
+      - SF-SITE-101-BL-1
+    bgp_peers:
+    - ip_address: 10.255.101.1
+      remote_as: 65501
+      bfd: true
+      nodes:
+      - SF-SITE-101-BL-1
+  - name: BRANCH-10013
+    vrf_vni: 10011
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.101
+      encapsulation_dot1q_vlan:
+      - 101
+      ip_addresses:
+      - 10.255.101.2/31
+      nodes:
+      - SF-SITE-101-BL-2
+    bgp_peers:
+    - ip_address: 10.255.101.3
+      remote_as: 65502
+      bfd: true
+      nodes:
+      - SF-SITE-101-BL-2
+  - name: BRANCH-10015
+    vrf_vni: 10011
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.102
+      encapsulation_dot1q_vlan:
+      - 102
+      ip_addresses:
+      - 10.255.102.0/31
+      nodes:
+      - SF-SITE-102-BL-1
+    bgp_peers:
+    - ip_address: 10.255.102.1
+      remote_as: 65503
+      bfd: true
+      nodes:
+      - SF-SITE-102-BL-1
+  - name: BRANCH-10017
+    vrf_vni: 10011
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.103
+      encapsulation_dot1q_vlan:
+      - 103
+      ip_addresses:
+      - 10.255.102.2/31
+      nodes:
+      - SF-SITE-102-BL-2
+    bgp_peers:
+    - ip_address: 10.255.102.3
+      remote_as: 65504
+      bfd: true
+      nodes:
+      - SF-SITE-102-BL-2
+  - name: BRANCH-10019
+    vrf_vni: 10011
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.104
+      encapsulation_dot1q_vlan:
+      - 104
+      ip_addresses:
+      - 10.255.103.0/31
+      nodes:
+      - SF-SITE-103-BL-1
+    bgp_peers:
+    - ip_address: 10.255.103.1
+      remote_as: 65505
+      bfd: true
+      nodes:
+      - SF-SITE-103-BL-1
+  - name: BRANCH-10020
+    vrf_vni: 10011
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Ethernet7
+      ip_addresses:
+      - 10.255.104.0/31
+      nodes:
+      - SF-SITE-104-BL-1
+    bgp_peers:
+    - ip_address: 10.255.104.1
+      remote_as: 65506
+      bfd: true
+      nodes:
+      - SF-SITE-104-BL-1
+  l2vlans:
+  - id: 100
+    name: vlan_100
+    vxlan: false
+    tags:
+    - site101
+  - id: 101
+    name: vlan_101
+    vxlan: false
+    tags:
+    - site101
+  - id: 102
+    name: vlan_102
+    vxlan: false
+    tags:
+    - site102
+  - id: 103
+    name: vlan_103
+    vxlan: false
+    tags:
+    - site102
+  - id: 104
+    name: vlan_104
+    vxlan: false
+    tags:
+    - site103
+CORP:
+- name: CORP
+  mac_vrf_id_base: 6000
+  vrfs:
+  - name: CORP-10012
+    vrf_vni: 10012
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.200
+      encapsulation_dot1q_vlan:
+      - 200
+      ip_addresses:
+      - 10.255.101.4/31
+      nodes:
+      - SF-SITE-101-BL-1
+    bgp_peers:
+    - ip_address: 10.255.101.5
+      remote_as: 65521
+      bfd: true
+      nodes:
+      - SF-SITE-101-BL-1
+  - name: CORP-10014
+    vrf_vni: 10012
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.201
+      encapsulation_dot1q_vlan:
+      - 201
+      ip_addresses:
+      - 10.255.101.6/31
+      nodes:
+      - SF-SITE-101-BL-2
+    bgp_peers:
+    - ip_address: 10.255.101.7
+      remote_as: 65522
+      bfd: true
+      nodes:
+      - SF-SITE-101-BL-2
+  - name: CORP-10016
+    vrf_vni: 10012
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.202
+      encapsulation_dot1q_vlan:
+      - 202
+      ip_addresses:
+      - 10.255.102.4/31
+      nodes:
+      - SF-SITE-102-BL-1
+    bgp_peers:
+    - ip_address: 10.255.102.5
+      remote_as: 65523
+      bfd: true
+      nodes:
+      - SF-SITE-102-BL-1
+  - name: CORP-10018
+    vrf_vni: 10012
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.203
+      encapsulation_dot1q_vlan:
+      - 203
+      ip_addresses:
+      - 10.255.102.6/31
+      nodes:
+      - SF-SITE-102-BL-2
+    bgp_peers:
+    - ip_address: 10.255.102.7
+      remote_as: 65524
+      bfd: true
+      nodes:
+      - SF-SITE-102-BL-2
+  - name: CORP-10020
+    vrf_vni: 10012
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Port-channel11.204
+      encapsulation_dot1q_vlan:
+      - 204
+      ip_addresses:
+      - 10.255.103.2/31
+      nodes:
+      - SF-SITE-103-BL-1
+    bgp_peers:
+    - ip_address: 10.255.103.3
+      remote_as: 65525
+      bfd: true
+      nodes:
+      - SF-SITE-103-BL-1
+  - name: CORP-10022
+    vrf_vni: 10012
+    address_families:
+    - vpn-ipv4
+    - vpn-ipv6
+    bgp:
+      structured_config:
+        eos_cli: 'bgp additional-paths receive
+
+          bgp additional-paths send any
+
+          bgp bestpath tie-break router-id
+
+          '
+        address_family_ipv4:
+          bgp:
+            additional_paths:
+              install: true
+    l3_interfaces:
+    - interfaces:
+      - Ethernet8
+      ip_addresses:
+      - 10.255.104.2/31
+      nodes:
+      - SF-SITE-104-BL-1
+    bgp_peers:
+    - ip_address: 10.255.104.3
+      remote_as: 65526
+      bfd: true
+      nodes:
+      - SF-SITE-104-BL-1
+  l2vlans:
+  - id: 200
+    name: vlan_200
+    vxlan: false
+    tags:
+    - site101
+  - id: 201
+    name: vlan_201
+    vxlan: false
+    tags:
+    - site101
+  - id: 202
+    name: vlan_202
+    vxlan: false
+    tags:
+    - site102
+  - id: 203
+    name: vlan_203
+    vxlan: false
+    tags:
+    - site102
+  - id: 204
+    name: vlan_204
+    vxlan: false
+    tags:
+    - site103
+interface_qos_profiles_1G: '# !
+
+  # tx-queue 0
+
+  #    no priority
+
+  #    bandwidth percent 5
+
+  # !
+
+  # tx-queue 1
+
+  #    no priority
+
+  #    bandwidth percent 1
+
+  # !
+
+  # tx-queue 2
+
+  #    no priority
+
+  #    bandwidth percent 19
+
+  # !
+
+  # tx-queue 3
+
+  #    no priority
+
+  #    bandwidth percent 20
+
+  # !
+
+  # tx-queue 4
+
+  #    priority strict
+
+  #    bandwidth percent 30
+
+  # !
+
+  # tx-queue 5
+
+  #    priority strict
+
+  #    bandwidth percent 25
+
+  '
+network_services_keys:
+- name: tenants
+- name: BRANCH
+- name: CORP
+core_interfaces:
+  p2p_links_ip_pools:
+  - name: SITE101_pool
+    ipv4_pool: 10.0.0.0/24
+    prefix_size: 31
+  p2p_links:
+  - id: 1
+    nodes:
+    - SF-SITE-101-SPINE-1
+    - SF-SITE-101-BL-1
+    interfaces:
+    - Ethernet3
+    - Ethernet3
+    ip_pool: SITE101_pool
+  - id: 2
+    nodes:
+    - SF-SITE-101-SPINE-1
+    - SF-SITE-101-BL-2
+    interfaces:
+    - Ethernet4
+    - Ethernet3
+    ip_pool: SITE101_pool
+  - id: 3
+    nodes:
+    - SF-SITE-101-SPINE-2
+    - SF-SITE-101-BL-1
+    interfaces:
+    - Ethernet3
+    - Ethernet4
+    ip_pool: SITE101_pool
+  - id: 4
+    nodes:
+    - SF-SITE-101-SPINE-2
+    - SF-SITE-101-BL-2
+    interfaces:
+    - Ethernet4
+    - Ethernet4
+    ip_pool: SITE101_pool
+  - id: 5
+    nodes:
+    - SF-SITE-101-BL-1
+    - SF-SITE-101-RR-1
+    interfaces:
+    - Ethernet7
+    - Ethernet3
+    ip_pool: SITE101_pool
+  - id: 6
+    nodes:
+    - SF-SITE-101-BL-2
+    - SF-SITE-101-RR-1
+    interfaces:
+    - Ethernet7
+    - Ethernet4
+    ip_pool: SITE101_pool
+dc_name: SF_101
+type: ethernet_aggregation
+ethernet_aggregation:
+  defaults:
+    platform: vEOS-lab
+    spanning_tree_mode: mstp
+  nodes:
+  - name: SF-SITE-101-TOR-1A
+    id: 16
+    mgmt_ip: 192.168.0.16/24
+    uplink_interfaces:
+    - Ethernet3
+    - Ethernet4
+    uplink_switches:
+    - SF-SITE-101-BL-1
+    - SF-SITE-101-BL-1
+    uplink_switch_interfaces:
+    - Ethernet11
+    - Ethernet12
+  - name: SF-SITE-101-TOR-1B
+    id: 17
+    mgmt_ip: 192.168.0.17/24
+    uplink_interfaces:
+    - Ethernet3
+    - Ethernet4
+    uplink_switches:
+    - SF-SITE-101-BL-2
+    - SF-SITE-101-BL-2
+    uplink_switch_interfaces:
+    - Ethernet11
+    - Ethernet12
+cpes:
+- name: BRANCH-A2A-CE1
+  adapters:
+  - switches:
+    - SF-SITE-101-TOR-1A
+    switch_ports:
+    - Ethernet7
+    endpoint_ports:
+    - Ethernet1
+    mode: access
+    vlans: 100
+- name: CORP-A2A-CE1
+  adapters:
+  - switches:
+    - SF-SITE-101-TOR-1A
+    switch_ports:
+    - Ethernet8
+    endpoint_ports:
+    - Ethernet1
+    mode: access
+    vlans: 200
+- name: BRANCH-VPWS-CE1
+  adapters:
+  - switches:
+    - SF-SITE-101-TOR-1A
+    switch_ports:
+    - Ethernet1
+    endpoint_ports:
+    - Ethernet1
+    mode: access
+    vlans: 99
+- name: BRANCH-VPWS-CE1
+  adapters:
+  - switches:
+    - SF-SITE-101-TOR-1A
+    switch_ports:
+    - Ethernet1
+    endpoint_ports:
+    - Ethernet1
+    mode: access
+    vlans: 99
+- name: BRANCH-A2A-CE2
+  adapters:
+  - switches:
+    - SF-SITE-101-TOR-1B
+    switch_ports:
+    - Ethernet7
+    endpoint_ports:
+    - Ethernet1
+    mode: access
+    vlans: 101
+- name: CORP-A2A-CE2
+  adapters:
+  - switches:
+    - SF-SITE-101-TOR-1B
+    switch_ports:
+    - Ethernet8
+    endpoint_ports:
+    - Ethernet1
+    mode: access
+    vlans: 201
+inventory_file: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/inventory/MPLS_network/inventory.yml
+inventory_dir: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/inventory/MPLS_network
+ansible_host: 10.255.x.x
+inventory_hostname: SF-SITE-101-TOR-1A
+inventory_hostname_short: SF-SITE-101-TOR-1A
+group_names:
+- AVD_FABRIC
+- SF_SITE_101
+- TENANT_NETWORKS
+- TOR_101
+ansible_facts:
+  avd_switch_facts:
+    SF-SITE-102-SPINE-1:
+      switch:
+        id: 18
+        type: p
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.18/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.2.0.0/24
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_102
+        router_id: 100.2.0.18
+        evpn_role: none
+        mpls_overlay_role: none
+        overlay:
+          peering_address: 100.2.0.18
+          evpn_mpls: false
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-102-SPINE-2:
+      switch:
+        id: 19
+        type: p
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.19/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.2.0.0/24
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_102
+        router_id: 100.2.0.19
+        evpn_role: none
+        mpls_overlay_role: none
+        overlay:
+          peering_address: 100.2.0.19
+          evpn_mpls: false
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-102-BL-1:
+      switch:
+        id: 21
+        type: pe
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.21/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.2.2.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_102
+        router_id: 100.2.2.21
+        evpn_role: client
+        mpls_overlay_role: client
+        evpn_route_servers: []
+        mpls_route_reflectors:
+        - SF-SITE-101-RR-1
+        - SF-SITE-102-RR-1
+        overlay:
+          peering_address: 100.2.2.21
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: 102-103,202-203
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-102-BL-2:
+      switch:
+        id: 22
+        type: pe
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.22/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.2.2.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_102
+        router_id: 100.2.2.22
+        evpn_role: client
+        mpls_overlay_role: client
+        evpn_route_servers: []
+        mpls_route_reflectors:
+        - SF-SITE-101-RR-1
+        - SF-SITE-102-RR-1
+        overlay:
+          peering_address: 100.2.2.22
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: 102-103,202-203
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-102-RR-1:
+      switch:
+        id: 20
+        type: rr
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.20/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.1.1.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_102
+        router_id: 100.1.1.20
+        evpn_role: server
+        mpls_overlay_role: server
+        overlay:
+          peering_address: 100.1.1.20
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-102-TOR-1A:
+      switch:
+        id: 23
+        type: ethernet_aggregation
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.23/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_102
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 2
+        uplinks:
+        - interface: Ethernet3
+          peer: SF-SITE-102-BL-1
+          peer_interface: Ethernet11
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '11'
+          vlans: 102-103,202-203
+        - interface: Ethernet4
+          peer: SF-SITE-102-BL-1
+          peer_interface: Ethernet12
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '11'
+          vlans: 102-103,202-203
+        uplink_peers:
+        - SF-SITE-102-BL-1
+        vlans: 100-104,200-204
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-102-TOR-1B:
+      switch:
+        id: 2
+        type: ethernet_aggregation
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.24/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_102
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 2
+        uplinks:
+        - interface: Ethernet3
+          peer: SF-SITE-102-BL-2
+          peer_interface: Ethernet11
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '11'
+          vlans: 102-103,202-203
+        - interface: Ethernet4
+          peer: SF-SITE-102-BL-2
+          peer_interface: Ethernet12
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '11'
+          vlans: 102-103,202-203
+        uplink_peers:
+        - SF-SITE-102-BL-2
+        vlans: 100-104,200-204
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    BRANCH-A2A-CE3:
+      switch:
+        id: 32
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.32/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_102
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    BRANCH-A2A-CE4:
+      switch:
+        id: 33
+        type: ce
+        platform: vEOS-lab
+        is_deployed: false
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.33/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_102
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    CORP-A2A-CE3:
+      switch:
+        id: 34
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.34/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_102
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    CORP-A2A-CE4:
+      switch:
+        id: 35
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.35/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_102
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    BRANCH-VPWS-CE2:
+      switch:
+        id: 41
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.41/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_102
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-101-SPINE-1:
+      switch:
+        id: 11
+        type: p
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.11/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.1.0.0/24
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_101
+        router_id: 100.1.0.11
+        evpn_role: none
+        mpls_overlay_role: none
+        overlay:
+          peering_address: 100.1.0.11
+          evpn_mpls: false
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-101-SPINE-2:
+      switch:
+        id: 12
+        type: p
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.12/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.1.0.0/24
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_101
+        router_id: 100.1.0.12
+        evpn_role: none
+        mpls_overlay_role: none
+        overlay:
+          peering_address: 100.1.0.12
+          evpn_mpls: false
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-101-BL-1:
+      switch:
+        id: 14
+        type: pe
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.14/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.1.2.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_101
+        router_id: 100.1.2.14
+        evpn_role: client
+        mpls_overlay_role: client
+        evpn_route_servers: []
+        mpls_route_reflectors:
+        - SF-SITE-101-RR-1
+        - SF-SITE-102-RR-1
+        overlay:
+          peering_address: 100.1.2.14
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: 100-101,200-201
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-101-BL-2:
+      switch:
+        id: 15
+        type: pe
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.15/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.1.2.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_101
+        router_id: 100.1.2.15
+        evpn_role: client
+        mpls_overlay_role: client
+        evpn_route_servers: []
+        mpls_route_reflectors:
+        - SF-SITE-101-RR-1
+        - SF-SITE-102-RR-1
+        overlay:
+          peering_address: 100.1.2.15
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: 100-101,200-201
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-101-RR-1:
+      switch:
+        id: 13
+        type: rr
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.13/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.1.1.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_101
+        router_id: 100.1.1.13
+        evpn_role: server
+        mpls_overlay_role: server
+        overlay:
+          peering_address: 100.1.1.13
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-101-TOR-1A:
+      switch:
+        id: 16
+        type: ethernet_aggregation
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.16/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_101
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 2
+        uplinks:
+        - interface: Ethernet3
+          peer: SF-SITE-101-BL-1
+          peer_interface: Ethernet11
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '11'
+          vlans: 100-101,200-201
+        - interface: Ethernet4
+          peer: SF-SITE-101-BL-1
+          peer_interface: Ethernet12
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '11'
+          vlans: 100-101,200-201
+        uplink_peers:
+        - SF-SITE-101-BL-1
+        vlans: 100-104,200-204
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-101-TOR-1B:
+      switch:
+        id: 17
+        type: ethernet_aggregation
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.17/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_101
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 2
+        uplinks:
+        - interface: Ethernet3
+          peer: SF-SITE-101-BL-2
+          peer_interface: Ethernet11
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '11'
+          vlans: 100-101,200-201
+        - interface: Ethernet4
+          peer: SF-SITE-101-BL-2
+          peer_interface: Ethernet12
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '11'
+          vlans: 100-101,200-201
+        uplink_peers:
+        - SF-SITE-101-BL-2
+        vlans: 100-104,200-204
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    BRANCH-A2A-CE1:
+      switch:
+        id: 28
+        type: ce
+        platform: vEOS-lab
+        is_deployed: false
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.28/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_101
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    BRANCH-A2A-CE2:
+      switch:
+        id: 28
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.30/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_101
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    BRANCH-VPWS-CE1:
+      switch:
+        id: 40
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.40/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_101
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    CORP-A2A-CE1:
+      switch:
+        id: 29
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.29/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_101
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    CORP-A2A-CE2:
+      switch:
+        id: 31
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.31/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_101
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-103-BL-1:
+      switch:
+        id: 25
+        type: pe
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.25/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.3.2.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_103
+        router_id: 100.3.2.25
+        evpn_role: client
+        mpls_overlay_role: client
+        evpn_route_servers: []
+        mpls_route_reflectors:
+        - SF-SITE-101-RR-1
+        - SF-SITE-102-RR-1
+        overlay:
+          peering_address: 100.3.2.25
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: 100-104,200-204
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-103-TOR-1A:
+      switch:
+        id: 26
+        type: ethernet_aggregation
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.26/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_103
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 2
+        uplinks:
+        - interface: Ethernet3
+          peer: SF-SITE-103-BL-1
+          peer_interface: Ethernet3
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '3'
+          vlans: 100-104,200-204
+        - interface: Ethernet4
+          peer: SF-SITE-103-BL-1
+          peer_interface: Ethernet4
+          peer_type: pe
+          peer_is_deployed: true
+          type: underlay_l2
+          channel_group_id: '3'
+          peer_channel_group_id: '3'
+          vlans: 100-104,200-204
+        uplink_peers:
+        - SF-SITE-103-BL-1
+        vlans: 100-104,200-204
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    BRANCH-A2A-CE5:
+      switch:
+        id: 36
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.36/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_103
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    CORP-A2A-CE5:
+      switch:
+        id: 37
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.37/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_103
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    SF-SITE-104-BL-1:
+      switch:
+        id: 27
+        type: pe
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.27/24
+        mpls_lsr: true
+        loopback_ipv4_pool: 100.4.2.0/24
+        bgp_as: '6.6971'
+        underlay_routing_protocol: isis-sr
+        dc_name: SF_104
+        router_id: 100.4.2.27
+        evpn_role: client
+        mpls_overlay_role: client
+        evpn_route_servers: []
+        mpls_route_reflectors:
+        - SF-SITE-101-RR-1
+        - SF-SITE-102-RR-1
+        overlay:
+          peering_address: 100.4.2.27
+          evpn_mpls: true
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: 100-104,200-204
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    BRANCH-A2A-CE6:
+      switch:
+        id: 38
+        type: ce
+        platform: vEOS-lab
+        is_deployed: true
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.38/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_104
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+    CORP-A2A-CE6:
+      switch:
+        id: 39
+        type: ce
+        platform: vEOS-lab
+        is_deployed: false
+        mgmt_interface: Management1
+        mgmt_ip: 192.168.0.39/24
+        mpls_lsr: false
+        underlay_routing_protocol: ebgp
+        dc_name: SF_104
+        evpn_route_servers: []
+        max_parallel_uplinks: 1
+        max_uplink_switches: 0
+        uplinks: []
+        uplink_peers: []
+        vlans: ''
+        local_endpoint_trunk_groups: []
+        endpoint_trunk_groups: []
+  avd_overlay_peers:
+    SF-SITE-101-RR-1:
+    - SF-SITE-102-BL-1
+    - SF-SITE-102-BL-2
+    - SF-SITE-101-BL-1
+    - SF-SITE-101-BL-2
+    - SF-SITE-103-BL-1
+    - SF-SITE-104-BL-1
+    SF-SITE-102-RR-1:
+    - SF-SITE-102-BL-1
+    - SF-SITE-102-BL-2
+    - SF-SITE-101-BL-1
+    - SF-SITE-101-BL-2
+    - SF-SITE-103-BL-1
+    - SF-SITE-104-BL-1
+  avd_topology_peers:
+    SF-SITE-102-BL-1:
+    - SF-SITE-102-TOR-1A
+    SF-SITE-102-BL-2:
+    - SF-SITE-102-TOR-1B
+    SF-SITE-101-BL-1:
+    - SF-SITE-101-TOR-1A
+    SF-SITE-101-BL-2:
+    - SF-SITE-101-TOR-1B
+    SF-SITE-103-BL-1:
+    - SF-SITE-103-TOR-1A
+avd_switch_facts:
+  SF-SITE-102-SPINE-1:
+    switch:
+      id: 18
+      type: p
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.18/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.2.0.0/24
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_102
+      router_id: 100.2.0.18
+      evpn_role: none
+      mpls_overlay_role: none
+      overlay:
+        peering_address: 100.2.0.18
+        evpn_mpls: false
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-102-SPINE-2:
+    switch:
+      id: 19
+      type: p
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.19/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.2.0.0/24
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_102
+      router_id: 100.2.0.19
+      evpn_role: none
+      mpls_overlay_role: none
+      overlay:
+        peering_address: 100.2.0.19
+        evpn_mpls: false
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-102-BL-1:
+    switch:
+      id: 21
+      type: pe
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.21/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.2.2.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_102
+      router_id: 100.2.2.21
+      evpn_role: client
+      mpls_overlay_role: client
+      evpn_route_servers: []
+      mpls_route_reflectors:
+      - SF-SITE-101-RR-1
+      - SF-SITE-102-RR-1
+      overlay:
+        peering_address: 100.2.2.21
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: 102-103,202-203
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-102-BL-2:
+    switch:
+      id: 22
+      type: pe
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.22/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.2.2.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_102
+      router_id: 100.2.2.22
+      evpn_role: client
+      mpls_overlay_role: client
+      evpn_route_servers: []
+      mpls_route_reflectors:
+      - SF-SITE-101-RR-1
+      - SF-SITE-102-RR-1
+      overlay:
+        peering_address: 100.2.2.22
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: 102-103,202-203
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-102-RR-1:
+    switch:
+      id: 20
+      type: rr
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.20/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.1.1.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_102
+      router_id: 100.1.1.20
+      evpn_role: server
+      mpls_overlay_role: server
+      overlay:
+        peering_address: 100.1.1.20
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-102-TOR-1A:
+    switch:
+      id: 23
+      type: ethernet_aggregation
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.23/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_102
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 2
+      uplinks:
+      - interface: Ethernet3
+        peer: SF-SITE-102-BL-1
+        peer_interface: Ethernet11
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '11'
+        vlans: 102-103,202-203
+      - interface: Ethernet4
+        peer: SF-SITE-102-BL-1
+        peer_interface: Ethernet12
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '11'
+        vlans: 102-103,202-203
+      uplink_peers:
+      - SF-SITE-102-BL-1
+      vlans: 100-104,200-204
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-102-TOR-1B:
+    switch:
+      id: 2
+      type: ethernet_aggregation
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.24/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_102
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 2
+      uplinks:
+      - interface: Ethernet3
+        peer: SF-SITE-102-BL-2
+        peer_interface: Ethernet11
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '11'
+        vlans: 102-103,202-203
+      - interface: Ethernet4
+        peer: SF-SITE-102-BL-2
+        peer_interface: Ethernet12
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '11'
+        vlans: 102-103,202-203
+      uplink_peers:
+      - SF-SITE-102-BL-2
+      vlans: 100-104,200-204
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  BRANCH-A2A-CE3:
+    switch:
+      id: 32
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.32/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_102
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  BRANCH-A2A-CE4:
+    switch:
+      id: 33
+      type: ce
+      platform: vEOS-lab
+      is_deployed: false
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.33/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_102
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  CORP-A2A-CE3:
+    switch:
+      id: 34
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.34/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_102
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  CORP-A2A-CE4:
+    switch:
+      id: 35
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.35/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_102
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  BRANCH-VPWS-CE2:
+    switch:
+      id: 41
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.41/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_102
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-101-SPINE-1:
+    switch:
+      id: 11
+      type: p
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.11/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.1.0.0/24
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_101
+      router_id: 100.1.0.11
+      evpn_role: none
+      mpls_overlay_role: none
+      overlay:
+        peering_address: 100.1.0.11
+        evpn_mpls: false
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-101-SPINE-2:
+    switch:
+      id: 12
+      type: p
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.12/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.1.0.0/24
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_101
+      router_id: 100.1.0.12
+      evpn_role: none
+      mpls_overlay_role: none
+      overlay:
+        peering_address: 100.1.0.12
+        evpn_mpls: false
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-101-BL-1:
+    switch:
+      id: 14
+      type: pe
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.14/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.1.2.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_101
+      router_id: 100.1.2.14
+      evpn_role: client
+      mpls_overlay_role: client
+      evpn_route_servers: []
+      mpls_route_reflectors:
+      - SF-SITE-101-RR-1
+      - SF-SITE-102-RR-1
+      overlay:
+        peering_address: 100.1.2.14
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: 100-101,200-201
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-101-BL-2:
+    switch:
+      id: 15
+      type: pe
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.15/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.1.2.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_101
+      router_id: 100.1.2.15
+      evpn_role: client
+      mpls_overlay_role: client
+      evpn_route_servers: []
+      mpls_route_reflectors:
+      - SF-SITE-101-RR-1
+      - SF-SITE-102-RR-1
+      overlay:
+        peering_address: 100.1.2.15
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: 100-101,200-201
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-101-RR-1:
+    switch:
+      id: 13
+      type: rr
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.13/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.1.1.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_101
+      router_id: 100.1.1.13
+      evpn_role: server
+      mpls_overlay_role: server
+      overlay:
+        peering_address: 100.1.1.13
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-101-TOR-1A:
+    switch:
+      id: 16
+      type: ethernet_aggregation
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.16/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_101
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 2
+      uplinks:
+      - interface: Ethernet3
+        peer: SF-SITE-101-BL-1
+        peer_interface: Ethernet11
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '11'
+        vlans: 100-101,200-201
+      - interface: Ethernet4
+        peer: SF-SITE-101-BL-1
+        peer_interface: Ethernet12
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '11'
+        vlans: 100-101,200-201
+      uplink_peers:
+      - SF-SITE-101-BL-1
+      vlans: 100-104,200-204
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-101-TOR-1B:
+    switch:
+      id: 17
+      type: ethernet_aggregation
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.17/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_101
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 2
+      uplinks:
+      - interface: Ethernet3
+        peer: SF-SITE-101-BL-2
+        peer_interface: Ethernet11
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '11'
+        vlans: 100-101,200-201
+      - interface: Ethernet4
+        peer: SF-SITE-101-BL-2
+        peer_interface: Ethernet12
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '11'
+        vlans: 100-101,200-201
+      uplink_peers:
+      - SF-SITE-101-BL-2
+      vlans: 100-104,200-204
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  BRANCH-A2A-CE1:
+    switch:
+      id: 28
+      type: ce
+      platform: vEOS-lab
+      is_deployed: false
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.28/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_101
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  BRANCH-A2A-CE2:
+    switch:
+      id: 28
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.30/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_101
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  BRANCH-VPWS-CE1:
+    switch:
+      id: 40
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.40/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_101
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  CORP-A2A-CE1:
+    switch:
+      id: 29
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.29/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_101
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  CORP-A2A-CE2:
+    switch:
+      id: 31
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.31/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_101
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-103-BL-1:
+    switch:
+      id: 25
+      type: pe
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.25/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.3.2.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_103
+      router_id: 100.3.2.25
+      evpn_role: client
+      mpls_overlay_role: client
+      evpn_route_servers: []
+      mpls_route_reflectors:
+      - SF-SITE-101-RR-1
+      - SF-SITE-102-RR-1
+      overlay:
+        peering_address: 100.3.2.25
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: 100-104,200-204
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-103-TOR-1A:
+    switch:
+      id: 26
+      type: ethernet_aggregation
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.26/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_103
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 2
+      uplinks:
+      - interface: Ethernet3
+        peer: SF-SITE-103-BL-1
+        peer_interface: Ethernet3
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '3'
+        vlans: 100-104,200-204
+      - interface: Ethernet4
+        peer: SF-SITE-103-BL-1
+        peer_interface: Ethernet4
+        peer_type: pe
+        peer_is_deployed: true
+        type: underlay_l2
+        channel_group_id: '3'
+        peer_channel_group_id: '3'
+        vlans: 100-104,200-204
+      uplink_peers:
+      - SF-SITE-103-BL-1
+      vlans: 100-104,200-204
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  BRANCH-A2A-CE5:
+    switch:
+      id: 36
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.36/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_103
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  CORP-A2A-CE5:
+    switch:
+      id: 37
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.37/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_103
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  SF-SITE-104-BL-1:
+    switch:
+      id: 27
+      type: pe
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.27/24
+      mpls_lsr: true
+      loopback_ipv4_pool: 100.4.2.0/24
+      bgp_as: '6.6971'
+      underlay_routing_protocol: isis-sr
+      dc_name: SF_104
+      router_id: 100.4.2.27
+      evpn_role: client
+      mpls_overlay_role: client
+      evpn_route_servers: []
+      mpls_route_reflectors:
+      - SF-SITE-101-RR-1
+      - SF-SITE-102-RR-1
+      overlay:
+        peering_address: 100.4.2.27
+        evpn_mpls: true
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: 100-104,200-204
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  BRANCH-A2A-CE6:
+    switch:
+      id: 38
+      type: ce
+      platform: vEOS-lab
+      is_deployed: true
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.38/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_104
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+  CORP-A2A-CE6:
+    switch:
+      id: 39
+      type: ce
+      platform: vEOS-lab
+      is_deployed: false
+      mgmt_interface: Management1
+      mgmt_ip: 192.168.0.39/24
+      mpls_lsr: false
+      underlay_routing_protocol: ebgp
+      dc_name: SF_104
+      evpn_route_servers: []
+      max_parallel_uplinks: 1
+      max_uplink_switches: 0
+      uplinks: []
+      uplink_peers: []
+      vlans: ''
+      local_endpoint_trunk_groups: []
+      endpoint_trunk_groups: []
+avd_overlay_peers:
+  SF-SITE-101-RR-1:
+  - SF-SITE-102-BL-1
+  - SF-SITE-102-BL-2
+  - SF-SITE-101-BL-1
+  - SF-SITE-101-BL-2
+  - SF-SITE-103-BL-1
+  - SF-SITE-104-BL-1
+  SF-SITE-102-RR-1:
+  - SF-SITE-102-BL-1
+  - SF-SITE-102-BL-2
+  - SF-SITE-101-BL-1
+  - SF-SITE-101-BL-2
+  - SF-SITE-103-BL-1
+  - SF-SITE-104-BL-1
+avd_topology_peers:
+  SF-SITE-102-BL-1:
+  - SF-SITE-102-TOR-1A
+  SF-SITE-102-BL-2:
+  - SF-SITE-102-TOR-1B
+  SF-SITE-101-BL-1:
+  - SF-SITE-101-TOR-1A
+  SF-SITE-101-BL-2:
+  - SF-SITE-101-TOR-1B
+  SF-SITE-103-BL-1:
+  - SF-SITE-103-TOR-1A
+avd_requirements:
+  failed: false
+  changed: false
+playbook_dir: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/playbooks
+ansible_playbook_python: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/.avdcvpenv/bin/python3
+ansible_config_file: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/ansible.cfg
+groups:
+  all:
+  - ACT_CVP
+  - SF-SITE-101-BL-1
+  - SF-SITE-101-BL-2
+  - SF-SITE-102-BL-1
+  - SF-SITE-102-BL-2
+  - SF-SITE-103-BL-1
+  - SF-SITE-104-BL-1
+  - SF-SITE-101-TOR-1A
+  - SF-SITE-101-TOR-1B
+  - SF-SITE-102-TOR-1A
+  - SF-SITE-102-TOR-1B
+  - SF-SITE-103-TOR-1A
+  - SF-SITE-101-RR-1
+  - SF-SITE-102-RR-1
+  - SF-SITE-101-SPINE-1
+  - SF-SITE-101-SPINE-2
+  - SF-SITE-102-SPINE-1
+  - SF-SITE-102-SPINE-2
+  - BRANCH-A2A-CE5
+  - CORP-A2A-CE5
+  - BRANCH-A2A-CE3
+  - BRANCH-A2A-CE4
+  - CORP-A2A-CE3
+  - CORP-A2A-CE4
+  - BRANCH-VPWS-CE2
+  - BRANCH-A2A-CE1
+  - BRANCH-A2A-CE2
+  - BRANCH-VPWS-CE1
+  - CORP-A2A-CE1
+  - CORP-A2A-CE2
+  - BRANCH-A2A-CE6
+  - CORP-A2A-CE6
+  ungrouped: []
+  CVP:
+  - ACT_CVP
+  AVD_FABRIC:
+  - SF-SITE-102-SPINE-1
+  - SF-SITE-102-SPINE-2
+  - SF-SITE-102-BL-1
+  - SF-SITE-102-BL-2
+  - SF-SITE-102-RR-1
+  - SF-SITE-102-TOR-1A
+  - SF-SITE-102-TOR-1B
+  - BRANCH-A2A-CE3
+  - BRANCH-A2A-CE4
+  - CORP-A2A-CE3
+  - CORP-A2A-CE4
+  - BRANCH-VPWS-CE2
+  - SF-SITE-101-SPINE-1
+  - SF-SITE-101-SPINE-2
+  - SF-SITE-101-BL-1
+  - SF-SITE-101-BL-2
+  - SF-SITE-101-RR-1
+  - SF-SITE-101-TOR-1A
+  - SF-SITE-101-TOR-1B
+  - BRANCH-A2A-CE1
+  - BRANCH-A2A-CE2
+  - BRANCH-VPWS-CE1
+  - CORP-A2A-CE1
+  - CORP-A2A-CE2
+  - SF-SITE-103-BL-1
+  - SF-SITE-103-TOR-1A
+  - BRANCH-A2A-CE5
+  - CORP-A2A-CE5
+  - SF-SITE-104-BL-1
+  - BRANCH-A2A-CE6
+  - CORP-A2A-CE6
+  SF_SITE_101:
+  - SF-SITE-101-SPINE-1
+  - SF-SITE-101-SPINE-2
+  - SF-SITE-101-BL-1
+  - SF-SITE-101-BL-2
+  - SF-SITE-101-RR-1
+  - SF-SITE-101-TOR-1A
+  - SF-SITE-101-TOR-1B
+  - BRANCH-A2A-CE1
+  - BRANCH-A2A-CE2
+  - BRANCH-VPWS-CE1
+  - CORP-A2A-CE1
+  - CORP-A2A-CE2
+  SPINES_101:
+  - SF-SITE-101-SPINE-1
+  - SF-SITE-101-SPINE-2
+  BORDER_LEAFS_101:
+  - SF-SITE-101-BL-1
+  - SF-SITE-101-BL-2
+  ROUTE_REFLECTORS_101:
+  - SF-SITE-101-RR-1
+  TOR_101:
+  - SF-SITE-101-TOR-1A
+  - SF-SITE-101-TOR-1B
+  CE_101:
+  - BRANCH-A2A-CE1
+  - BRANCH-A2A-CE2
+  - BRANCH-VPWS-CE1
+  - CORP-A2A-CE1
+  - CORP-A2A-CE2
+  SF_SITE_102:
+  - SF-SITE-102-SPINE-1
+  - SF-SITE-102-SPINE-2
+  - SF-SITE-102-BL-1
+  - SF-SITE-102-BL-2
+  - SF-SITE-102-RR-1
+  - SF-SITE-102-TOR-1A
+  - SF-SITE-102-TOR-1B
+  - BRANCH-A2A-CE3
+  - BRANCH-A2A-CE4
+  - CORP-A2A-CE3
+  - CORP-A2A-CE4
+  - BRANCH-VPWS-CE2
+  SPINES_102:
+  - SF-SITE-102-SPINE-1
+  - SF-SITE-102-SPINE-2
+  BORDER_LEAFS_102:
+  - SF-SITE-102-BL-1
+  - SF-SITE-102-BL-2
+  ROUTE_REFLECTORS_102:
+  - SF-SITE-102-RR-1
+  TOR_102:
+  - SF-SITE-102-TOR-1A
+  - SF-SITE-102-TOR-1B
+  CE_102:
+  - BRANCH-A2A-CE3
+  - BRANCH-A2A-CE4
+  - CORP-A2A-CE3
+  - CORP-A2A-CE4
+  - BRANCH-VPWS-CE2
+  SF_SITE_103:
+  - SF-SITE-103-BL-1
+  - SF-SITE-103-TOR-1A
+  - BRANCH-A2A-CE5
+  - CORP-A2A-CE5
+  BORDER_LEAFS_103:
+  - SF-SITE-103-BL-1
+  TOR_103:
+  - SF-SITE-103-TOR-1A
+  CE_103:
+  - BRANCH-A2A-CE5
+  - CORP-A2A-CE5
+  SF_SITE_104:
+  - SF-SITE-104-BL-1
+  - BRANCH-A2A-CE6
+  - CORP-A2A-CE6
+  BORDER_LEAFS_104:
+  - SF-SITE-104-BL-1
+  CE_104:
+  - BRANCH-A2A-CE6
+  - CORP-A2A-CE6
+  ROUTE_REFLECTORS:
+  - SF-SITE-101-RR-1
+  - SF-SITE-102-RR-1
+  SPINES:
+  - SF-SITE-101-SPINE-1
+  - SF-SITE-101-SPINE-2
+  - SF-SITE-102-SPINE-1
+  - SF-SITE-102-SPINE-2
+  TENANT_NETWORKS:
+  - SF-SITE-101-BL-1
+  - SF-SITE-101-BL-2
+  - SF-SITE-102-BL-1
+  - SF-SITE-102-BL-2
+  - SF-SITE-103-BL-1
+  - SF-SITE-104-BL-1
+  - SF-SITE-101-TOR-1A
+  - SF-SITE-101-TOR-1B
+  - SF-SITE-102-TOR-1A
+  - SF-SITE-102-TOR-1B
+  - SF-SITE-103-TOR-1A
+  ALL_BL:
+  - SF-SITE-101-BL-1
+  - SF-SITE-101-BL-2
+  - SF-SITE-102-BL-1
+  - SF-SITE-102-BL-2
+  - SF-SITE-103-BL-1
+  - SF-SITE-104-BL-1
+omit: __omit_place_holder__477ba5d018a5e26c6b25d62ea6e4f4979a4261ad
+ansible_version:
+  string: 2.12.10
+  full: 2.12.10
+  major: 2
+  minor: 12
+  revision: 10
+ansible_check_mode: false
+ansible_diff_mode: true
+ansible_forks: 5
+ansible_inventory_sources:
+- /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/inventory/MPLS_network/inventory.yml
+ansible_skip_tags: []
+ansible_run_tags:
+- build
+ansible_verbosity: 0
