@@ -66,7 +66,7 @@ jobs:
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Install resolvconf
-        run: arch -arm64 brew install resolvconf openvpn-systemd-resolved
+        run: arch -arm64 brew install openvpn-systemd-resolved
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Connect VPN
