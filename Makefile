@@ -12,7 +12,10 @@ help: ## Display help message (*: main entry points / []: part of an entry point
 .PHONY: fabric-build
 fabric-build: ## Build fabric configuration and documentation
 	ansible-playbook playbooks/cvp-fabric-deploy-CC.yml --tags build -i inventory/MPLS_network/inventory.yml --diff
-	# ansible-playbook playbooks/cvp-fabric-deploy-CC.yml --tags build 
+
+.PHONY: fabric-reset
+fabric-build: ## Build fabric configuration and documentation
+	ansible-playbook playbooks/cvp-fabric-deploy-CC.yml --tags reset -i inventory/MPLS_network/inventory.yml --diff
 
 .PHONY: fabric-provision
 fabric-provision: ## Build fabric configuration and documentation and provision on CVP without executing the tasks

@@ -31,6 +31,23 @@
         device_apply_mode: strict
         state: present
 
+- name: Reset devices on CVP
+  hosts: CVP
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: run CVP provisioning
+      tags: [ reset ]
+      import_role:
+        name: arista.avd.eos_config_deploy_cvp
+      vars:
+        container_root: 'AVD_FABRIC'
+        configlets_prefix: 'AVD'
+        container_apply_mode: strict
+        device_apply_mode: strict
+        state: absent
+    
     # - name: Register feature branch
     #   tags: [ provision ]
     #   command: "git branch --show-current"
