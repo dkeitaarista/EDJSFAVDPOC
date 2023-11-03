@@ -1,8 +1,8 @@
-### Workflow for Self hosted on runner on macOS/laptop
+### Workflow for Self hosted runner on macOS laptop
 name: Test the upcoming changes
 
 on:
-  push:
+  push: 
     branches-ignore:
       - main
 
