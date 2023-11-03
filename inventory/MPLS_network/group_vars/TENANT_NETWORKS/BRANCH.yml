@@ -19,6 +19,51 @@ BRANCH:
             interfaces:
               - Port-channel11
     vrfs:
+      - name: BRANCH-20011
+        vrf_vni: 20011
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        additional_route_targets:
+          - type: import
+            address_family:
+              - vpn-ipv4
+              - vpn-ipv6
+            route_target: 5000
+            nodes:
+              - SF-SITE-101-BL-1
+          - type: export
+            address_family:
+              - vpn-ipv4
+              - vpn-ipv6
+            route_target: 2000
+            nodes:
+              - SF-SITE-101-BL-1
+        l3_interfaces:
+          - interfaces:
+              - Port-channel11.500
+            encapsulation_dot1q_vlan:
+              - 500
+            ip_addresses:
+              - 10.255.101.20/31
+            nodes:
+              - SF-SITE-101-BL-1
+        bgp_peers:
+          - ip_address: 10.255.101.21
+            remote_as: 65501
+            bfd: true
+            nodes:
+              - SF-SITE-101-BL-1
       - name: BRANCH-10011
         vrf_vni: 10011
         address_families:
@@ -246,6 +291,10 @@ BRANCH:
         tags: [ site101 ]
       - id: 101
         name: vlan_101
+        vxlan: false
+        tags: [ site101 ]
+      - id: 500
+        name: vlan_500
         vxlan: false
         tags: [ site101 ]
       - id: 102

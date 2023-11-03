@@ -95,6 +95,54 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
+  - name: BRANCH-20011
+    router_id: 100.1.2.14
+    rd: 100.1.2.14:20011
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:20011
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:20011
+      - address_family:
+        - vpn-ipv4
+        - vpn-ipv6
+        route_targets:
+        - 5000
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:20011
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:20011
+      - address_family:
+        - vpn-ipv4
+        - vpn-ipv6
+        route_targets:
+        - 2000
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.101.21
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.101.21
+      remote_as: '65501'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
   - name: CORP-10012
     router_id: 100.1.2.14
     rd: 100.1.2.14:10012
@@ -161,6 +209,9 @@ vrfs:
 - name: default
   ip_routing: false
 - name: BRANCH-10011
+  tenant: BRANCH
+  ip_routing: true
+- name: BRANCH-20011
   tenant: BRANCH
   ip_routing: true
 - name: CORP-10012
@@ -293,6 +344,13 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 100
   vrf: BRANCH-10011
+- name: Port-channel11.500
+  peer_type: l3_interface
+  ip_address: 10.255.101.20/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 500
+  vrf: BRANCH-20011
 - name: Port-channel11.200
   peer_type: l3_interface
   ip_address: 10.255.101.4/31
@@ -320,7 +378,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-101,200-201
+  vlans: 100-101,200-201,500
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -383,6 +441,9 @@ vlans:
   tenant: BRANCH
 - id: 101
   name: vlan_101
+  tenant: BRANCH
+- id: 500
+  name: vlan_500
   tenant: BRANCH
 - id: 200
   name: vlan_200

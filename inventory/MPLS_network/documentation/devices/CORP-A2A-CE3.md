@@ -62,20 +62,6 @@ interface Management1
    description oob_management
    no shutdown
    ip address 192.168.0.34/24
-<<<<<<< HEAD
-```
-
-### DNS Domain
-
-#### DNS domain: EDJ.poc
-
-#### DNS Domain Device Configuration
-
-```eos
-dns domain EDJ.poc
-!
-=======
->>>>>>> dk-avdpoc-20231102
 ```
 
 ### IP Name Servers
@@ -308,11 +294,7 @@ interface Ethernet1
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-<<<<<<< HEAD
-| Loopback10 | Inband management | default | 192.168.101.34/32 |
-=======
 | Loopback0 |  CE IP for test | default | 10.102.102.3/32 |
->>>>>>> dk-avdpoc-20231102
 
 ##### IPv6
 
@@ -325,16 +307,10 @@ interface Ethernet1
 
 ```eos
 !
-<<<<<<< HEAD
-interface Loopback10
-   description Inband management
-   ip address 192.168.101.34/32
-=======
 interface Loopback0
    description  CE IP for test
    no shutdown
    ip address 10.102.102.3/32
->>>>>>> dk-avdpoc-20231102
 ```
 
 ## Routing

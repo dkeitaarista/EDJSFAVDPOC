@@ -6,13 +6,7 @@ vlan_internal_order:
     beginning: 1006
     ending: 1199
 ip_name_servers:
-<<<<<<< HEAD
-- ip_address: 8.8.8.8
-  vrf: default
-- ip_address: 8.8.4.4
-=======
 - ip_address: 10.255.0.2
->>>>>>> dk-avdpoc-20231102
   vrf: default
 spanning_tree:
   mode: mstp
@@ -20,17 +14,10 @@ spanning_tree:
   - id: '0'
     priority: 32768
 local_users:
-<<<<<<< HEAD
-- name: cvpadmin
-  privilege: 15
-  role: network-admin
-  sha512_password: $6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0
-=======
 - name: arista
   privilege: 15
   role: network-admin
   sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
->>>>>>> dk-avdpoc-20231102
 vrfs:
 - name: default
   ip_routing: false
@@ -82,14 +69,6 @@ ntp:
   - name: 1.north-america.pool.ntp.org
     vrf: default
 loopback_interfaces:
-<<<<<<< HEAD
-- name: Loopback10
-  description: Inband management
-  ip_address: 192.168.101.37/32
-ethernet_interfaces:
-- name: Ethernet1
-  description: Uplink to SF_SITE_102_TOR-1B
-=======
 - name: Loopback0
   description: ' CE IP for test'
   shutdown: false
@@ -98,7 +77,6 @@ ip_routing: true
 ethernet_interfaces:
 - name: Ethernet1
   description: Uplink to SF_SITE_103_TOR-1A
->>>>>>> dk-avdpoc-20231102
   type: routed
   ip_address: 10.255.103.3/31
 router_bgp:
@@ -107,11 +85,7 @@ router_bgp:
   redistribute_routes:
   - source_protocol: connected
   neighbors:
-<<<<<<< HEAD
-  - ip_address: 10.255.103.4
-=======
   - ip_address: 10.255.103.2
->>>>>>> dk-avdpoc-20231102
     remote_as: '6.6971'
     peer_group: CE-PEER-GROUP
   address_family_ipv4:

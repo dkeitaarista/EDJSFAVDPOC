@@ -261,12 +261,12 @@ ethernet_interfaces:
   isis_circuit_type: level-2
   mpls:
     ip: true
-- name: Port-channel11.103
+- name: Port-channel11.102
   peer_type: l3_interface
   ip_address: 10.255.102.2/31
   shutdown: false
   type: l3dot1q
-  encapsulation_dot1q_vlan: 103
+  encapsulation_dot1q_vlan: 102
   vrf: BRANCH-10017
 - name: Port-channel11.203
   peer_type: l3_interface

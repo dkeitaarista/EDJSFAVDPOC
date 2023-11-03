@@ -2,10 +2,18 @@
 # L3 interface to TOR
 
 custom_structured_configuration_ethernet_interfaces:
-  - name: Ethernet1
-    description: Uplink to SF_SITE_101_TOR-1A
+  - name: Ethernet1.100
+    description: Uplink to SF_SITE_101_TOR-1A_A2AVPN
     type: routed
     ip_address: 10.255.101.1/31
+    encapsulation_dot1q_vlan: 100
+  
+  - name: Ethernet1.500
+    description: Uplink to SF_SITE_101_TOR-1A_HSVPN
+    type: routed
+    ip_address: 10.255.101.21/31
+    encapsulation_dot1q_vlan: 500
+    vrf: HSVPN-BRANCH20011
 
 # BGP peering with border leaf
 
@@ -18,14 +26,35 @@ custom_structured_configuration_router_bgp:
     - ip_address: 10.255.101.0
       remote_as: '6.6971'
       bfd: true
-      peer_group: CE-PEER-GROUP
+      peer_group: CE-PEER-GROUP-A2AVPN
   address_family_ipv4:
     peer_groups:
-      - name: CE-PEER-GROUP
+      - name: CE-PEER-GROUP-A2AVPN
         activate: true
+  vrfs:
+    - name: HSVPN-BRANCH20011
+      router_id: 10.255.101.21
+      redistribute_routes:
+        - source_protocol: connected
+      neighbors:
+        - ip_address: 10.255.101.20
+          remote_as: '6.6971'
+          bfd: true
+          peer_group: CE-PEER-GROUP-HSVPN
+      address_family_ipv4:
+        peer_groups:
+          - name: CE-PEER-GROUP-HSVPN
+            activate: true
+
 # Interface Loopback0 for CE
 custom_structured_configuration_loopback_interfaces:
   - name: Loopback0
-    description: " CE IP for test"
+    description: " CE IP for test for A2AVPN"
     shutdown: false
     ip_address: 10.101.101.1/32
+  - name: Loopback10
+    escription: " CE IP for test for HSVPN"
+    shutdown: false
+    ip_address: 10.120.120.1/32
+    vrf: HSVPN-BRANCH20011
+

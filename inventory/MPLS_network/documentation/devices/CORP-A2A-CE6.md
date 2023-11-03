@@ -3,11 +3,7 @@
 ## Table of Contents
 
 - [Management](#management)
-<<<<<<< HEAD
-  - [DNS Domain](#dns-domain)
-=======
   - [Management Interfaces](#management-interfaces)
->>>>>>> dk-avdpoc-20231102
   - [IP Name Servers](#ip-name-servers)
   - [Clock Settings](#clock-settings)
   - [NTP](#ntp)
@@ -42,17 +38,6 @@
 
 ## Management
 
-<<<<<<< HEAD
-### DNS Domain
-
-#### DNS domain: EDJ.poc
-
-#### DNS Domain Device Configuration
-
-```eos
-dns domain EDJ.poc
-!
-=======
 ### Management Interfaces
 
 #### Management Interfaces Summary
@@ -77,7 +62,6 @@ interface Management1
    description oob_management
    no shutdown
    ip address 192.168.0.39/24
->>>>>>> dk-avdpoc-20231102
 ```
 
 ### IP Name Servers
@@ -86,22 +70,12 @@ interface Management1
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
-<<<<<<< HEAD
-| 8.8.8.8 | default | - |
-| 8.8.4.4 | default | - |
-=======
 | 10.255.0.2 | default | - |
->>>>>>> dk-avdpoc-20231102
 
 #### IP Name Servers Device Configuration
 
 ```eos
-<<<<<<< HEAD
-ip name-server vrf default 8.8.4.4
-ip name-server vrf default 8.8.8.8
-=======
 ip name-server vrf default 10.255.0.2
->>>>>>> dk-avdpoc-20231102
 ```
 
 ### Clock Settings
@@ -170,21 +144,13 @@ management api http-commands
 
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
-<<<<<<< HEAD
-| cvpadmin | 15 | network-admin | False | - |
-=======
 | arista | 15 | network-admin | False | - |
->>>>>>> dk-avdpoc-20231102
 
 #### Local Users Device Configuration
 
 ```eos
 !
-<<<<<<< HEAD
-username cvpadmin privilege 15 role network-admin secret sha512 <removed>
-=======
 username arista privilege 15 role network-admin secret sha512 <removed>
->>>>>>> dk-avdpoc-20231102
 ```
 
 ### AAA Authorization
@@ -308,22 +274,14 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-<<<<<<< HEAD
-| Ethernet1 | Uplink to SF_SITE_102_TOR-1B | routed | - | 10.255.104.3/31 | default | - | - | - | - |
-=======
 | Ethernet1 | Uplink to SF_SITE_104_BL-1 | routed | - | 10.255.104.3/31 | default | - | - | - | - |
->>>>>>> dk-avdpoc-20231102
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
 interface Ethernet1
-<<<<<<< HEAD
-   description Uplink to SF_SITE_102_TOR-1B
-=======
    description Uplink to SF_SITE_104_BL-1
->>>>>>> dk-avdpoc-20231102
    no switchport
    ip address 10.255.104.3/31
 ```
@@ -336,37 +294,23 @@ interface Ethernet1
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-<<<<<<< HEAD
-| Loopback10 | Inband management | default | {{ mgmt_loopback_ipv4_pool | ansible.utils.ipmath((management_interfaces[0]['ip_address'] | string | ansible.utils.ipaddr('address')).split('.')[3]) }}/32 |
-=======
 | Loopback0 |  CE IP for test | default | 10.104.104.2/32 |
->>>>>>> dk-avdpoc-20231102
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
-<<<<<<< HEAD
-| Loopback10 | Inband management | default | - |
-=======
 | Loopback0 |  CE IP for test | default | - |
->>>>>>> dk-avdpoc-20231102
 
 
 #### Loopback Interfaces Device Configuration
 
 ```eos
 !
-<<<<<<< HEAD
-interface Loopback10
-   description Inband management
-   ip address {{ mgmt_loopback_ipv4_pool | ansible.utils.ipmath((management_interfaces[0]['ip_address'] | string | ansible.utils.ipaddr('address')).split('.')[3]) }}/32
-=======
 interface Loopback0
    description  CE IP for test
    no shutdown
    ip address 10.104.104.2/32
->>>>>>> dk-avdpoc-20231102
 ```
 
 ## Routing
@@ -386,20 +330,13 @@ service routing protocols model multi-agent
 
 | VRF | Routing Enabled |
 | --- | --------------- |
-<<<<<<< HEAD
-| default | False |
-=======
 | default | True |
->>>>>>> dk-avdpoc-20231102
 
 #### IP Routing Device Configuration
 
 ```eos
-<<<<<<< HEAD
-=======
 !
 ip routing
->>>>>>> dk-avdpoc-20231102
 ```
 
 ### IPv6 Routing
@@ -423,11 +360,7 @@ ip routing
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-<<<<<<< HEAD
-| 10.255.104.4 | 6.6971 | default | - | - | - | - | - | - | - | - |
-=======
 | 10.255.104.2 | 6.6971 | default | - | - | - | - | - | - | - | - |
->>>>>>> dk-avdpoc-20231102
 
 #### Router BGP Device Configuration
 
@@ -435,13 +368,8 @@ ip routing
 !
 router bgp 65526
    router-id 10.255.104.3
-<<<<<<< HEAD
-   neighbor 10.255.104.4 peer group CE-PEER-GROUP
-   neighbor 10.255.104.4 remote-as 6.6971
-=======
    neighbor 10.255.104.2 peer group CE-PEER-GROUP
    neighbor 10.255.104.2 remote-as 6.6971
->>>>>>> dk-avdpoc-20231102
    redistribute connected
    !
    address-family ipv4

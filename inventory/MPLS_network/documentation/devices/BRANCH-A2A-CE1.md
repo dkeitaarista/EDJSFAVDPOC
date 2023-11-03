@@ -274,16 +274,23 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | Uplink to SF_SITE_101_TOR-1A | routed | - | 10.255.101.1/31 | default | - | - | - | - |
+| Ethernet1.100 | Uplink to SF_SITE_101_TOR-1A_A2AVPN | routed | - | 10.255.101.1/31 | default | - | - | - | - |
+| Ethernet1.500 | Uplink to SF_SITE_101_TOR-1A_HSVPN | routed | - | 10.255.101.21/31 | HSVPN-BRANCH20011 | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
-interface Ethernet1
-   description Uplink to SF_SITE_101_TOR-1A
+interface Ethernet1.100
+   description Uplink to SF_SITE_101_TOR-1A_A2AVPN
    no switchport
    ip address 10.255.101.1/31
+!
+interface Ethernet1.500
+   description Uplink to SF_SITE_101_TOR-1A_HSVPN
+   no switchport
+   vrf HSVPN-BRANCH20011
+   ip address 10.255.101.21/31
 ```
 
 ### Loopback Interfaces
@@ -294,13 +301,15 @@ interface Ethernet1
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 |  CE IP for test | default | 10.101.101.1/32 |
+| Loopback0 |  CE IP for test for A2AVPN | default | 10.101.101.1/32 |
+| Loopback10 | - | HSVPN-BRANCH20011 | 10.120.120.1/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
-| Loopback0 |  CE IP for test | default | - |
+| Loopback0 |  CE IP for test for A2AVPN | default | - |
+| Loopback10 | - | HSVPN-BRANCH20011 | - |
 
 
 #### Loopback Interfaces Device Configuration
@@ -308,9 +317,14 @@ interface Ethernet1
 ```eos
 !
 interface Loopback0
-   description  CE IP for test
+   description  CE IP for test for A2AVPN
    no shutdown
    ip address 10.101.101.1/32
+!
+interface Loopback10
+   no shutdown
+   vrf HSVPN-BRANCH20011
+   ip address 10.120.120.1/32
 ```
 
 ## Routing
@@ -361,6 +375,13 @@ ip routing
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 10.255.101.0 | 6.6971 | default | - | - | - | - | True | - | - | - |
+| 10.255.101.20 | 6.6971 | HSVPN-BRANCH20011 | - | - | - | - | True | - | - | - |
+
+#### Router BGP VRFs
+
+| VRF | Route-Distinguisher | Redistribute |
+| --- | ------------------- | ------------ |
+| HSVPN-BRANCH20011 | - | connected |
 
 #### Router BGP Device Configuration
 
@@ -368,13 +389,22 @@ ip routing
 !
 router bgp 65501
    router-id 10.255.101.1
-   neighbor 10.255.101.0 peer group CE-PEER-GROUP
+   neighbor 10.255.101.0 peer group CE-PEER-GROUP-A2AVPN
    neighbor 10.255.101.0 remote-as 6.6971
    neighbor 10.255.101.0 bfd
    redistribute connected
    !
    address-family ipv4
-      neighbor CE-PEER-GROUP activate
+      neighbor CE-PEER-GROUP-A2AVPN activate
+   !
+   vrf HSVPN-BRANCH20011
+      router-id 10.255.101.21
+      neighbor 10.255.101.20 remote-as 6.6971
+      neighbor 10.255.101.20 peer group CE-PEER-GROUP-HSVPN
+      neighbor 10.255.101.20 bfd
+      redistribute connected
+      !
+      address-family ipv4
 ```
 
 ## Multicast

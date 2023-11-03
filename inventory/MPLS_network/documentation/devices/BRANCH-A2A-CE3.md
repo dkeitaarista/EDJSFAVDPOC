@@ -368,15 +368,9 @@ ip routing
 !
 router bgp 65503
    router-id 10.255.102.1
-<<<<<<< HEAD
    neighbor 10.255.101.2 peer group CE-PEER-GROUP
    neighbor 10.255.101.2 remote-as 6.6971
    neighbor 10.255.101.2 bfd
-=======
-   neighbor 10.255.102.0 peer group CE-PEER-GROUP
-   neighbor 10.255.102.0 remote-as 6.6971
-   neighbor 10.255.102.0 bfd
->>>>>>> dk-avdpoc-20231102
    redistribute connected
    !
    address-family ipv4

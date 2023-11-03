@@ -260,6 +260,7 @@ vlan internal order ascending range 1006 1199
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
 | 204 | vlan_204 | - |
+| 500 | vlan_500 | - |
 
 ### VLANs Device Configuration
 
@@ -294,6 +295,9 @@ vlan 203
 !
 vlan 204
    name vlan_204
+!
+vlan 500
+   name vlan_500
 ```
 
 ## Interfaces

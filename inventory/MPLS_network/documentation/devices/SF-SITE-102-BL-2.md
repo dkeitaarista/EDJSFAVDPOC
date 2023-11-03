@@ -292,7 +292,7 @@ vlan 203
 
 | Interface | Description | Type | Vlan ID | Dot1q VLAN Tag |
 | --------- | ----------- | -----| ------- | -------------- |
-| Port-channel11.103 | - | l3dot1q | - | 103 |
+| Port-channel11.102 | - | l3dot1q | - | 102 |
 | Port-channel11.203 | - | l3dot1q | - | 203 |
 
 ##### IPv4
@@ -303,7 +303,7 @@ vlan 203
 | Ethernet4 | P2P_LINK_TO_SF-SITE-102-SPINE-2_Ethernet4 | routed | - | 10.1.0.7/31 | default | 1500 | False | - | - |
 | Ethernet7 | P2P_LINK_TO_SF-SITE-102-RR-1_Ethernet4 | routed | - | 10.1.0.10/31 | default | 1500 | False | - | - |
 | Ethernet10 | P2P_LINK_TO_SF-SITE-103-BL-1_Ethernet10 | routed | - | 10.1.0.8/31 | default | 1500 | False | - | - |
-| Port-channel11.103 | - | l3dot1q | - | 10.255.102.2/31 | BRANCH-10017 | - | False | - | - |
+| Port-channel11.102 | - | l3dot1q | - | 10.255.102.2/31 | BRANCH-10017 | - | False | - | - |
 | Port-channel11.203 | - | l3dot1q | - | 10.255.102.6/31 | CORP-10018 | - | False | - | - |
 
 ##### ISIS
@@ -385,9 +385,9 @@ interface Port-channel11
    no shutdown
    no switchport
 !
-interface Port-channel11.103
+interface Port-channel11.102
    no shutdown
-   encapsulation dot1q vlan 103
+   encapsulation dot1q vlan 102
    vrf BRANCH-10017
    ip address 10.255.102.2/31
 !
