@@ -12,7 +12,7 @@ jobs:
       CVP_host: '10.255.39.46'  ### REPLACE WITH CVP IP ADDRESS
       OVPN_profile: PS.ovpn  ### REPLACE WITH ACTUAL FILE FOR SPECIFIC ACT ENVIRONMENT
     timeout-minutes: 15
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, macOS, X64 ]
     steps:
       - name: Hi
         run: echo "Hello World!"
