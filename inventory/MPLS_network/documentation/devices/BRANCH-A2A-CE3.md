@@ -20,6 +20,9 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
+- [VLANs](#vlans)
+  - [VLANs Summary](#vlans-summary)
+  - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
@@ -257,6 +260,28 @@ spanning-tree mst 0 priority 32768
 vlan internal order ascending range 1006 1199
 ```
 
+## VLANs
+
+### VLANs Summary
+
+| VLAN ID | Name | Trunk Groups |
+| ------- | ---- | ------------ |
+| 102 | VLAN_100_A2AVPN | - |
+| 600 | VLAN_600_HSVPN | - |
+
+### VLANs Device Configuration
+
+```eos
+!
+vlan 102
+   name VLAN_100_A2AVPN
+   state active
+!
+vlan 600
+   name VLAN_600_HSVPN
+   state active
+```
+
 ## Interfaces
 
 ### Ethernet Interfaces
@@ -274,16 +299,23 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | Uplink to SF_SITE_102_TOR-1A | routed | - | 10.255.102.1/31 | default | - | - | - | - |
+| Ethernet1.102 | Uplink to SF_SITE_102_TOR-1A | routed | - | 10.255.102.1/31 | default | - | - | - | - |
+| Ethernet1.600 | Uplink to SF_SITE_102_TOR-1A_HSVPN | routed | - | 10.255.102.21/31 | HSVPN-BRANCH20102 | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
-interface Ethernet1
+interface Ethernet1.102
    description Uplink to SF_SITE_102_TOR-1A
    no switchport
    ip address 10.255.102.1/31
+!
+interface Ethernet1.600
+   description Uplink to SF_SITE_102_TOR-1A_HSVPN
+   no switchport
+   vrf HSVPN-BRANCH20102
+   ip address 10.255.102.21/31
 ```
 
 ### Loopback Interfaces
@@ -295,12 +327,14 @@ interface Ethernet1
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
 | Loopback0 |  CE IP for test | default | 10.102.102.1/32 |
+| Loopback10 | - | HSVPN-BRANCH20102 | 10.120.120.2/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
 | Loopback0 |  CE IP for test | default | - |
+| Loopback10 | - | HSVPN-BRANCH20102 | - |
 
 
 #### Loopback Interfaces Device Configuration
@@ -311,6 +345,11 @@ interface Loopback0
    description  CE IP for test
    no shutdown
    ip address 10.102.102.1/32
+!
+interface Loopback10
+   no shutdown
+   vrf HSVPN-BRANCH20102
+   ip address 10.120.120.2/32
 ```
 
 ## Routing
@@ -360,7 +399,14 @@ ip routing
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 10.255.101.2 | 6.6971 | default | - | - | - | - | True | - | - | - |
+| 10.255.102.0 | 6.6971 | default | - | - | - | - | True | - | - | - |
+| 10.255.102.20 | 6.6971 | HSVPN-BRANCH20102 | - | - | - | - | True | - | - | - |
+
+#### Router BGP VRFs
+
+| VRF | Route-Distinguisher | Redistribute |
+| --- | ------------------- | ------------ |
+| HSVPN-BRANCH20102 | - | connected |
 
 #### Router BGP Device Configuration
 
@@ -368,13 +414,23 @@ ip routing
 !
 router bgp 65503
    router-id 10.255.102.1
-   neighbor 10.255.101.2 peer group CE-PEER-GROUP
-   neighbor 10.255.101.2 remote-as 6.6971
-   neighbor 10.255.101.2 bfd
+   neighbor 10.255.102.0 peer group CE-PEER-GROUP
+   neighbor 10.255.102.0 remote-as 6.6971
+   neighbor 10.255.102.0 bfd
    redistribute connected
    !
    address-family ipv4
       neighbor CE-PEER-GROUP activate
+   !
+   vrf HSVPN-BRANCH20102
+      router-id 10.255.102.21
+      neighbor 10.255.102.20 remote-as 6.6971
+      neighbor 10.255.102.20 peer group CE-PEER-GROUP-HSVPN
+      neighbor 10.255.102.20 bfd
+      redistribute connected
+      !
+      address-family ipv4
+         neighbor 10.255.102.20 activate
 ```
 
 ## Multicast

@@ -78,7 +78,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-104,200-204,500
+  vlans: 100-104,200-204,500,600,700
 vlans:
 - id: 100
   name: vlan_100
@@ -97,6 +97,12 @@ vlans:
   tenant: BRANCH
 - id: 500
   name: vlan_500
+  tenant: BRANCH
+- id: 600
+  name: vlan_600
+  tenant: BRANCH
+- id: 700
+  name: vlan_700
   tenant: BRANCH
 - id: 200
   name: vlan_200

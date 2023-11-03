@@ -95,6 +95,48 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
+  - name: BRANCH-20102
+    router_id: 100.2.2.21
+    rd: 100.2.2.21:20102
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:20102
+        - 5000
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:20102
+        - 5000
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:20102
+        - 2000
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:20102
+        - 2000
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.102.21
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.102.21
+      remote_as: '65501'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
   - name: CORP-10016
     router_id: 100.2.2.21
     rd: 100.2.2.21:10012
@@ -161,6 +203,9 @@ vrfs:
 - name: default
   ip_routing: false
 - name: BRANCH-10015
+  tenant: BRANCH
+  ip_routing: true
+- name: BRANCH-20102
   tenant: BRANCH
   ip_routing: true
 - name: CORP-10016
@@ -277,6 +322,13 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 102
   vrf: BRANCH-10015
+- name: Port-channel11.600
+  peer_type: l3_interface
+  ip_address: 10.255.102.20/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 600
+  vrf: BRANCH-20102
 - name: Port-channel11.202
   peer_type: l3_interface
   ip_address: 10.255.102.4/31
@@ -304,7 +356,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 102-103,202-203
+  vlans: 102-103,202-203,600
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -367,6 +419,9 @@ vlans:
   tenant: BRANCH
 - id: 103
   name: vlan_103
+  tenant: BRANCH
+- id: 600
+  name: vlan_600
   tenant: BRANCH
 - id: 202
   name: vlan_202

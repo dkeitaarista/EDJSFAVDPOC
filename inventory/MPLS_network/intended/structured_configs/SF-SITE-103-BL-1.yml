@@ -95,6 +95,48 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
+  - name: BRANCH-20103
+    router_id: 100.3.2.25
+    rd: 100.3.2.25:20103
+    route_targets:
+      import:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:20103
+        - 2000
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:20103
+        - 2000
+      export:
+      - address_family: vpn-ipv4
+        route_targets:
+        - 6.6971:20103
+        - 5000
+      - address_family: vpn-ipv6
+        route_targets:
+        - 6.6971:20103
+        - 5000
+    redistribute_routes:
+    - source_protocol: connected
+    address_family_ipv4:
+      neighbors:
+      - ip_address: 10.255.103.21
+        activate: true
+      bgp:
+        additional_paths:
+          install: true
+    neighbors:
+    - ip_address: 10.255.103.21
+      remote_as: '65501'
+      bfd: true
+    eos_cli: 'bgp additional-paths receive
+
+      bgp additional-paths send any
+
+      bgp bestpath tie-break router-id
+
+      '
   - name: CORP-10020
     router_id: 100.3.2.25
     rd: 100.3.2.25:10012
@@ -152,6 +194,9 @@ vrfs:
 - name: default
   ip_routing: false
 - name: BRANCH-10019
+  tenant: BRANCH
+  ip_routing: true
+- name: BRANCH-20103
   tenant: BRANCH
   ip_routing: true
 - name: CORP-10020
@@ -236,6 +281,13 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 104
   vrf: BRANCH-10019
+- name: Port-channel11.700
+  peer_type: l3_interface
+  ip_address: 10.255.103.20/31
+  shutdown: false
+  type: l3dot1q
+  encapsulation_dot1q_vlan: 700
+  vrf: BRANCH-20103
 - name: Port-channel11.204
   peer_type: l3_interface
   ip_address: 10.255.103.2/31
@@ -253,7 +305,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-104,200-204,500
+  vlans: 100-104,200-204,500,600,700
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -317,6 +369,12 @@ vlans:
   tenant: BRANCH
 - id: 500
   name: vlan_500
+  tenant: BRANCH
+- id: 600
+  name: vlan_600
+  tenant: BRANCH
+- id: 700
+  name: vlan_700
   tenant: BRANCH
 - id: 200
   name: vlan_200

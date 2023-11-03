@@ -270,6 +270,7 @@ vlan internal order ascending range 1006 1199
 | 103 | vlan_103 | - |
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
+| 600 | vlan_600 | - |
 
 ### VLANs Device Configuration
 
@@ -286,6 +287,9 @@ vlan 202
 !
 vlan 203
    name vlan_203
+!
+vlan 600
+   name vlan_600
 ```
 
 ## Interfaces
@@ -298,8 +302,8 @@ vlan 203
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | SF-SITE-102-BL-2_Ethernet11 | *trunk | *102-103,202-203 | *- | *- | 3 |
-| Ethernet4 | SF-SITE-102-BL-2_Ethernet12 | *trunk | *102-103,202-203 | *- | *- | 3 |
+| Ethernet3 | SF-SITE-102-BL-2_Ethernet11 | *trunk | *102-103,202-203,600 | *- | *- | 3 |
+| Ethernet4 | SF-SITE-102-BL-2_Ethernet12 | *trunk | *102-103,202-203,600 | *- | *- | 3 |
 | Ethernet7 |  BRANCH-A2A-CE4_Ethernet1 | access | 103 | - | - | - |
 | Ethernet8 |  CORP-A2A-CE4_Ethernet1 | access | 203 | - | - | - |
 
@@ -342,7 +346,7 @@ interface Ethernet8
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF-SITE-102-BL-2_Po11 | switched | trunk | 102-103,202-203 | - | - | - | - | - | - |
+| Port-Channel3 | SF-SITE-102-BL-2_Po11 | switched | trunk | 102-103,202-203,600 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -352,7 +356,7 @@ interface Port-Channel3
    description SF-SITE-102-BL-2_Po11
    no shutdown
    switchport
-   switchport trunk allowed vlan 102-103,202-203
+   switchport trunk allowed vlan 102-103,202-203,600
    switchport mode trunk
 ```
 

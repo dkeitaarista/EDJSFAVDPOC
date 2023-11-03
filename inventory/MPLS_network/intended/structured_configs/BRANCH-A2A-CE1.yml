@@ -77,7 +77,7 @@ loopback_interfaces:
   escription: ' CE IP for test for HSVPN'
   shutdown: false
   ip_address: 10.120.120.1/32
-  vrf: HSVPN-BRANCH20011
+  vrf: HSVPN-BRANCH20101
 ip_routing: true
 ethernet_interfaces:
 - name: Ethernet1.100
@@ -90,7 +90,7 @@ ethernet_interfaces:
   type: routed
   ip_address: 10.255.101.21/31
   encapsulation_dot1q_vlan: 500
-  vrf: HSVPN-BRANCH20011
+  vrf: HSVPN-BRANCH20101
 router_bgp:
   as: '65501'
   router_id: 10.255.101.1
@@ -106,16 +106,24 @@ router_bgp:
     - name: CE-PEER-GROUP-A2AVPN
       activate: true
   vrfs:
-  - name: HSVPN-BRANCH20011
+  - name: HSVPN-BRANCH20101
     router_id: 10.255.101.21
     redistribute_routes:
     - source_protocol: connected
+    address_family_ipv4:
+      bgp: null
+      neighbors:
+      - ip_address: 10.255.101.20
+        activate: true
     neighbors:
     - ip_address: 10.255.101.20
       remote_as: '6.6971'
       bfd: true
       peer_group: CE-PEER-GROUP-HSVPN
-    address_family_ipv4:
-      peer_groups:
-      - name: CE-PEER-GROUP-HSVPN
-        activate: true
+vlans:
+- id: 100
+  name: VLAN_100_A2AVPN
+  state: active
+- id: 500
+  name: VLAN_500_HSVPN
+  state: active

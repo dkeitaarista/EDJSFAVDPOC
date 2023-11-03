@@ -368,7 +368,7 @@ ansible_facts:
         max_uplink_switches: 0
         uplinks: []
         uplink_peers: []
-        vlans: 102-103,202-203
+        vlans: 102-103,202-203,600
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     SF-SITE-102-BL-2:
@@ -398,7 +398,7 @@ ansible_facts:
         max_uplink_switches: 0
         uplinks: []
         uplink_peers: []
-        vlans: 102-103,202-203
+        vlans: 102-103,202-203,600
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     SF-SITE-102-RR-1:
@@ -450,7 +450,7 @@ ansible_facts:
           type: underlay_l2
           channel_group_id: '3'
           peer_channel_group_id: '11'
-          vlans: 102-103,202-203
+          vlans: 102-103,202-203,600
         - interface: Ethernet4
           peer: SF-SITE-102-BL-1
           peer_interface: Ethernet12
@@ -459,10 +459,10 @@ ansible_facts:
           type: underlay_l2
           channel_group_id: '3'
           peer_channel_group_id: '11'
-          vlans: 102-103,202-203
+          vlans: 102-103,202-203,600
         uplink_peers:
         - SF-SITE-102-BL-1
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     SF-SITE-102-TOR-1B:
@@ -488,7 +488,7 @@ ansible_facts:
           type: underlay_l2
           channel_group_id: '3'
           peer_channel_group_id: '11'
-          vlans: 102-103,202-203
+          vlans: 102-103,202-203,600
         - interface: Ethernet4
           peer: SF-SITE-102-BL-2
           peer_interface: Ethernet12
@@ -497,10 +497,10 @@ ansible_facts:
           type: underlay_l2
           channel_group_id: '3'
           peer_channel_group_id: '11'
-          vlans: 102-103,202-203
+          vlans: 102-103,202-203,600
         uplink_peers:
         - SF-SITE-102-BL-2
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     BRANCH-A2A-CE3:
@@ -769,7 +769,7 @@ ansible_facts:
           vlans: 100-101,200-201,500
         uplink_peers:
         - SF-SITE-101-BL-1
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     SF-SITE-101-TOR-1B:
@@ -807,7 +807,7 @@ ansible_facts:
           vlans: 100-101,200-201,500
         uplink_peers:
         - SF-SITE-101-BL-2
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     BRANCH-A2A-CE1:
@@ -932,7 +932,7 @@ ansible_facts:
         max_uplink_switches: 0
         uplinks: []
         uplink_peers: []
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     SF-SITE-103-TOR-1A:
@@ -958,7 +958,7 @@ ansible_facts:
           type: underlay_l2
           channel_group_id: '3'
           peer_channel_group_id: '3'
-          vlans: 100-104,200-204,500
+          vlans: 100-104,200-204,500,600,700
         - interface: Ethernet4
           peer: SF-SITE-103-BL-1
           peer_interface: Ethernet4
@@ -967,10 +967,10 @@ ansible_facts:
           type: underlay_l2
           channel_group_id: '3'
           peer_channel_group_id: '3'
-          vlans: 100-104,200-204,500
+          vlans: 100-104,200-204,500,600,700
         uplink_peers:
         - SF-SITE-103-BL-1
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     BRANCH-A2A-CE5:
@@ -1038,7 +1038,7 @@ ansible_facts:
         max_uplink_switches: 0
         uplinks: []
         uplink_peers: []
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
         local_endpoint_trunk_groups: []
         endpoint_trunk_groups: []
     BRANCH-A2A-CE6:
@@ -1183,7 +1183,7 @@ avd_switch_facts:
       max_uplink_switches: 0
       uplinks: []
       uplink_peers: []
-      vlans: 102-103,202-203
+      vlans: 102-103,202-203,600
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   SF-SITE-102-BL-2:
@@ -1213,7 +1213,7 @@ avd_switch_facts:
       max_uplink_switches: 0
       uplinks: []
       uplink_peers: []
-      vlans: 102-103,202-203
+      vlans: 102-103,202-203,600
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   SF-SITE-102-RR-1:
@@ -1265,7 +1265,7 @@ avd_switch_facts:
         type: underlay_l2
         channel_group_id: '3'
         peer_channel_group_id: '11'
-        vlans: 102-103,202-203
+        vlans: 102-103,202-203,600
       - interface: Ethernet4
         peer: SF-SITE-102-BL-1
         peer_interface: Ethernet12
@@ -1274,10 +1274,10 @@ avd_switch_facts:
         type: underlay_l2
         channel_group_id: '3'
         peer_channel_group_id: '11'
-        vlans: 102-103,202-203
+        vlans: 102-103,202-203,600
       uplink_peers:
       - SF-SITE-102-BL-1
-      vlans: 100-104,200-204,500
+      vlans: 100-104,200-204,500,600,700
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   SF-SITE-102-TOR-1B:
@@ -1303,7 +1303,7 @@ avd_switch_facts:
         type: underlay_l2
         channel_group_id: '3'
         peer_channel_group_id: '11'
-        vlans: 102-103,202-203
+        vlans: 102-103,202-203,600
       - interface: Ethernet4
         peer: SF-SITE-102-BL-2
         peer_interface: Ethernet12
@@ -1312,10 +1312,10 @@ avd_switch_facts:
         type: underlay_l2
         channel_group_id: '3'
         peer_channel_group_id: '11'
-        vlans: 102-103,202-203
+        vlans: 102-103,202-203,600
       uplink_peers:
       - SF-SITE-102-BL-2
-      vlans: 100-104,200-204,500
+      vlans: 100-104,200-204,500,600,700
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   BRANCH-A2A-CE3:
@@ -1584,7 +1584,7 @@ avd_switch_facts:
         vlans: 100-101,200-201,500
       uplink_peers:
       - SF-SITE-101-BL-1
-      vlans: 100-104,200-204,500
+      vlans: 100-104,200-204,500,600,700
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   SF-SITE-101-TOR-1B:
@@ -1622,7 +1622,7 @@ avd_switch_facts:
         vlans: 100-101,200-201,500
       uplink_peers:
       - SF-SITE-101-BL-2
-      vlans: 100-104,200-204,500
+      vlans: 100-104,200-204,500,600,700
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   BRANCH-A2A-CE1:
@@ -1747,7 +1747,7 @@ avd_switch_facts:
       max_uplink_switches: 0
       uplinks: []
       uplink_peers: []
-      vlans: 100-104,200-204,500
+      vlans: 100-104,200-204,500,600,700
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   SF-SITE-103-TOR-1A:
@@ -1773,7 +1773,7 @@ avd_switch_facts:
         type: underlay_l2
         channel_group_id: '3'
         peer_channel_group_id: '3'
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
       - interface: Ethernet4
         peer: SF-SITE-103-BL-1
         peer_interface: Ethernet4
@@ -1782,10 +1782,10 @@ avd_switch_facts:
         type: underlay_l2
         channel_group_id: '3'
         peer_channel_group_id: '3'
-        vlans: 100-104,200-204,500
+        vlans: 100-104,200-204,500,600,700
       uplink_peers:
       - SF-SITE-103-BL-1
-      vlans: 100-104,200-204,500
+      vlans: 100-104,200-204,500,600,700
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   BRANCH-A2A-CE5:
@@ -1853,7 +1853,7 @@ avd_switch_facts:
       max_uplink_switches: 0
       uplinks: []
       uplink_peers: []
-      vlans: 100-104,200-204,500
+      vlans: 100-104,200-204,500,600,700
       local_endpoint_trunk_groups: []
       endpoint_trunk_groups: []
   BRANCH-A2A-CE6:
@@ -2103,7 +2103,7 @@ groups:
   - SF-SITE-102-BL-2
   - SF-SITE-103-BL-1
   - SF-SITE-104-BL-1
-omit: __omit_place_holder__c8cba5160778bd9a067f49047bc74d71e9783076
+omit: __omit_place_holder__d27b2eee721abd510e0b481fb2f0a9ed92afc954
 ansible_version:
   string: 2.12.10
   full: 2.12.10

@@ -95,33 +95,27 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
-  - name: BRANCH-20011
+  - name: BRANCH-20101
     router_id: 100.1.2.14
-    rd: 100.1.2.14:20011
+    rd: 100.1.2.14:20101
     route_targets:
       import:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:20011
+        - 6.6971:20101
+        - 5000
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:20011
-      - address_family:
-        - vpn-ipv4
-        - vpn-ipv6
-        route_targets:
+        - 6.6971:20101
         - 5000
       export:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:20011
+        - 6.6971:20101
+        - 2000
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:20011
-      - address_family:
-        - vpn-ipv4
-        - vpn-ipv6
-        route_targets:
+        - 6.6971:20101
         - 2000
     redistribute_routes:
     - source_protocol: connected
@@ -211,7 +205,7 @@ vrfs:
 - name: BRANCH-10011
   tenant: BRANCH
   ip_routing: true
-- name: BRANCH-20011
+- name: BRANCH-20101
   tenant: BRANCH
   ip_routing: true
 - name: CORP-10012
@@ -350,7 +344,7 @@ ethernet_interfaces:
   shutdown: false
   type: l3dot1q
   encapsulation_dot1q_vlan: 500
-  vrf: BRANCH-20011
+  vrf: BRANCH-20101
 - name: Port-channel11.200
   peer_type: l3_interface
   ip_address: 10.255.101.4/31

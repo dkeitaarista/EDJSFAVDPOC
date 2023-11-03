@@ -320,7 +320,7 @@ vlan 500
 | Ethernet10 | P2P_LINK_TO_SF-SITE-104-BL-1_Ethernet10 | routed | - | 10.1.0.0/31 | default | 1500 | False | - | - |
 | Port-channel11.100 | - | l3dot1q | - | 10.255.101.0/31 | BRANCH-10011 | - | False | - | - |
 | Port-channel11.200 | - | l3dot1q | - | 10.255.101.4/31 | CORP-10012 | - | False | - | - |
-| Port-channel11.500 | - | l3dot1q | - | 10.255.101.20/31 | BRANCH-20011 | - | False | - | - |
+| Port-channel11.500 | - | l3dot1q | - | 10.255.101.20/31 | BRANCH-20101 | - | False | - | - |
 
 ##### ISIS
 
@@ -435,7 +435,7 @@ interface Port-channel11.200
 interface Port-channel11.500
    no shutdown
    encapsulation dot1q vlan 500
-   vrf BRANCH-20011
+   vrf BRANCH-20101
    ip address 10.255.101.20/31
 ```
 
@@ -521,7 +521,7 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | True |
 | BRANCH-10011 | True |
-| BRANCH-20011 | True |
+| BRANCH-20101 | True |
 | CORP-10012 | True |
 
 #### IP Routing Device Configuration
@@ -530,7 +530,7 @@ service routing protocols model multi-agent
 !
 ip routing
 ip routing vrf BRANCH-10011
-ip routing vrf BRANCH-20011
+ip routing vrf BRANCH-20101
 ip routing vrf CORP-10012
 ```
 
@@ -542,7 +542,7 @@ ip routing vrf CORP-10012
 | --- | --------------- |
 | default | False |
 | BRANCH-10011 | false |
-| BRANCH-20011 | false |
+| BRANCH-20101 | false |
 | CORP-10012 | false |
 | default | false |
 
@@ -654,7 +654,7 @@ router isis CORE
 | 100.1.1.13 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.20 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 10.255.101.1 | 65501 | BRANCH-10011 | - | - | - | - | True | - | - | - |
-| 10.255.101.21 | 65501 | BRANCH-20011 | - | - | - | - | True | - | - | - |
+| 10.255.101.21 | 65501 | BRANCH-20101 | - | - | - | - | True | - | - | - |
 | 10.255.101.5 | 65521 | CORP-10012 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
@@ -698,7 +698,7 @@ router isis CORE
 | VRF | Route-Distinguisher | Redistribute |
 | --- | ------------------- | ------------ |
 | BRANCH-10011 | 100.1.2.14:10011 | connected |
-| BRANCH-20011 | 100.1.2.14:20011 | connected |
+| BRANCH-20101 | 100.1.2.14:20101 | connected |
 | CORP-10012 | 100.1.2.14:10012 | connected |
 
 #### Router BGP Device Configuration
@@ -765,14 +765,16 @@ router bgp 6.6971
       bgp bestpath tie-break router-id
 
    !
-   vrf BRANCH-20011
-      rd 100.1.2.14:20011
-      route-target import vpn-ipv4 6.6971:20011
-      route-target import vpn-ipv6 6.6971:20011
-      route-target import ['vpn-ipv4', 'vpn-ipv6'] 5000
-      route-target export vpn-ipv4 6.6971:20011
-      route-target export vpn-ipv6 6.6971:20011
-      route-target export ['vpn-ipv4', 'vpn-ipv6'] 2000
+   vrf BRANCH-20101
+      rd 100.1.2.14:20101
+      route-target import vpn-ipv4 6.6971:20101
+      route-target import vpn-ipv4 5000
+      route-target import vpn-ipv6 6.6971:20101
+      route-target import vpn-ipv6 5000
+      route-target export vpn-ipv4 6.6971:20101
+      route-target export vpn-ipv4 2000
+      route-target export vpn-ipv6 6.6971:20101
+      route-target export vpn-ipv6 2000
       router-id 100.1.2.14
       neighbor 10.255.101.21 remote-as 65501
       neighbor 10.255.101.21 bfd
@@ -925,7 +927,7 @@ match-list input string SAKlogs
 | VRF Name | IP Routing |
 | -------- | ---------- |
 | BRANCH-10011 | enabled |
-| BRANCH-20011 | enabled |
+| BRANCH-20101 | enabled |
 | CORP-10012 | enabled |
 
 ### VRF Instances Device Configuration
@@ -934,7 +936,7 @@ match-list input string SAKlogs
 !
 vrf instance BRANCH-10011
 !
-vrf instance BRANCH-20011
+vrf instance BRANCH-20101
 !
 vrf instance CORP-10012
 ```

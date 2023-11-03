@@ -258,6 +258,7 @@ vlan internal order ascending range 1006 1199
 | 103 | vlan_103 | - |
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
+| 600 | vlan_600 | - |
 
 ### VLANs Device Configuration
 
@@ -274,6 +275,9 @@ vlan 202
 !
 vlan 203
    name vlan_203
+!
+vlan 600
+   name vlan_600
 ```
 
 ## Interfaces
@@ -286,8 +290,8 @@ vlan 203
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet11 | SF-SITE-102-TOR-1A_Ethernet3 | *trunk | *102-103,202-203 | *- | *- | 11 |
-| Ethernet12 | SF-SITE-102-TOR-1A_Ethernet4 | *trunk | *102-103,202-203 | *- | *- | 11 |
+| Ethernet11 | SF-SITE-102-TOR-1A_Ethernet3 | *trunk | *102-103,202-203,600 | *- | *- | 11 |
+| Ethernet12 | SF-SITE-102-TOR-1A_Ethernet4 | *trunk | *102-103,202-203,600 | *- | *- | 11 |
 
 *Inherited from Port-Channel Interface
 
@@ -297,6 +301,7 @@ vlan 203
 | --------- | ----------- | -----| ------- | -------------- |
 | Port-channel11.102 | - | l3dot1q | - | 102 |
 | Port-channel11.202 | - | l3dot1q | - | 202 |
+| Port-channel11.600 | - | l3dot1q | - | 600 |
 
 ##### Flexible Encapsulation Interfaces
 
@@ -314,6 +319,7 @@ vlan 203
 | Ethernet9 | P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet9 | routed | - | 10.1.0.3/31 | default | 1500 | False | - | - |
 | Port-channel11.102 | - | l3dot1q | - | 10.255.102.0/31 | BRANCH-10015 | - | False | - | - |
 | Port-channel11.202 | - | l3dot1q | - | 10.255.102.4/31 | CORP-10016 | - | False | - | - |
+| Port-channel11.600 | - | l3dot1q | - | 10.255.102.20/31 | BRANCH-20102 | - | False | - | - |
 
 ##### ISIS
 
@@ -410,6 +416,12 @@ interface Port-channel11.202
    encapsulation dot1q vlan 202
    vrf CORP-10016
    ip address 10.255.102.4/31
+!
+interface Port-channel11.600
+   no shutdown
+   encapsulation dot1q vlan 600
+   vrf BRANCH-20102
+   ip address 10.255.102.20/31
 ```
 
 ### Port-Channel Interfaces
@@ -420,7 +432,7 @@ interface Port-channel11.202
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel11 | SF-SITE-102-TOR-1A_Po3 | switched | trunk | 102-103,202-203 | - | - | - | - | - | - |
+| Port-Channel11 | SF-SITE-102-TOR-1A_Po3 | switched | trunk | 102-103,202-203,600 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -430,7 +442,7 @@ interface Port-Channel11
    description SF-SITE-102-TOR-1A_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan 102-103,202-203
+   switchport trunk allowed vlan 102-103,202-203,600
    switchport mode trunk
 ```
 
@@ -494,6 +506,7 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | True |
 | BRANCH-10015 | True |
+| BRANCH-20102 | True |
 | CORP-10016 | True |
 
 #### IP Routing Device Configuration
@@ -502,6 +515,7 @@ service routing protocols model multi-agent
 !
 ip routing
 ip routing vrf BRANCH-10015
+ip routing vrf BRANCH-20102
 ip routing vrf CORP-10016
 ```
 
@@ -513,6 +527,7 @@ ip routing vrf CORP-10016
 | --- | --------------- |
 | default | False |
 | BRANCH-10015 | false |
+| BRANCH-20102 | false |
 | CORP-10016 | false |
 | default | false |
 
@@ -623,6 +638,7 @@ router isis CORE
 | 100.1.1.13 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.20 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 10.255.102.1 | 65503 | BRANCH-10015 | - | - | - | - | True | - | - | - |
+| 10.255.102.21 | 65501 | BRANCH-20102 | - | - | - | - | True | - | - | - |
 | 10.255.102.5 | 65523 | CORP-10016 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
@@ -666,6 +682,7 @@ router isis CORE
 | VRF | Route-Distinguisher | Redistribute |
 | --- | ------------------- | ------------ |
 | BRANCH-10015 | 100.2.2.21:10011 | connected |
+| BRANCH-20102 | 100.2.2.21:20102 | connected |
 | CORP-10016 | 100.2.2.21:10012 | connected |
 
 #### Router BGP Device Configuration
@@ -726,6 +743,30 @@ router bgp 6.6971
       address-family ipv4
          bgp additional-paths install
          neighbor 10.255.102.1 activate
+      !
+      bgp additional-paths receive
+      bgp additional-paths send any
+      bgp bestpath tie-break router-id
+
+   !
+   vrf BRANCH-20102
+      rd 100.2.2.21:20102
+      route-target import vpn-ipv4 6.6971:20102
+      route-target import vpn-ipv4 5000
+      route-target import vpn-ipv6 6.6971:20102
+      route-target import vpn-ipv6 5000
+      route-target export vpn-ipv4 6.6971:20102
+      route-target export vpn-ipv4 2000
+      route-target export vpn-ipv6 6.6971:20102
+      route-target export vpn-ipv6 2000
+      router-id 100.2.2.21
+      neighbor 10.255.102.21 remote-as 65501
+      neighbor 10.255.102.21 bfd
+      redistribute connected
+      !
+      address-family ipv4
+         bgp additional-paths install
+         neighbor 10.255.102.21 activate
       !
       bgp additional-paths receive
       bgp additional-paths send any
@@ -869,6 +910,7 @@ match-list input string SAKlogs
 | VRF Name | IP Routing |
 | -------- | ---------- |
 | BRANCH-10015 | enabled |
+| BRANCH-20102 | enabled |
 | CORP-10016 | enabled |
 
 ### VRF Instances Device Configuration
@@ -876,6 +918,8 @@ match-list input string SAKlogs
 ```eos
 !
 vrf instance BRANCH-10015
+!
+vrf instance BRANCH-20102
 !
 vrf instance CORP-10016
 ```

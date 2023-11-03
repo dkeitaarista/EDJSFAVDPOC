@@ -285,7 +285,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 102-103,202-203
+  vlans: 102-103,202-203,600
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -337,6 +337,9 @@ vlans:
   tenant: BRANCH
 - id: 103
   name: vlan_103
+  tenant: BRANCH
+- id: 600
+  name: vlan_600
   tenant: BRANCH
 - id: 202
   name: vlan_202

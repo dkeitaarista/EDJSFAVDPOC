@@ -285,6 +285,12 @@ vlans:
 - id: 500
   name: vlan_500
   tenant: BRANCH
+- id: 600
+  name: vlan_600
+  tenant: BRANCH
+- id: 700
+  name: vlan_700
+  tenant: BRANCH
 - id: 200
   name: vlan_200
   tenant: CORP

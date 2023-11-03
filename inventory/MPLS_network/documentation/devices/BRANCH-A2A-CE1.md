@@ -20,6 +20,9 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
+- [VLANs](#vlans)
+  - [VLANs Summary](#vlans-summary)
+  - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
@@ -257,6 +260,28 @@ spanning-tree mst 0 priority 32768
 vlan internal order ascending range 1006 1199
 ```
 
+## VLANs
+
+### VLANs Summary
+
+| VLAN ID | Name | Trunk Groups |
+| ------- | ---- | ------------ |
+| 100 | VLAN_100_A2AVPN | - |
+| 500 | VLAN_500_HSVPN | - |
+
+### VLANs Device Configuration
+
+```eos
+!
+vlan 100
+   name VLAN_100_A2AVPN
+   state active
+!
+vlan 500
+   name VLAN_500_HSVPN
+   state active
+```
+
 ## Interfaces
 
 ### Ethernet Interfaces
@@ -275,7 +300,7 @@ vlan internal order ascending range 1006 1199
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
 | Ethernet1.100 | Uplink to SF_SITE_101_TOR-1A_A2AVPN | routed | - | 10.255.101.1/31 | default | - | - | - | - |
-| Ethernet1.500 | Uplink to SF_SITE_101_TOR-1A_HSVPN | routed | - | 10.255.101.21/31 | HSVPN-BRANCH20011 | - | - | - | - |
+| Ethernet1.500 | Uplink to SF_SITE_101_TOR-1A_HSVPN | routed | - | 10.255.101.21/31 | HSVPN-BRANCH20101 | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -289,7 +314,7 @@ interface Ethernet1.100
 interface Ethernet1.500
    description Uplink to SF_SITE_101_TOR-1A_HSVPN
    no switchport
-   vrf HSVPN-BRANCH20011
+   vrf HSVPN-BRANCH20101
    ip address 10.255.101.21/31
 ```
 
@@ -302,14 +327,14 @@ interface Ethernet1.500
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
 | Loopback0 |  CE IP for test for A2AVPN | default | 10.101.101.1/32 |
-| Loopback10 | - | HSVPN-BRANCH20011 | 10.120.120.1/32 |
+| Loopback10 | - | HSVPN-BRANCH20101 | 10.120.120.1/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
 | Loopback0 |  CE IP for test for A2AVPN | default | - |
-| Loopback10 | - | HSVPN-BRANCH20011 | - |
+| Loopback10 | - | HSVPN-BRANCH20101 | - |
 
 
 #### Loopback Interfaces Device Configuration
@@ -323,7 +348,7 @@ interface Loopback0
 !
 interface Loopback10
    no shutdown
-   vrf HSVPN-BRANCH20011
+   vrf HSVPN-BRANCH20101
    ip address 10.120.120.1/32
 ```
 
@@ -375,13 +400,13 @@ ip routing
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 10.255.101.0 | 6.6971 | default | - | - | - | - | True | - | - | - |
-| 10.255.101.20 | 6.6971 | HSVPN-BRANCH20011 | - | - | - | - | True | - | - | - |
+| 10.255.101.20 | 6.6971 | HSVPN-BRANCH20101 | - | - | - | - | True | - | - | - |
 
 #### Router BGP VRFs
 
 | VRF | Route-Distinguisher | Redistribute |
 | --- | ------------------- | ------------ |
-| HSVPN-BRANCH20011 | - | connected |
+| HSVPN-BRANCH20101 | - | connected |
 
 #### Router BGP Device Configuration
 
@@ -397,7 +422,7 @@ router bgp 65501
    address-family ipv4
       neighbor CE-PEER-GROUP-A2AVPN activate
    !
-   vrf HSVPN-BRANCH20011
+   vrf HSVPN-BRANCH20101
       router-id 10.255.101.21
       neighbor 10.255.101.20 remote-as 6.6971
       neighbor 10.255.101.20 peer group CE-PEER-GROUP-HSVPN
@@ -405,6 +430,7 @@ router bgp 65501
       redistribute connected
       !
       address-family ipv4
+         neighbor 10.255.101.20 activate
 ```
 
 ## Multicast
