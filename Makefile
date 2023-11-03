@@ -14,7 +14,7 @@ fabric-build: ## Build fabric configuration and documentation
 	ansible-playbook playbooks/cvp-fabric-deploy-CC.yml --tags build -i inventory/MPLS_network/inventory.yml --diff
 
 .PHONY: fabric-reset
-fabric-build: ## Build fabric configuration and documentation
+fabric-reset: ## Build fabric configuration and documentation
 	ansible-playbook playbooks/cvp-fabric-deploy-CC.yml --tags reset -i inventory/MPLS_network/inventory.yml --diff
 
 .PHONY: fabric-provision
