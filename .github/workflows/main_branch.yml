@@ -10,7 +10,7 @@ jobs:
   deploy-prod:
     env:
       LABPASSPHRASE: ${{ secrets.LABPASSPHRASE }}
-      CVP_host: '10.255.39.46'  ### REPLACE WITH CVP IP ADDRESS
+      CVP_host: '10.255.60.69'  ### REPLACE WITH CVP IP ADDRESS
       OVPN_profile: PS.ovpn  ### REPLACE WITH ACTUAL FILE FOR SPECIFIC ACT ENVIRONMENT
     timeout-minutes: 15
     runs-on: [ self-hosted, macOS, X64 ]
@@ -71,7 +71,7 @@ jobs:
       #   if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Connect VPN
-        run: openvpn --config "../vpn/$OVPN_profile" --daemon
+        run: openvpn --config $OVPN_profile --daemon
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Wait for a VPN connection
