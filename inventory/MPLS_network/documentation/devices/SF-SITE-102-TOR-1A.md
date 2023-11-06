@@ -148,12 +148,14 @@ management api http-commands
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
 | arista | 15 | network-admin | False | - |
+| cvpadmin | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
 username arista privilege 15 role network-admin secret sha512 <removed>
+username cvpadmin privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization
@@ -181,14 +183,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | 192.168.0.5:9910 | - | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | 192.168.0.5:9910 | default | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -270,7 +272,7 @@ vlan internal order ascending range 1006 1199
 | 103 | vlan_103 | - |
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
-| 600 | vlan_600 | - |
+| 302 | vlan_302 | - |
 
 ### VLANs Device Configuration
 
@@ -288,8 +290,8 @@ vlan 202
 vlan 203
    name vlan_203
 !
-vlan 600
-   name vlan_600
+vlan 302
+   name vlan_302
 ```
 
 ## Interfaces
@@ -302,24 +304,17 @@ vlan 600
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 |  BRANCH-VPWS-CE2_Ethernet1 | access | 99 | - | - | - |
-| Ethernet3 | SF-SITE-102-BL-1_Ethernet11 | *trunk | *102-103,202-203,600 | *- | *- | 3 |
-| Ethernet4 | SF-SITE-102-BL-1_Ethernet12 | *trunk | *102-103,202-203,600 | *- | *- | 3 |
+| Ethernet3 | SF-SITE-102-BL-1_Ethernet11 | *trunk | *102-103,202-203,302 | *- | *- | 3 |
+| Ethernet4 | SF-SITE-102-BL-1_Ethernet12 | *trunk | *102-103,202-203,302 | *- | *- | 3 |
 | Ethernet7 |  BRANCH-A2A-CE3_Ethernet1 | access | 102 | - | - | - |
 | Ethernet8 |  CORP-A2A-CE3_Ethernet1 | access | 202 | - | - | - |
+| Ethernet9 |  BRANCH-HS-CE2_Ethernet1 | access | 302 | - | - | - |
 
 *Inherited from Port-Channel Interface
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
-!
-interface Ethernet1
-   description BRANCH-VPWS-CE2_Ethernet1
-   no shutdown
-   switchport access vlan 99
-   switchport mode access
-   switchport
 !
 interface Ethernet3
    description SF-SITE-102-BL-1_Ethernet11
@@ -344,6 +339,13 @@ interface Ethernet8
    switchport access vlan 202
    switchport mode access
    switchport
+!
+interface Ethernet9
+   description BRANCH-HS-CE2_Ethernet1
+   no shutdown
+   switchport access vlan 302
+   switchport mode access
+   switchport
 ```
 
 ### Port-Channel Interfaces
@@ -354,7 +356,7 @@ interface Ethernet8
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | SF-SITE-102-BL-1_Po11 | switched | trunk | 102-103,202-203,600 | - | - | - | - | - | - |
+| Port-Channel3 | SF-SITE-102-BL-1_Po11 | switched | trunk | 102-103,202-203,302 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -364,7 +366,7 @@ interface Port-Channel3
    description SF-SITE-102-BL-1_Po11
    no shutdown
    switchport
-   switchport trunk allowed vlan 102-103,202-203,600
+   switchport trunk allowed vlan 102-103,202-203,302
    switchport mode trunk
 ```
 

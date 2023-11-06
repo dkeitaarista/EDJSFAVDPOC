@@ -1,6 +1,16 @@
 hostname: SF-SITE-101-SPINE-1
 service_routing_protocols_model: multi-agent
 ip_routing: true
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  cvvrf: default
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  disable_aaa: false
 vlan_internal_order:
   allocation: ascending
   range:
@@ -15,7 +25,11 @@ local_users:
 - name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+  sha512_password: $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0
+- name: cvpadmin
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/
 vrfs:
 - name: default
   ip_routing: false
@@ -127,14 +141,6 @@ logging:
       match_lists:
       - name: SAKlogs
         action: discard
-daemon_terminattr:
-  cvaddrs:
-  - 192.168.0.5:9910
-  cvauth:
-    method: token
-    token_file: /tmp/token
-  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
-  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
 ntp:
   servers:
   - name: 0.north-america.pool.ntp.org

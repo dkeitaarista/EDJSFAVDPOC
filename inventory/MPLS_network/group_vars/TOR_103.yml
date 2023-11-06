@@ -25,7 +25,6 @@ ethernet_aggregation:
         - Ethernet3
         - Ethernet4
 
-
 # Customer edge connectivity
 cpes:
   - name: BRANCH-A2A-CE5
@@ -48,3 +47,13 @@ cpes:
           - Ethernet1
         mode: access
         vlans: 204
+  - name: BRANCH-HS-CE3
+    adapters:
+      - switches:
+          - SF-SITE-103-TOR-1A
+        switch_ports:
+          - Ethernet9
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 303

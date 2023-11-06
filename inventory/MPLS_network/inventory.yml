@@ -4,8 +4,8 @@ all:
     CVP:
       hosts:
         ACT_CVP:
-          ansible_host: 10.255.39.46
-          ansible_httpapi_host: 10.225.39.46
+          ansible_host: 10.255.60.69
+          ansible_httpapi_host: 10.225.60.69
           ansible_user: cvpadmin
           ansible_password: edwardjones
           ansible_connection: httpapi
@@ -46,11 +46,14 @@ all:
               hosts:
                 BRANCH-A2A-CE1:
                   ansible_host: 10.255.x.x
-                  is_deployed: false
+                  #is_deployed: false
                 BRANCH-A2A-CE2:
                   ansible_host: 10.255.x.x
                 BRANCH-VPWS-CE1:
                   ansible_host: 10.225.x.x
+                BRANCH-HS-CE1:
+                  ansible_host: 10.255.x.x
+                  #is_deployed: false
                 CORP-A2A-CE1:
                   ansible_host: 10.255.x.x
                 CORP-A2A-CE2:
@@ -86,13 +89,16 @@ all:
                   ansible_host: 10.255.x.x
                 BRANCH-A2A-CE4:
                   ansible_host: 10.255.x.x
-                  is_deployed: false
+                BRANCH-VPWS-CE2:
+                  ansible_host: 10.255.x.x
+                BRANCH-HS-CE2:
+                  ansible_host: 10.255.x.x
+                  #is_deployed: false
                 CORP-A2A-CE3:
                   ansible_host: 10.255.x.x
                 CORP-A2A-CE4:
                   ansible_host: 10.255.x.x
-                BRANCH-VPWS-CE2:
-                  ansible_host: 10.255.x.x
+                
         SF_SITE_103:
           children:
             BORDER_LEAFS_103:
@@ -107,6 +113,9 @@ all:
               hosts:
                 BRANCH-A2A-CE5:
                   ansible_host: 10.255.x.x
+                BRANCH-HS-CE3:
+                  ansible_host: 10.255.x.x
+                  #is_deployed: false
                 CORP-A2A-CE5:
                   ansible_host: 10.255.x.x
                 
@@ -122,7 +131,6 @@ all:
                   ansible_host: 10.255.x.x
                 CORP-A2A-CE6:
                   ansible_host: 10.255.x.x
-                  is_deployed: false
     ROUTE_REFLECTORS:
       children:
         ROUTE_REFLECTORS_101:

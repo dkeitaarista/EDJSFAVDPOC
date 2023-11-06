@@ -57,7 +57,7 @@ router_bgp:
     peer_group: MPLS-OVERLAY-PEERS
     description: SF-SITE-102-RR-1
   vrfs:
-  - name: BRANCH-10020
+  - name: BRANCH-10021
     router_id: 100.4.2.27
     rd: 100.4.2.27:10011
     route_targets:
@@ -135,6 +135,16 @@ router_bgp:
       '
 service_routing_protocols_model: multi-agent
 ip_routing: true
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  cvvrf: default
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  disable_aaa: false
 vlan_internal_order:
   allocation: ascending
   range:
@@ -147,11 +157,15 @@ local_users:
 - name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+  sha512_password: $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0
+- name: cvpadmin
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/
 vrfs:
 - name: default
   ip_routing: false
-- name: BRANCH-10020
+- name: BRANCH-10021
   tenant: BRANCH
   ip_routing: true
 - name: CORP-10022
@@ -240,9 +254,9 @@ ethernet_interfaces:
     ip: true
 - name: Ethernet6
   peer: SF-SITE-102-BL-1
-  peer_interface: Ethernet3
+  peer_interface: Ethernet6
   peer_type: pe
-  description: P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet3
+  description: P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet6
   type: routed
   shutdown: false
   mtu: 1500
@@ -259,7 +273,7 @@ ethernet_interfaces:
   ip_address: 10.255.104.0/31
   shutdown: false
   type: routed
-  vrf: BRANCH-10020
+  vrf: BRANCH-10021
 - name: Ethernet8
   peer_type: l3_interface
   ip_address: 10.255.104.2/31
@@ -282,14 +296,14 @@ vlans:
 - id: 104
   name: vlan_104
   tenant: BRANCH
-- id: 500
-  name: vlan_500
+- id: 301
+  name: vlan_301
   tenant: BRANCH
-- id: 600
-  name: vlan_600
+- id: 302
+  name: vlan_302
   tenant: BRANCH
-- id: 700
-  name: vlan_700
+- id: 303
+  name: vlan_303
   tenant: BRANCH
 - id: 200
   name: vlan_200
@@ -326,14 +340,6 @@ logging:
       match_lists:
       - name: SAKlogs
         action: discard
-daemon_terminattr:
-  cvaddrs:
-  - 192.168.0.5:9910
-  cvauth:
-    method: token
-    token_file: /tmp/token
-  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
-  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
 ntp:
   servers:
   - name: 0.north-america.pool.ntp.org

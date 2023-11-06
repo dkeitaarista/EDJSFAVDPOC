@@ -1,7 +1,7 @@
 BRANCH:
   - name: BRANCH
-    pseudowire_rt_base: 5000
-    mac_vrf_id_base: 5000
+    pseudowire_rt_base:  5000
+    mac_vrf_id_base:  5000
     point_to_point_services:
       - name: SF_SITE_101_BL-1-SF_SITE_102_BL-1
         type: vpws-pseudowire
@@ -12,169 +12,13 @@ BRANCH:
             nodes:
               - SF-SITE-101-BL-1
             interfaces:
-              - Port-channel11
+              - Ethernet13
           - id: 2
             nodes:
               - SF-SITE-102-BL-1
             interfaces:
-              - Port-channel11
-    vrfs:
-      - name: BRANCH-20101
-        vrf_vni: 20101
-        address_families:
-          - vpn-ipv4
-          - vpn-ipv6
-        bgp:
-          structured_config:
-            eos_cli: |
-              bgp additional-paths receive
-              bgp additional-paths send any
-              bgp bestpath tie-break router-id
-            address_family_ipv4:
-              bgp:
-                additional_paths:
-                  install: true
-        additional_route_targets:
-          - type: import
-            address_family: vpn-ipv4
-            route_target: 5000
-            nodes:
-              - SF-SITE-101-BL-1
-          - type: import
-            address_family: vpn-ipv6
-            route_target: 5000
-            nodes:
-              - SF-SITE-101-BL-1
-          - type: export
-            address_family: vpn-ipv4
-            route_target: 2000
-            nodes:
-              - SF-SITE-101-BL-1
-          - type: export
-            address_family: vpn-ipv6
-            route_target: 2000
-            nodes:
-              - SF-SITE-101-BL-1
-        l3_interfaces:
-          - interfaces:
-              - Port-channel11.500
-            encapsulation_dot1q_vlan:
-              - 500
-            ip_addresses:
-              - 10.255.101.20/31
-            nodes:
-              - SF-SITE-101-BL-1
-        bgp_peers:
-          - ip_address: 10.255.101.21
-            remote_as: 65501
-            bfd: true
-            nodes:
-              - SF-SITE-101-BL-1
-      
-      - name: BRANCH-20102
-        vrf_vni: 20102
-        address_families:
-          - vpn-ipv4
-          - vpn-ipv6
-        bgp:
-          structured_config:
-            eos_cli: |
-              bgp additional-paths receive
-              bgp additional-paths send any
-              bgp bestpath tie-break router-id
-            address_family_ipv4:
-              bgp:
-                additional_paths:
-                  install: true
-        additional_route_targets:
-          - type: import
-            address_family: vpn-ipv4
-            route_target: 5000
-            nodes:
-              - SF-SITE-102-BL-1
-          - type: import
-            address_family: vpn-ipv6
-            route_target: 5000
-            nodes:
-              - SF-SITE-102-BL-1
-          - type: export
-            address_family: vpn-ipv4
-            route_target: 2000
-            nodes:
-              - SF-SITE-102-BL-1
-          - type: export
-            address_family: vpn-ipv6
-            route_target: 2000
-            nodes:
-              - SF-SITE-102-BL-1
-        l3_interfaces:
-          - interfaces:
-              - Port-channel11.600
-            encapsulation_dot1q_vlan:
-              - 600
-            ip_addresses:
-              - 10.255.102.20/31
-            nodes:
-              - SF-SITE-102-BL-1
-        bgp_peers:
-          - ip_address: 10.255.102.21
-            remote_as: 65501
-            bfd: true
-            nodes:
-              - SF-SITE-102-BL-1
-      
-      - name: BRANCH-20103
-        vrf_vni: 20103
-        address_families:
-          - vpn-ipv4
-          - vpn-ipv6
-        bgp:
-          structured_config:
-            eos_cli: |
-              bgp additional-paths receive
-              bgp additional-paths send any
-              bgp bestpath tie-break router-id
-            address_family_ipv4:
-              bgp:
-                additional_paths:
-                  install: true
-        additional_route_targets:
-          - type: import
-            address_family: vpn-ipv4
-            route_target: 2000
-            nodes:
-              - SF-SITE-103-BL-1
-          - type: import
-            address_family: vpn-ipv6
-            route_target: 2000
-            nodes:
-              - SF-SITE-103-BL-1
-          - type: export
-            address_family: vpn-ipv4
-            route_target: 5000
-            nodes:
-              - SF-SITE-103-BL-1
-          - type: export
-            address_family: vpn-ipv6
-            route_target: 5000
-            nodes:
-              - SF-SITE-103-BL-1
-        l3_interfaces:
-          - interfaces:
-              - Port-channel11.700
-            encapsulation_dot1q_vlan:
-              - 700
-            ip_addresses:
-              - 10.255.103.20/31
-            nodes:
-              - SF-SITE-103-BL-1
-        bgp_peers:
-          - ip_address: 10.255.103.21
-            remote_as: 65501
-            bfd: true
-            nodes:
-              - SF-SITE-103-BL-1
-        
+              - Ethernet13
+    vrfs: 
       - name: BRANCH-10011
         vrf_vni: 10011
         address_families:
@@ -303,9 +147,9 @@ BRANCH:
                   install: true
         l3_interfaces:
           - interfaces:
-              - Port-channel11.102
+              - Port-channel11.103
             encapsulation_dot1q_vlan:
-              - 102
+              - 103
             ip_addresses:
               - 10.255.102.2/31
             nodes:
@@ -340,7 +184,7 @@ BRANCH:
                   install: true
         l3_interfaces:
           - interfaces:
-              - Port-channel11.104
+              - Port-channel3.104
             encapsulation_dot1q_vlan:
               - 104
             ip_addresses:
@@ -360,7 +204,7 @@ BRANCH:
             bfd: true
             nodes:
               - SF-SITE-103-BL-1
-      - name: BRANCH-10020
+      - name: BRANCH-10021
         vrf_vni: 10011
         address_families:
           - vpn-ipv4
@@ -395,6 +239,159 @@ BRANCH:
             bfd: true
             nodes:
               - SF-SITE-104-BL-1
+      - name: BRANCH-10023
+        vrf_vni: 10023
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        additional_route_targets:
+          - type: import
+            address_family: vpn-ipv4
+            route_target:  6.6971:5000
+            nodes:
+              - SF-SITE-101-BL-1
+          - type: export
+            address_family: vpn-ipv4
+            route_target:  6.6971:2000
+            nodes:
+              - SF-SITE-101-BL-1
+          - type: import
+            address_family: vpn-ipv6
+            route_target:  6.6971:5000
+            nodes:
+              - SF-SITE-101-BL-1
+          - type: export
+            address_family: vpn-ipv6
+            route_target:  6.6971:2000
+            nodes:
+              - SF-SITE-101-BL-1
+        l3_interfaces:
+          - interfaces:
+              - Port-channel11.301
+            encapsulation_dot1q_vlan:
+              - 301
+            ip_addresses:
+              - 10.255.101.20/31
+            nodes:
+              - SF-SITE-101-BL-1
+        bgp_peers:
+          - ip_address: 10.255.101.21
+            remote_as: 65581
+            bfd: true
+            nodes:
+              - SF-SITE-101-BL-1
+      - name: BRANCH-10025
+        vrf_vni: 10025
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        additional_route_targets:
+          - type: import
+            address_family: vpn-ipv4
+            route_target:  6.6971:5000
+            nodes:
+              - SF-SITE-102-BL-1
+          - type: export
+            address_family: vpn-ipv4
+            route_target:  6.6971:2000
+            nodes:
+              - SF-SITE-102-BL-1
+          - type: import
+            address_family: vpn-ipv6
+            route_target:  6.6971:5000
+            nodes:
+              - SF-SITE-102-BL-1
+          - type: export
+            address_family: vpn-ipv6
+            route_target:  6.6971:2000
+            nodes:
+              - SF-SITE-102-BL-1
+        l3_interfaces:
+          - interfaces:
+              - Port-channel11.302
+            encapsulation_dot1q_vlan:
+              - 302
+            ip_addresses:
+              - 10.255.102.20/31
+            nodes:
+              - SF-SITE-102-BL-1
+        bgp_peers:
+          - ip_address: 10.255.102.21
+            remote_as: 65582
+            bfd: true
+            nodes:
+              - SF-SITE-102-BL-1
+      - name: BRANCH-10027
+        vrf_vni: 10027
+        address_families:
+          - vpn-ipv4
+          - vpn-ipv6
+        bgp:
+          structured_config:
+            eos_cli: |
+              bgp additional-paths receive
+              bgp additional-paths send any
+              bgp bestpath tie-break router-id
+            address_family_ipv4:
+              bgp:
+                additional_paths:
+                  install: true
+        additional_route_targets:
+          - type: import
+            address_family: vpn-ipv4
+            route_target:  6.6971:2000
+            nodes:
+              - SF-SITE-103-BL-1
+          - type: export
+            address_family: vpn-ipv4
+            route_target:  6.6971:5000
+            nodes:
+              - SF-SITE-103-BL-1
+          - type: import
+            address_family: vpn-ipv6
+            route_target:  6.6971:2000
+            nodes:
+              - SF-SITE-103-BL-1
+          - type: export
+            address_family: vpn-ipv6
+            route_target:  6.6971:5000
+            nodes:
+              - SF-SITE-103-BL-1
+        l3_interfaces:
+          - interfaces:
+              - Port-channel3.303
+            encapsulation_dot1q_vlan:
+              - 303
+            ip_addresses:
+              - 10.255.103.20/31
+            nodes:
+              - SF-SITE-103-BL-1
+        bgp_peers:
+          - ip_address: 10.255.103.21
+            remote_as: 65583
+            bfd: true
+            nodes:
+              - SF-SITE-103-BL-1
     l2vlans:
       - id: 100
         name: vlan_100
@@ -404,16 +401,16 @@ BRANCH:
         name: vlan_101
         vxlan: false
         tags: [ site101 ]
-      - id: 500
-        name: vlan_500
+      - id: 301
+        name: vlan_301
         vxlan: false
         tags: [ site101 ]
       - id: 102
         name: vlan_102
         vxlan: false
         tags: [ site102 ]
-      - id: 600
-        name: vlan_600
+      - id: 302
+        name: vlan_302
         vxlan: false
         tags: [ site102 ]
       - id: 103
@@ -424,7 +421,7 @@ BRANCH:
         name: vlan_104
         vxlan: false
         tags: [ site103 ]
-      - id: 700
-        name: vlan_700
+      - id: 303
+        name: vlan_303
         vxlan: false
         tags: [ site103 ]

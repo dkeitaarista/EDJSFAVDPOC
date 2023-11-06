@@ -14,6 +14,9 @@ ce:
     - name: CORP-A2A-CE5
       id: 37
       mgmt_ip: 192.168.0.37/24
+    - name: BRANCH-HS-CE3
+      id: 44
+      mgmt_ip: 192.168.0.44/24
 
 # DOES NOT PROVIDE THE INTENDED OUTCOME. IP ROUTING IS NOT CONFIGURED ON ROUTER
 vrfs:

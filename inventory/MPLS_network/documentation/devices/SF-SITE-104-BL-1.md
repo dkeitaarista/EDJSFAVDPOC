@@ -152,12 +152,14 @@ management api http-commands
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
 | arista | 15 | network-admin | False | - |
+| cvpadmin | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
 username arista privilege 15 role network-admin secret sha512 <removed>
+username cvpadmin privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization
@@ -185,14 +187,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | 192.168.0.5:9910 | - | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | 192.168.0.5:9910 | default | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -260,9 +262,9 @@ vlan internal order ascending range 1006 1199
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
 | 204 | vlan_204 | - |
-| 500 | vlan_500 | - |
-| 600 | vlan_600 | - |
-| 700 | vlan_700 | - |
+| 301 | vlan_301 | - |
+| 302 | vlan_302 | - |
+| 303 | vlan_303 | - |
 
 ### VLANs Device Configuration
 
@@ -298,14 +300,14 @@ vlan 203
 vlan 204
    name vlan_204
 !
-vlan 500
-   name vlan_500
+vlan 301
+   name vlan_301
 !
-vlan 600
-   name vlan_600
+vlan 302
+   name vlan_302
 !
-vlan 700
-   name vlan_700
+vlan 303
+   name vlan_303
 ```
 
 ## Interfaces
@@ -325,8 +327,8 @@ vlan 700
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet6 | P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet3 | routed | - | 10.1.0.6/31 | default | 1500 | False | - | - |
-| Ethernet7 | - | routed | - | 10.255.104.0/31 | BRANCH-10020 | - | False | - | - |
+| Ethernet6 | P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet6 | routed | - | 10.1.0.6/31 | default | 1500 | False | - | - |
+| Ethernet7 | - | routed | - | 10.255.104.0/31 | BRANCH-10021 | - | False | - | - |
 | Ethernet8 | - | routed | - | 10.255.104.2/31 | CORP-10022 | - | False | - | - |
 | Ethernet10 | P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet10 | routed | - | 10.1.0.1/31 | default | 1500 | False | - | - |
 
@@ -342,7 +344,7 @@ vlan 700
 ```eos
 !
 interface Ethernet6
-   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet3
+   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet6
    no shutdown
    mtu 1500
    no switchport
@@ -357,7 +359,7 @@ interface Ethernet6
 interface Ethernet7
    no shutdown
    no switchport
-   vrf BRANCH-10020
+   vrf BRANCH-10021
    ip address 10.255.104.0/31
 !
 interface Ethernet8
@@ -439,7 +441,7 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
-| BRANCH-10020 | True |
+| BRANCH-10021 | True |
 | CORP-10022 | True |
 
 #### IP Routing Device Configuration
@@ -447,7 +449,7 @@ service routing protocols model multi-agent
 ```eos
 !
 ip routing
-ip routing vrf BRANCH-10020
+ip routing vrf BRANCH-10021
 ip routing vrf CORP-10022
 ```
 
@@ -458,7 +460,7 @@ ip routing vrf CORP-10022
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
-| BRANCH-10020 | false |
+| BRANCH-10021 | false |
 | CORP-10022 | false |
 | default | false |
 
@@ -566,7 +568,7 @@ router isis CORE
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
 | 100.1.1.13 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.20 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
-| 10.255.104.1 | 65506 | BRANCH-10020 | - | - | - | - | True | - | - | - |
+| 10.255.104.1 | 65506 | BRANCH-10021 | - | - | - | - | True | - | - | - |
 | 10.255.104.3 | 65526 | CORP-10022 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
@@ -603,7 +605,7 @@ router isis CORE
 
 | VRF | Route-Distinguisher | Redistribute |
 | --- | ------------------- | ------------ |
-| BRANCH-10020 | 100.4.2.27:10011 | connected |
+| BRANCH-10021 | 100.4.2.27:10011 | connected |
 | CORP-10022 | 100.4.2.27:10012 | connected |
 
 #### Router BGP Device Configuration
@@ -643,7 +645,7 @@ router bgp 6.6971
    address-family vpn-ipv6
       neighbor MPLS-OVERLAY-PEERS activate
    !
-   vrf BRANCH-10020
+   vrf BRANCH-10021
       rd 100.4.2.27:10011
       route-target import vpn-ipv4 6.6971:10011
       route-target import vpn-ipv6 6.6971:10011
@@ -778,14 +780,14 @@ match-list input string SAKlogs
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
-| BRANCH-10020 | enabled |
+| BRANCH-10021 | enabled |
 | CORP-10022 | enabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
 !
-vrf instance BRANCH-10020
+vrf instance BRANCH-10021
 !
 vrf instance CORP-10022
 ```

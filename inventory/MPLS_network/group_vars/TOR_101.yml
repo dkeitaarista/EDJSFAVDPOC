@@ -23,6 +23,7 @@ ethernet_aggregation:
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
+
     - name: SF-SITE-101-TOR-1B
       id: 17
       mgmt_ip: 192.168.0.17/24
@@ -35,6 +36,7 @@ ethernet_aggregation:
       uplink_switch_interfaces:
         - Ethernet11
         - Ethernet12
+    
 # Customer edge connectivity
 cpes:
   - name: BRANCH-A2A-CE1
@@ -57,26 +59,6 @@ cpes:
           - Ethernet1
         mode: access
         vlans: 200
-  - name: BRANCH-VPWS-CE1
-    adapters:
-      - switches:
-          - SF-SITE-101-TOR-1A
-        switch_ports:
-          - Ethernet1
-        endpoint_ports:
-          - Ethernet1
-        mode: access
-        vlans: 99
-  - name: BRANCH-VPWS-CE1
-    adapters:
-      - switches:
-          - SF-SITE-101-TOR-1A
-        switch_ports:
-          - Ethernet1
-        endpoint_ports:
-          - Ethernet1
-        mode: access
-        vlans: 99
   - name: BRANCH-A2A-CE2
     adapters:
       - switches:
@@ -97,3 +79,13 @@ cpes:
           - Ethernet1
         mode: access
         vlans: 201
+  - name: BRANCH-HS-CE1
+    adapters:
+      - switches:
+          - SF-SITE-101-TOR-1A
+        switch_ports:
+          - Ethernet9
+        endpoint_ports:
+          - Ethernet1
+        mode: access
+        vlans: 301

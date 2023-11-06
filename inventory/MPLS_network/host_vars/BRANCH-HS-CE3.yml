@@ -1,0 +1,34 @@
+---
+# L3 interface to TOR
+
+custom_structured_configuration_ethernet_interfaces:
+  - name: Ethernet1
+    description: Uplink to SF_SITE_102_TOR-1A_HSVPN
+    type: routed
+    ip_address: 10.255.103.21/31
+    encapsulation_dot1q_vlan: 303
+
+# BGP peering with border leaf
+
+custom_structured_configuration_router_bgp:
+  as: 65583
+  router_id: 10.255.103.21
+  redistribute_routes:
+    - source_protocol: connected
+  neighbors:
+    - ip_address: 10.255.103.20
+      remote_as: '6.6971'
+      bfd: true
+      peer_group: CE-PEER-GROUP-HSVPN
+  address_family_ipv4:
+    peer_groups:
+      - name: CE-PEER-GROUP-HSVPN
+        activate: true
+  
+
+# Interface Loopback0 for CE
+custom_structured_configuration_loopback_interfaces:
+  - name: Loopback0
+    description: " CE IP for test for A2AVPN"
+    shutdown: false
+    ip_address: 10.201.201.3/32

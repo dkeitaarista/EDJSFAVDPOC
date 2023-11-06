@@ -95,28 +95,28 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
-  - name: BRANCH-20101
+  - name: BRANCH-10023
     router_id: 100.1.2.14
-    rd: 100.1.2.14:20101
+    rd: 100.1.2.14:10023
     route_targets:
       import:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:20101
-        - 5000
+        - 6.6971:10023
+        - 6.6971:5000
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:20101
-        - 5000
+        - 6.6971:10023
+        - 6.6971:5000
       export:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:20101
-        - 2000
+        - 6.6971:10023
+        - 6.6971:2000
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:20101
-        - 2000
+        - 6.6971:10023
+        - 6.6971:2000
     redistribute_routes:
     - source_protocol: connected
     address_family_ipv4:
@@ -128,7 +128,7 @@ router_bgp:
           install: true
     neighbors:
     - ip_address: 10.255.101.21
-      remote_as: '65501'
+      remote_as: '65581'
       bfd: true
     eos_cli: 'bgp additional-paths receive
 
@@ -186,6 +186,16 @@ router_bgp:
       id_remote: 101
 service_routing_protocols_model: multi-agent
 ip_routing: true
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  cvvrf: default
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  disable_aaa: false
 vlan_internal_order:
   allocation: ascending
   range:
@@ -198,14 +208,18 @@ local_users:
 - name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+  sha512_password: $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0
+- name: cvpadmin
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/
 vrfs:
 - name: default
   ip_routing: false
 - name: BRANCH-10011
   tenant: BRANCH
   ip_routing: true
-- name: BRANCH-20101
+- name: BRANCH-10023
   tenant: BRANCH
   ip_routing: true
 - name: CORP-10012
@@ -338,13 +352,13 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 100
   vrf: BRANCH-10011
-- name: Port-channel11.500
+- name: Port-channel11.301
   peer_type: l3_interface
   ip_address: 10.255.101.20/31
   shutdown: false
   type: l3dot1q
-  encapsulation_dot1q_vlan: 500
-  vrf: BRANCH-20101
+  encapsulation_dot1q_vlan: 301
+  vrf: BRANCH-10023
 - name: Port-channel11.200
   peer_type: l3_interface
   ip_address: 10.255.101.4/31
@@ -352,7 +366,7 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 200
   vrf: CORP-10012
-- name: Port-channel11.99
+- name: Ethernet13.99
   type: l2dot1q
   peer_type: point_to_point_service
   encapsulation_vlan:
@@ -361,6 +375,10 @@ ethernet_interfaces:
         vlan: 99
     network:
       client: true
+  shutdown: false
+- name: Ethernet13
+  type: routed
+  peer_type: l3_interface
   shutdown: false
 - name: Port-channel11
   type: routed
@@ -372,7 +390,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 100-101,200-201,500
+  vlans: 100-101,200-201,301
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -425,7 +443,7 @@ patch_panel:
     connectors:
     - id: '1'
       type: interface
-      endpoint: Port-channel11.99
+      endpoint: Ethernet13.99
     - id: '2'
       type: pseudowire
       endpoint: bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
@@ -436,8 +454,8 @@ vlans:
 - id: 101
   name: vlan_101
   tenant: BRANCH
-- id: 500
-  name: vlan_500
+- id: 301
+  name: vlan_301
   tenant: BRANCH
 - id: 200
   name: vlan_200
@@ -465,14 +483,6 @@ logging:
       match_lists:
       - name: SAKlogs
         action: discard
-daemon_terminattr:
-  cvaddrs:
-  - 192.168.0.5:9910
-  cvauth:
-    method: token
-    token_file: /tmp/token
-  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
-  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
 ntp:
   servers:
   - name: 0.north-america.pool.ntp.org

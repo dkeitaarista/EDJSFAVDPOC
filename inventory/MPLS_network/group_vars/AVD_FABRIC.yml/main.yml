@@ -22,7 +22,12 @@ local_users:
     privilege: 15
     role: network-admin
     # sha512_password: "$6$ZSpmKHG8tfWO/BQg$qMy2VGDhmykJ.VDcO5LiW9B6pf0TS7zVe4jLwaCiIjxNwBEOXodwhsIwFUD3UuLAR.aDtVZh3DIuSr5X12dmB0"
-    sha512_password: "$6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1"
+    # sha512_password: "$6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1"
+    sha512_password: "$6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0"
+  - name: cvpadmin
+    privilege: 15
+    role: network-admin
+    sha512_password: "$6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/"
 
 #Timezone
 clock:
@@ -92,6 +97,15 @@ match_list_input:
 #Management parameters using default due to ACT backend limitations
 mgmt_interface_vrf: default
 mgmt_gateway: null
+
+# Cloudvision settings
+cvp_instance_ips:
+  - 192.168.0.5
+cvp_token_file: "/tmp/token"
+terminattr_disable_aaa: False
+terminattr_ingestexclude: "/Sysdb/cell/1/agent,/Sysdb/cell/2/agent"
+terminattr_ingestgrpcurl_port: 9910
+terminattr_smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"
 
 #TerminAttr configuration
 custom_structured_configuration_daemon_terminattr:

@@ -6,21 +6,16 @@ custom_structured_configuration_ethernet_interfaces:
     description: Uplink to SF_SITE_103_TOR-1A
     type: routed
     ip_address: 10.255.103.1/31
-  - name: Ethernet1.700
-    description: Uplink to SF_SITE_103_TOR-1A_HSVPN
-    type: routed
-    ip_address: 10.255.103.21/31
-    encapsulation_dot1q_vlan: 700
-    vrf: HSVPN-BRANCH20103
+ 
 # BGP peering with border leaf
 
 custom_structured_configuration_router_bgp:
   as: 65505
-  router_id: 10.255.103.0
+  router_id: 10.255.103.1
   redistribute_routes:
     - source_protocol: connected
   neighbors:
-    - ip_address: 10.255.103.1
+    - ip_address: 10.255.103.0
       remote_as: '6.6971'
       bfd: true
       peer_group: CE-PEER-GROUP
@@ -28,39 +23,10 @@ custom_structured_configuration_router_bgp:
     peer_groups:
       - name: CE-PEER-GROUP
         activate: true
-  vrfs:
-    - name: HSVPN-BRANCH20103
-      router_id: 10.255.103.21
-      redistribute_routes:
-        - source_protocol: connected
-      address_family_ipv4:
-        bgp:
-        neighbors:
-          - ip_address: 10.255.103.20
-            activate: true
-      neighbors:
-        - ip_address: 10.255.103.20
-          remote_as: '6.6971'
-          bfd: true
-          peer_group: CE-PEER-GROUP-HSVPN
+
 # Interface Loopback0 for CE
 custom_structured_configuration_loopback_interfaces:
   - name: Loopback0
     description: " CE IP for test"
     shutdown: false
     ip_address: 10.103.103.1/32
-  - name: Loopback10
-    escription: " CE IP for test for HSVPN"
-    shutdown: false
-    ip_address: 10.120.120.3/32
-    vrf: HSVPN-BRANCH20103
-
-# VLANs 
-custom_structured_configuration_vlans:
-  - id: 104
-    name: VLAN_104_A2AVPN
-    state: active
-  - id: 700
-    name: VLAN_700_HSVPN
-    state: active
-

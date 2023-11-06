@@ -1,5 +1,15 @@
 hostname: BRANCH-A2A-CE5
 service_routing_protocols_model: multi-agent
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  cvvrf: default
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  disable_aaa: false
 vlan_internal_order:
   allocation: ascending
   range:
@@ -17,7 +27,11 @@ local_users:
 - name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+  sha512_password: $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0
+- name: cvpadmin
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/
 vrfs:
 - name: default
   ip_routing: false
@@ -53,14 +67,6 @@ logging:
       match_lists:
       - name: SAKlogs
         action: discard
-daemon_terminattr:
-  cvaddrs:
-  - 192.168.0.5:9910
-  cvauth:
-    method: token
-    token_file: /tmp/token
-  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
-  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
 ntp:
   servers:
   - name: 0.north-america.pool.ntp.org
@@ -73,30 +79,19 @@ loopback_interfaces:
   description: ' CE IP for test'
   shutdown: false
   ip_address: 10.103.103.1/32
-- name: Loopback10
-  escription: ' CE IP for test for HSVPN'
-  shutdown: false
-  ip_address: 10.120.120.3/32
-  vrf: HSVPN-BRANCH20103
 ip_routing: true
 ethernet_interfaces:
 - name: Ethernet1
   description: Uplink to SF_SITE_103_TOR-1A
   type: routed
   ip_address: 10.255.103.1/31
-- name: Ethernet1.700
-  description: Uplink to SF_SITE_103_TOR-1A_HSVPN
-  type: routed
-  ip_address: 10.255.103.21/31
-  encapsulation_dot1q_vlan: 700
-  vrf: HSVPN-BRANCH20103
 router_bgp:
   as: '65505'
-  router_id: 10.255.103.0
+  router_id: 10.255.103.1
   redistribute_routes:
   - source_protocol: connected
   neighbors:
-  - ip_address: 10.255.103.1
+  - ip_address: 10.255.103.0
     remote_as: '6.6971'
     bfd: true
     peer_group: CE-PEER-GROUP
@@ -104,25 +99,3 @@ router_bgp:
     peer_groups:
     - name: CE-PEER-GROUP
       activate: true
-  vrfs:
-  - name: HSVPN-BRANCH20103
-    router_id: 10.255.103.21
-    redistribute_routes:
-    - source_protocol: connected
-    address_family_ipv4:
-      bgp: null
-      neighbors:
-      - ip_address: 10.255.103.20
-        activate: true
-    neighbors:
-    - ip_address: 10.255.103.20
-      remote_as: '6.6971'
-      bfd: true
-      peer_group: CE-PEER-GROUP-HSVPN
-vlans:
-- id: 104
-  name: VLAN_104_A2AVPN
-  state: active
-- id: 700
-  name: VLAN_700_HSVPN
-  state: active

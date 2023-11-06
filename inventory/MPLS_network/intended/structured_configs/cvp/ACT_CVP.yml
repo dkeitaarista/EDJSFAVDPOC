@@ -1,5 +1,9 @@
 ---
 cvp_devices:
+  - fqdn: BRANCH-A2A-CE1
+    parentContainerName: CE_101
+    configlets:
+      - AVD_BRANCH-A2A-CE1
   - fqdn: BRANCH-A2A-CE2
     parentContainerName: CE_101
     configlets:
@@ -8,6 +12,10 @@ cvp_devices:
     parentContainerName: CE_102
     configlets:
       - AVD_BRANCH-A2A-CE3
+  - fqdn: BRANCH-A2A-CE4
+    parentContainerName: CE_102
+    configlets:
+      - AVD_BRANCH-A2A-CE4
   - fqdn: BRANCH-A2A-CE5
     parentContainerName: CE_103
     configlets:
@@ -16,6 +24,18 @@ cvp_devices:
     parentContainerName: CE_104
     configlets:
       - AVD_BRANCH-A2A-CE6
+  - fqdn: BRANCH-HS-CE1
+    parentContainerName: CE_101
+    configlets:
+      - AVD_BRANCH-HS-CE1
+  - fqdn: BRANCH-HS-CE2
+    parentContainerName: CE_102
+    configlets:
+      - AVD_BRANCH-HS-CE2
+  - fqdn: BRANCH-HS-CE3
+    parentContainerName: CE_103
+    configlets:
+      - AVD_BRANCH-HS-CE3
   - fqdn: BRANCH-VPWS-CE1
     parentContainerName: CE_101
     configlets:
@@ -44,6 +64,10 @@ cvp_devices:
     parentContainerName: CE_103
     configlets:
       - AVD_CORP-A2A-CE5
+  - fqdn: CORP-A2A-CE6
+    parentContainerName: CE_104
+    configlets:
+      - AVD_CORP-A2A-CE6
   - fqdn: SF-SITE-101-BL-1
     parentContainerName: BORDER_LEAFS_101
     configlets:

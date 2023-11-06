@@ -20,9 +20,6 @@
 - [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
   - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
   - [Internal VLAN Allocation Policy Configuration](#internal-vlan-allocation-policy-configuration)
-- [VLANs](#vlans)
-  - [VLANs Summary](#vlans-summary)
-  - [VLANs Device Configuration](#vlans-device-configuration)
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Loopback Interfaces](#loopback-interfaces)
@@ -148,12 +145,14 @@ management api http-commands
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
 | arista | 15 | network-admin | False | - |
+| cvpadmin | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
 username arista privilege 15 role network-admin secret sha512 <removed>
+username cvpadmin privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization
@@ -181,14 +180,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | 192.168.0.5:9910 | - | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | 192.168.0.5:9910 | default | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -260,28 +259,6 @@ spanning-tree mst 0 priority 32768
 vlan internal order ascending range 1006 1199
 ```
 
-## VLANs
-
-### VLANs Summary
-
-| VLAN ID | Name | Trunk Groups |
-| ------- | ---- | ------------ |
-| 104 | VLAN_104_A2AVPN | - |
-| 700 | VLAN_700_HSVPN | - |
-
-### VLANs Device Configuration
-
-```eos
-!
-vlan 104
-   name VLAN_104_A2AVPN
-   state active
-!
-vlan 700
-   name VLAN_700_HSVPN
-   state active
-```
-
 ## Interfaces
 
 ### Ethernet Interfaces
@@ -300,7 +277,6 @@ vlan 700
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
 | Ethernet1 | Uplink to SF_SITE_103_TOR-1A | routed | - | 10.255.103.1/31 | default | - | - | - | - |
-| Ethernet1.700 | Uplink to SF_SITE_103_TOR-1A_HSVPN | routed | - | 10.255.103.21/31 | HSVPN-BRANCH20103 | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -310,12 +286,6 @@ interface Ethernet1
    description Uplink to SF_SITE_103_TOR-1A
    no switchport
    ip address 10.255.103.1/31
-!
-interface Ethernet1.700
-   description Uplink to SF_SITE_103_TOR-1A_HSVPN
-   no switchport
-   vrf HSVPN-BRANCH20103
-   ip address 10.255.103.21/31
 ```
 
 ### Loopback Interfaces
@@ -327,14 +297,12 @@ interface Ethernet1.700
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
 | Loopback0 |  CE IP for test | default | 10.103.103.1/32 |
-| Loopback10 | - | HSVPN-BRANCH20103 | 10.120.120.3/32 |
 
 ##### IPv6
 
 | Interface | Description | VRF | IPv6 Address |
 | --------- | ----------- | --- | ------------ |
 | Loopback0 |  CE IP for test | default | - |
-| Loopback10 | - | HSVPN-BRANCH20103 | - |
 
 
 #### Loopback Interfaces Device Configuration
@@ -345,11 +313,6 @@ interface Loopback0
    description  CE IP for test
    no shutdown
    ip address 10.103.103.1/32
-!
-interface Loopback10
-   no shutdown
-   vrf HSVPN-BRANCH20103
-   ip address 10.120.120.3/32
 ```
 
 ## Routing
@@ -393,44 +356,27 @@ ip routing
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65505|  10.255.103.0 |
+| 65505|  10.255.103.1 |
 
 #### BGP Neighbors
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 10.255.103.1 | 6.6971 | default | - | - | - | - | True | - | - | - |
-| 10.255.103.20 | 6.6971 | HSVPN-BRANCH20103 | - | - | - | - | True | - | - | - |
-
-#### Router BGP VRFs
-
-| VRF | Route-Distinguisher | Redistribute |
-| --- | ------------------- | ------------ |
-| HSVPN-BRANCH20103 | - | connected |
+| 10.255.103.0 | 6.6971 | default | - | - | - | - | True | - | - | - |
 
 #### Router BGP Device Configuration
 
 ```eos
 !
 router bgp 65505
-   router-id 10.255.103.0
-   neighbor 10.255.103.1 peer group CE-PEER-GROUP
-   neighbor 10.255.103.1 remote-as 6.6971
-   neighbor 10.255.103.1 bfd
+   router-id 10.255.103.1
+   neighbor 10.255.103.0 peer group CE-PEER-GROUP
+   neighbor 10.255.103.0 remote-as 6.6971
+   neighbor 10.255.103.0 bfd
    redistribute connected
    !
    address-family ipv4
       neighbor CE-PEER-GROUP activate
-   !
-   vrf HSVPN-BRANCH20103
-      router-id 10.255.103.21
-      neighbor 10.255.103.20 remote-as 6.6971
-      neighbor 10.255.103.20 peer group CE-PEER-GROUP-HSVPN
-      neighbor 10.255.103.20 bfd
-      redistribute connected
-      !
-      address-family ipv4
-         neighbor 10.255.103.20 activate
 ```
 
 ## Multicast

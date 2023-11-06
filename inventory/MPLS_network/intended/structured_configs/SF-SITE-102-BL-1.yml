@@ -95,28 +95,28 @@ router_bgp:
       bgp bestpath tie-break router-id
 
       '
-  - name: BRANCH-20102
+  - name: BRANCH-10025
     router_id: 100.2.2.21
-    rd: 100.2.2.21:20102
+    rd: 100.2.2.21:10025
     route_targets:
       import:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:20102
-        - 5000
+        - 6.6971:10025
+        - 6.6971:5000
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:20102
-        - 5000
+        - 6.6971:10025
+        - 6.6971:5000
       export:
       - address_family: vpn-ipv4
         route_targets:
-        - 6.6971:20102
-        - 2000
+        - 6.6971:10025
+        - 6.6971:2000
       - address_family: vpn-ipv6
         route_targets:
-        - 6.6971:20102
-        - 2000
+        - 6.6971:10025
+        - 6.6971:2000
     redistribute_routes:
     - source_protocol: connected
     address_family_ipv4:
@@ -128,7 +128,7 @@ router_bgp:
           install: true
     neighbors:
     - ip_address: 10.255.102.21
-      remote_as: '65501'
+      remote_as: '65582'
       bfd: true
     eos_cli: 'bgp additional-paths receive
 
@@ -186,6 +186,16 @@ router_bgp:
       id_remote: 100
 service_routing_protocols_model: multi-agent
 ip_routing: true
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: token
+    token_file: /tmp/token
+  cvvrf: default
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  disable_aaa: false
 vlan_internal_order:
   allocation: ascending
   range:
@@ -198,14 +208,18 @@ local_users:
 - name: arista
   privilege: 15
   role: network-admin
-  sha512_password: $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1
+  sha512_password: $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0
+- name: cvpadmin
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/
 vrfs:
 - name: default
   ip_routing: false
 - name: BRANCH-10015
   tenant: BRANCH
   ip_routing: true
-- name: BRANCH-20102
+- name: BRANCH-10025
   tenant: BRANCH
   ip_routing: true
 - name: CORP-10016
@@ -252,14 +266,14 @@ ethernet_interfaces:
     id: 11
     mode: active
 - name: Ethernet3
-  peer: SF-SITE-104-BL-1
-  peer_interface: Ethernet6
-  peer_type: pe
-  description: P2P_LINK_TO_SF-SITE-104-BL-1_Ethernet6
+  peer: SF-SITE-102-SPINE-1
+  peer_interface: Ethernet3
+  peer_type: p
+  description: P2P_LINK_TO_SF-SITE-102-SPINE-1_Ethernet3
   type: routed
   shutdown: false
   mtu: 1500
-  ip_address: 10.1.0.7/31
+  ip_address: 10.1.0.1/31
   isis_enable: CORE
   isis_metric: 10
   isis_network_point_to_point: true
@@ -315,6 +329,22 @@ ethernet_interfaces:
   isis_circuit_type: level-2
   mpls:
     ip: true
+- name: Ethernet6
+  peer: SF-SITE-104-BL-1
+  peer_interface: Ethernet6
+  peer_type: pe
+  description: P2P_LINK_TO_SF-SITE-104-BL-1_Ethernet6
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 10.1.0.7/31
+  isis_enable: CORE
+  isis_metric: 10
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-2
+  mpls:
+    ip: true
 - name: Port-channel11.102
   peer_type: l3_interface
   ip_address: 10.255.102.0/31
@@ -322,13 +352,13 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 102
   vrf: BRANCH-10015
-- name: Port-channel11.600
+- name: Port-channel11.302
   peer_type: l3_interface
   ip_address: 10.255.102.20/31
   shutdown: false
   type: l3dot1q
-  encapsulation_dot1q_vlan: 600
-  vrf: BRANCH-20102
+  encapsulation_dot1q_vlan: 302
+  vrf: BRANCH-10025
 - name: Port-channel11.202
   peer_type: l3_interface
   ip_address: 10.255.102.4/31
@@ -336,7 +366,7 @@ ethernet_interfaces:
   type: l3dot1q
   encapsulation_dot1q_vlan: 202
   vrf: CORP-10016
-- name: Port-channel11.99
+- name: Ethernet13.99
   type: l2dot1q
   peer_type: point_to_point_service
   encapsulation_vlan:
@@ -345,6 +375,10 @@ ethernet_interfaces:
         vlan: 99
     network:
       client: true
+  shutdown: false
+- name: Ethernet13
+  type: routed
+  peer_type: l3_interface
   shutdown: false
 - name: Port-channel11
   type: routed
@@ -356,7 +390,7 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 102-103,202-203,600
+  vlans: 102-103,202-203,302
 loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
@@ -409,7 +443,7 @@ patch_panel:
     connectors:
     - id: '1'
       type: interface
-      endpoint: Port-channel11.99
+      endpoint: Ethernet13.99
     - id: '2'
       type: pseudowire
       endpoint: bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
@@ -420,8 +454,8 @@ vlans:
 - id: 103
   name: vlan_103
   tenant: BRANCH
-- id: 600
-  name: vlan_600
+- id: 302
+  name: vlan_302
   tenant: BRANCH
 - id: 202
   name: vlan_202
@@ -449,14 +483,6 @@ logging:
       match_lists:
       - name: SAKlogs
         action: discard
-daemon_terminattr:
-  cvaddrs:
-  - 192.168.0.5:9910
-  cvauth:
-    method: token
-    token_file: /tmp/token
-  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
-  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
 ntp:
   servers:
   - name: 0.north-america.pool.ntp.org

@@ -23,6 +23,9 @@ ce:
     - name: BRANCH-VPWS-CE2
       id: 41
       mgmt_ip: 192.168.0.41/24
+    - name: BRANCH-HS-CE2
+      id: 43
+      mgmt_ip: 192.168.0.43/24
 # DOES NOT PROVIDE THE INTENDED OUTCOME. IP ROUTING IS NOT CONFIGURED ON ROUTER
 vrfs:
   - name: default

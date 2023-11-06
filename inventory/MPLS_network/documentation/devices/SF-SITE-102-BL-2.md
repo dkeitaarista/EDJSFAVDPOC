@@ -153,12 +153,14 @@ management api http-commands
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
 | arista | 15 | network-admin | False | - |
+| cvpadmin | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
 username arista privilege 15 role network-admin secret sha512 <removed>
+username cvpadmin privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization
@@ -186,14 +188,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | 192.168.0.5:9910 | - | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | 192.168.0.5:9910 | default | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -255,7 +257,7 @@ vlan internal order ascending range 1006 1199
 | 103 | vlan_103 | - |
 | 202 | vlan_202 | - |
 | 203 | vlan_203 | - |
-| 600 | vlan_600 | - |
+| 302 | vlan_302 | - |
 
 ### VLANs Device Configuration
 
@@ -273,8 +275,8 @@ vlan 202
 vlan 203
    name vlan_203
 !
-vlan 600
-   name vlan_600
+vlan 302
+   name vlan_302
 ```
 
 ## Interfaces
@@ -287,8 +289,8 @@ vlan 600
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet11 | SF-SITE-102-TOR-1B_Ethernet3 | *trunk | *102-103,202-203,600 | *- | *- | 11 |
-| Ethernet12 | SF-SITE-102-TOR-1B_Ethernet4 | *trunk | *102-103,202-203,600 | *- | *- | 11 |
+| Ethernet11 | SF-SITE-102-TOR-1B_Ethernet3 | *trunk | *102-103,202-203,302 | *- | *- | 11 |
+| Ethernet12 | SF-SITE-102-TOR-1B_Ethernet4 | *trunk | *102-103,202-203,302 | *- | *- | 11 |
 
 *Inherited from Port-Channel Interface
 
@@ -296,7 +298,7 @@ vlan 600
 
 | Interface | Description | Type | Vlan ID | Dot1q VLAN Tag |
 | --------- | ----------- | -----| ------- | -------------- |
-| Port-channel11.102 | - | l3dot1q | - | 102 |
+| Port-channel11.103 | - | l3dot1q | - | 103 |
 | Port-channel11.203 | - | l3dot1q | - | 203 |
 
 ##### IPv4
@@ -307,7 +309,7 @@ vlan 600
 | Ethernet4 | P2P_LINK_TO_SF-SITE-102-SPINE-2_Ethernet4 | routed | - | 10.1.0.7/31 | default | 1500 | False | - | - |
 | Ethernet7 | P2P_LINK_TO_SF-SITE-102-RR-1_Ethernet4 | routed | - | 10.1.0.10/31 | default | 1500 | False | - | - |
 | Ethernet10 | P2P_LINK_TO_SF-SITE-103-BL-1_Ethernet10 | routed | - | 10.1.0.8/31 | default | 1500 | False | - | - |
-| Port-channel11.102 | - | l3dot1q | - | 10.255.102.2/31 | BRANCH-10017 | - | False | - | - |
+| Port-channel11.103 | - | l3dot1q | - | 10.255.102.2/31 | BRANCH-10017 | - | False | - | - |
 | Port-channel11.203 | - | l3dot1q | - | 10.255.102.6/31 | CORP-10018 | - | False | - | - |
 
 ##### ISIS
@@ -389,9 +391,9 @@ interface Port-channel11
    no shutdown
    no switchport
 !
-interface Port-channel11.102
+interface Port-channel11.103
    no shutdown
-   encapsulation dot1q vlan 102
+   encapsulation dot1q vlan 103
    vrf BRANCH-10017
    ip address 10.255.102.2/31
 !
@@ -410,7 +412,7 @@ interface Port-channel11.203
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel11 | SF-SITE-102-TOR-1B_Po3 | switched | trunk | 102-103,202-203,600 | - | - | - | - | - | - |
+| Port-Channel11 | SF-SITE-102-TOR-1B_Po3 | switched | trunk | 102-103,202-203,302 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -420,7 +422,7 @@ interface Port-Channel11
    description SF-SITE-102-TOR-1B_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan 102-103,202-203,600
+   switchport trunk allowed vlan 102-103,202-203,302
    switchport mode trunk
 ```
 

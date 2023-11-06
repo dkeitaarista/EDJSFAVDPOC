@@ -153,12 +153,14 @@ management api http-commands
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
 | arista | 15 | network-admin | False | - |
+| cvpadmin | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
 username arista privilege 15 role network-admin secret sha512 <removed>
+username cvpadmin privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization
@@ -186,14 +188,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | 192.168.0.5:9910 | - | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | 192.168.0.5:9910 | default | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -255,7 +257,7 @@ vlan internal order ascending range 1006 1199
 | 101 | vlan_101 | - |
 | 200 | vlan_200 | - |
 | 201 | vlan_201 | - |
-| 500 | vlan_500 | - |
+| 301 | vlan_301 | - |
 
 ### VLANs Device Configuration
 
@@ -273,8 +275,8 @@ vlan 200
 vlan 201
    name vlan_201
 !
-vlan 500
-   name vlan_500
+vlan 301
+   name vlan_301
 ```
 
 ## Interfaces
@@ -287,8 +289,8 @@ vlan 500
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet11 | SF-SITE-101-TOR-1B_Ethernet3 | *trunk | *100-101,200-201,500 | *- | *- | 11 |
-| Ethernet12 | SF-SITE-101-TOR-1B_Ethernet4 | *trunk | *100-101,200-201,500 | *- | *- | 11 |
+| Ethernet11 | SF-SITE-101-TOR-1B_Ethernet3 | *trunk | *100-101,200-201,301 | *- | *- | 11 |
+| Ethernet12 | SF-SITE-101-TOR-1B_Ethernet4 | *trunk | *100-101,200-201,301 | *- | *- | 11 |
 
 *Inherited from Port-Channel Interface
 
@@ -410,7 +412,7 @@ interface Port-channel11.201
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel11 | SF-SITE-101-TOR-1B_Po3 | switched | trunk | 100-101,200-201,500 | - | - | - | - | - | - |
+| Port-Channel11 | SF-SITE-101-TOR-1B_Po3 | switched | trunk | 100-101,200-201,301 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -420,7 +422,7 @@ interface Port-Channel11
    description SF-SITE-101-TOR-1B_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan 100-101,200-201,500
+   switchport trunk allowed vlan 100-101,200-201,301
    switchport mode trunk
 ```
 

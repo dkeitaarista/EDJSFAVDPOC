@@ -156,12 +156,14 @@ management api http-commands
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
 | arista | 15 | network-admin | False | - |
+| cvpadmin | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
 
 ```eos
 !
 username arista privilege 15 role network-admin secret sha512 <removed>
+username cvpadmin privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### AAA Authorization
@@ -189,14 +191,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | 192.168.0.5:9910 | - | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | 192.168.0.5:9910 | default | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 
@@ -258,7 +260,7 @@ vlan internal order ascending range 1006 1199
 | 101 | vlan_101 | - |
 | 200 | vlan_200 | - |
 | 201 | vlan_201 | - |
-| 500 | vlan_500 | - |
+| 301 | vlan_301 | - |
 
 ### VLANs Device Configuration
 
@@ -276,8 +278,8 @@ vlan 200
 vlan 201
    name vlan_201
 !
-vlan 500
-   name vlan_500
+vlan 301
+   name vlan_301
 ```
 
 ## Interfaces
@@ -290,8 +292,8 @@ vlan 500
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet11 | SF-SITE-101-TOR-1A_Ethernet3 | *trunk | *100-101,200-201,500 | *- | *- | 11 |
-| Ethernet12 | SF-SITE-101-TOR-1A_Ethernet4 | *trunk | *100-101,200-201,500 | *- | *- | 11 |
+| Ethernet11 | SF-SITE-101-TOR-1A_Ethernet3 | *trunk | *100-101,200-201,301 | *- | *- | 11 |
+| Ethernet12 | SF-SITE-101-TOR-1A_Ethernet4 | *trunk | *100-101,200-201,301 | *- | *- | 11 |
 
 *Inherited from Port-Channel Interface
 
@@ -301,13 +303,13 @@ vlan 500
 | --------- | ----------- | -----| ------- | -------------- |
 | Port-channel11.100 | - | l3dot1q | - | 100 |
 | Port-channel11.200 | - | l3dot1q | - | 200 |
-| Port-channel11.500 | - | l3dot1q | - | 500 |
+| Port-channel11.301 | - | l3dot1q | - | 301 |
 
 ##### Flexible Encapsulation Interfaces
 
 | Interface | Description | Type | Vlan ID | Client Unmatched | Client Dot1q VLAN | Client Dot1q Outer Tag | Client Dot1q Inner Tag | Network Retain Client Encapsulation | Network Dot1q VLAN | Network Dot1q Outer Tag | Network Dot1q Inner Tag |
 | --------- | ----------- | ---- | ------- | -----------------| ----------------- | ---------------------- | ---------------------- | ----------------------------------- | ------------------ | ----------------------- | ----------------------- |
-| Port-channel11.99 | - | l2dot1q | - | False | 99 | - | - | True | - | - | - |
+| Ethernet13.99 | - | l2dot1q | - | False | 99 | - | - | True | - | - | - |
 
 ##### IPv4
 
@@ -320,7 +322,7 @@ vlan 500
 | Ethernet10 | P2P_LINK_TO_SF-SITE-104-BL-1_Ethernet10 | routed | - | 10.1.0.0/31 | default | 1500 | False | - | - |
 | Port-channel11.100 | - | l3dot1q | - | 10.255.101.0/31 | BRANCH-10011 | - | False | - | - |
 | Port-channel11.200 | - | l3dot1q | - | 10.255.101.4/31 | CORP-10012 | - | False | - | - |
-| Port-channel11.500 | - | l3dot1q | - | 10.255.101.20/31 | BRANCH-20101 | - | False | - | - |
+| Port-channel11.301 | - | l3dot1q | - | 10.255.101.20/31 | BRANCH-10023 | - | False | - | - |
 
 ##### ISIS
 
@@ -411,14 +413,18 @@ interface Ethernet12
    no shutdown
    channel-group 11 mode active
 !
-interface Port-channel11
+interface Ethernet13
    no shutdown
    no switchport
 !
-interface Port-channel11.99
+interface Ethernet13.99
    no shutdown
    encapsulation vlan
       client dot1q 99 network client
+!
+interface Port-channel11
+   no shutdown
+   no switchport
 !
 interface Port-channel11.100
    no shutdown
@@ -432,10 +438,10 @@ interface Port-channel11.200
    vrf CORP-10012
    ip address 10.255.101.4/31
 !
-interface Port-channel11.500
+interface Port-channel11.301
    no shutdown
-   encapsulation dot1q vlan 500
-   vrf BRANCH-20101
+   encapsulation dot1q vlan 301
+   vrf BRANCH-10023
    ip address 10.255.101.20/31
 ```
 
@@ -447,7 +453,7 @@ interface Port-channel11.500
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel11 | SF-SITE-101-TOR-1A_Po3 | switched | trunk | 100-101,200-201,500 | - | - | - | - | - | - |
+| Port-Channel11 | SF-SITE-101-TOR-1A_Po3 | switched | trunk | 100-101,200-201,301 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -457,7 +463,7 @@ interface Port-Channel11
    description SF-SITE-101-TOR-1A_Po3
    no shutdown
    switchport
-   switchport trunk allowed vlan 100-101,200-201,500
+   switchport trunk allowed vlan 100-101,200-201,301
    switchport mode trunk
 ```
 
@@ -521,7 +527,7 @@ service routing protocols model multi-agent
 | --- | --------------- |
 | default | True |
 | BRANCH-10011 | True |
-| BRANCH-20101 | True |
+| BRANCH-10023 | True |
 | CORP-10012 | True |
 
 #### IP Routing Device Configuration
@@ -530,7 +536,7 @@ service routing protocols model multi-agent
 !
 ip routing
 ip routing vrf BRANCH-10011
-ip routing vrf BRANCH-20101
+ip routing vrf BRANCH-10023
 ip routing vrf CORP-10012
 ```
 
@@ -542,7 +548,7 @@ ip routing vrf CORP-10012
 | --- | --------------- |
 | default | False |
 | BRANCH-10011 | false |
-| BRANCH-20101 | false |
+| BRANCH-10023 | false |
 | CORP-10012 | false |
 | default | false |
 
@@ -654,7 +660,7 @@ router isis CORE
 | 100.1.1.13 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 100.1.1.20 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | - | - |
 | 10.255.101.1 | 65501 | BRANCH-10011 | - | - | - | - | True | - | - | - |
-| 10.255.101.21 | 65501 | BRANCH-20101 | - | - | - | - | True | - | - | - |
+| 10.255.101.21 | 65581 | BRANCH-10023 | - | - | - | - | True | - | - | - |
 | 10.255.101.5 | 65521 | CORP-10012 | - | - | - | - | True | - | - | - |
 
 #### Router BGP EVPN Address Family
@@ -698,7 +704,7 @@ router isis CORE
 | VRF | Route-Distinguisher | Redistribute |
 | --- | ------------------- | ------------ |
 | BRANCH-10011 | 100.1.2.14:10011 | connected |
-| BRANCH-20101 | 100.1.2.14:20101 | connected |
+| BRANCH-10023 | 100.1.2.14:10023 | connected |
 | CORP-10012 | 100.1.2.14:10012 | connected |
 
 #### Router BGP Device Configuration
@@ -765,18 +771,18 @@ router bgp 6.6971
       bgp bestpath tie-break router-id
 
    !
-   vrf BRANCH-20101
-      rd 100.1.2.14:20101
-      route-target import vpn-ipv4 6.6971:20101
-      route-target import vpn-ipv4 5000
-      route-target import vpn-ipv6 6.6971:20101
-      route-target import vpn-ipv6 5000
-      route-target export vpn-ipv4 6.6971:20101
-      route-target export vpn-ipv4 2000
-      route-target export vpn-ipv6 6.6971:20101
-      route-target export vpn-ipv6 2000
+   vrf BRANCH-10023
+      rd 100.1.2.14:10023
+      route-target import vpn-ipv4 6.6971:10023
+      route-target import vpn-ipv4 6.6971:5000
+      route-target import vpn-ipv6 6.6971:10023
+      route-target import vpn-ipv6 6.6971:5000
+      route-target export vpn-ipv4 6.6971:10023
+      route-target export vpn-ipv4 6.6971:2000
+      route-target export vpn-ipv6 6.6971:10023
+      route-target export vpn-ipv6 6.6971:2000
       router-id 100.1.2.14
-      neighbor 10.255.101.21 remote-as 65501
+      neighbor 10.255.101.21 remote-as 65581
       neighbor 10.255.101.21 bfd
       redistribute connected
       !
@@ -865,7 +871,7 @@ mpls ip
 
 | Patch Name | Enabled | Connector A Type | Connector A Endpoint | Connector B Type | Connector B Endpoint |
 | ---------- | ------- | ---------------- | -------------------- | ---------------- | -------------------- |
-| SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 | True | Interface | Port-channel11.99 | Pseudowire | bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 |
+| SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 | True | Interface | Ethernet13.99 | Pseudowire | bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99 |
 
 ### Patch Panel Configuration
 
@@ -873,7 +879,7 @@ mpls ip
 !
 patch panel
    patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
-      connector 1 interface Port-channel11.99
+      connector 1 interface Ethernet13.99
       connector 2 pseudowire bgp vpws BRANCH pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99
    !
 ```
@@ -927,7 +933,7 @@ match-list input string SAKlogs
 | VRF Name | IP Routing |
 | -------- | ---------- |
 | BRANCH-10011 | enabled |
-| BRANCH-20101 | enabled |
+| BRANCH-10023 | enabled |
 | CORP-10012 | enabled |
 
 ### VRF Instances Device Configuration
@@ -936,7 +942,7 @@ match-list input string SAKlogs
 !
 vrf instance BRANCH-10011
 !
-vrf instance BRANCH-20101
+vrf instance BRANCH-10023
 !
 vrf instance CORP-10012
 ```

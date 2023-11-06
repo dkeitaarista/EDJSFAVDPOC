@@ -18,12 +18,15 @@
 
 | POD | Type | Node | Management IP | Platform | Provisioned in CloudVision | Serial Number |
 | --- | ---- | ---- | ------------- | -------- | -------------------------- | ------------- |
-| SF_101 | ce | BRANCH-A2A-CE1 | 192.168.0.28/24 | vEOS-lab | Not Available | - |
+| SF_101 | ce | BRANCH-A2A-CE1 | 192.168.0.28/24 | vEOS-lab | Provisioned | - |
 | SF_101 | ce | BRANCH-A2A-CE2 | 192.168.0.30/24 | vEOS-lab | Provisioned | - |
 | SF_102 | ce | BRANCH-A2A-CE3 | 192.168.0.32/24 | vEOS-lab | Provisioned | - |
-| SF_102 | ce | BRANCH-A2A-CE4 | 192.168.0.33/24 | vEOS-lab | Not Available | - |
+| SF_102 | ce | BRANCH-A2A-CE4 | 192.168.0.33/24 | vEOS-lab | Provisioned | - |
 | SF_103 | ce | BRANCH-A2A-CE5 | 192.168.0.36/24 | vEOS-lab | Provisioned | - |
 | SF_104 | ce | BRANCH-A2A-CE6 | 192.168.0.38/24 | vEOS-lab | Provisioned | - |
+| SF_101 | ce | BRANCH-HS-CE1 | 192.168.0.42/24 | vEOS-lab | Provisioned | - |
+| SF_102 | ce | BRANCH-HS-CE2 | 192.168.0.43/24 | vEOS-lab | Provisioned | - |
+| SF_103 | ce | BRANCH-HS-CE3 | 192.168.0.44/24 | vEOS-lab | Provisioned | - |
 | SF_101 | ce | BRANCH-VPWS-CE1 | 192.168.0.40/24 | vEOS-lab | Provisioned | - |
 | SF_102 | ce | BRANCH-VPWS-CE2 | 192.168.0.41/24 | vEOS-lab | Provisioned | - |
 | SF_101 | ce | CORP-A2A-CE1 | 192.168.0.29/24 | vEOS-lab | Provisioned | - |
@@ -31,7 +34,7 @@
 | SF_102 | ce | CORP-A2A-CE3 | 192.168.0.34/24 | vEOS-lab | Provisioned | - |
 | SF_102 | ce | CORP-A2A-CE4 | 192.168.0.35/24 | vEOS-lab | Provisioned | - |
 | SF_103 | ce | CORP-A2A-CE5 | 192.168.0.37/24 | vEOS-lab | Provisioned | - |
-| SF_104 | ce | CORP-A2A-CE6 | 192.168.0.39/24 | vEOS-lab | Not Available | - |
+| SF_104 | ce | CORP-A2A-CE6 | 192.168.0.39/24 | vEOS-lab | Provisioned | - |
 | SF_101 | pe | SF-SITE-101-BL-1 | 192.168.0.14/24 | vEOS-lab | Provisioned | - |
 | SF_101 | pe | SF-SITE-101-BL-2 | 192.168.0.15/24 | vEOS-lab | Provisioned | - |
 | SF_101 | rr | SF-SITE-101-RR-1 | 192.168.0.13/24 | vEOS-lab | Provisioned | - |
@@ -74,8 +77,9 @@
 | pe | SF-SITE-101-BL-2 | Ethernet9 | pe | SF-SITE-103-BL-1 | Ethernet9 |
 | pe | SF-SITE-101-BL-2 | Ethernet11 | ethernet_aggregation | SF-SITE-101-TOR-1B | Ethernet3 |
 | pe | SF-SITE-101-BL-2 | Ethernet12 | ethernet_aggregation | SF-SITE-101-TOR-1B | Ethernet4 |
-| pe | SF-SITE-102-BL-1 | Ethernet3 | pe | SF-SITE-104-BL-1 | Ethernet6 |
+| pe | SF-SITE-102-BL-1 | Ethernet3 | p | SF-SITE-102-SPINE-1 | Ethernet3 |
 | pe | SF-SITE-102-BL-1 | Ethernet4 | p | SF-SITE-102-SPINE-2 | Ethernet3 |
+| pe | SF-SITE-102-BL-1 | Ethernet6 | pe | SF-SITE-104-BL-1 | Ethernet6 |
 | pe | SF-SITE-102-BL-1 | Ethernet7 | rr | SF-SITE-102-RR-1 | Ethernet3 |
 | pe | SF-SITE-102-BL-1 | Ethernet11 | ethernet_aggregation | SF-SITE-102-TOR-1A | Ethernet3 |
 | pe | SF-SITE-102-BL-1 | Ethernet12 | ethernet_aggregation | SF-SITE-102-TOR-1A | Ethernet4 |
@@ -108,8 +112,9 @@
 | SF-SITE-101-BL-2 | Ethernet4 | 10.0.0.7/31 | SF-SITE-101-SPINE-2 | Ethernet4 | 10.0.0.6/31 |
 | SF-SITE-101-BL-2 | Ethernet7 | 10.0.0.10/31 | SF-SITE-101-RR-1 | Ethernet4 | 10.0.0.11/31 |
 | SF-SITE-101-BL-2 | Ethernet9 | 10.1.0.4/31 | SF-SITE-103-BL-1 | Ethernet9 | 10.1.0.5/31 |
-| SF-SITE-102-BL-1 | Ethernet3 | 10.1.0.7/31 | SF-SITE-104-BL-1 | Ethernet6 | 10.1.0.6/31 |
+| SF-SITE-102-BL-1 | Ethernet3 | 10.1.0.1/31 | SF-SITE-102-SPINE-1 | Ethernet3 | 10.1.0.0/31 |
 | SF-SITE-102-BL-1 | Ethernet4 | 10.1.0.5/31 | SF-SITE-102-SPINE-2 | Ethernet3 | 10.1.0.4/31 |
+| SF-SITE-102-BL-1 | Ethernet6 | 10.1.0.7/31 | SF-SITE-104-BL-1 | Ethernet6 | 10.1.0.6/31 |
 | SF-SITE-102-BL-1 | Ethernet7 | 10.1.0.8/31 | SF-SITE-102-RR-1 | Ethernet3 | 10.1.0.9/31 |
 | SF-SITE-102-BL-2 | Ethernet3 | 10.1.0.3/31 | SF-SITE-102-SPINE-1 | Ethernet4 | 10.1.0.2/31 |
 | SF-SITE-102-BL-2 | Ethernet4 | 10.1.0.7/31 | SF-SITE-102-SPINE-2 | Ethernet4 | 10.1.0.6/31 |
@@ -138,6 +143,9 @@
 | SF_102 | BRANCH-A2A-CE4 | 10.102.102.2/32 |
 | SF_103 | BRANCH-A2A-CE5 | 10.103.103.1/32 |
 | SF_104 | BRANCH-A2A-CE6 | 10.104.104.1/32 |
+| SF_101 | BRANCH-HS-CE1 | 10.201.201.1/32 |
+| SF_102 | BRANCH-HS-CE2 | 10.201.201.2/32 |
+| SF_103 | BRANCH-HS-CE3 | 10.201.201.3/32 |
 | SF_101 | BRANCH-VPWS-CE1 | 10.101.101.5/32 |
 | SF_101 | CORP-A2A-CE1 | 10.101.101.3/32 |
 | SF_101 | CORP-A2A-CE2 | 10.101.101.4/32 |

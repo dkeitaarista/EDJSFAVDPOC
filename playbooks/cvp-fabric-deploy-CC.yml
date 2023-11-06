@@ -35,18 +35,26 @@
   hosts: CVP
   connection: local
   gather_facts: no
+  collections:
+    - arista.cvp
+
 
   tasks:
-    - name: run CVP provisioning
+    - name: Collect Facts
       tags: [ reset ]
-      import_role:
-        name: arista.avd.eos_config_deploy_cvp
-      vars:
-        container_root: 'AVD_FABRIC'
-        configlets_prefix: 'AVD'
-        container_apply_mode: strict
-        device_apply_mode: strict
-        state: absent
+      arista.cvp.cv_facts_v3:
+        facts:
+          - devices
+          - containers
+          - configlets
+      register: FACTS_DEVICES
+    - name: Remove device
+      # device will be automatically re-registered and moved to the Undefined containe
+      tags: [ reset ]
+      arista.cvp.cv_device_v3:
+        devices: '{{FACTS_DEVICES}}'
+        state: provisioning_reset
+  
     
     # - name: Register feature branch
     #   tags: [ provision ]

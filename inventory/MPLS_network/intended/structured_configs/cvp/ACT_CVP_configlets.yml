@@ -1,49 +1,45 @@
 cvp_configlets:
   AVD_BRANCH-A2A-CE1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     BRANCH-A2A-CE1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
-    timezone CST\n!\nvlan 100\n   name VLAN_100_A2AVPN\n   state active\n!\nvlan 500\n
-    \  name VLAN_500_HSVPN\n   state active\n!\ninterface Ethernet1.100\n   description
-    Uplink to SF_SITE_101_TOR-1A_A2AVPN\n   no switchport\n   ip address 10.255.101.1/31\n!\ninterface
-    Ethernet1.500\n   description Uplink to SF_SITE_101_TOR-1A_HSVPN\n   no switchport\n
-    \  vrf HSVPN-BRANCH20101\n   ip address 10.255.101.21/31\n!\ninterface Loopback0\n
-    \  description  CE IP for test for A2AVPN\n   no shutdown\n   ip address 10.101.101.1/32\n!\ninterface
-    Loopback10\n   no shutdown\n   vrf HSVPN-BRANCH20101\n   ip address 10.120.120.1/32\n!\ninterface
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
+    timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A_A2AVPN\n
+    \  no switchport\n   ip address 10.255.101.1/31\n!\ninterface Loopback0\n   description
+    \ CE IP for test for A2AVPN\n   no shutdown\n   ip address 10.101.101.1/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.28/24\n!\nip
     routing\n!\nrouter bgp 65501\n   router-id 10.255.101.1\n   neighbor 10.255.101.0
     peer group CE-PEER-GROUP-A2AVPN\n   neighbor 10.255.101.0 remote-as 6.6971\n   neighbor
     10.255.101.0 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP-A2AVPN activate\n   !\n   vrf HSVPN-BRANCH20101\n      router-id
-    10.255.101.21\n      neighbor 10.255.101.20 remote-as 6.6971\n      neighbor 10.255.101.20
-    peer group CE-PEER-GROUP-HSVPN\n      neighbor 10.255.101.20 bfd\n      redistribute
-    connected\n      !\n      address-family ipv4\n         neighbor 10.255.101.20
-    activate\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    CE-PEER-GROUP-A2AVPN activate\n!\nmanagement api http-commands\n   protocol https\n
+    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     BRANCH-A2A-CE2\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1B\n
     \  no switchport\n   ip address 10.255.101.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.2/32\n!\ninterface
@@ -54,50 +50,46 @@ cvp_configlets:
     CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
     shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     BRANCH-A2A-CE3\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
-    timezone CST\n!\nvlan 102\n   name VLAN_100_A2AVPN\n   state active\n!\nvlan 600\n
-    \  name VLAN_600_HSVPN\n   state active\n!\ninterface Ethernet1.102\n   description
-    Uplink to SF_SITE_102_TOR-1A\n   no switchport\n   ip address 10.255.102.1/31\n!\ninterface
-    Ethernet1.600\n   description Uplink to SF_SITE_102_TOR-1A_HSVPN\n   no switchport\n
-    \  vrf HSVPN-BRANCH20102\n   ip address 10.255.102.21/31\n!\ninterface Loopback0\n
-    \  description  CE IP for test\n   no shutdown\n   ip address 10.102.102.1/32\n!\ninterface
-    Loopback10\n   no shutdown\n   vrf HSVPN-BRANCH20102\n   ip address 10.120.120.2/32\n!\ninterface
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
+    timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1A\n
+    \  no switchport\n   ip address 10.255.102.1/31\n!\ninterface Loopback0\n   description
+    \ CE IP for test\n   no shutdown\n   ip address 10.102.102.1/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.32/24\n!\nip
     routing\n!\nrouter bgp 65503\n   router-id 10.255.102.1\n   neighbor 10.255.102.0
     peer group CE-PEER-GROUP\n   neighbor 10.255.102.0 remote-as 6.6971\n   neighbor
     10.255.102.0 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP activate\n   !\n   vrf HSVPN-BRANCH20102\n      router-id 10.255.102.21\n
-    \     neighbor 10.255.102.20 remote-as 6.6971\n      neighbor 10.255.102.20 peer
-    group CE-PEER-GROUP-HSVPN\n      neighbor 10.255.102.20 bfd\n      redistribute
-    connected\n      !\n      address-family ipv4\n         neighbor 10.255.102.20
-    activate\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
+    shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     BRANCH-A2A-CE4\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1B\n
     \  no switchport\n   ip address 10.255.102.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.102.102.2/32\n!\ninterface
@@ -108,50 +100,46 @@ cvp_configlets:
     CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
     shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE5: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     BRANCH-A2A-CE5\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
-    timezone CST\n!\nvlan 104\n   name VLAN_104_A2AVPN\n   state active\n!\nvlan 700\n
-    \  name VLAN_700_HSVPN\n   state active\n!\ninterface Ethernet1\n   description
-    Uplink to SF_SITE_103_TOR-1A\n   no switchport\n   ip address 10.255.103.1/31\n!\ninterface
-    Ethernet1.700\n   description Uplink to SF_SITE_103_TOR-1A_HSVPN\n   no switchport\n
-    \  vrf HSVPN-BRANCH20103\n   ip address 10.255.103.21/31\n!\ninterface Loopback0\n
-    \  description  CE IP for test\n   no shutdown\n   ip address 10.103.103.1/32\n!\ninterface
-    Loopback10\n   no shutdown\n   vrf HSVPN-BRANCH20103\n   ip address 10.120.120.3/32\n!\ninterface
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
+    timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_103_TOR-1A\n
+    \  no switchport\n   ip address 10.255.103.1/31\n!\ninterface Loopback0\n   description
+    \ CE IP for test\n   no shutdown\n   ip address 10.103.103.1/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.36/24\n!\nip
-    routing\n!\nrouter bgp 65505\n   router-id 10.255.103.0\n   neighbor 10.255.103.1
-    peer group CE-PEER-GROUP\n   neighbor 10.255.103.1 remote-as 6.6971\n   neighbor
-    10.255.103.1 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP activate\n   !\n   vrf HSVPN-BRANCH20103\n      router-id 10.255.103.21\n
-    \     neighbor 10.255.103.20 remote-as 6.6971\n      neighbor 10.255.103.20 peer
-    group CE-PEER-GROUP-HSVPN\n      neighbor 10.255.103.20 bfd\n      redistribute
-    connected\n      !\n      address-family ipv4\n         neighbor 10.255.103.20
-    activate\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
-    \  !\n   vrf default\n      no shutdown\n!\nend\n"
+    routing\n!\nrouter bgp 65505\n   router-id 10.255.103.1\n   neighbor 10.255.103.0
+    peer group CE-PEER-GROUP\n   neighbor 10.255.103.0 remote-as 6.6971\n   neighbor
+    10.255.103.0 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
+    CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
+    shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-A2A-CE6: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     BRANCH-A2A-CE6\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_104_BL-1\n
     \  no switchport\n   ip address 10.255.104.1/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.104.104.1/32\n!\ninterface
@@ -161,20 +149,97 @@ cvp_configlets:
     10.255.104.0 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
     CE-PEER-GROUP activate\n!\nmanagement api http-commands\n   protocol https\n   no
     shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+  AVD_BRANCH-HS-CE1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    BRANCH-HS-CE1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
+    prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
+    mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
+    timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A_HSVPN\n
+    \  no switchport\n   ip address 10.255.101.21/31\n!\ninterface Loopback0\n   description
+    \ CE IP for test for A2AVPN\n   no shutdown\n   ip address 10.201.201.1/32\n!\ninterface
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.42/24\n!\nip
+    routing\n!\nrouter bgp 65581\n   router-id 10.255.101.21\n   neighbor 10.255.101.20
+    peer group CE-PEER-GROUP-HSVPN\n   neighbor 10.255.101.20 remote-as 6.6971\n   neighbor
+    10.255.101.20 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
+    CE-PEER-GROUP-HSVPN activate\n!\nmanagement api http-commands\n   protocol https\n
+    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+  AVD_BRANCH-HS-CE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    BRANCH-HS-CE2\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
+    prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
+    mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
+    timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1A_HSVPN\n
+    \  no switchport\n   ip address 10.255.102.21/31\n!\ninterface Loopback0\n   description
+    \ CE IP for test for A2AVPN\n   no shutdown\n   ip address 10.201.201.2/32\n!\ninterface
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.43/24\n!\nip
+    routing\n!\nrouter bgp 65582\n   router-id 10.255.102.21\n   neighbor 10.255.102.20
+    peer group CE-PEER-GROUP-HSVPN\n   neighbor 10.255.102.20 remote-as 6.6971\n   neighbor
+    10.255.102.20 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
+    CE-PEER-GROUP-HSVPN activate\n!\nmanagement api http-commands\n   protocol https\n
+    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+  AVD_BRANCH-HS-CE3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    BRANCH-HS-CE3\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
+    prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
+    mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
+    timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1A_HSVPN\n
+    \  no switchport\n   ip address 10.255.103.21/31\n!\ninterface Loopback0\n   description
+    \ CE IP for test for A2AVPN\n   no shutdown\n   ip address 10.201.201.3/32\n!\ninterface
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.44/24\n!\nip
+    routing\n!\nrouter bgp 65583\n   router-id 10.255.103.21\n   neighbor 10.255.103.20
+    peer group CE-PEER-GROUP-HSVPN\n   neighbor 10.255.103.20 remote-as 6.6971\n   neighbor
+    10.255.103.20 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
+    CE-PEER-GROUP-HSVPN activate\n!\nmanagement api http-commands\n   protocol https\n
+    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
   AVD_BRANCH-VPWS-CE1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     BRANCH-VPWS-CE1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.10/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.5/32\n!\ninterface
@@ -185,19 +250,21 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_BRANCH-VPWS-CE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     BRANCH-VPWS-CE2\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.11/31\n!\ninterface Loopback10\n   description
     Inband management\n   ip address 192.168.101.41/32\n!\ninterface Management1\n
@@ -208,7 +275,7 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_CORP-A2A-CE1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
-    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
+    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
     internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
     routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
@@ -220,7 +287,8 @@ cvp_configlets:
     CORP-A2A-CE1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1A\n
     \  no switchport\n   ip address 10.255.101.5/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.3/32\n!\ninterface
@@ -231,7 +299,7 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_CORP-A2A-CE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
-    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
+    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
     internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
     routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
@@ -243,7 +311,8 @@ cvp_configlets:
     CORP-A2A-CE2\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_101_TOR-1B\n
     \  no switchport\n   ip address 10.255.101.7/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.101.101.4/32\n!\ninterface
@@ -254,7 +323,7 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_CORP-A2A-CE3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
-    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
+    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
     internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
     routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
@@ -266,7 +335,8 @@ cvp_configlets:
     CORP-A2A-CE3\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1A\n
     \  no switchport\n   ip address 10.255.102.5/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.102.102.3/32\n!\ninterface
@@ -277,7 +347,7 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_CORP-A2A-CE4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
-    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
+    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
     internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
     routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
@@ -289,7 +359,8 @@ cvp_configlets:
     CORP-A2A-CE4\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_102_TOR-1B\n
     \  no switchport\n   ip address 10.255.102.7/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.102.102.4/32\n!\ninterface
@@ -300,7 +371,7 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_CORP-A2A-CE5: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
-    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
+    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
     internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
     routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
@@ -312,7 +383,8 @@ cvp_configlets:
     CORP-A2A-CE5\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_103_TOR-1A\n
     \  no switchport\n   ip address 10.255.103.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.105.105.1/32\n!\ninterface
@@ -323,7 +395,7 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_CORP-A2A-CE6: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr
-    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
+    -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
     -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
     internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
     routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
@@ -335,7 +407,8 @@ cvp_configlets:
     CORP-A2A-CE6\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet1\n   description Uplink to SF_SITE_104_BL-1\n
     \  no switchport\n   ip address 10.255.104.3/31\n!\ninterface Loopback0\n   description
     \ CE IP for test\n   no shutdown\n   ip address 10.104.104.2/32\n!\ninterface
@@ -346,24 +419,26 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_SF-SITE-101-BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-101-BL-1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\naaa authorization exec default
     local\n!\nno enable password\nno aaa root\n!\nusername arista privilege 15 role
-    network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
-    200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 500\n   name vlan_500\n!\nvrf
-    instance BRANCH-10011\n!\nvrf instance BRANCH-20101\n!\nvrf instance CORP-10012\n!\ninterface
+    200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 301\n   name vlan_301\n!\nvrf
+    instance BRANCH-10011\n!\nvrf instance BRANCH-10023\n!\nvrf instance CORP-10012\n!\ninterface
     Port-Channel11\n   description SF-SITE-101-TOR-1A_Po3\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 100-101,200-201,500\n   switchport mode trunk\n!\ninterface
+    \  switchport trunk allowed vlan 100-101,200-201,301\n   switchport mode trunk\n!\ninterface
     Ethernet3\n   description P2P_LINK_TO_SF-SITE-101-SPINE-1_Ethernet3\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.0.0.1/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
@@ -383,50 +458,51 @@ cvp_configlets:
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet11\n   description
     SF-SITE-101-TOR-1A_Ethernet3\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
     Ethernet12\n   description SF-SITE-101-TOR-1A_Ethernet4\n   no shutdown\n   channel-group
-    11 mode active\n!\ninterface Port-channel11\n   no shutdown\n   no switchport\n!\ninterface
-    Port-channel11.99\n   no shutdown\n   encapsulation vlan\n      client dot1q 99
-    network client\n!\ninterface Port-channel11.100\n   no shutdown\n   encapsulation
-    dot1q vlan 100\n   vrf BRANCH-10011\n   ip address 10.255.101.0/31\n!\ninterface
-    Port-channel11.200\n   no shutdown\n   encapsulation dot1q vlan 200\n   vrf CORP-10012\n
-    \  ip address 10.255.101.4/31\n!\ninterface Port-channel11.500\n   no shutdown\n
-    \  encapsulation dot1q vlan 500\n   vrf BRANCH-20101\n   ip address 10.255.101.20/31\n!\ninterface
-    Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
-    100.1.2.14/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
-    14\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.14/32\n!\ninterface
-    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.14/24\n!\nip
-    routing\nip routing vrf BRANCH-10011\nip routing vrf BRANCH-20101\nip routing
-    vrf CORP-10012\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier
-    3\n!\nrouter bgp 6.6971\n   router-id 100.1.2.14\n   distance bgp 20 200 200\n
-    \  graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths 4
-    ecmp 4\n   no bgp default ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n
-    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
-    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 100.1.1.13 peer group MPLS-OVERLAY-PEERS\n   neighbor
-    100.1.1.13 description SF-SITE-101-RR-1\n   neighbor 100.1.1.20 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.20 description SF-SITE-102-RR-1\n   !\n   vpws BRANCH\n      rd
-    100.1.2.14:5000\n      route-target import export evpn 6.6971:5000\n      !\n
-    \     pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n         evpn vpws id local
-    100 remote 101\n   !\n   address-family evpn\n      neighbor default encapsulation
-    mpls next-hop-self source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS
-    activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   vrf BRANCH-10011\n      rd 100.1.2.14:10011\n      route-target import
-    vpn-ipv4 6.6971:10011\n      route-target import vpn-ipv6 6.6971:10011\n      route-target
-    export vpn-ipv4 6.6971:10011\n      route-target export vpn-ipv6 6.6971:10011\n
-    \     router-id 100.1.2.14\n      neighbor 10.255.101.1 remote-as 65501\n      neighbor
-    10.255.101.1 bfd\n      redistribute connected\n      !\n      address-family
-    ipv4\n         bgp additional-paths install\n         neighbor 10.255.101.1 activate\n
-    \     !\n      bgp additional-paths receive\n      bgp additional-paths send any\n
-    \     bgp bestpath tie-break router-id\n\n   !\n   vrf BRANCH-20101\n      rd
-    100.1.2.14:20101\n      route-target import vpn-ipv4 6.6971:20101\n      route-target
-    import vpn-ipv4 5000\n      route-target import vpn-ipv6 6.6971:20101\n      route-target
-    import vpn-ipv6 5000\n      route-target export vpn-ipv4 6.6971:20101\n      route-target
-    export vpn-ipv4 2000\n      route-target export vpn-ipv6 6.6971:20101\n      route-target
-    export vpn-ipv6 2000\n      router-id 100.1.2.14\n      neighbor 10.255.101.21
-    remote-as 65501\n      neighbor 10.255.101.21 bfd\n      redistribute connected\n
-    \     !\n      address-family ipv4\n         bgp additional-paths install\n         neighbor
+    11 mode active\n!\ninterface Ethernet13\n   no shutdown\n   no switchport\n!\ninterface
+    Ethernet13.99\n   no shutdown\n   encapsulation vlan\n      client dot1q 99 network
+    client\n!\ninterface Port-channel11\n   no shutdown\n   no switchport\n!\ninterface
+    Port-channel11.100\n   no shutdown\n   encapsulation dot1q vlan 100\n   vrf BRANCH-10011\n
+    \  ip address 10.255.101.0/31\n!\ninterface Port-channel11.200\n   no shutdown\n
+    \  encapsulation dot1q vlan 200\n   vrf CORP-10012\n   ip address 10.255.101.4/31\n!\ninterface
+    Port-channel11.301\n   no shutdown\n   encapsulation dot1q vlan 301\n   vrf BRANCH-10023\n
+    \  ip address 10.255.101.20/31\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
+    \  no shutdown\n   ip address 100.1.2.14/32\n   isis enable CORE\n   isis passive\n
+    \  node-segment ipv4 index 14\n!\ninterface Loopback10\n   description Inband
+    management\n   ip address 192.168.101.14/32\n!\ninterface Management1\n   description
+    oob_management\n   no shutdown\n   ip address 192.168.0.14/24\n!\nip routing\nip
+    routing vrf BRANCH-10011\nip routing vrf BRANCH-10023\nip routing vrf CORP-10012\n!\nrouter
+    bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n
+    \  router-id 100.1.2.14\n   distance bgp 20 200 200\n   graceful-restart restart-time
+    300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
+    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.13
+    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.13 description SF-SITE-101-RR-1\n
+    \  neighbor 100.1.1.20 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.20 description
+    SF-SITE-102-RR-1\n   !\n   vpws BRANCH\n      rd 100.1.2.14:5000\n      route-target
+    import export evpn 6.6971:5000\n      !\n      pseudowire SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n
+    \        evpn vpws id local 100 remote 101\n   !\n   address-family evpn\n      neighbor
+    default encapsulation mpls next-hop-self source-interface Loopback0\n      neighbor
+    MPLS-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS
+    activate\n   !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS
+    activate\n   !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS
+    activate\n   !\n   vrf BRANCH-10011\n      rd 100.1.2.14:10011\n      route-target
+    import vpn-ipv4 6.6971:10011\n      route-target import vpn-ipv6 6.6971:10011\n
+    \     route-target export vpn-ipv4 6.6971:10011\n      route-target export vpn-ipv6
+    6.6971:10011\n      router-id 100.1.2.14\n      neighbor 10.255.101.1 remote-as
+    65501\n      neighbor 10.255.101.1 bfd\n      redistribute connected\n      !\n
+    \     address-family ipv4\n         bgp additional-paths install\n         neighbor
+    10.255.101.1 activate\n      !\n      bgp additional-paths receive\n      bgp
+    additional-paths send any\n      bgp bestpath tie-break router-id\n\n   !\n   vrf
+    BRANCH-10023\n      rd 100.1.2.14:10023\n      route-target import vpn-ipv4 6.6971:10023\n
+    \     route-target import vpn-ipv4 6.6971:5000\n      route-target import vpn-ipv6
+    6.6971:10023\n      route-target import vpn-ipv6 6.6971:5000\n      route-target
+    export vpn-ipv4 6.6971:10023\n      route-target export vpn-ipv4 6.6971:2000\n
+    \     route-target export vpn-ipv6 6.6971:10023\n      route-target export vpn-ipv6
+    6.6971:2000\n      router-id 100.1.2.14\n      neighbor 10.255.101.21 remote-as
+    65581\n      neighbor 10.255.101.21 bfd\n      redistribute connected\n      !\n
+    \     address-family ipv4\n         bgp additional-paths install\n         neighbor
     10.255.101.21 activate\n      !\n      bgp additional-paths receive\n      bgp
     additional-paths send any\n      bgp bestpath tie-break router-id\n\n   !\n   vrf
     CORP-10012\n      rd 100.1.2.14:10012\n      route-target import vpn-ipv4 6.6971:10012\n
@@ -443,7 +519,7 @@ cvp_configlets:
     level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
     node-protection level-2\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
     ip\n!\npatch panel\n   patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n      connector
-    1 interface Port-channel11.99\n      connector 2 pseudowire bgp vpws BRANCH pseudowire
+    1 interface Ethernet13.99\n      connector 2 pseudowire bgp vpws BRANCH pseudowire
     SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n   !\n!\nmanagement api http-commands\n
     \  protocol https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls
     label range static 16 15984\nmpls label range bgp-sr 16000 8000\nmpls label range
@@ -457,24 +533,26 @@ cvp_configlets:
     \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-101-BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-101-BL-2\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\naaa authorization exec default
     local\n!\nno enable password\nno aaa root\n!\nusername arista privilege 15 role
-    network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
-    200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 500\n   name vlan_500\n!\nvrf
+    200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 301\n   name vlan_301\n!\nvrf
     instance BRANCH-10013\n!\nvrf instance CORP-10014\n!\ninterface Port-Channel11\n
     \  description SF-SITE-101-TOR-1B_Po3\n   no shutdown\n   switchport\n   switchport
-    trunk allowed vlan 100-101,200-201,500\n   switchport mode trunk\n!\ninterface
+    trunk allowed vlan 100-101,200-201,301\n   switchport mode trunk\n!\ninterface
     Ethernet3\n   description P2P_LINK_TO_SF-SITE-101-SPINE-1_Ethernet4\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.0.0.3/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
@@ -547,19 +625,21 @@ cvp_configlets:
     Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology
     address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-101-RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-101-RR-1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa
     authorization exec default local\n!\nno enable password\nno aaa root\n!\nusername
-    arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet7\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.9/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -609,19 +689,21 @@ cvp_configlets:
     unicast\n    bfd all-interfaces\n!\ninterface Loopback0\n  isis multi-topology
     address-family ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-101-SPINE-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-101-SPINE-1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa
     authorization exec default local\n!\nno enable password\nno aaa root\n!\nusername
-    arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.0/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -648,19 +730,21 @@ cvp_configlets:
     \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-101-SPINE-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-101-SPINE-2\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa
     authorization exec default local\n!\nno enable password\nno aaa root\n!\nusername
-    arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.4/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -687,53 +771,57 @@ cvp_configlets:
     \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-101-TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-101-TOR-1A\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
-    200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 500\n   name vlan_500\n!\ninterface
+    200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 301\n   name vlan_301\n!\ninterface
     Port-Channel3\n   description SF-SITE-101-BL-1_Po11\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 100-101,200-201,500\n   switchport mode trunk\n!\ninterface
-    Ethernet1\n   description BRANCH-VPWS-CE1_Ethernet1\n   no shutdown\n   switchport
-    access vlan 99\n   switchport mode access\n   switchport\n!\ninterface Ethernet3\n
-    \  description SF-SITE-101-BL-1_Ethernet11\n   no shutdown\n   channel-group 3
-    mode active\n!\ninterface Ethernet4\n   description SF-SITE-101-BL-1_Ethernet12\n
+    \  switchport trunk allowed vlan 100-101,200-201,301\n   switchport mode trunk\n!\ninterface
+    Ethernet3\n   description SF-SITE-101-BL-1_Ethernet11\n   no shutdown\n   channel-group
+    3 mode active\n!\ninterface Ethernet4\n   description SF-SITE-101-BL-1_Ethernet12\n
     \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet7\n   description
     BRANCH-A2A-CE1_Ethernet1\n   no shutdown\n   switchport access vlan 100\n   switchport
     mode access\n   switchport\n!\ninterface Ethernet8\n   description CORP-A2A-CE1_Ethernet1\n
     \  no shutdown\n   switchport access vlan 200\n   switchport mode access\n   switchport\n!\ninterface
-    Loopback10\n   description Inband management\n   ip address 192.168.101.16/32\n!\ninterface
+    Ethernet9\n   description BRANCH-HS-CE1_Ethernet1\n   no shutdown\n   switchport
+    access vlan 301\n   switchport mode access\n   switchport\n!\ninterface Loopback10\n
+    \  description Inband management\n   ip address 192.168.101.16/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.16/24\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_SF-SITE-101-TOR-1B: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-101-TOR-1B\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
-    200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 500\n   name vlan_500\n!\ninterface
+    200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 301\n   name vlan_301\n!\ninterface
     Port-Channel3\n   description SF-SITE-101-BL-2_Po11\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 100-101,200-201,500\n   switchport mode trunk\n!\ninterface
+    \  switchport trunk allowed vlan 100-101,200-201,301\n   switchport mode trunk\n!\ninterface
     Ethernet3\n   description SF-SITE-101-BL-2_Ethernet11\n   no shutdown\n   channel-group
     3 mode active\n!\ninterface Ethernet4\n   description SF-SITE-101-BL-2_Ethernet12\n
     \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet7\n   description
@@ -745,52 +833,58 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_SF-SITE-102-BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-102-BL-1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\naaa authorization exec default
     local\n!\nno enable password\nno aaa root\n!\nusername arista privilege 15 role
-    network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
-    202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvlan 600\n   name vlan_600\n!\nvrf
-    instance BRANCH-10015\n!\nvrf instance BRANCH-20102\n!\nvrf instance CORP-10016\n!\ninterface
+    202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvlan 302\n   name vlan_302\n!\nvrf
+    instance BRANCH-10015\n!\nvrf instance BRANCH-10025\n!\nvrf instance CORP-10016\n!\ninterface
     Port-Channel11\n   description SF-SITE-102-TOR-1A_Po3\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 102-103,202-203,600\n   switchport mode trunk\n!\ninterface
-    Ethernet3\n   description P2P_LINK_TO_SF-SITE-104-BL-1_Ethernet6\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.7/31\n   mpls ip\n   isis
+    \  switchport trunk allowed vlan 102-103,202-203,302\n   switchport mode trunk\n!\ninterface
+    Ethernet3\n   description P2P_LINK_TO_SF-SITE-102-SPINE-1_Ethernet3\n   no shutdown\n
+    \  mtu 1500\n   no switchport\n   ip address 10.1.0.1/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
     \  isis network point-to-point\n!\ninterface Ethernet4\n   description P2P_LINK_TO_SF-SITE-102-SPINE-2_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.5/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
-    hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   description
-    P2P_LINK_TO_SF-SITE-102-RR-1_Ethernet3\n   no shutdown\n   mtu 1500\n   no switchport\n
-    \  ip address 10.1.0.8/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
+    hello padding\n   isis network point-to-point\n!\ninterface Ethernet6\n   description
+    P2P_LINK_TO_SF-SITE-104-BL-1_Ethernet6\n   no shutdown\n   mtu 1500\n   no switchport\n
+    \  ip address 10.1.0.7/31\n   mpls ip\n   isis enable CORE\n   isis circuit-type
     level-2\n   isis metric 10\n   isis hello padding\n   isis network point-to-point\n!\ninterface
-    Ethernet9\n   description P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet9\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis
+    Ethernet7\n   description P2P_LINK_TO_SF-SITE-102-RR-1_Ethernet3\n   no shutdown\n
+    \  mtu 1500\n   no switchport\n   ip address 10.1.0.8/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF-SITE-102-TOR-1A_Ethernet3\n
-    \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
-    SF-SITE-102-TOR-1A_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
-    Port-channel11\n   no shutdown\n   no switchport\n!\ninterface Port-channel11.99\n
-    \  no shutdown\n   encapsulation vlan\n      client dot1q 99 network client\n!\ninterface
+    \  isis network point-to-point\n!\ninterface Ethernet9\n   description P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet9\n
+    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.3/31\n   mpls
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
+    hello padding\n   isis network point-to-point\n!\ninterface Ethernet11\n   description
+    SF-SITE-102-TOR-1A_Ethernet3\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
+    Ethernet12\n   description SF-SITE-102-TOR-1A_Ethernet4\n   no shutdown\n   channel-group
+    11 mode active\n!\ninterface Ethernet13\n   no shutdown\n   no switchport\n!\ninterface
+    Ethernet13.99\n   no shutdown\n   encapsulation vlan\n      client dot1q 99 network
+    client\n!\ninterface Port-channel11\n   no shutdown\n   no switchport\n!\ninterface
     Port-channel11.102\n   no shutdown\n   encapsulation dot1q vlan 102\n   vrf BRANCH-10015\n
     \  ip address 10.255.102.0/31\n!\ninterface Port-channel11.202\n   no shutdown\n
     \  encapsulation dot1q vlan 202\n   vrf CORP-10016\n   ip address 10.255.102.4/31\n!\ninterface
-    Port-channel11.600\n   no shutdown\n   encapsulation dot1q vlan 600\n   vrf BRANCH-20102\n
+    Port-channel11.302\n   no shutdown\n   encapsulation dot1q vlan 302\n   vrf BRANCH-10025\n
     \  ip address 10.255.102.20/31\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
     \  no shutdown\n   ip address 100.2.2.21/32\n   isis enable CORE\n   isis passive\n
     \  node-segment ipv4 index 21\n!\ninterface Loopback10\n   description Inband
     management\n   ip address 192.168.101.21/32\n!\ninterface Management1\n   description
     oob_management\n   no shutdown\n   ip address 192.168.0.21/24\n!\nip routing\nip
-    routing vrf BRANCH-10015\nip routing vrf BRANCH-20102\nip routing vrf CORP-10016\n!\nrouter
+    routing vrf BRANCH-10015\nip routing vrf BRANCH-10025\nip routing vrf CORP-10016\n!\nrouter
     bfd\n   multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n
     \  router-id 100.2.2.21\n   distance bgp 20 200 200\n   graceful-restart restart-time
     300\n   graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
@@ -815,30 +909,31 @@ cvp_configlets:
     \     address-family ipv4\n         bgp additional-paths install\n         neighbor
     10.255.102.1 activate\n      !\n      bgp additional-paths receive\n      bgp
     additional-paths send any\n      bgp bestpath tie-break router-id\n\n   !\n   vrf
-    BRANCH-20102\n      rd 100.2.2.21:20102\n      route-target import vpn-ipv4 6.6971:20102\n
-    \     route-target import vpn-ipv4 5000\n      route-target import vpn-ipv6 6.6971:20102\n
-    \     route-target import vpn-ipv6 5000\n      route-target export vpn-ipv4 6.6971:20102\n
-    \     route-target export vpn-ipv4 2000\n      route-target export vpn-ipv6 6.6971:20102\n
-    \     route-target export vpn-ipv6 2000\n      router-id 100.2.2.21\n      neighbor
-    10.255.102.21 remote-as 65501\n      neighbor 10.255.102.21 bfd\n      redistribute
-    connected\n      !\n      address-family ipv4\n         bgp additional-paths install\n
-    \        neighbor 10.255.102.21 activate\n      !\n      bgp additional-paths
-    receive\n      bgp additional-paths send any\n      bgp bestpath tie-break router-id\n\n
-    \  !\n   vrf CORP-10016\n      rd 100.2.2.21:10012\n      route-target import
-    vpn-ipv4 6.6971:10012\n      route-target import vpn-ipv6 6.6971:10012\n      route-target
-    export vpn-ipv4 6.6971:10012\n      route-target export vpn-ipv6 6.6971:10012\n
-    \     router-id 100.2.2.21\n      neighbor 10.255.102.5 remote-as 65523\n      neighbor
-    10.255.102.5 bfd\n      redistribute connected\n      !\n      address-family
-    ipv4\n         bgp additional-paths install\n         neighbor 10.255.102.5 activate\n
-    \     !\n      bgp additional-paths receive\n      bgp additional-paths send any\n
-    \     bgp bestpath tie-break router-id\n\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0021.00\n
+    BRANCH-10025\n      rd 100.2.2.21:10025\n      route-target import vpn-ipv4 6.6971:10025\n
+    \     route-target import vpn-ipv4 6.6971:5000\n      route-target import vpn-ipv6
+    6.6971:10025\n      route-target import vpn-ipv6 6.6971:5000\n      route-target
+    export vpn-ipv4 6.6971:10025\n      route-target export vpn-ipv4 6.6971:2000\n
+    \     route-target export vpn-ipv6 6.6971:10025\n      route-target export vpn-ipv6
+    6.6971:2000\n      router-id 100.2.2.21\n      neighbor 10.255.102.21 remote-as
+    65582\n      neighbor 10.255.102.21 bfd\n      redistribute connected\n      !\n
+    \     address-family ipv4\n         bgp additional-paths install\n         neighbor
+    10.255.102.21 activate\n      !\n      bgp additional-paths receive\n      bgp
+    additional-paths send any\n      bgp bestpath tie-break router-id\n\n   !\n   vrf
+    CORP-10016\n      rd 100.2.2.21:10012\n      route-target import vpn-ipv4 6.6971:10012\n
+    \     route-target import vpn-ipv6 6.6971:10012\n      route-target export vpn-ipv4
+    6.6971:10012\n      route-target export vpn-ipv6 6.6971:10012\n      router-id
+    100.2.2.21\n      neighbor 10.255.102.5 remote-as 65523\n      neighbor 10.255.102.5
+    bfd\n      redistribute connected\n      !\n      address-family ipv4\n         bgp
+    additional-paths install\n         neighbor 10.255.102.5 activate\n      !\n      bgp
+    additional-paths receive\n      bgp additional-paths send any\n      bgp bestpath
+    tie-break router-id\n\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0021.00\n
     \  is-type level-2\n   router-id ipv4 100.2.2.21\n   log-adjacency-changes\n   timers
     local-convergence-delay 10000 protected-prefixes\n   !\n   address-family ipv4
     unicast\n      maximum-paths 4\n      fast-reroute ti-lfa mode node-protection
     level-2\n   !\n   address-family ipv6 unicast\n      fast-reroute ti-lfa mode
     node-protection level-2\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
     ip\n!\npatch panel\n   patch SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n      connector
-    1 interface Port-channel11.99\n      connector 2 pseudowire bgp vpws BRANCH pseudowire
+    1 interface Ethernet13.99\n      connector 2 pseudowire bgp vpws BRANCH pseudowire
     SF_SITE_101_BL-1-SF_SITE_102_BL-1_99\n   !\n!\nmanagement api http-commands\n
     \  protocol https\n   no shutdown\n   !\n   vrf default\n      no shutdown\n!\n!\nmpls
     label range static 16 15984\nmpls label range bgp-sr 16000 8000\nmpls label range
@@ -852,24 +947,26 @@ cvp_configlets:
     \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-102-BL-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-102-BL-2\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\naaa authorization exec default
     local\n!\nno enable password\nno aaa root\n!\nusername arista privilege 15 role
-    network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
-    202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvlan 600\n   name vlan_600\n!\nvrf
+    202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvlan 302\n   name vlan_302\n!\nvrf
     instance BRANCH-10017\n!\nvrf instance CORP-10018\n!\ninterface Port-Channel11\n
     \  description SF-SITE-102-TOR-1B_Po3\n   no shutdown\n   switchport\n   switchport
-    trunk allowed vlan 102-103,202-203,600\n   switchport mode trunk\n!\ninterface
+    trunk allowed vlan 102-103,202-203,302\n   switchport mode trunk\n!\ninterface
     Ethernet3\n   description P2P_LINK_TO_SF-SITE-102-SPINE-1_Ethernet4\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.1.0.3/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
@@ -886,8 +983,8 @@ cvp_configlets:
     \  isis network point-to-point\n!\ninterface Ethernet11\n   description SF-SITE-102-TOR-1B_Ethernet3\n
     \  no shutdown\n   channel-group 11 mode active\n!\ninterface Ethernet12\n   description
     SF-SITE-102-TOR-1B_Ethernet4\n   no shutdown\n   channel-group 11 mode active\n!\ninterface
-    Port-channel11\n   no shutdown\n   no switchport\n!\ninterface Port-channel11.102\n
-    \  no shutdown\n   encapsulation dot1q vlan 102\n   vrf BRANCH-10017\n   ip address
+    Port-channel11\n   no shutdown\n   no switchport\n!\ninterface Port-channel11.103\n
+    \  no shutdown\n   encapsulation dot1q vlan 103\n   vrf BRANCH-10017\n   ip address
     10.255.102.2/31\n!\ninterface Port-channel11.203\n   no shutdown\n   encapsulation
     dot1q vlan 203\n   vrf CORP-10018\n   ip address 10.255.102.6/31\n!\ninterface
     Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
@@ -942,19 +1039,21 @@ cvp_configlets:
     Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology
     address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-102-RR-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-102-RR-1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa
     authorization exec default local\n!\nno enable password\nno aaa root\n!\nusername
-    arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet7\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.9/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1004,19 +1103,21 @@ cvp_configlets:
     unicast\n    bfd all-interfaces\n!\ninterface Loopback0\n  isis multi-topology
     address-family ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-102-SPINE-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-102-SPINE-1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa
     authorization exec default local\n!\nno enable password\nno aaa root\n!\nusername
-    arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet3\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.0/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1043,19 +1144,21 @@ cvp_configlets:
     \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-102-SPINE-2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-102-SPINE-2\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode none\n!\naaa
     authorization exec default local\n!\nno enable password\nno aaa root\n!\nusername
-    arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\ninterface Ethernet3\n   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet4\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.4/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
@@ -1082,53 +1185,57 @@ cvp_configlets:
     \   multi-topology\ninterface Loopback0\n  isis multi-topology address-family
     ipv4 unicast\n  isis multi-topology address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-102-TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-102-TOR-1A\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
-    202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvlan 600\n   name vlan_600\n!\ninterface
+    202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvlan 302\n   name vlan_302\n!\ninterface
     Port-Channel3\n   description SF-SITE-102-BL-1_Po11\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 102-103,202-203,600\n   switchport mode trunk\n!\ninterface
-    Ethernet1\n   description BRANCH-VPWS-CE2_Ethernet1\n   no shutdown\n   switchport
-    access vlan 99\n   switchport mode access\n   switchport\n!\ninterface Ethernet3\n
-    \  description SF-SITE-102-BL-1_Ethernet11\n   no shutdown\n   channel-group 3
-    mode active\n!\ninterface Ethernet4\n   description SF-SITE-102-BL-1_Ethernet12\n
+    \  switchport trunk allowed vlan 102-103,202-203,302\n   switchport mode trunk\n!\ninterface
+    Ethernet3\n   description SF-SITE-102-BL-1_Ethernet11\n   no shutdown\n   channel-group
+    3 mode active\n!\ninterface Ethernet4\n   description SF-SITE-102-BL-1_Ethernet12\n
     \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet7\n   description
     BRANCH-A2A-CE3_Ethernet1\n   no shutdown\n   switchport access vlan 102\n   switchport
     mode access\n   switchport\n!\ninterface Ethernet8\n   description CORP-A2A-CE3_Ethernet1\n
     \  no shutdown\n   switchport access vlan 202\n   switchport mode access\n   switchport\n!\ninterface
-    Loopback10\n   description Inband management\n   ip address 192.168.101.23/32\n!\ninterface
+    Ethernet9\n   description BRANCH-HS-CE2_Ethernet1\n   no shutdown\n   switchport
+    access vlan 302\n   switchport mode access\n   switchport\n!\ninterface Loopback10\n
+    \  description Inband management\n   ip address 192.168.101.23/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.23/24\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_SF-SITE-102-TOR-1B: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-102-TOR-1B\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan
-    202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvlan 600\n   name vlan_600\n!\ninterface
+    202\n   name vlan_202\n!\nvlan 203\n   name vlan_203\n!\nvlan 302\n   name vlan_302\n!\ninterface
     Port-Channel3\n   description SF-SITE-102-BL-2_Po11\n   no shutdown\n   switchport\n
-    \  switchport trunk allowed vlan 102-103,202-203,600\n   switchport mode trunk\n!\ninterface
+    \  switchport trunk allowed vlan 102-103,202-203,302\n   switchport mode trunk\n!\ninterface
     Ethernet3\n   description SF-SITE-102-BL-2_Ethernet11\n   no shutdown\n   channel-group
     3 mode active\n!\ninterface Ethernet4\n   description SF-SITE-102-BL-2_Ethernet12\n
     \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet7\n   description
@@ -1140,27 +1247,29 @@ cvp_configlets:
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_SF-SITE-103-BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-103-BL-1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\naaa authorization exec default
     local\n!\nno enable password\nno aaa root\n!\nusername arista privilege 15 role
-    network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 104\n   name vlan_104\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan
-    203\n   name vlan_203\n!\nvlan 204\n   name vlan_204\n!\nvlan 500\n   name vlan_500\n!\nvlan
-    600\n   name vlan_600\n!\nvlan 700\n   name vlan_700\n!\nvrf instance BRANCH-10019\n!\nvrf
-    instance BRANCH-20103\n!\nvrf instance CORP-10020\n!\ninterface Port-Channel3\n
+    203\n   name vlan_203\n!\nvlan 204\n   name vlan_204\n!\nvlan 301\n   name vlan_301\n!\nvlan
+    302\n   name vlan_302\n!\nvlan 303\n   name vlan_303\n!\nvrf instance BRANCH-10019\n!\nvrf
+    instance BRANCH-10027\n!\nvrf instance CORP-10020\n!\ninterface Port-Channel3\n
     \  description SF-SITE-103-TOR-1A_Po3\n   no shutdown\n   switchport\n   switchport
-    trunk allowed vlan 100-104,200-204,500,600,700\n   switchport mode trunk\n!\ninterface
+    trunk allowed vlan 100-104,200-204,301-303\n   switchport mode trunk\n!\ninterface
     Ethernet3\n   description SF-SITE-103-TOR-1A_Ethernet3\n   no shutdown\n   channel-group
     3 mode active\n!\ninterface Ethernet4\n   description SF-SITE-103-TOR-1A_Ethernet4\n
     \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet9\n   description
@@ -1170,17 +1279,17 @@ cvp_configlets:
     Ethernet10\n   description P2P_LINK_TO_SF-SITE-102-BL-2_Ethernet10\n   no shutdown\n
     \  mtu 1500\n   no switchport\n   ip address 10.1.0.9/31\n   mpls ip\n   isis
     enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Port-channel11\n   no shutdown\n
-    \  no switchport\n!\ninterface Port-channel11.104\n   no shutdown\n   encapsulation
-    dot1q vlan 104\n   vrf BRANCH-10019\n   ip address 10.255.103.0/31\n!\ninterface
-    Port-channel11.204\n   no shutdown\n   encapsulation dot1q vlan 204\n   vrf CORP-10020\n
-    \  ip address 10.255.103.2/31\n!\ninterface Port-channel11.700\n   no shutdown\n
-    \  encapsulation dot1q vlan 700\n   vrf BRANCH-20103\n   ip address 10.255.103.20/31\n!\ninterface
+    \  isis network point-to-point\n!\ninterface Port-channel3\n   no shutdown\n   no
+    switchport\n!\ninterface Port-channel3.104\n   no shutdown\n   encapsulation dot1q
+    vlan 104\n   vrf BRANCH-10019\n   ip address 10.255.103.0/31\n!\ninterface Port-channel3.204\n
+    \  no shutdown\n   encapsulation dot1q vlan 204\n   vrf CORP-10020\n   ip address
+    10.255.103.2/31\n!\ninterface Port-channel3.303\n   no shutdown\n   encapsulation
+    dot1q vlan 303\n   vrf BRANCH-10027\n   ip address 10.255.103.20/31\n!\ninterface
     Loopback0\n   description MPLS_Overlay_peering\n   no shutdown\n   ip address
     100.3.2.25/32\n   isis enable CORE\n   isis passive\n   node-segment ipv4 index
     25\n!\ninterface Loopback10\n   description Inband management\n   ip address 192.168.101.25/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.25/24\n!\nip
-    routing\nip routing vrf BRANCH-10019\nip routing vrf BRANCH-20103\nip routing
+    routing\nip routing vrf BRANCH-10019\nip routing vrf BRANCH-10027\nip routing
     vrf CORP-10020\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200 multiplier
     3\n!\nrouter bgp 6.6971\n   router-id 100.3.2.25\n   distance bgp 20 200 200\n
     \  graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths 4
@@ -1203,23 +1312,24 @@ cvp_configlets:
     \     !\n      address-family ipv4\n         bgp additional-paths install\n         neighbor
     10.255.103.1 activate\n      !\n      bgp additional-paths receive\n      bgp
     additional-paths send any\n      bgp bestpath tie-break router-id\n\n   !\n   vrf
-    BRANCH-20103\n      rd 100.3.2.25:20103\n      route-target import vpn-ipv4 6.6971:20103\n
-    \     route-target import vpn-ipv4 2000\n      route-target import vpn-ipv6 6.6971:20103\n
-    \     route-target import vpn-ipv6 2000\n      route-target export vpn-ipv4 6.6971:20103\n
-    \     route-target export vpn-ipv4 5000\n      route-target export vpn-ipv6 6.6971:20103\n
-    \     route-target export vpn-ipv6 5000\n      router-id 100.3.2.25\n      neighbor
-    10.255.103.21 remote-as 65501\n      neighbor 10.255.103.21 bfd\n      redistribute
-    connected\n      !\n      address-family ipv4\n         bgp additional-paths install\n
-    \        neighbor 10.255.103.21 activate\n      !\n      bgp additional-paths
-    receive\n      bgp additional-paths send any\n      bgp bestpath tie-break router-id\n\n
-    \  !\n   vrf CORP-10020\n      rd 100.3.2.25:10012\n      route-target import
-    vpn-ipv4 6.6971:10012\n      route-target import vpn-ipv6 6.6971:10012\n      route-target
-    export vpn-ipv4 6.6971:10012\n      route-target export vpn-ipv6 6.6971:10012\n
-    \     router-id 100.3.2.25\n      neighbor 10.255.103.3 remote-as 65525\n      neighbor
-    10.255.103.3 bfd\n      redistribute connected\n      !\n      address-family
-    ipv4\n         bgp additional-paths install\n         neighbor 10.255.103.3 activate\n
-    \     !\n      bgp additional-paths receive\n      bgp additional-paths send any\n
-    \     bgp bestpath tie-break router-id\n\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0025.00\n
+    BRANCH-10027\n      rd 100.3.2.25:10027\n      route-target import vpn-ipv4 6.6971:10027\n
+    \     route-target import vpn-ipv4 6.6971:2000\n      route-target import vpn-ipv6
+    6.6971:10027\n      route-target import vpn-ipv6 6.6971:2000\n      route-target
+    export vpn-ipv4 6.6971:10027\n      route-target export vpn-ipv4 6.6971:5000\n
+    \     route-target export vpn-ipv6 6.6971:10027\n      route-target export vpn-ipv6
+    6.6971:5000\n      router-id 100.3.2.25\n      neighbor 10.255.103.21 remote-as
+    65583\n      neighbor 10.255.103.21 bfd\n      redistribute connected\n      !\n
+    \     address-family ipv4\n         bgp additional-paths install\n         neighbor
+    10.255.103.21 activate\n      !\n      bgp additional-paths receive\n      bgp
+    additional-paths send any\n      bgp bestpath tie-break router-id\n\n   !\n   vrf
+    CORP-10020\n      rd 100.3.2.25:10012\n      route-target import vpn-ipv4 6.6971:10012\n
+    \     route-target import vpn-ipv6 6.6971:10012\n      route-target export vpn-ipv4
+    6.6971:10012\n      route-target export vpn-ipv6 6.6971:10012\n      router-id
+    100.3.2.25\n      neighbor 10.255.103.3 remote-as 65525\n      neighbor 10.255.103.3
+    bfd\n      redistribute connected\n      !\n      address-family ipv4\n         bgp
+    additional-paths install\n         neighbor 10.255.103.3 activate\n      !\n      bgp
+    additional-paths receive\n      bgp additional-paths send any\n      bgp bestpath
+    tie-break router-id\n\n!\nrouter isis CORE\n   net 51.0001.1921.6800.0025.00\n
     \  is-type level-2\n   router-id ipv4 100.3.2.25\n   log-adjacency-changes\n   timers
     local-convergence-delay 10000 protected-prefixes\n   !\n   address-family ipv4
     unicast\n      maximum-paths 4\n      fast-reroute ti-lfa mode node-protection
@@ -1238,60 +1348,66 @@ cvp_configlets:
     Loopback0\n  isis multi-topology address-family ipv4 unicast\n  isis multi-topology
     address-family ipv6 unicast\n\n!\nend\n"
   AVD_SF-SITE-103-TOR-1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-103-TOR-1A\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\nspanning-tree mode mstp\nspanning-tree
     mst 0 priority 32768\n!\naaa authorization exec default local\n!\nno enable password\nno
-    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    aaa root\n!\nusername arista privilege 15 role network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 104\n   name vlan_104\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan
-    203\n   name vlan_203\n!\nvlan 204\n   name vlan_204\n!\nvlan 500\n   name vlan_500\n!\nvlan
-    600\n   name vlan_600\n!\nvlan 700\n   name vlan_700\n!\ninterface Port-Channel3\n
+    203\n   name vlan_203\n!\nvlan 204\n   name vlan_204\n!\nvlan 301\n   name vlan_301\n!\nvlan
+    302\n   name vlan_302\n!\nvlan 303\n   name vlan_303\n!\ninterface Port-Channel3\n
     \  description SF-SITE-103-BL-1_Po3\n   no shutdown\n   switchport\n   switchport
-    trunk allowed vlan 100-104,200-204,500,600,700\n   switchport mode trunk\n!\ninterface
+    trunk allowed vlan 100-104,200-204,301-303\n   switchport mode trunk\n!\ninterface
     Ethernet3\n   description SF-SITE-103-BL-1_Ethernet3\n   no shutdown\n   channel-group
     3 mode active\n!\ninterface Ethernet4\n   description SF-SITE-103-BL-1_Ethernet4\n
     \  no shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet7\n   description
     BRANCH-A2A-CE5_Ethernet1\n   no shutdown\n   switchport access vlan 104\n   switchport
     mode access\n   switchport\n!\ninterface Ethernet8\n   description CORP-A2A-CE5_Ethernet1\n
     \  no shutdown\n   switchport access vlan 204\n   switchport mode access\n   switchport\n!\ninterface
-    Loopback10\n   description Inband management\n   ip address 192.168.101.26/32\n!\ninterface
+    Ethernet9\n   description BRANCH-HS-CE3_Ethernet1\n   no shutdown\n   switchport
+    access vlan 303\n   switchport mode access\n   switchport\n!\ninterface Loopback10\n
+    \  description Inband management\n   ip address 192.168.101.26/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.26/24\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
     shutdown\n!\nend\n"
   AVD_SF-SITE-104-BL-1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
-    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata
-    -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n!\nvlan
-    internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice
-    routing protocols model multi-agent\n!\nlogging buffered 180000 informational\nlogging
-    trap warnings\nlogging console critical\nno logging monitor\nlogging synchronous
-    level critical\nlogging format timestamp high-resolution\nlogging format sequence-numbers\nlogging
-    source-interface Loopback10\nlogging policy match match-list SAKlogs discard\n!\nmatch-list
-    input string SAKlogs\n   10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex
-    MKA-6-SAK_CREATED\n   30 match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
+    /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
+    -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nlogging
+    buffered 180000 informational\nlogging trap warnings\nlogging console critical\nno
+    logging monitor\nlogging synchronous level critical\nlogging format timestamp
+    high-resolution\nlogging format sequence-numbers\nlogging source-interface Loopback10\nlogging
+    policy match match-list SAKlogs discard\n!\nmatch-list input string SAKlogs\n
+    \  10 match regex MKA-6-SAK_ACTIVATED\n   20 match regex MKA-6-SAK_CREATED\n   30
+    match regex MKA-5-STATE_CHG\n   40 match regex MKA-3-SESSION_FAILURE\n!\nhostname
     SF-SITE-104-BL-1\nip name-server vrf default 10.255.0.2\n!\nntp server 0.north-america.pool.ntp.org
     prefer\nntp server 1.north-america.pool.ntp.org\n!\naaa authorization exec default
     local\n!\nno enable password\nno aaa root\n!\nusername arista privilege 15 role
-    network-admin secret sha512 $6$vNCepJnitlh6c6hQ$ucadLuLEnmfS/Wo9047421qz/bC9qclksdQN4nZAqSiPRW.N6WPH3CiR3lkSDGFzU.li94STOj9sWWmL1m9GZ1\n!\nclock
+    network-admin secret sha512 $6$ZGX/X07MoiWP9hvX$3UaAtOAiBGc54DYHdQt5dsr5P2HLydxjrda51Zw69tSsF4tahXPVj26PwOiZUy/xFRZL3CAkT7.lsOPqWfIbU0\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$gkwcSSEqrAAJh5dy$Svp08.OM0HRY59ALSFdsHWmTkFzBPIHEZpbh3BPFNMFrRosiJCbjsgvr2.M.bDG5LUmuzoaiRUavZeYgtK.wC/\n!\nclock
     timezone CST\n!\nvlan 100\n   name vlan_100\n!\nvlan 101\n   name vlan_101\n!\nvlan
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 104\n   name vlan_104\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan
-    203\n   name vlan_203\n!\nvlan 204\n   name vlan_204\n!\nvlan 500\n   name vlan_500\n!\nvlan
-    600\n   name vlan_600\n!\nvlan 700\n   name vlan_700\n!\nvrf instance BRANCH-10020\n!\nvrf
-    instance CORP-10022\n!\ninterface Ethernet6\n   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet3\n
+    203\n   name vlan_203\n!\nvlan 204\n   name vlan_204\n!\nvlan 301\n   name vlan_301\n!\nvlan
+    302\n   name vlan_302\n!\nvlan 303\n   name vlan_303\n!\nvrf instance BRANCH-10021\n!\nvrf
+    instance CORP-10022\n!\ninterface Ethernet6\n   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet6\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.6/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
     hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   no shutdown\n
-    \  no switchport\n   vrf BRANCH-10020\n   ip address 10.255.104.0/31\n!\ninterface
+    \  no switchport\n   vrf BRANCH-10021\n   ip address 10.255.104.0/31\n!\ninterface
     Ethernet8\n   no shutdown\n   no switchport\n   vrf CORP-10022\n   ip address
     10.255.104.2/31\n!\ninterface Ethernet10\n   description P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet10\n
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.1/31\n   mpls
@@ -1301,7 +1417,7 @@ cvp_configlets:
     CORE\n   isis passive\n   node-segment ipv4 index 27\n!\ninterface Loopback10\n
     \  description Inband management\n   ip address 192.168.101.27/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.27/24\n!\nip
-    routing\nip routing vrf BRANCH-10020\nip routing vrf CORP-10022\n!\nrouter bfd\n
+    routing\nip routing vrf BRANCH-10021\nip routing vrf CORP-10022\n!\nrouter bfd\n
     \  multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id
     100.4.2.27\n   distance bgp 20 200 200\n   graceful-restart restart-time 300\n
     \  graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
@@ -1316,7 +1432,7 @@ cvp_configlets:
     activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
     \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
     \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n
-    \  !\n   vrf BRANCH-10020\n      rd 100.4.2.27:10011\n      route-target import
+    \  !\n   vrf BRANCH-10021\n      rd 100.4.2.27:10011\n      route-target import
     vpn-ipv4 6.6971:10011\n      route-target import vpn-ipv6 6.6971:10011\n      route-target
     export vpn-ipv4 6.6971:10011\n      route-target export vpn-ipv6 6.6971:10011\n
     \     router-id 100.4.2.27\n      neighbor 10.255.104.1 remote-as 65506\n      neighbor
@@ -1372,26 +1488,32 @@ cvp_topology:
     parent_container: SF_SITE_104
   CE_101:
     devices:
+    - BRANCH-A2A-CE1
     - BRANCH-A2A-CE2
     - BRANCH-VPWS-CE1
+    - BRANCH-HS-CE1
     - CORP-A2A-CE1
     - CORP-A2A-CE2
     parent_container: SF_SITE_101
   CE_102:
     devices:
     - BRANCH-A2A-CE3
+    - BRANCH-A2A-CE4
+    - BRANCH-VPWS-CE2
+    - BRANCH-HS-CE2
     - CORP-A2A-CE3
     - CORP-A2A-CE4
-    - BRANCH-VPWS-CE2
     parent_container: SF_SITE_102
   CE_103:
     devices:
     - BRANCH-A2A-CE5
+    - BRANCH-HS-CE3
     - CORP-A2A-CE5
     parent_container: SF_SITE_103
   CE_104:
     devices:
     - BRANCH-A2A-CE6
+    - CORP-A2A-CE6
     parent_container: SF_SITE_104
   ROUTE_REFLECTORS_101:
     devices:
