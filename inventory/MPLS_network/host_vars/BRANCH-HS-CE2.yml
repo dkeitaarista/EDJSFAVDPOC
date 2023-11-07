@@ -37,6 +37,5 @@ custom_structured_configuration_loopback_interfaces:
 custom_structured_configuration_static_routes:
   - vrf: default
     destination_address_prefix: 10.201.201.1/32
-    interface: Ethernet1
     gateway: 10.255.102.20
-    name: STATIC-ROUTE-TO-BRANCH-HS-CE1-VIA-HUB
+

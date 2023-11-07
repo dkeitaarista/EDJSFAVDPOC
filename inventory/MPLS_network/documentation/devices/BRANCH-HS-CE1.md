@@ -357,13 +357,13 @@ ip routing
 
 | VRF | Destination Prefix | Next Hop IP             | Exit interface      | Administrative Distance       | Tag               | Route Name                    | Metric         |
 | --- | ------------------ | ----------------------- | ------------------- | ----------------------------- | ----------------- | ----------------------------- | -------------- |
-| default | 10.201.201.2/32 | 10.255.101.20 | Ethernet1 | 1 | - | STATIC-ROUTE-TO-BRANCH-HS-CE2-VIA-HUB | - |
+| default | 10.201.201.2/32 | 10.255.101.20 | - | 1 | - | - | - |
 
 #### Static Routes Device Configuration
 
 ```eos
 !
-ip route 10.201.201.2/32 Ethernet1 10.255.101.20 name STATIC-ROUTE-TO-BRANCH-HS-CE2-VIA-HUB
+ip route 10.201.201.2/32 10.255.101.20
 ```
 
 ### Router BGP
