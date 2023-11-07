@@ -65,7 +65,7 @@ jobs:
         run: arch -arm64 brew install openvpn
         # run: sudo apt --assume-yes --no-install-recommends install openvpn
         if: steps.filter-group_vars.outputs.workflows == 'true'
-
+        
       # - name: Install resolvconf
       #   run: arch -arm64 brew install openvpn-systemd-resolved
       #   if: steps.filter-group_vars.outputs.workflows == 'true'
@@ -78,9 +78,8 @@ jobs:
         timeout-minutes: 1
         run: until ping -c1 $CVP_host; do sleep 2; done
         if: steps.filter-group_vars.outputs.workflows == 'true'
-# # ACT connectivity
-# ###
 
+# # Build and deploy config for the fabric
       - name: Build and deploy configuration for the fabric
         run: make fabric-provision
         if: steps.filter-group_vars.outputs.workflows == 'true'
