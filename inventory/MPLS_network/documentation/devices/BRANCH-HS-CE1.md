@@ -27,6 +27,7 @@
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
+  - [Static Routes](#static-routes)
   - [Router BGP](#router-bgp)
 - [Multicast](#multicast)
   - [IP IGMP Snooping](#ip-igmp-snooping)
@@ -349,6 +350,21 @@ ip routing
 | --- | --------------- |
 | default | False |
 | default | false |
+
+### Static Routes
+
+#### Static Routes Summary
+
+| VRF | Destination Prefix | Next Hop IP             | Exit interface      | Administrative Distance       | Tag               | Route Name                    | Metric         |
+| --- | ------------------ | ----------------------- | ------------------- | ----------------------------- | ----------------- | ----------------------------- | -------------- |
+| default | 10.201.201.2/32 | 10.255.101.20 | Ethernet1 | 1 | - | STATIC-ROUTE-TO-BRANCH-HS-CE2-VIA-HUB | - |
+
+#### Static Routes Device Configuration
+
+```eos
+!
+ip route 10.201.201.2/32 Ethernet1 10.255.101.20 name STATIC-ROUTE-TO-BRANCH-HS-CE2-VIA-HUB
+```
 
 ### Router BGP
 

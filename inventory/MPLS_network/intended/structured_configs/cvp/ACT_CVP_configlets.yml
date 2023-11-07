@@ -169,11 +169,12 @@ cvp_configlets:
     \  no switchport\n   ip address 10.255.101.21/31\n!\ninterface Loopback0\n   description
     \ CE IP for test for A2AVPN\n   no shutdown\n   ip address 10.201.201.1/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.42/24\n!\nip
-    routing\n!\nrouter bgp 65581\n   router-id 10.255.101.21\n   neighbor 10.255.101.20
-    peer group CE-PEER-GROUP-HSVPN\n   neighbor 10.255.101.20 remote-as 6.6971\n   neighbor
-    10.255.101.20 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP-HSVPN activate\n!\nmanagement api http-commands\n   protocol https\n
-    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    routing\n!\nip route 10.201.201.2/32 Ethernet1 10.255.101.20 name STATIC-ROUTE-TO-BRANCH-HS-CE2-VIA-HUB\n!\nrouter
+    bgp 65581\n   router-id 10.255.101.21\n   neighbor 10.255.101.20 peer group CE-PEER-GROUP-HSVPN\n
+    \  neighbor 10.255.101.20 remote-as 6.6971\n   neighbor 10.255.101.20 bfd\n   redistribute
+    connected\n   !\n   address-family ipv4\n      neighbor CE-PEER-GROUP-HSVPN activate\n!\nmanagement
+    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
+    shutdown\n!\nend\n"
   AVD_BRANCH-HS-CE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
     -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
@@ -194,11 +195,12 @@ cvp_configlets:
     \  no switchport\n   ip address 10.255.102.21/31\n!\ninterface Loopback0\n   description
     \ CE IP for test for A2AVPN\n   no shutdown\n   ip address 10.201.201.2/32\n!\ninterface
     Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.43/24\n!\nip
-    routing\n!\nrouter bgp 65582\n   router-id 10.255.102.21\n   neighbor 10.255.102.20
-    peer group CE-PEER-GROUP-HSVPN\n   neighbor 10.255.102.20 remote-as 6.6971\n   neighbor
-    10.255.102.20 bfd\n   redistribute connected\n   !\n   address-family ipv4\n      neighbor
-    CE-PEER-GROUP-HSVPN activate\n!\nmanagement api http-commands\n   protocol https\n
-    \  no shutdown\n   !\n   vrf default\n      no shutdown\n!\nend\n"
+    routing\n!\nip route 10.201.201.1/32 Ethernet1 10.255.102.20 name STATIC-ROUTE-TO-BRANCH-HS-CE1-VIA-HUB\n!\nrouter
+    bgp 65582\n   router-id 10.255.102.21\n   neighbor 10.255.102.20 peer group CE-PEER-GROUP-HSVPN\n
+    \  neighbor 10.255.102.20 remote-as 6.6971\n   neighbor 10.255.102.20 bfd\n   redistribute
+    connected\n   !\n   address-family ipv4\n      neighbor CE-PEER-GROUP-HSVPN activate\n!\nmanagement
+    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf default\n      no
+    shutdown\n!\nend\n"
   AVD_BRANCH-HS-CE3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec
     /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/tmp/token -cvvrf=default
     -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
