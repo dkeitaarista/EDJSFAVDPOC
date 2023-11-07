@@ -37,24 +37,29 @@
   gather_facts: no
   collections:
     - arista.cvp
-
-
   tasks:
     - name: Collect Facts
-      tags: [ reset ]
+      tags: [ reset]
       arista.cvp.cv_facts_v3:
         facts:
+          # - configlets
+          # - containers
           - devices
-          - containers
-          - configlets
       register: FACTS_DEVICES
-    - name: Remove device
+      
+    - name: Remove devices from the provisioning
       # device will be automatically re-registered and moved to the Undefined containe
       tags: [ reset ]
       arista.cvp.cv_device_v3:
-        devices: '{{FACTS_DEVICES}}'
+        devices: "{{ FACTS_DEVICES['data']['cvp_devices']}}"
         state: provisioning_reset
-  
+    # - name: Debug Facts
+    #   tags: [ reset ]
+    #   vars:
+    #     configletIds: "{{ FACTS_DEVICES['data']['cvp_devices']}}"
+    #   debug: 
+    #     var: configletIds
+
     
     # - name: Register feature branch
     #   tags: [ provision ]
