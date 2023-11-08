@@ -15,6 +15,7 @@ custom_structured_configuration_router_bgp:
   router_id: 10.255.101.21
   redistribute_routes:
     - source_protocol: connected
+    # - source_protocol: static
   neighbors:
     - ip_address: 10.255.101.20
       remote_as: '6.6971'
@@ -39,5 +40,13 @@ custom_structured_configuration_static_routes:
     destination_address_prefix: 10.201.201.2/32
     gateway: 10.255.101.20
    
+
+
+# Set TTL value for PTP packets
+
+custom_structured_configuration_ptp:
+  ttl: 128
+
+
 
 

@@ -104,3 +104,5 @@ static_routes:
 - vrf: default
   destination_address_prefix: 10.201.201.1/32
   gateway: 10.255.102.20
+ptp:
+  ttl: 128
