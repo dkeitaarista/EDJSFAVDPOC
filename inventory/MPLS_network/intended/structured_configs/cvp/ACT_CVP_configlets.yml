@@ -501,8 +501,8 @@ cvp_configlets:
     10.255.101.1 activate\n      !\n      bgp additional-paths receive\n      bgp
     additional-paths send any\n      bgp bestpath tie-break router-id\n\n   !\n   vrf
     BRANCH-10023\n      rd 100.1.2.14:10023\n      route-target import vpn-ipv4 6.6971:10023\n
-    \     route-target import vpn-ipv4 6.6971:5000\n      route-target import vpn-ipv6
-    6.6971:10023\n      route-target import vpn-ipv6 6.6971:5000\n      route-target
+    \     route-target import vpn-ipv4 6.6971:3000\n      route-target import vpn-ipv6
+    6.6971:10023\n      route-target import vpn-ipv6 6.6971:3000\n      route-target
     export vpn-ipv4 6.6971:10023\n      route-target export vpn-ipv4 6.6971:2000\n
     \     route-target export vpn-ipv6 6.6971:10023\n      route-target export vpn-ipv6
     6.6971:2000\n      router-id 100.1.2.14\n      neighbor 10.255.101.21 remote-as
@@ -915,8 +915,8 @@ cvp_configlets:
     10.255.102.1 activate\n      !\n      bgp additional-paths receive\n      bgp
     additional-paths send any\n      bgp bestpath tie-break router-id\n\n   !\n   vrf
     BRANCH-10025\n      rd 100.2.2.21:10025\n      route-target import vpn-ipv4 6.6971:10025\n
-    \     route-target import vpn-ipv4 6.6971:5000\n      route-target import vpn-ipv6
-    6.6971:10025\n      route-target import vpn-ipv6 6.6971:5000\n      route-target
+    \     route-target import vpn-ipv4 6.6971:3000\n      route-target import vpn-ipv6
+    6.6971:10025\n      route-target import vpn-ipv6 6.6971:3000\n      route-target
     export vpn-ipv4 6.6971:10025\n      route-target export vpn-ipv4 6.6971:2000\n
     \     route-target export vpn-ipv6 6.6971:10025\n      route-target export vpn-ipv6
     6.6971:2000\n      router-id 100.2.2.21\n      neighbor 10.255.102.21 remote-as
@@ -1320,9 +1320,9 @@ cvp_configlets:
     BRANCH-10027\n      rd 100.3.2.25:10027\n      route-target import vpn-ipv4 6.6971:10027\n
     \     route-target import vpn-ipv4 6.6971:2000\n      route-target import vpn-ipv6
     6.6971:10027\n      route-target import vpn-ipv6 6.6971:2000\n      route-target
-    export vpn-ipv4 6.6971:10027\n      route-target export vpn-ipv4 6.6971:5000\n
+    export vpn-ipv4 6.6971:10027\n      route-target export vpn-ipv4 6.6971:3000\n
     \     route-target export vpn-ipv6 6.6971:10027\n      route-target export vpn-ipv6
-    6.6971:5000\n      router-id 100.3.2.25\n      neighbor 10.255.103.21 remote-as
+    6.6971:3000\n      router-id 100.3.2.25\n      neighbor 10.255.103.21 remote-as
     65583\n      neighbor 10.255.103.21 bfd\n      redistribute connected\n      !\n
     \     address-family ipv4\n         bgp additional-paths install\n         neighbor
     10.255.103.21 activate\n      !\n      bgp additional-paths receive\n      bgp

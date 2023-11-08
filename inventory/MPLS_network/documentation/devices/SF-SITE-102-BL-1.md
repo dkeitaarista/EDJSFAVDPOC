@@ -774,9 +774,9 @@ router bgp 6.6971
    vrf BRANCH-10025
       rd 100.2.2.21:10025
       route-target import vpn-ipv4 6.6971:10025
-      route-target import vpn-ipv4 6.6971:5000
+      route-target import vpn-ipv4 6.6971:3000
       route-target import vpn-ipv6 6.6971:10025
-      route-target import vpn-ipv6 6.6971:5000
+      route-target import vpn-ipv6 6.6971:3000
       route-target export vpn-ipv4 6.6971:10025
       route-target export vpn-ipv4 6.6971:2000
       route-target export vpn-ipv6 6.6971:10025
