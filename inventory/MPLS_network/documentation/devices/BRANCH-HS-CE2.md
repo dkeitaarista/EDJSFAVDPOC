@@ -7,7 +7,6 @@
   - [IP Name Servers](#ip-name-servers)
   - [Clock Settings](#clock-settings)
   - [NTP](#ntp)
-  - [PTP](#ptp)
   - [Management API HTTP](#management-api-http)
 - [Authentication](#authentication)
   - [Local Users](#local-users)
@@ -110,21 +109,6 @@ clock timezone CST
 !
 ntp server 0.north-america.pool.ntp.org prefer
 ntp server 1.north-america.pool.ntp.org
-```
-
-### PTP
-
-#### PTP Summary
-
-| Clock ID | Source IP | Priority 1 | Priority 2 | TTL | Domain | Mode | Forward Unicast |
-| -------- | --------- | ---------- | ---------- | --- | ------ | ---- | --------------- |
-| - | - | - | - | 128 | - | - | - |
-
-#### PTP Device Configuration
-
-```eos
-!
-ptp ttl 128
 ```
 
 ### Management API HTTP

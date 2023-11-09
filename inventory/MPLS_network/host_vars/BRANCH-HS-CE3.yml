@@ -35,5 +35,5 @@ custom_structured_configuration_loopback_interfaces:
 
 # Set TTL value for PTP packets
 
-custom_structured_configuration_ptp:
-  ttl: 128
+# custom_structured_configuration_ptp:
+#   ttl: 128

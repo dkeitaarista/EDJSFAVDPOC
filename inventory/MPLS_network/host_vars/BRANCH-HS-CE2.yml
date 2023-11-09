@@ -42,7 +42,7 @@ custom_structured_configuration_static_routes:
 
 # Set TTL value for PTP packets
 
-custom_structured_configuration_ptp:
-  ttl: 128
+# custom_structured_configuration_ptp:
+#   ttl: 128
 
 
