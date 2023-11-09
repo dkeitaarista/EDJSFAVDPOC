@@ -1,0 +1,29 @@
+---
+- name: Reset devices on CVP
+  hosts: CVP
+  connection: local
+  gather_facts: no
+  collections:
+    - arista.cvp
+  tasks:
+    - name: Collect Facts
+      tags: [ reset]
+      arista.cvp.cv_facts_v3:
+        facts:
+          # - configlets
+          # - containers
+          - devices
+      register: FACTS_DEVICES
+      
+    - name: Remove a device such 'BRANCH-A2A-CE4' from the provisioning
+      # device will be automatically re-registered and moved to the Undefined containe
+      tags: [ reset ]
+      arista.cvp.cv_device_v3:
+        devices: "{{ FACTS_DEVICES['data']['cvp_devices'] | selectattr('hostname', 'equalto', 'BRANCH-A2A-CE4')}}"
+        state: provisioning_reset
+    # - name: Debug Facts
+    #   tags: [ reset ]
+    #   vars:
+    #     configletIds: "{{ FACTS_DEVICES['data']['cvp_devices'] | selectattr('hostname', 'equalto', 'BRANCH-A2A-CE4')}}"
+    #   debug: 
+    #     var: configletIds
