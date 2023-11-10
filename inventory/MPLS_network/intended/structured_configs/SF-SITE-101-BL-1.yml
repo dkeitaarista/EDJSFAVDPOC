@@ -103,20 +103,20 @@ router_bgp:
       - address_family: vpn-ipv4
         route_targets:
         - 6.6971:10023
-        - 6.6971:3000
+        - 6.6971:2000
       - address_family: vpn-ipv6
         route_targets:
         - 6.6971:10023
-        - 6.6971:3000
+        - 6.6971:2000
       export:
       - address_family: vpn-ipv4
         route_targets:
         - 6.6971:10023
-        - 6.6971:2000
+        - 6.6971:3000
       - address_family: vpn-ipv6
         route_targets:
         - 6.6971:10023
-        - 6.6971:2000
+        - 6.6971:3000
     redistribute_routes:
     - source_protocol: connected
     address_family_ipv4:
