@@ -262,7 +262,7 @@ BRANCH:
               - SF-SITE-101-BL-1
           - type: export
             address_family: vpn-ipv4
-            route_target:  6.6971:3000
+            route_target:  6.6971:3500
             nodes:
               - SF-SITE-101-BL-1
           - type: import
@@ -272,7 +272,7 @@ BRANCH:
               - SF-SITE-101-BL-1
           - type: export
             address_family: vpn-ipv6
-            route_target:  6.6971:3000
+            route_target:  6.6971:3500
             nodes:
               - SF-SITE-101-BL-1
         l3_interfaces:
@@ -313,7 +313,7 @@ BRANCH:
               - SF-SITE-102-BL-1
           - type: export
             address_family: vpn-ipv4
-            route_target:  6.6971:3000
+            route_target:  6.6971:3500
             nodes:
               - SF-SITE-102-BL-1
           - type: import
@@ -323,7 +323,7 @@ BRANCH:
               - SF-SITE-102-BL-1
           - type: export
             address_family: vpn-ipv6
-            route_target:  6.6971:3000
+            route_target:  6.6971:3500
             nodes:
               - SF-SITE-102-BL-1
         l3_interfaces:
@@ -359,7 +359,7 @@ BRANCH:
         additional_route_targets:
           - type: import
             address_family: vpn-ipv4
-            route_target:  6.6971:3000
+            route_target:  6.6971:3500
             nodes:
               - SF-SITE-103-BL-1
           - type: export
@@ -369,7 +369,7 @@ BRANCH:
               - SF-SITE-103-BL-1
           - type: import
             address_family: vpn-ipv6
-            route_target:  6.6971:3000
+            route_target:  6.6971:3500
             nodes:
               - SF-SITE-103-BL-1
           - type: export

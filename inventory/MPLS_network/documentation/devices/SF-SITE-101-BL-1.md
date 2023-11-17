@@ -778,9 +778,9 @@ router bgp 6.6971
       route-target import vpn-ipv6 6.6971:10023
       route-target import vpn-ipv6 6.6971:2000
       route-target export vpn-ipv4 6.6971:10023
-      route-target export vpn-ipv4 6.6971:3000
+      route-target export vpn-ipv4 6.6971:3500
       route-target export vpn-ipv6 6.6971:10023
-      route-target export vpn-ipv6 6.6971:3000
+      route-target export vpn-ipv6 6.6971:3500
       router-id 100.1.2.14
       neighbor 10.255.101.21 remote-as 65581
       neighbor 10.255.101.21 bfd
