@@ -209,13 +209,6 @@ CORP:
               - 10.255.104.2/31
             nodes:
               - SF-SITE-104-BL-1
-            # structured_config:
-            #   service_policy:
-            #     qos:
-            #       input: TENANT-INGRESS-CLASSIFIER-1G
-            #   qos:
-            #     trust: disabled
-            # raw_eos_cli: "{{ interface_qos_profiles_1G }}"
         bgp_peers:
           - ip_address: 10.255.104.3
             remote_as: 65526

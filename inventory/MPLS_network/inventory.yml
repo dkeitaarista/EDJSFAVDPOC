@@ -22,9 +22,9 @@ all:
             SPINES_101:
               hosts:
                 SF-SITE-101-SPINE-1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.33.154
                 SF-SITE-101-SPINE-2:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.53.230
             BORDER_LEAFS_101:
               hosts:
                 SF-SITE-101-BL-1:
