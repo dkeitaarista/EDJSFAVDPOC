@@ -28,109 +28,109 @@ all:
             BORDER_LEAFS_101:
               hosts:
                 SF-SITE-101-BL-1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.30.114
                 SF-SITE-101-BL-2:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.7.30
             ROUTE_REFLECTORS_101:
               hosts:
                 SF-SITE-101-RR-1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.24.252
             TOR_101:
               hosts:
                 SF-SITE-101-TOR-1A:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.40.254
                 SF-SITE-101-TOR-1B:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.82.24
             # Customer edge (host simulation)
             CE_101:
               hosts:
                 BRANCH-A2A-CE1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.11.74
                   #is_deployed: false
                 BRANCH-A2A-CE2:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.98.9
                 BRANCH-VPWS-CE1:
-                  ansible_host: 10.225.x.x
+                  ansible_host: 10.225.18.197
                 BRANCH-HS-CE1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.106.105
                   #is_deployed: false
                 CORP-A2A-CE1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.71.250
                 CORP-A2A-CE2:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.11.14
         SF_SITE_102:
           children:
             SPINES_102:
               hosts:
                 SF-SITE-102-SPINE-1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.74.60
                 SF-SITE-102-SPINE-2:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.84.246
             BORDER_LEAFS_102:
               hosts:
                 SF-SITE-102-BL-1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.43.141
                 SF-SITE-102-BL-2:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.76.116
             ROUTE_REFLECTORS_102:
               hosts:
                 SF-SITE-102-RR-1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.20.118
             TOR_102:
               hosts:
                 SF-SITE-102-TOR-1A:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.16.190
                 SF-SITE-102-TOR-1B:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.46.190
             # Customer edge (host simulation)
             CE_102:
               hosts:
                 BRANCH-A2A-CE3:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.84.12
                 BRANCH-A2A-CE4:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.85.124
                 BRANCH-VPWS-CE2:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.93.99
                 BRANCH-HS-CE2:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.56.87
                   #is_deployed: false
                 CORP-A2A-CE3:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.29.44
                 CORP-A2A-CE4:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.100.40
                 
         SF_SITE_103:
           children:
             BORDER_LEAFS_103:
               hosts:
                 SF-SITE-103-BL-1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.89.184
             TOR_103:
               hosts:
                 SF-SITE-103-TOR-1A:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.54.178
             CE_103:
               hosts:
                 BRANCH-A2A-CE5:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.110.232
                 BRANCH-HS-CE3:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.120.108
                   #is_deployed: false
                 CORP-A2A-CE5:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.83.168
                 
         SF_SITE_104:
           children:
             BORDER_LEAFS_104:
               hosts:
                 SF-SITE-104-BL-1:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.8.36
             CE_104:
               hosts:
                 BRANCH-A2A-CE6:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.63.18
                 CORP-A2A-CE6:
-                  ansible_host: 10.255.x.x
+                  ansible_host: 10.255.74.112
     ROUTE_REFLECTORS:
       children:
         ROUTE_REFLECTORS_101:
