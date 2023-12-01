@@ -1,6 +1,6 @@
 ### Push on main after PR approval. Using self hosted runner on mac laptop
 ### Not using local runner may require openvpn for act tenant. Right now using local runner with my PS openvpn file
-### Add change_name as combinaison of branch plus last commit id
+### Add change_name as combinaison of branch plus last commit id. in progress
 name: Deploy updates
 
 on:
