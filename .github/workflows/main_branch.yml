@@ -66,6 +66,9 @@ jobs:
 # # ACT connectivity 
       - name: Add nameserver
         run: echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+      
+      - name: OS update
+        run: sudo apt-get update 
 
       - name: Install OVPN
         # run: arch -arm64 brew install openvpn
