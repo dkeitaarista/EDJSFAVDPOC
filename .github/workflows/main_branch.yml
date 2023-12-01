@@ -88,7 +88,7 @@ jobs:
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Wait for a VPN connection
-        timeout-minutes: 2
+        timeout-minutes: 1
         run: until ping -c1 $CVP_host; do sleep 2; done
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
