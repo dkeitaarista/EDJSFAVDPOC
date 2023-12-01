@@ -13,7 +13,8 @@ jobs:
       CVP_host: '10.255.60.69'  ### REPLACE WITH CVP IP ADDRESS
       OVPN_profile: PS.ovpn  ### REPLACE WITH ACTUAL FILE FOR SPECIFIC ACT ENVIRONMENT
     timeout-minutes: 15
-    runs-on: [ self-hosted, macOS, X64 ]
+    # runs-on: [ self-hosted, macOS, X64 ]
+    runs-on: ubuntu-latest
     steps:
       - name: Hi
         run: echo "Hello World!"
@@ -24,26 +25,26 @@ jobs:
       - name: Install zsh
         run: arch -arm64 brew install zsh
 
-      - name: Setup Python
-        # uses: actions/setup-python@v3
-        run: arch -arm64 brew install python3
-
-      # - name: Install zsh
-      #   run: sudo apt install -y zsh
-
       # - name: Setup Python
-      #   uses: actions/setup-python@v3
+      #   # uses: actions/setup-python@v3
+      #   run: arch -arm64 brew install python3
+
+      - name: Install zsh
+        run: sudo apt install -y zsh
+
+      - name: Setup Python
+        uses: actions/setup-python@v3.11.6
 
       - name: Install Python requirements
         run: pip3 install -r requirements.txt
 
-      # - name: Run pre-commit on files
-      #   uses: pre-commit/action@v3.0.0
-      
       - name: Run pre-commit on files
-        run: |
-          pip3 install pre-commit
-          pre-commit install
+        uses: pre-commit/action@v3.0.0
+      
+      # - name: Run pre-commit on files
+      #   run: |
+      #     pip3 install pre-commit
+      #     pre-commit install
 
       - name: Check paths for group_vars
         uses: dorny/paths-filter@v2
@@ -62,8 +63,8 @@ jobs:
 # ###
 # # ACT connectivity 
       - name: Install OVPN
-        run: arch -arm64 brew install openvpn
-        # run: sudo apt --assume-yes --no-install-recommends install openvpn
+        # run: arch -arm64 brew install openvpn
+        run: sudo apt --assume-yes --no-install-recommends install openvpn
         if: steps.filter-group_vars.outputs.workflows == 'true'
         
       # - name: Install resolvconf
