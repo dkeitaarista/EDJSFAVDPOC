@@ -64,10 +64,12 @@ jobs:
 
 # ##
 # # ACT connectivity 
+      - name: Add nameserver
+        run: echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+
       - name: Install OVPN
         # run: arch -arm64 brew install openvpn
-        run: sudo apt-get  --fix-missing install openvpn -y
-        # run: sudo apt-get --assume-yes --no-install-recommends --fix-missing install openvpn
+        run: sudo apt-get --assume-yes --no-install-recommends --fix-missing install openvpn
         if: steps.filter-group_vars.outputs.workflows == 'true'
         
       # - name: Install resolvconf
