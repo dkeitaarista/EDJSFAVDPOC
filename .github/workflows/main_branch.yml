@@ -62,7 +62,7 @@ jobs:
         run: ansible-galaxy collection install -r requirements.yml
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
-# ###
+# ##
 # # ACT connectivity 
       - name: Install OVPN
         # run: arch -arm64 brew install openvpn
@@ -78,7 +78,7 @@ jobs:
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Wait for a VPN connection
-        timeout-minutes: 1
+        timeout-minutes: 2
         run: until ping -c1 $CVP_host; do sleep 2; done
         if: steps.filter-group_vars.outputs.workflows == 'true'
 
