@@ -60,7 +60,11 @@
     #   debug: 
     #     var: configletIds
 
-    
+    - name: Register last commit id 
+      tags: [ provision ]
+      command: "git rev-parse --short HEAD"
+      register: last_commit_id
+
     - name: Register feature branch
       tags: [ provision ]
       command: "git branch --show-current"
@@ -70,10 +74,11 @@
         taskIds: "{{ cvp_configlets_status.taskIds }}"
         activities_list: |
           [ {% for task in taskIds %}  {'task_id': "{{ task }}", 'stage': 'main'} {% if not loop.last %}, {% endif %} {% endfor %} ] 
+        change_name: "{{branch_name}} + {{last_commit_id}}"
       tags: [ provision ]
       arista.cvp.cv_change_control_v3:
         state: set
-        name: "{{ branch_name.stdout }}"
+        name: "{{ change_name.stdout }}"
         change:
           stages:
             - name: main
