@@ -74,7 +74,7 @@
         taskIds: "{{ cvp_configlets_status.taskIds }}"
         activities_list: |
           [ {% for task in taskIds %}  {'task_id': "{{ task }}", 'stage': 'main'} {% if not loop.last %}, {% endif %} {% endfor %} ] 
-        change_name: "{{branch_name}} + {{last_commit_id}}"
+        change_name: "{{branch_name}}{{last_commit_id}}"
       tags: [ provision ]
       arista.cvp.cv_change_control_v3:
         state: set
