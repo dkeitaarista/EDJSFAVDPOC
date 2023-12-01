@@ -69,12 +69,16 @@ jobs:
 
       - name: Install OVPN
         # run: arch -arm64 brew install openvpn
-        run: sudo apt-get --assume-yes --no-install-recommends --fix-missing install openvpn
+        run: sudo apt-get --assume-yes --no-install-recommends install openvpn
         if: steps.filter-group_vars.outputs.workflows == 'true'
         
       # - name: Install resolvconf
       #   run: arch -arm64 brew install openvpn-systemd-resolved
       #   if: steps.filter-group_vars.outputs.workflows == 'true'
+
+      - name: Install resolvconf
+        run: sudo apt-get install openvpn-systemd-resolved -y
+        if: steps.filter-group_vars.outputs.workflows == 'true'
 
       - name: Connect VPN
         run: openvpn --config $OVPN_profile --daemon
