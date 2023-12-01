@@ -33,7 +33,9 @@ jobs:
         run: sudo apt install -y zsh
 
       - name: Setup Python
-        uses: actions/setup-python@v3.11.6
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.11.6'
 
       - name: Install Python requirements
         run: pip3 install -r requirements.txt
