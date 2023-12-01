@@ -1,4 +1,5 @@
 ### Push on main after PR approval. Using self hosted runner on mac laptop
+### Not using local runner may require openvpn for act tenant. Right now using local runner with my PS openvpn file
 name: Deploy updates
 
 on:
