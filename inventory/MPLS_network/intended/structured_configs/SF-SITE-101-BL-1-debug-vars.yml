@@ -810,37 +810,6 @@ CORP:
       bfd: true
       nodes:
       - SF-SITE-103-BL-1
-  - name: CORP-10022
-    vrf_vni: 10012
-    address_families:
-    - vpn-ipv4
-    - vpn-ipv6
-    bgp:
-      structured_config:
-        eos_cli: 'bgp additional-paths receive
-
-          bgp additional-paths send any
-
-          bgp bestpath tie-break router-id
-
-          '
-        address_family_ipv4:
-          bgp:
-            additional_paths:
-              install: true
-    l3_interfaces:
-    - interfaces:
-      - Ethernet8
-      ip_addresses:
-      - 10.255.104.2/31
-      nodes:
-      - SF-SITE-104-BL-1
-    bgp_peers:
-    - ip_address: 10.255.104.3
-      remote_as: 65526
-      bfd: true
-      nodes:
-      - SF-SITE-104-BL-1
   l2vlans:
   - id: 200
     name: vlan_200
@@ -1008,7 +977,7 @@ pe:
     mgmt_ip: 192.168.0.15/24
 inventory_file: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/inventory/MPLS_network/inventory.yml
 inventory_dir: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/inventory/MPLS_network
-ansible_host: 10.255.x.x
+ansible_host: 10.255.30.114
 inventory_hostname: SF-SITE-101-BL-1
 inventory_hostname_short: SF-SITE-101-BL-1
 group_names:
@@ -2957,7 +2926,7 @@ groups:
   - SF-SITE-102-BL-2
   - SF-SITE-103-BL-1
   - SF-SITE-104-BL-1
-omit: __omit_place_holder__5ffbd009952e1c8b39c4d9ae0aaa4992a304c84d
+omit: __omit_place_holder__d5e317d22d86ea2e43c461d295c3326cbf479479
 ansible_version:
   string: 2.12.10
   full: 2.12.10

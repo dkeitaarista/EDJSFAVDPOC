@@ -105,5 +105,4 @@ ethernet_aggregation,SF-SITE-103-TOR-1A,Ethernet8,cpe,CORP-A2A-CE5,Ethernet1,Tru
 ethernet_aggregation,SF-SITE-103-TOR-1A,Ethernet9,cpe,BRANCH-HS-CE3,Ethernet1,True
 pe,SF-SITE-104-BL-1,Ethernet6,pe,SF-SITE-102-BL-1,Ethernet6,True
 pe,SF-SITE-104-BL-1,Ethernet7,l3_interface,,,True
-pe,SF-SITE-104-BL-1,Ethernet8,l3_interface,,,True
 pe,SF-SITE-104-BL-1,Ethernet10,pe,SF-SITE-101-BL-1,Ethernet10,True

@@ -279,7 +279,7 @@ vrfs:
 custom_structured_configuration_ip_routing: true
 inventory_file: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/inventory/MPLS_network/inventory.yml
 inventory_dir: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/inventory/MPLS_network
-ansible_host: 10.225.x.x
+ansible_host: 10.225.18.197
 inventory_hostname: BRANCH-VPWS-CE1
 inventory_hostname_short: BRANCH-VPWS-CE1
 group_names:
@@ -2244,7 +2244,7 @@ groups:
   - SF-SITE-102-BL-2
   - SF-SITE-103-BL-1
   - SF-SITE-104-BL-1
-omit: __omit_place_holder__5ffbd009952e1c8b39c4d9ae0aaa4992a304c84d
+omit: __omit_place_holder__d5e317d22d86ea2e43c461d295c3326cbf479479
 ansible_version:
   string: 2.12.10
   full: 2.12.10
