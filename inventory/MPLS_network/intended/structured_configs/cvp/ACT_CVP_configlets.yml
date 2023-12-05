@@ -1404,41 +1404,50 @@ cvp_configlets:
     102\n   name vlan_102\n!\nvlan 103\n   name vlan_103\n!\nvlan 104\n   name vlan_104\n!\nvlan
     200\n   name vlan_200\n!\nvlan 201\n   name vlan_201\n!\nvlan 202\n   name vlan_202\n!\nvlan
     203\n   name vlan_203\n!\nvlan 204\n   name vlan_204\n!\nvlan 301\n   name vlan_301\n!\nvlan
-    302\n   name vlan_302\n!\nvlan 303\n   name vlan_303\n!\nvrf instance BRANCH-10021\n!\ninterface
-    Ethernet6\n   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet6\n   no shutdown\n
-    \  mtu 1500\n   no switchport\n   ip address 10.1.0.6/31\n   mpls ip\n   isis
-    enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Ethernet7\n   no shutdown\n   no
-    switchport\n   vrf BRANCH-10021\n   ip address 10.255.104.0/31\n!\ninterface Ethernet10\n
-    \  description P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet10\n   no shutdown\n   mtu
-    1500\n   no switchport\n   ip address 10.1.0.1/31\n   mpls ip\n   isis enable
-    CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis hello padding\n
-    \  isis network point-to-point\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
-    \  no shutdown\n   ip address 100.4.2.27/32\n   isis enable CORE\n   isis passive\n
-    \  node-segment ipv4 index 27\n!\ninterface Loopback10\n   description Inband
-    management\n   ip address 192.168.101.27/32\n!\ninterface Management1\n   description
-    oob_management\n   no shutdown\n   ip address 192.168.0.27/24\n!\nip routing\nip
-    routing vrf BRANCH-10021\n!\nrouter bfd\n   multihop interval 1200 min-rx 1200
-    multiplier 3\n!\nrouter bgp 6.6971\n   router-id 100.4.2.27\n   distance bgp 20
-    200 200\n   graceful-restart restart-time 300\n   graceful-restart\n   maximum-paths
-    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp asn notation asdot\n   bgp always-compare-med\n
-    \  neighbor MPLS-OVERLAY-PEERS peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as
-    6.6971\n   neighbor MPLS-OVERLAY-PEERS update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS
-    bfd\n   neighbor MPLS-OVERLAY-PEERS send-community\n   neighbor MPLS-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 100.1.1.13 peer group MPLS-OVERLAY-PEERS\n   neighbor
-    100.1.1.13 description SF-SITE-101-RR-1\n   neighbor 100.1.1.20 peer group MPLS-OVERLAY-PEERS\n
-    \  neighbor 100.1.1.20 description SF-SITE-102-RR-1\n   !\n   address-family evpn\n
-    \     neighbor default encapsulation mpls next-hop-self source-interface Loopback0\n
-    \     neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n      no
-    neighbor MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv4\n      neighbor
-    MPLS-OVERLAY-PEERS activate\n   !\n   address-family vpn-ipv6\n      neighbor
-    MPLS-OVERLAY-PEERS activate\n   !\n   vrf BRANCH-10021\n      rd 100.4.2.27:10011\n
-    \     route-target import vpn-ipv4 6.6971:10011\n      route-target import vpn-ipv6
-    6.6971:10011\n      route-target export vpn-ipv4 6.6971:10011\n      route-target
-    export vpn-ipv6 6.6971:10011\n      router-id 100.4.2.27\n      neighbor 10.255.104.1
-    remote-as 65506\n      neighbor 10.255.104.1 bfd\n      redistribute connected\n
+    302\n   name vlan_302\n!\nvlan 303\n   name vlan_303\n!\nvrf instance BRANCH-10021\n!\nvrf
+    instance CORP-10022\n!\ninterface Ethernet6\n   description P2P_LINK_TO_SF-SITE-102-BL-1_Ethernet6\n
+    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.6/31\n   mpls
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
+    hello padding\n   isis network point-to-point\n!\ninterface Ethernet7\n   no shutdown\n
+    \  no switchport\n   vrf BRANCH-10021\n   ip address 10.255.104.0/31\n!\ninterface
+    Ethernet8\n   no shutdown\n   no switchport\n   vrf CORP-10022\n   ip address
+    10.255.104.2/31\n!\ninterface Ethernet10\n   description P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet10\n
+    \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.1.0.1/31\n   mpls
+    ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 10\n   isis
+    hello padding\n   isis network point-to-point\n!\ninterface Loopback0\n   description
+    MPLS_Overlay_peering\n   no shutdown\n   ip address 100.4.2.27/32\n   isis enable
+    CORE\n   isis passive\n   node-segment ipv4 index 27\n!\ninterface Loopback10\n
+    \  description Inband management\n   ip address 192.168.101.27/32\n!\ninterface
+    Management1\n   description oob_management\n   no shutdown\n   ip address 192.168.0.27/24\n!\nip
+    routing\nip routing vrf BRANCH-10021\nip routing vrf CORP-10022\n!\nrouter bfd\n
+    \  multihop interval 1200 min-rx 1200 multiplier 3\n!\nrouter bgp 6.6971\n   router-id
+    100.4.2.27\n   distance bgp 20 200 200\n   graceful-restart restart-time 300\n
+    \  graceful-restart\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n
+    \  bgp asn notation asdot\n   bgp always-compare-med\n   neighbor MPLS-OVERLAY-PEERS
+    peer group\n   neighbor MPLS-OVERLAY-PEERS remote-as 6.6971\n   neighbor MPLS-OVERLAY-PEERS
+    update-source Loopback0\n   neighbor MPLS-OVERLAY-PEERS bfd\n   neighbor MPLS-OVERLAY-PEERS
+    send-community\n   neighbor MPLS-OVERLAY-PEERS maximum-routes 0\n   neighbor 100.1.1.13
+    peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.13 description SF-SITE-101-RR-1\n
+    \  neighbor 100.1.1.20 peer group MPLS-OVERLAY-PEERS\n   neighbor 100.1.1.20 description
+    SF-SITE-102-RR-1\n   !\n   address-family evpn\n      neighbor default encapsulation
+    mpls next-hop-self source-interface Loopback0\n      neighbor MPLS-OVERLAY-PEERS
+    activate\n   !\n   address-family ipv4\n      no neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv4\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   address-family vpn-ipv6\n      neighbor MPLS-OVERLAY-PEERS activate\n
+    \  !\n   vrf BRANCH-10021\n      rd 100.4.2.27:10011\n      route-target import
+    vpn-ipv4 6.6971:10011\n      route-target import vpn-ipv6 6.6971:10011\n      route-target
+    export vpn-ipv4 6.6971:10011\n      route-target export vpn-ipv6 6.6971:10011\n
+    \     router-id 100.4.2.27\n      neighbor 10.255.104.1 remote-as 65506\n      neighbor
+    10.255.104.1 bfd\n      redistribute connected\n      !\n      address-family
+    ipv4\n         bgp additional-paths install\n         neighbor 10.255.104.1 activate\n
+    \     !\n      bgp additional-paths receive\n      bgp additional-paths send any\n
+    \     bgp bestpath tie-break router-id\n\n   !\n   vrf CORP-10022\n      rd 100.4.2.27:10012\n
+    \     route-target import vpn-ipv4 6.6971:10012\n      route-target import vpn-ipv6
+    6.6971:10012\n      route-target export vpn-ipv4 6.6971:10012\n      route-target
+    export vpn-ipv6 6.6971:10012\n      router-id 100.4.2.27\n      neighbor 10.255.104.3
+    remote-as 65526\n      neighbor 10.255.104.3 bfd\n      redistribute connected\n
     \     !\n      address-family ipv4\n         bgp additional-paths install\n         neighbor
-    10.255.104.1 activate\n      !\n      bgp additional-paths receive\n      bgp
+    10.255.104.3 activate\n      !\n      bgp additional-paths receive\n      bgp
     additional-paths send any\n      bgp bestpath tie-break router-id\n\n!\nrouter
     isis CORE\n   net 51.0001.1921.6800.0027.00\n   is-type level-2\n   router-id
     ipv4 100.4.2.27\n   log-adjacency-changes\n   timers local-convergence-delay 10000
