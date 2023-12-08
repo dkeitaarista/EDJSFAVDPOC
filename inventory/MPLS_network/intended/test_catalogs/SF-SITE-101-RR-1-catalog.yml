@@ -1,0 +1,112 @@
+anta.tests.connectivity:
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: SF-SITE-101-BL-1
+      neighbor_port: Ethernet7
+      port: Ethernet3
+    result_overwrite:
+      categories:
+      - LLDP Topology
+      custom_field: 'local: Ethernet3 - remote: SF-SITE-101-BL-1_Ethernet7'
+      description: LLDP topology - validate peer and interface
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: SF-SITE-101-BL-2
+      neighbor_port: Ethernet7
+      port: Ethernet4
+    result_overwrite:
+      categories:
+      - LLDP Topology
+      custom_field: 'local: Ethernet4 - remote: SF-SITE-101-BL-2_Ethernet7'
+      description: LLDP topology - validate peer and interface
+- VerifyReachability:
+    hosts:
+    - destination: 10.0.0.8
+      repeat: 1
+      source: 10.0.0.9
+      vrf: default
+    result_overwrite:
+      categories:
+      - IP Reachability
+      custom_field: 'Source: SF-SITE-101-RR-1_Ethernet3 - Destination: SF-SITE-101-BL-1_Ethernet7'
+      description: ip reachability test p2p links
+- VerifyReachability:
+    hosts:
+    - destination: 10.0.0.10
+      repeat: 1
+      source: 10.0.0.11
+      vrf: default
+    result_overwrite:
+      categories:
+      - IP Reachability
+      custom_field: 'Source: SF-SITE-101-RR-1_Ethernet4 - Destination: SF-SITE-101-BL-2_Ethernet7'
+      description: ip reachability test p2p links
+anta.tests.hardware:
+- VerifyEnvironmentPower:
+    states:
+    - ok
+- VerifyEnvironmentCooling:
+    states:
+    - ok
+- VerifyTemperature: {}
+- VerifyTransceiversManufacturers:
+    manufacturers:
+    - Arista Networks
+    - Arastra, Inc.
+    - Not Present
+anta.tests.interfaces:
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Ethernet3
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Ethernet3 - P2P_LINK_TO_SF-SITE-101-BL-1_Ethernet7
+      description: Ethernet Interface & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Ethernet4
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Ethernet4 - P2P_LINK_TO_SF-SITE-101-BL-2_Ethernet7
+      description: Ethernet Interface & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Loopback0
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Loopback0 - MPLS_Overlay_peering
+      description: Loopback Interface Status & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Loopback10
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Loopback10 - Inband management
+      description: Loopback Interface Status & Line Protocol == \"up\"
+anta.tests.routing.generic:
+- VerifyRoutingProtocolModel:
+    model: multi-agent
+    result_overwrite:
+      categories:
+      - BGP
+      custom_field: ArBGP
+      description: ArBGP is configured and operating
+anta.tests.system:
+- VerifyNTP:
+    result_overwrite:
+      categories:
+      - NTP
+      custom_field: NTP
+      description: Synchronised with NTP server

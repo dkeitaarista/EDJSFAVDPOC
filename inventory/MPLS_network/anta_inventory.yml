@@ -1,0 +1,107 @@
+---
+anta_inventory:
+  hosts:
+    - host: 10.255.33.154
+      name: SF-SITE-101-SPINE-1
+      tags: ["SF_SITE_101", "SPINE"]
+    - host: 10.255.53.230
+      name: SF-SITE-101-SPINE-2
+      tags: ["SF_SITE_101", "SPINE"]
+    - host: 10.255.30.114
+      name: SF-SITE-101-BL-1
+      tags: ["SF_SITE_101", "LEAF"]
+    - host: 10.255.7.30
+      name: SF-SITE-101-BL-2
+      tags: ["SF_SITE_101", "LEAF"]
+    - host: 10.255.24.252
+      name: SF-SITE-101-RR-1
+      tags: ["SF_SITE_101", "RR"]
+    - host: 10.255.40.254
+      name: SF-SITE-101-TOR-1A
+      tags: ["SF_SITE_101", "TOR"]
+    - host: 10.255.82.24
+      name: SF-SITE-101-TOR-1B
+      tags: ["SF_SITE_101", "TOR"]
+    - host: 10.255.11.74
+      name: BRANCH-A2A-CE1
+      tags: ["SF_SITE_101", "CE"]
+    - host: 10.255.98.9
+      name: BRANCH-A2A-CE2
+      tags: ["SF_SITE_101", "CE"]
+    - host: 10.225.18.197
+      name: BRANCH-VPWS-CE1
+      tags: ["SF_SITE_101", "CE"]
+    - host: 10.255.106.105
+      name: BRANCH-HS-CE1
+      tags: ["SF_SITE_101", "CE"]
+    - host: 10.255.71.250
+      name: CORP-A2A-CE1
+      tags: ["SF_SITE_101", "CE"]
+    - host: 10.255.11.14
+      name: CORP-A2A-CE2
+      tags: ["SF_SITE_101", "CE"]
+    - host: 10.255.74.60
+      name: SF-SITE-102-SPINE-1
+      tags: ["SF_SITE_102", "SPINE"]
+    - host: 10.255.84.246
+      name: SF-SITE-102-SPINE-2
+      tags: ["SF_SITE_102", "SPINE"]
+    - host: 10.255.43.141
+      name: SF-SITE-102-BL-1
+      tags: ["SF_SITE_102", "LEAF"]
+    - host: 10.255.76.116
+      name: SF-SITE-102-BL-1
+      tags: ["SF_SITE_102", "LEAF"]
+    - host: 10.255.20.118
+      name: SF-SITE-102-RR-1
+      tags: ["SF_SITE_102", "RR"]
+    - host: 10.255.16.190
+      name: SF-SITE-102-TOR-1A
+      tags: ["SF_SITE_102", "TOR"]
+    - host: 10.255.46.190
+      name: SF-SITE-102-TOR-1B
+      tags: ["SF_SITE_102", "TOR"]
+    - host: 10.255.84.12
+      name: BRANCH-A2A-CE3
+      tags: ["SF_SITE_102", "CE"]
+    - host: 10.255.85.124
+      name: BRANCH-A2A-CE4
+      tags: ["SF_SITE_102", "CE"]
+    - host: 10.255.93.99
+      name: BRANCH-VPWS-CE2
+      tags: ["SF_SITE_102", "CE"]
+    - host: 10.255.56.87
+      name: BRANCH-HS-CE2
+      tags: ["SF_SITE_102", "CE"]
+    - host: 10.255.29.44
+      name: CORP-A2A-CE3
+      tags: ["SF_SITE_102", "CE"]
+    - host: 10.255.100.40
+      name: CORP-A2A-CE4
+      tags: ["SF_SITE_102", "CE"]
+    - host: 10.255.89.184
+      name: SF-SITE-103-BL-1
+      tags: ["SF_SITE_103", "LEAF"]
+    - host: 10.255.54.178
+      name: SF-SITE-103-TOR-1A
+      tags: ["SF_SITE_103", "LEAF"]
+    - host: 10.255.110.232
+      name: BRANCH-A2A-CE5
+      tags: ["SF_SITE_103", "CE"]
+    - host: 10.255.120.108
+      name: BRANCH-HS-CE3
+      tags: ["SF_SITE_103", "CE"]
+    - host: 10.255.83.168
+      name: CORP-A2A-CE5
+      tags: ["SF_SITE_103", "CE"]
+    - host: 10.255.8.36
+      name: SF-SITE-104-BL-1
+      tags: ["SF_SITE_104", "LEAF"]
+    - host: 10.255.63.18
+      name: BRANCH-A2A-CE6
+      tags: ["SF_SITE_104", "CE"]
+    - host: 10.255.74.112
+      name: CORP-A2A-CE6
+      tags: ["SF_SITE_104", "CE"]
+
+   

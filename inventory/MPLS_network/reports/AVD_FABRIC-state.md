@@ -1,4 +1,3 @@
-
 # Validate State Report
 
 **Table of Contents:**

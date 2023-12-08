@@ -1,0 +1,142 @@
+anta.tests.connectivity:
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: SF-SITE-101-BL-1
+      neighbor_port: Ethernet11
+      port: Ethernet3
+    result_overwrite:
+      categories:
+      - LLDP Topology
+      custom_field: 'local: Ethernet3 - remote: SF-SITE-101-BL-1_Ethernet11'
+      description: LLDP topology - validate peer and interface
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: SF-SITE-101-BL-1
+      neighbor_port: Ethernet12
+      port: Ethernet4
+    result_overwrite:
+      categories:
+      - LLDP Topology
+      custom_field: 'local: Ethernet4 - remote: SF-SITE-101-BL-1_Ethernet12'
+      description: LLDP topology - validate peer and interface
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: BRANCH-A2A-CE1
+      neighbor_port: Ethernet1
+      port: Ethernet7
+    result_overwrite:
+      categories:
+      - LLDP Topology
+      custom_field: 'local: Ethernet7 - remote: BRANCH-A2A-CE1_Ethernet1'
+      description: LLDP topology - validate peer and interface
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: CORP-A2A-CE1
+      neighbor_port: Ethernet1
+      port: Ethernet8
+    result_overwrite:
+      categories:
+      - LLDP Topology
+      custom_field: 'local: Ethernet8 - remote: CORP-A2A-CE1_Ethernet1'
+      description: LLDP topology - validate peer and interface
+- VerifyLLDPNeighbors:
+    neighbors:
+    - neighbor_device: BRANCH-HS-CE1
+      neighbor_port: Ethernet1
+      port: Ethernet9
+    result_overwrite:
+      categories:
+      - LLDP Topology
+      custom_field: 'local: Ethernet9 - remote: BRANCH-HS-CE1_Ethernet1'
+      description: LLDP topology - validate peer and interface
+anta.tests.hardware:
+- VerifyEnvironmentPower:
+    states:
+    - ok
+- VerifyEnvironmentCooling:
+    states:
+    - ok
+- VerifyTemperature: {}
+- VerifyTransceiversManufacturers:
+    manufacturers:
+    - Arista Networks
+    - Arastra, Inc.
+    - Not Present
+anta.tests.interfaces:
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Ethernet3
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Ethernet3 - SF-SITE-101-BL-1_Ethernet11
+      description: Ethernet Interface & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Ethernet4
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Ethernet4 - SF-SITE-101-BL-1_Ethernet12
+      description: Ethernet Interface & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Ethernet7
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Ethernet7 - BRANCH-A2A-CE1_Ethernet1
+      description: Ethernet Interface & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Ethernet8
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Ethernet8 - CORP-A2A-CE1_Ethernet1
+      description: Ethernet Interface & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Ethernet9
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Ethernet9 - BRANCH-HS-CE1_Ethernet1
+      description: Ethernet Interface & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Port-Channel3
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Port-Channel3 - SF-SITE-101-BL-1_Po11
+      description: Port-Channel Interface & Line Protocol == \"up\"
+- VerifyInterfacesStatus:
+    interfaces:
+    - interface: Loopback10
+      protocol_status: up
+      state: up
+    result_overwrite:
+      categories:
+      - Interface State
+      custom_field: Loopback10 - Inband management
+      description: Loopback Interface Status & Line Protocol == \"up\"
+anta.tests.system:
+- VerifyNTP:
+    result_overwrite:
+      categories:
+      - NTP
+      custom_field: NTP
+      description: Synchronised with NTP server

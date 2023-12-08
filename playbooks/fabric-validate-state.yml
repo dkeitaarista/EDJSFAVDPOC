@@ -15,7 +15,7 @@
     ansible_httpapi_validate_certs: false
     # Use default EOS ciphers:
     ansible_httpapi_ciphers: AES256-SHA:DHE-RSA-AES256-SHA:AES128-SHA:DHE-RSA-AES128-SHA
-    use_anta: true
+    use_anta: false
 
   tasks:
     - name: validate states on EOS devices

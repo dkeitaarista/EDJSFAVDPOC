@@ -1988,6 +1988,8 @@ avd_topology_peers:
   - SF-SITE-101-TOR-1B
 avd_requirements:
   failed: false
+  deprecations:
+  - msg: 'You are currently running ansible-core 2.12.10. The next minor release of AVD after November 6th 2023 will drop support for ansible-core<2.14. Python 3.8 support will be dropped at the same time as ansible-core>=2.14 does not support it. See the following link for more details: https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-core-support-matrix'
   changed: false
 playbook_dir: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/repo/playbooks
 ansible_playbook_python: /Users/dkeita/Desktop/EJ/AVDPOC/ejpoc/.avdcvpenv/bin/python3
@@ -2181,7 +2183,7 @@ groups:
   - SF-SITE-102-BL-2
   - SF-SITE-103-BL-1
   - SF-SITE-104-BL-1
-omit: __omit_place_holder__d2107940decb6567bf956c8a999bdcef69b6ee58
+omit: __omit_place_holder__0d9ec14f5f5fc873a95cd7f5fbf2e44548c87431
 ansible_version:
   string: 2.12.10
   full: 2.12.10
