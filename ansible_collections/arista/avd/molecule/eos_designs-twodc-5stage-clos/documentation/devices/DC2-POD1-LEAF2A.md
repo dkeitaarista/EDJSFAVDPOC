@@ -199,8 +199,8 @@ vlan 4092
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | P2P_LINK_TO_DC2-POD1-SPINE1_Ethernet4 | routed | - | 172.17.210.5/31 | default | - | False | - | - |
-| Ethernet2 | P2P_LINK_TO_DC2-POD1-SPINE2_Ethernet4 | routed | - | 172.17.210.7/31 | default | - | False | - | - |
+| Ethernet1 | P2P_LINK_TO_DC2-POD1-SPINE1_Ethernet4 | routed | - | 172.17.210.5/31 | default | 1500 | False | - | - |
+| Ethernet2 | P2P_LINK_TO_DC2-POD1-SPINE2_Ethernet4 | routed | - | 172.17.210.7/31 | default | 1500 | False | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -209,6 +209,7 @@ vlan 4092
 interface Ethernet1
    description P2P_LINK_TO_DC2-POD1-SPINE1_Ethernet4
    no shutdown
+   mtu 1500
    no switchport
    ip address 172.17.210.5/31
    ptp enable
@@ -217,6 +218,7 @@ interface Ethernet1
 interface Ethernet2
    description P2P_LINK_TO_DC2-POD1-SPINE2_Ethernet4
    no shutdown
+   mtu 1500
    no switchport
    ip address 172.17.210.7/31
    ptp enable
@@ -291,7 +293,7 @@ interface Loopback1
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
-| Vlan4092 | Inband Management | default | - | False |
+| Vlan4092 | Inband Management | default | 1500 | False |
 
 ##### IPv4
 
@@ -306,6 +308,7 @@ interface Loopback1
 interface Vlan4092
    description Inband Management
    no shutdown
+   mtu 1500
    ip address 172.21.210.2/24
    ip attached-host route export 19
    ip virtual-router address 172.21.210.1
@@ -401,7 +404,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.1.254
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65212 | 172.16.210.4 |
+| 65212|  172.16.210.4 |
 
 | BGP Tuning |
 | ---------- |

@@ -138,7 +138,6 @@ router_bgp:
           - address_family: evpn
             route_targets:
               - "1:30001"
-            route_map: RM-DENY-DEFAULT
         export:
           - address_family: evpn
             route_targets:
@@ -156,4 +155,3 @@ router_bgp:
           - address_family: evpn
             route_targets:
               - 1:30002
-            route_map: RM-DEFAULT-EXTRA-COMM

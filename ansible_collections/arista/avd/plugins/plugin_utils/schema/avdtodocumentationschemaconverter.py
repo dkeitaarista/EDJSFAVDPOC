@@ -450,8 +450,7 @@ class AvdToDocumentationSchemaConverter:
         return sorted(tables)
 
     def _get_keys(self, schema: dict):
-        # Return keys with dynamic keys first and regular keys last.
+        keys = schema.get("keys", {})
         dynamic_keys = schema.get("dynamic_keys", {})
-        keys = {f"<{dynamic_key}>": subschema for dynamic_key, subschema in dynamic_keys.items()}
-        keys.update(schema.get("keys", {}))
+        keys.update({f"<{dynamic_key}>": subschema for dynamic_key, subschema in dynamic_keys.items()})
         return keys

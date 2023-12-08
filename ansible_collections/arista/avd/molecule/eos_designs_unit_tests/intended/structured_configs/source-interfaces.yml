@@ -42,11 +42,6 @@ ip_http_client_source_interfaces:
 - name: Management1
 - name: Vlan4092
   vrf: INBANDMGMT
-snmp_server:
-  local_interfaces:
-  - name: Management1
-  - name: Vlan4092
-    vrf: INBANDMGMT
 ip_igmp_snooping:
   globally_enabled: true
 vlans:

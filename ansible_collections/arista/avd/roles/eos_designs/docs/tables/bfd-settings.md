@@ -28,4 +28,5 @@
           interval: 300
           min_rx: 300
           multiplier: 3
+
         ```

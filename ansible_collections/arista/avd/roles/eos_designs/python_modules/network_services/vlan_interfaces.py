@@ -84,7 +84,7 @@ class VlanInterfacesMixin(UtilsMixin):
             "ip_address": svi.get("ip_address"),
             "ipv6_address": svi.get("ipv6_address"),
             "ipv6_enable": svi.get("ipv6_enable"),
-            "mtu": svi.get("mtu") if self.shared_utils.platform_settings_feature_support_per_interface_mtu else None,
+            "mtu": svi.get("mtu"),
             "eos_cli": svi.get("raw_eos_cli"),
             "struct_cfg": svi.get("structured_config"),
         }

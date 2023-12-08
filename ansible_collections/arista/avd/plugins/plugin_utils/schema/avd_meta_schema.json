@@ -272,6 +272,13 @@
                         "$defs": { "$ref": "#/$defs/$defs" }
                     },
                     "additionalProperties": false
+                },
+                {
+                    "required": [ "$ref" ],
+                    "properties": {
+                        "$ref": { "$ref": "#/$defs/$ref" }
+                    },
+                    "additionalProperties": false
                 }
             ]
         },

@@ -87,11 +87,7 @@ class MiscMixin:
 
     @cached_property
     def uplink_switches(self: SharedUtils) -> list:
-        return default(
-            get(self.switch_data_combined, "uplink_switches"),
-            get(self.cv_topology_config, "uplink_switches"),
-            [],
-        )
+        return get(self.switch_data_combined, "uplink_switches", default=[])
 
     @cached_property
     def virtual_router_mac_address(self: SharedUtils) -> str | None:
@@ -121,10 +117,7 @@ class MiscMixin:
         return get(self.switch_data_combined, "max_uplink_switches", default=len(self.uplink_switches))
 
     @cached_property
-    def p2p_uplinks_mtu(self: SharedUtils) -> int | None:
-        if not self.platform_settings_feature_support_per_interface_mtu:
-            return None
-
+    def p2p_uplinks_mtu(self: SharedUtils) -> int:
         return get(self.hostvars, "p2p_uplinks_mtu", default=9214)
 
     @cached_property
@@ -241,8 +234,3 @@ class MiscMixin:
     @cached_property
     def fabric_sflow_mlag_interfaces(self: SharedUtils) -> bool | None:
         return get(self.hostvars, "fabric_sflow.mlag_interfaces")
-
-    @cached_property
-    def default_interface_mtu(self: SharedUtils) -> int | None:
-        default_default_interface_mtu = get(self.hostvars, "default_interface_mtu")
-        return get(self.platform_settings, "default_interface_mtu", default=default_default_interface_mtu)

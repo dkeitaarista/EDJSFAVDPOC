@@ -65,6 +65,8 @@ vlan_internal_order:
   range:
     beginning: 1006
     ending: 1199
+snmp_server:
+  location: TWODC_5STAGE_CLOS DC1 DC1_POD1 DC1-POD1-SPINE2
 spanning_tree:
   mode: none
 local_users:
@@ -89,8 +91,6 @@ management_api_http:
   - name: MGMT
   enable_https: true
 eos_cli: "interface Loopback1111\n  description Loopback created from raw_eos_cli under platform_settings vEOS-LAB\n"
-snmp_server:
-  location: TWODC_5STAGE_CLOS DC1 DC1_POD1 DC1-POD1-SPINE2
 ethernet_interfaces:
 - name: Ethernet1
   peer: DC1-SUPER-SPINE1
@@ -98,6 +98,7 @@ ethernet_interfaces:
   peer_type: super-spine
   description: P2P_LINK_TO_DC1-SUPER-SPINE1_Ethernet2
   shutdown: false
+  mtu: 1500
   service_profile: QOS-PROFILE
   mac_security:
     profile: MACSEC_PROFILE
@@ -111,6 +112,7 @@ ethernet_interfaces:
   peer_type: super-spine
   description: P2P_LINK_TO_DC1-SUPER-SPINE2_Ethernet2
   shutdown: false
+  mtu: 1500
   service_profile: QOS-PROFILE
   mac_security:
     profile: MACSEC_PROFILE
@@ -124,6 +126,7 @@ ethernet_interfaces:
   peer_type: l3leaf
   description: P2P_LINK_TO_DC1-POD1-LEAF1A_Ethernet2
   shutdown: false
+  mtu: 1500
   service_profile: QOS-PROFILE
   mac_security:
     profile: MACSEC_PROFILE
@@ -137,6 +140,7 @@ ethernet_interfaces:
   peer_type: l3leaf
   description: P2P_LINK_TO_DC1.POD1.LEAF2A_Ethernet2
   shutdown: false
+  mtu: 1500
   service_profile: QOS-PROFILE
   mac_security:
     profile: MACSEC_PROFILE
@@ -150,6 +154,7 @@ ethernet_interfaces:
   peer_type: l3leaf
   description: P2P_LINK_TO_DC1-POD1-LEAF2B_Ethernet2
   shutdown: false
+  mtu: 1500
   service_profile: QOS-PROFILE
   mac_security:
     profile: MACSEC_PROFILE
@@ -163,6 +168,7 @@ ethernet_interfaces:
   peer_type: l3leaf
   description: P2P_LINK_TO_DC1.POD1.LEAF2A_Ethernet12
   shutdown: false
+  mtu: 1500
   service_profile: QOS-PROFILE
   mac_security:
     profile: MACSEC_PROFILE
@@ -176,6 +182,7 @@ ethernet_interfaces:
   peer_type: l3leaf
   description: P2P_LINK_TO_DC1-POD1-LEAF2B_Ethernet12
   shutdown: false
+  mtu: 1500
   service_profile: QOS-PROFILE
   mac_security:
     profile: MACSEC_PROFILE

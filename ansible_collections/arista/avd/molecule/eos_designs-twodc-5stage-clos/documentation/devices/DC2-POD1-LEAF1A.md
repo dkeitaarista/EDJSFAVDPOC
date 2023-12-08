@@ -215,10 +215,10 @@ vlan 4092
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | P2P_LINK_TO_DC2-POD1-SPINE1_Ethernet3 | routed | - | 172.17.210.1/31 | default | - | False | - | - |
-| Ethernet2 | P2P_LINK_TO_DC2-POD1-SPINE2_Ethernet3 | routed | - | 172.17.210.3/31 | default | - | False | - | - |
-| Ethernet6 | P2P_LINK_TO_DC1.POD1.LEAF2A_Ethernet7 | routed | - | 100.100.100.201/24 | default | - | False | - | - |
-| Ethernet7 | P2P_LINK_TO_DC1-POD1-LEAF2B_Ethernet7 | routed | - | 11.1.0.39/31 | default | - | False | - | - |
+| Ethernet1 | P2P_LINK_TO_DC2-POD1-SPINE1_Ethernet3 | routed | - | 172.17.210.1/31 | default | 1500 | False | - | - |
+| Ethernet2 | P2P_LINK_TO_DC2-POD1-SPINE2_Ethernet3 | routed | - | 172.17.210.3/31 | default | 1500 | False | - | - |
+| Ethernet6 | P2P_LINK_TO_DC1.POD1.LEAF2A_Ethernet7 | routed | - | 100.100.100.201/24 | default | 1500 | False | - | - |
+| Ethernet7 | P2P_LINK_TO_DC1-POD1-LEAF2B_Ethernet7 | routed | - | 11.1.0.39/31 | default | 1499 | False | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -227,6 +227,7 @@ vlan 4092
 interface Ethernet1
    description P2P_LINK_TO_DC2-POD1-SPINE1_Ethernet3
    no shutdown
+   mtu 1500
    no switchport
    ip address 172.17.210.1/31
    ptp enable
@@ -235,6 +236,7 @@ interface Ethernet1
 interface Ethernet2
    description P2P_LINK_TO_DC2-POD1-SPINE2_Ethernet3
    no shutdown
+   mtu 1500
    no switchport
    ip address 172.17.210.3/31
    ptp enable
@@ -248,12 +250,14 @@ interface Ethernet3
 interface Ethernet6
    description P2P_LINK_TO_DC1.POD1.LEAF2A_Ethernet7
    no shutdown
+   mtu 1500
    no switchport
    ip address 100.100.100.201/24
 !
 interface Ethernet7
    description P2P_LINK_TO_DC1-POD1-LEAF2B_Ethernet7
    no shutdown
+   mtu 1499
    no switchport
    ip address 11.1.0.39/31
    ptp enable
@@ -338,7 +342,7 @@ interface Loopback101
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
-| Vlan4092 | Inband Management | default | - | False |
+| Vlan4092 | Inband Management | default | 1500 | False |
 
 ##### IPv4
 
@@ -353,6 +357,7 @@ interface Loopback101
 interface Vlan4092
    description Inband Management
    no shutdown
+   mtu 1500
    ip address 172.21.210.2/24
    ip attached-host route export 19
    ip virtual-router address 172.21.210.1
@@ -473,7 +478,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.1.254
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65211 | 172.16.210.3 |
+| 65211|  172.16.210.3 |
 
 | BGP Tuning |
 | ---------- |

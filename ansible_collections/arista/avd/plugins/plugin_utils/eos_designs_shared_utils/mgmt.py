@@ -31,7 +31,6 @@ class MgmtMixin:
             get(self.switch_data_combined, "mgmt_interface"),
             self.platform_settings.get("management_interface"),
             get(self.hostvars, "mgmt_interface"),
-            get(self.cv_topology_config, "mgmt_interface"),
             "Management1",
         )
 

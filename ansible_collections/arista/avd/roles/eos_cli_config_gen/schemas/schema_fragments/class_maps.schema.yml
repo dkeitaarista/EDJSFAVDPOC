@@ -39,14 +39,14 @@ keys:
               type: str
               description: Class-Map Name
             vlan:
-              type: str
+              type: int
               convert_types:
-                - int
+                - str
               description: VLAN value(s) or range(s) of VLAN values
             cos:
-              type: str
+              type: int
               convert_types:
-                - int
+                - str
               description: CoS value(s) or range(s) of CoS values
             ip:
               type: dict
